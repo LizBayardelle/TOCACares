@@ -1,0 +1,87 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @import 'bootstrap';
+ @import 'mdb/mdb';
+
+
+ /*-----------------------------
+ -------------------------------
+ -------------FONTS-------------
+ -------------------------------
+ -------------------------------
+ -----------------------------*/
+
+
+
+
+
+/*-----------------------------
+-------------------------------
+------------COLORS-------------
+-------------------------------
+-------------------------------
+-----------------------------*/
+
+$color-toca-red: #EB0029 !important;
+$color-dark-red: #780E0F !important;
+$color-toca-green: #CDDC29 !important;
+$color-dark-grey: #58595B !important;
+$color-light-grey: #D1D3D4 !important;
+
+.color-toca-red { color: $color-toca-red; }
+.color-dark-red { color: $color-dark-red; }
+.color-toca-green { color: $color-toca-green; }
+.color-dark-grey { color: $color-dark-grey; }
+.color-light-grey { color: $color-light-grey; }
+.color-black { color: black !important; }
+.color-white { color: white !important; }
+
+.bg-toca-red { background-color: $color-toca-red; }
+.bg-dark-red { background-color: $color-dark-red; }
+.bg-toca-green { background-color: $color-toca-green; }
+.bg-dark-grey { background-color: $color-dark-grey; }
+.bg-light-grey { background-color: $color-light-grey; }
+.bg-black { background-color: black !important; }
+.bg-white { background-color: white !important; }
+
+
+
+
+
+
+/*-----------------------------
+-------------------------------
+------------DESIGN-------------
+-------------------------------
+-------------------------------
+-----------------------------*/
+
+.buffer { width: 100%; height: 50px; }
+.half-buffer { width: 100%; height: 25px; }
+
+.non-footer { min-height: calc(100vh - 122px) }
+
+
+
+/*-----------------------------
+-------------------------------
+------------NAVBAR-------------
+-------------------------------
+-------------------------------
+-----------------------------*/
+
+.nav-item { padding-left: 15px; }

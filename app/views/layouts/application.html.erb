@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TOCACares</title>
+    <title>
+      <%= if content_for?(:title) then yield(:title) + ' | ' end %>
+      TOCA Cares
+    </title>
+    <%= if content_for?(:head) then yield(:head) end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= include_gon %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%#= favicon_link_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Match Height -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script> -->
+
   </head>
 
   <body>
-    <%= yield %>
+    <div class="non-footer">
+      <%= render 'layouts/navbar' %>
+
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
