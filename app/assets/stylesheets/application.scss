@@ -25,7 +25,9 @@
  -------------------------------
  -----------------------------*/
 
-
+h1 {
+  text-transform: uppercase;
+}
 
 
 
@@ -75,6 +77,10 @@ $color-light-grey: #D1D3D4 !important;
 
 .non-footer { min-height: calc(100vh - 122px) }
 
+.btn-primary  {
+  background-color: $color-toca-red;
+}
+
 
 
 /*-----------------------------
@@ -84,4 +90,13 @@ $color-light-grey: #D1D3D4 !important;
 -------------------------------
 -----------------------------*/
 
-.nav-item { padding-left: 15px; }
+.nav-item {
+  color: black;
+  padding-left: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.navbar .nav-item:hover .nav-link {
+  color: $color-toca-red;
+}

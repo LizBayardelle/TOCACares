@@ -1,4 +1,93 @@
-<div class="container">
-  <div class="half-buffer"></div>
-  <h1>Test Home Page</h1>
-</div>
+<main class="mt-3 pt-5">
+  <div class="container">
+    <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+      <div class="card-body text-white text-center py-5 px-5 my-5">
+        <h1 class="mb-4">
+          <strong>TOCA Cares</strong>
+        </h1>
+        <p>
+          <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis sem nunc, eu varius erat feugiat quis.</strong>
+        </p>
+        <%= link_to page_path(:apply), target: "_blank", class: "btn btn-outline-white btn-lg" do %>Apply Now<% end %>
+    </section>
+
+    <div class="half-buffer"></div>
+
+     <section class="text-center">
+       <div class="row mb-4 wow fadeIn">
+
+           <div class="col-md-4 mb-4">
+               <div class="card">
+                   <div class="view overlay"> <!-- image -->
+                       <img src="https://mdbootstrap.com/wp-content/uploads/2017/11/brandflow-tutorial-fb.jpg" class="card-img-top" alt="">
+                       <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
+                           <div class="mask rgba-white-slight"></div>
+                       </a>
+                   </div>
+                   <div class="card-body h-100">
+                       <!--Title-->
+                       <h4 class="card-title">Scholarship</h4>
+                       <!--Text-->
+                       <p class="card-text">Donec blandit quam ac ante imperdiet posuere. Ut et nisi dictum nibh ornare iaculis in at elit. Phasellus vitae vulputate enim.</p>
+                       <%= link_to page_path(:apply), class: "btn btn-primary btn-md" do %>
+                          Apply for Scholarship
+                       <% end %>
+                     </div>
+               </div> <!-- card -->
+           </div> <!--Grid column-->
+           <!--Grid column-->
+
+           <div class="col-md-4 mb-4">
+               <div class="card">
+                   <div class="view overlay"> <!-- image -->
+                       <img src="https://mdbootstrap.com/wp-content/uploads/2017/11/brandflow-tutorial-fb.jpg" class="card-img-top" alt="">
+                       <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
+                           <div class="mask rgba-white-slight"></div></a>
+                   </div>
+                   <div class="card-body h-100">
+                       <!--Title-->
+                       <h4 class="card-title">Hardship</h4>
+                       <!--Text-->
+                       <p class="card-text">Vivamus condimentum ultrices magna, a lobortis justo tincidunt sed. Donec vitae mattis lectus.</p>
+                       <%= link_to page_path(:apply), class: "btn btn-primary btn-md" do %>
+                          Apply for Hardship
+                       <% end %>
+                  </div>
+               </div> <!-- card -->
+           </div> <!--Grid column-->
+
+           <!--Grid column-->
+           <div class="col-md-4 mb-4">
+               <div class="card">
+                   <div class="view overlay"> <!-- image -->
+                       <img src="https://mdbootstrap.com/wp-content/uploads/2017/11/brandflow-tutorial-fb.jpg" class="card-img-top" alt="">
+                       <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
+                           <div class="mask rgba-white-slight"></div>
+                       </a>
+                   </div>
+                   <div class="card-body">
+                       <!--Title-->
+                       <h4 class="card-title">Charity</h4>
+                       <!--Text-->
+                       <p class="card-text">Quisque gravida leo lorem, sit amet dignissim risus laoreet quis. Quisque ultricies magna quis volutpat porttitor. </p>
+                       <%= link_to page_path(:apply), class: "btn btn-primary btn-md" do %>
+                        Apply for Charity
+                       <% end %>
+                   </div>
+               </div> <!-- card -->
+           </div> <!--Grid column-->
+
+      </div> <!-- row -->
+    </section>
+
+   </div> <!-- container -->
+ </main>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+     $('.card-body').matchHeight();
+   });
+</script>
