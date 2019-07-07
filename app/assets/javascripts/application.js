@@ -19,4 +19,5 @@
 //= require jquery-ui
 //= require activestorage
 //= require mdb/mdb
+//= require font_awesome5
 //= require_tree .
