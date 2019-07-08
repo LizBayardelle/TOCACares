@@ -16,7 +16,13 @@
     <!-- <hr class="my-4"> -->
 
     <div class="py-4 color-black">
-      Login to My Account  |  <a href="https://tocafootball.com/" target="_blank">TOCA Football</a>
+      <span style="font-weight: 700">
+        <%= link_to "Create a New Account", new_user_registration_path %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= link_to "Login to My Account", new_user_session_path %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="https://tocafootball.com/" target="_blank">TOCA Football</a>
+      </span>
     </div>
 
     <!--Copyright-->

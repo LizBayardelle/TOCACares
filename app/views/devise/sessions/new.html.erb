@@ -1,0 +1,53 @@
+<main class="mt-5">
+  <div class="container">
+
+    <h1 class="text-center">Sign In</h1>
+
+    <section>
+      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3>
+    </section> <!-- mission description -->
+
+    <div class="row justify-content-md-center">
+      <div class="text-center col-md-8 border border-light px-5 pt-5 pb-2">
+
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="form-inputs">
+              <%= f.input :email,
+                          required: true,
+                          autofocus: true,
+                          label: false,
+                          input_html: { autocomplete: "email",
+                            id: "defaultRegisterFormEmail",
+                            class: "form-control mb-4",
+                            placeholder: 'Email Address'} %>
+                <%= f.input :password,
+                          required: true,
+                          label: false,
+                          input_html: { autocomplete: "current-password",
+                            id: "defaultRegisterPhonePassword",
+                            class: "form-control",
+                            placeholder: 'Password (required)'} %>
+
+                <div class="custom-control custom-checkbox my-3">
+                    <%= f.input :remember_me, as: :boolean, label: false, class: "custom-control-input", id: "defaultRegisterFormRememberMe" if devise_mapping.rememberable? %>
+                    <label class="custom-control-label" for="defaultRegisterFormRememberMe">Remember Me</label>
+                </div>
+              </div> <!-- form-inputs -->
+
+              <div class="form-actions">
+                <%= f.button :submit, "Sign up", class: "btn btn-primary mb-4 btn-block" %>
+              </div>
+
+              <!-- Information below button -->
+              <p>
+                  <%= render "devise/shared/links" %>
+              </p>
+
+            <% end %>
+        </div> <!-- form border column -->
+      </div> <!-- row -->
+
+  </div> <!-- container -->
+</main>
