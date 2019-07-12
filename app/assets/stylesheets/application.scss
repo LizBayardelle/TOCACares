@@ -96,6 +96,10 @@ $color-light-grey: #D1D3D4 !important;
 
 
 
+
+
+
+
 /*-----------------------------
 -------------------------------
 ------------NAVBAR-------------
@@ -117,4 +121,24 @@ $color-light-grey: #D1D3D4 !important;
 
 .navbar .nav-item:hover .nav-link {
   color: $color-toca-red;
+}
+
+
+
+
+
+
+
+
+
+/*-----------------------------
+-------------------------------
+----------MDB Overrides--------
+-------------------------------
+-------------------------------
+-----------------------------*/
+
+.form-check-input[type="checkbox"]:checked + label:before, label.btn input[type="checkbox"]:checked + label:before {
+  border-right: 2px solid $color-toca-red;
+  border-bottom: 2px solid $color-toca-red;
 }

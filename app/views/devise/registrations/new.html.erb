@@ -8,41 +8,73 @@
     </section> <!-- mission description -->
 
     <div class="row justify-content-md-center">
-      <div class="text-center col-md-8 border border-light px-5 pt-5 pb-2">
+      <div class="text-center col-md-8 border border-light px-5 pt-3 pb-2">
+
+        <small class="form-text text-muted mb-4">
+            All Fields are Required
+        </small>
 
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= f.error_notification %>
             <%= f.invisible_captcha :subtitle %>
 
             <div class="form-inputs">
-
-              <div class="form-row mb-4">
-                  <div class="col">
-                      <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
-                  </div>
-                  <div class="col">
-                      <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
-                  </div>
-              </div> <!-- form row -->
-
-              <%= f.input :email,
+              <div class="form-row">
+                <div class="col">
+                    <%= f.input :first_name,
                           required: true,
                           autofocus: true,
                           label: false,
-                          input_html: { autocomplete: "email",
-                            id: "defaultRegisterFormEmail",
+                          input_html: { autocomplete: "first_name",
+                            id: "defaultRegisterFormFirstName",
                             class: "form-control mb-4",
-                            placeholder: 'Email Address (required)'} %>
+                            placeholder: 'First Name'} %>
+                </div> <!-- col -->
+                <div class="col">
+                  <%= f.input :last_name,
+                        required: true,
+                        autofocus: true,
+                        label: false,
+                        input_html: { autocomplete: "last_name",
+                          id: "defaultRegisterFormLastName",
+                          class: "form-control mb-4",
+                          placeholder: 'Last Name'} %>
+                </div> <!-- col -->
+              </div> <!-- form row -->
+
+              <div class="form-row">
+                <div class="col">
+                  <%= f.input :email,
+                              required: true,
+                              autofocus: true,
+                              label: false,
+                              input_html: { autocomplete: "email",
+                                id: "defaultRegisterFormEmail",
+                                class: "form-control mb-4",
+                                placeholder: 'Email Address'} %>
+                </div> <!-- col -->
+                <div class="col">
+                  <%= f.input :phone,
+                        required: true,
+                        autofocus: true,
+                        label: false,
+                        input_html: { autocomplete: "phone",
+                          id: "defaultRegisterFormPhone",
+                          class: "form-control mb-4",
+                          placeholder: 'Phone Number'} %>
+                </div> <!-- col -->
+              </div> <!-- form row -->
+
               <div class="form-row">
                 <div class="col">
                   <%= f.input :password,
                             required: true,
                             label: false,
                             input_html: { autocomplete: "new-password",
-                              id: "defaultRegisterPasswordConfirm",
+                              id: "defaultRegisterPassword",
                               class: "form-control",
-                              placeholder: 'Password (required)'} %>
-                  <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                              placeholder: 'Password'} %>
+                  <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-1">
                       At least 6 characters
                   </small>
                 </div> <!-- col -->
@@ -51,38 +83,61 @@
                               required: true,
                               label: false,
                               input_html: { autocomplete: "new-password",
-                                id: "defaultRegisterPhonePassword",
+                                id: "defaultRegisterPasswordConfirm",
                                 class: "form-control",
                                 placeholder: 'Password Confirmation' } %>
-                  <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                  <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-1">
                       Required
                   </small>
                 </div> <!-- col -->
               </div> <!-- form row -->
 
-
-                <!-- Phone number -->
-                <!-- <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock"> -->
-
-                <!-- Newsletter -->
-                <!-- <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
-                    <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
-                </div> -->
-
-              </div> <!-- form-inputs -->
-
-              <div class="form-actions">
-                <%= f.button :submit, "Sign up", class: "btn btn-primary mb-4 btn-block" %>
+              <div class="form-group text-left">
+                <small class="form-text text-muted mb-1">
+                  Please select your TOCA location:
+                </small>
+                <%= f.input :location, label: false, input_html: {class: 'browser-default custom-select'}, collection: [
+                  ['TOCA Corporate', 'TOCA Corporate'],
+                  ['Orange County', 'Orange County'],
+                  ['Torrance', 'Torrance'],
+                  ['Redmond', 'Redmond'],
+                  ['Lynnwood', 'Lynnwood'],
+                  ['Carrollton', 'Carrollton'],
+                  ['West Cobb', 'West Cobb'],
+                  ['Marietta', 'Marietta'],
+                  ['Perimeter', 'Perimeter'],
+                  ['TOCA Academy', 'TOCA Academy'],
+                  ['Goals Training Facility', 'Goals Training Facility'],
+                  ['Pasadena Soccer Academy', 'Pasadena Soccer Academy'],
+                  ['Futbol Dojo', 'Futbol Dojo'],
+                  ['Colorado Springs', 'Colorado Springs'],
+                  ['Parisi Colorado', 'Parisi Colorado'],
+                  ['Colorado Rapids', 'Colorado Rapids'],
+                  ['Urban Soccer Center', 'Urban Soccer Center'],
+                  ['High Octane Soccer Dallas', 'High Octane Soccer Dallas'],
+                  ['High Octane Soccer Allen', 'High Octane Soccer Allen'],
+                  ['Omaha', 'Omaha'],
+                  ['Triple C Soccer', 'Triple C Soccer'],
+                  ['JC Sports', 'JC Sports'],
+                  ['Street Soccer', 'Street Soccer'],
+                  ['TOCA Sogility', 'TOCA Sogility'],
+                  ['Tower Hill Sports', 'Tower Hill Sports']
+                ] %>
               </div>
 
-              <!-- Information below button -->
-              <p>By signing up you agree to our
-                  <a href="" target="_blank">terms of service</a>.<br>
-                  <%= render "devise/shared/links" %>
-              </p>
+            </div> <!-- form-inputs -->
 
-            <% end %>
+            <div class="form-actions">
+              <%= f.button :submit, "Sign up", class: "btn btn-primary mb-4 btn-block" %>
+            </div>
+
+            <!-- Information below button -->
+            <p>By signing up you agree to our
+                <a href="" target="_blank">terms of service</a>.<br>
+                <%= render "devise/shared/links" %>
+            </p>
+
+          <% end %>
         </div> <!-- form border column -->
       </div> <!-- row -->
 

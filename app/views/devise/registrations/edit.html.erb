@@ -1,35 +1,152 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<main class="mt-5">
+  <div class="container">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+    <h1 class="text-center">Update My Information</h1>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+    <section>
+      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3>
+    </section> <!-- mission description -->
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+    <div class="row justify-content-md-center">
+      <div class="text-center col-md-8 border border-light px-5 pt-3 pb-2 mb-5">
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
-  </div>
+        <small class="form-text text-muted mb-4">
+            All Fields are Required
+        </small>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= f.error_notification %>
+            <%= f.invisible_captcha :subtitle %>
 
-<h3>Cancel my account</h3>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+            <div class="form-inputs">
+              <div class="form-row">
+                <div class="col">
+                    <%= f.input :first_name,
+                          required: true,
+                          autofocus: true,
+                          label: false,
+                          input_html: { autocomplete: "first_name",
+                            id: "defaultRegisterFormFirstName",
+                            class: "form-control mb-4",
+                            placeholder: 'First Name'} %>
+                </div> <!-- col -->
+                <div class="col">
+                  <%= f.input :last_name,
+                        required: true,
+                        label: false,
+                        input_html: { autocomplete: "last_name",
+                          id: "defaultRegisterFormLastName",
+                          class: "form-control mb-4",
+                          placeholder: 'Last Name'} %>
+                </div> <!-- col -->
+              </div> <!-- form row -->
 
-<%= link_to "Back", :back %>
+              <div class="form-row">
+                <div class="col">
+                  <%= f.input :email,
+                              required: true,
+                              label: false,
+                              input_html: { autocomplete: "email",
+                                id: "defaultRegisterFormEmail",
+                                class: "form-control mb-4",
+                                placeholder: 'Email Address'} %>
+                </div> <!-- col -->
+                <div class="col">
+                  <%= f.input :phone,
+                        required: true,
+                        label: false,
+                        input_html: { autocomplete: "phone",
+                          id: "defaultRegisterFormPhone",
+                          class: "form-control mb-4",
+                          placeholder: 'Phone Number'} %>
+                </div> <!-- col -->
+              </div> <!-- form row -->
+
+              <%= f.input :current_password,
+                        required: true,
+                        label: false,
+                        input_html: { autocomplete: "new-password",
+                          id: "defaultRegisterCurrentPassword",
+                          class: "form-control",
+                          placeholder: 'Current Password'} %>
+              <small class="form-text text-muted mb-3">
+                  Needed to Confirm Changes
+              </small>
+
+              <div class="form-row">
+                <div class="col">
+                  <%= f.input :password,
+                            required: false,
+                            label: false,
+                            input_html: { autocomplete: "new-password",
+                              id: "defaultRegisterNewPassword",
+                              class: "form-control",
+                              placeholder: 'Password'} %>
+                </div> <!-- col -->
+                <div class="col">
+                  <%= f.input :password_confirmation,
+                              required: false,
+                              label: false,
+                              input_html: { autocomplete: "new-password",
+                                id: "defaultRegisterConfirmNewPassword",
+                                class: "form-control",
+                                placeholder: 'Password Confirmation' } %>
+                </div> <!-- col -->
+              </div> <!-- form row -->
+              <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-3">
+                  Leave Blank to Keep Current Password
+              </small>
+
+
+              <div class="form-group text-left">
+                <small class="form-text text-muted mb-1">
+                  Please select your TOCA location:
+                </small>
+                <%= f.input :location, label: false, input_html: {class: 'browser-default custom-select'}, collection: [
+                  ['TOCA Corporate', 'TOCA Corporate'],
+                  ['Orange County', 'Orange County'],
+                  ['Torrance', 'Torrance'],
+                  ['Redmond', 'Redmond'],
+                  ['Lynnwood', 'Lynnwood'],
+                  ['Carrollton', 'Carrollton'],
+                  ['West Cobb', 'West Cobb'],
+                  ['Marietta', 'Marietta'],
+                  ['Perimeter', 'Perimeter'],
+                  ['TOCA Academy', 'TOCA Academy'],
+                  ['Goals Training Facility', 'Goals Training Facility'],
+                  ['Pasadena Soccer Academy', 'Pasadena Soccer Academy'],
+                  ['Futbol Dojo', 'Futbol Dojo'],
+                  ['Colorado Springs', 'Colorado Springs'],
+                  ['Parisi Colorado', 'Parisi Colorado'],
+                  ['Colorado Rapids', 'Colorado Rapids'],
+                  ['Urban Soccer Center', 'Urban Soccer Center'],
+                  ['High Octane Soccer Dallas', 'High Octane Soccer Dallas'],
+                  ['High Octane Soccer Allen', 'High Octane Soccer Allen'],
+                  ['Omaha', 'Omaha'],
+                  ['Triple C Soccer', 'Triple C Soccer'],
+                  ['JC Sports', 'JC Sports'],
+                  ['Street Soccer', 'Street Soccer'],
+                  ['TOCA Sogility', 'TOCA Sogility'],
+                  ['Tower Hill Sports', 'Tower Hill Sports']
+                ] %>
+              </div> <!-- form-group -->
+
+              </div> <!-- form-inputs -->
+
+              <div class="form-actions">
+                <%= f.button :submit, "Update My Info", class: "btn btn-primary mb-4 btn-block" %>
+              </div>
+
+              <!-- Information below button -->
+              <p><%= render "devise/shared/links" %></p>
+
+            <% end %>
+        </div> <!-- form border column -->
+      </div> <!-- row -->
+
+  </div> <!-- container -->
+</main>

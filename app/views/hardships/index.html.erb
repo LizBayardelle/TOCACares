@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hardships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Date</th>
+      <th>Position</th>
+      <th>Branch</th>
+      <th>Email non toca</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Bank name</th>
+      <th>Bank phone</th>
+      <th>Bank address</th>
+      <th>Start date</th>
+      <th>Accident</th>
+      <th>Catastrophe</th>
+      <th>Counseling</th>
+      <th>Family emergency</th>
+      <th>Health</th>
+      <th>Memorial</th>
+      <th>Other hardship</th>
+      <th>Other hardship description</th>
+      <th>Requested amount</th>
+      <th>Hardship description</th>
+      <th>Self fund</th>
+      <th>Intent signature</th>
+      <th>Intent signature date</th>
+      <th>Release signature</th>
+      <th>Release signature date</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hardships.each do |hardship| %>
+      <tr>
+        <td><%= hardship.full_name %></td>
+        <td><%= hardship.date %></td>
+        <td><%= hardship.position %></td>
+        <td><%= hardship.branch %></td>
+        <td><%= hardship.email_non_toca %></td>
+        <td><%= hardship.mobile %></td>
+        <td><%= hardship.address %></td>
+        <td><%= hardship.city %></td>
+        <td><%= hardship.state %></td>
+        <td><%= hardship.zip %></td>
+        <td><%= hardship.bank_name %></td>
+        <td><%= hardship.bank_phone %></td>
+        <td><%= hardship.bank_address %></td>
+        <td><%= hardship.start_date %></td>
+        <td><%= hardship.accident %></td>
+        <td><%= hardship.catastrophe %></td>
+        <td><%= hardship.counseling %></td>
+        <td><%= hardship.family_emergency %></td>
+        <td><%= hardship.health %></td>
+        <td><%= hardship.memorial %></td>
+        <td><%= hardship.other_hardship %></td>
+        <td><%= hardship.other_hardship_description %></td>
+        <td><%= hardship.requested_amount %></td>
+        <td><%= hardship.hardship_description %></td>
+        <td><%= hardship.self_fund %></td>
+        <td><%= hardship.intent_signature %></td>
+        <td><%= hardship.intent_signature_date %></td>
+        <td><%= hardship.release_signature %></td>
+        <td><%= hardship.release_signature_date %></td>
+        <td><%= hardship.status %></td>
+        <td><%= link_to 'Show', hardship %></td>
+        <td><%= link_to 'Edit', edit_hardship_path(hardship) %></td>
+        <td><%= link_to 'Destroy', hardship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hardship', new_hardship_path %>

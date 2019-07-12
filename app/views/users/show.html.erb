@@ -1,12 +1,27 @@
 <main class="mt-3">
   <div class="container">
 
-    <p class="text-right"><%= link_to('Log Out', destroy_user_session_path, method: :delete) %></p>
+    <p class="text-right">
+      <%= link_to('Edit My Information', edit_user_registration_path(current_user)) %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= link_to('Log Out', destroy_user_session_path, method: :delete) %>
+    </p>
     <h1 class="text-center">My Account</h1>
 
     <section>
-      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3>
+      <p class="text-center">
+        <%= @user.first_name %> <%= @user.last_name %> (<%= @user.location %>)<br>
+        <%= @user.phone %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= mail_to @user.email %>
+      </p>
+
+      <!-- <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3> -->
     </section> <!-- mission description -->
+
+    <% if @hardships.count >= 1 %>
+      <% @hardships.each do |hardship| %>
+
+      <% end %>
+    <% end %>
 
   </div> <!-- container -->
 </main>

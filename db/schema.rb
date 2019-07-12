@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_07_230141) do
+ActiveRecord::Schema.define(version: 2019_07_10_180947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hardships", force: :cascade do |t|
+    t.string "full_name"
+    t.date "date"
+    t.string "position"
+    t.string "branch"
+    t.string "email_non_toca"
+    t.string "mobile"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "bank_name"
+    t.string "bank_phone"
+    t.string "bank_address"
+    t.date "start_date"
+    t.boolean "accident", default: false
+    t.boolean "catastrophe", default: false
+    t.boolean "counseling", default: false
+    t.boolean "family_emergency", default: false
+    t.boolean "health", default: false
+    t.boolean "memorial", default: false
+    t.boolean "other_hardship", default: false
+    t.string "other_hardship_description"
+    t.decimal "requested_amount"
+    t.text "hardship_description"
+    t.decimal "self_fund"
+    t.string "intent_signature"
+    t.date "intent_signature_date"
+    t.string "release_signature"
+    t.date "release_signature_date"
+    t.string "status", default: "Application Started"
+    t.string "review_first_status"
+    t.string "review_first_reviewer_id"
+    t.string "review_second"
+    t.string "review_second_reviewer_id"
+    t.string "final_decision", default: "Not Decided"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_hardships_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +65,16 @@ ActiveRecord::Schema.define(version: 2019_07_07_230141) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
+    t.boolean "committee", default: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "location"
+    t.boolean "committee_request", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "hardships", "users"
 end
