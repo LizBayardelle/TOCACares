@@ -1,4 +1,4 @@
-<%= form_with(model: hardship, local: true, class: "text-center border border-light px-5 py-4") do |form| %>
+<%= form_with(model: hardship, local: true, class: "text-center border border-light px-5 py-4 mb-5") do |form| %>
   <% if hardship.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(hardship.errors.count, "error") %> prohibited this application from being saved:</h2>
@@ -16,7 +16,7 @@
   <p><small>This information is anonymous and will not be seen by the deciding committee.</small></p>
 
   <div class="field">
-    <%= form.text_field :full_name, class: "form-control mb-4", placeholder: "Full Name" %>
+    <%= form.text_field :full_name, class: "form-control mb-4", placeholder: "Full Name", required: true %>
   </div>
 
   <div class="field md-form">
@@ -24,99 +24,112 @@
     <label for="today-date">Today's Date</label>
   </div>
 
-  <div class="md-form">
-    <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
-    <label for="date-picker-example">Try me...</label>
-  </div>
+  <div class="row">
+    <div class="field col">
+      <%= form.text_field :position, class: "form-control mb-4", placeholder: "Position", required: true %>
+    </div>
+
+    <div class="field col">
+      <%= form.text_field :branch, class: "form-control mb-4", placeholder: "TOCA Branch", required: true %>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="field col">
+      <%= form.text_field :email_non_toca, class: "form-control mb-4", placeholder: "Email (Non-TOCA)", required: true %>
+    </div>
+
+    <div class="field col">
+      <%= form.text_field :mobile, class: "form-control mb-4", placeholder: "Mobile Phone", required: true %>
+    </div>
+  </div> <!-- row -->
 
   <div class="field">
-    <%= form.text_field :position, class: "form-control mb-4", placeholder: "Position" %>
+    <%= form.text_field :address, class: "form-control mb-4", placeholder: "Your Street Address", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.text_field :branch, class: "form-control mb-4", placeholder: "TOCA Branch" %>
-  </div>
+  <div class="row">
+    <div class="field col-sm-5">
+      <%= form.text_field :city, class: "form-control mb-4", placeholder: "City", required: true %>
+    </div>
+
+    <div class="field col-sm-3">
+      <%= form.text_field :state, class: "form-control mb-4", placeholder: "State", required: true %>
+    </div>
+
+    <div class="field col-sm-4">
+      <%= form.text_field :zip, class: "form-control mb-4", placeholder: "Zip Code", required: true %>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="field col">
+      <%= form.text_field :bank_name, class: "form-control mb-4", placeholder: "Bank Name", required: true %>
+    </div>
+
+    <div class="field col">
+      <%= form.text_field :bank_phone, class: "form-control mb-4", placeholder: "Bank Phone", required: true %>
+    </div>
+  </div> <!-- row -->
 
   <div class="field">
-    <%= form.text_field :email_non_toca, class: "form-control mb-4", placeholder: "Email (Non-TOCA)" %>
+    <%= form.text_field :bank_address, class: "form-control mb-4", placeholder: "Bank's Full Address", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.text_field :mobile, class: "form-control mb-4", placeholder: "Mobile Phone" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :address, class: "form-control mb-4", placeholder: "Street Address" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :city, class: "form-control mb-4", placeholder: "City" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :state, class: "form-control mb-4", placeholder: "State" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :zip, class: "form-control mb-4", placeholder: "Zip Code" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :bank_name, class: "form-control mb-4", placeholder: "Bank Name" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :bank_phone, class: "form-control mb-4", placeholder: "Bank Phone" %>
-  </div>
-
-  <div class="field">
-    <%= form.text_field :bank_address, class: "form-control mb-4", placeholder: "Bank's Full Address" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :start_date %>
+  <div class="field text-left">
+    <%= form.label "Your Start Date at TOCA" %>
     <%= form.date_select :start_date %>
   </div>
 
-  <div class="field form-check text-left">
-    <%= form.check_box :accident, class: "form-check-input", id: "accident" %>
-    <%= form.label :accident, class: "form-check-label", for: "accident" %>
-  </div>
+  <h5 class="mb-0 toca-uppercase">Hardship Category</h5>
+  <small>Select as many as apply.</small>
 
-  <div class="field form-check text-left">
-    <%= form.check_box :catastrophe, class: "form-check-input", id: "catastrophe" %>
-    <%= form.label :catastrophe, class: "form-check-label", for: "catastrophe" %>
-  </div>
+  <div class="row">
+    <div class="col">
+      <div class="field form-check text-left">
+        <%= form.check_box :accident, class: "form-check-input", id: "accident" %>
+        <%= form.label :accident, class: "form-check-label", for: "accident" %>
+      </div>
 
-  <div class="field form-check text-left">
-    <%= form.check_box :counseling, class: "form-check-input", id: "counseling" %>
-    <%= form.label :counseling, class: "form-check-label", for: "counseling" %>
-  </div>
+      <div class="field form-check text-left">
+        <%= form.check_box :catastrophe, class: "form-check-input", id: "catastrophe" %>
+        <%= form.label :catastrophe, class: "form-check-label", for: "catastrophe" %>
+      </div>
 
-  <div class="field form-check text-left">
-    <%= form.check_box :family_emergency, class: "form-check-input", id: "family_emergency" %>
-    <%= form.label "Family Emergency", class: "form-check-label", for: "family_emergency" %>
-  </div>
+      <div class="field form-check text-left">
+        <%= form.check_box :counseling, class: "form-check-input", id: "counseling" %>
+        <%= form.label :counseling, class: "form-check-label", for: "counseling" %>
+      </div>
 
-  <div class="field form-check text-left">
-    <%= form.check_box :health, class: "form-check-input", id: "health" %>
-    <%= form.label :health, class: "form-check-label", for: "health" %>
-  </div>
+      <div class="field form-check text-left">
+        <%= form.check_box :family_emergency, class: "form-check-input", id: "family_emergency" %>
+        <%= form.label "Family Emergency", class: "form-check-label", for: "family_emergency" %>
+      </div>
+    </div> <!-- column -->
 
-  <div class="field form-check text-left">
-    <%= form.check_box :memorial, class: "form-check-input", id: "memorial" %>
-    <%= form.label :memorial, class: "form-check-label", for: "memorial" %>
-  </div>
+    <div class="col">
+      <div class="field form-check text-left">
+        <%= form.check_box :health, class: "form-check-input", id: "health" %>
+        <%= form.label :health, class: "form-check-label", for: "health" %>
+      </div>
 
-  <div class="field form-check text-left">
-    <%= form.check_box :other_hardship, class: "form-check-input", id: "other_hardship" %>
-    <%= form.label :other_hardship, class: "form-check-label", for: "other_hardship" %>
-  </div>
+      <div class="field form-check text-left">
+        <%= form.check_box :memorial, class: "form-check-input", id: "memorial" %>
+        <%= form.label :memorial, class: "form-check-label", for: "memorial" %>
+      </div>
 
-  <div class="field">
-    <%= form.text_field :other_hardship_description, class: "form-control mb-4", placeholder: "Other Hardship Description" %>
-  </div>
+      <div class="field form-check text-left">
+        <%= form.check_box :other_hardship, class: "form-check-input", id: "other_hardship" %>
+        <%= form.label :other_hardship, class: "form-check-label", for: "other_hardship" %>
+      </div>
 
+      <div class="field col-9">
+        <%= form.text_field :other_hardship_description, class: "form-control mb-4", style: "margin-left: 40px", placeholder: "Other Description" %>
+      </div>
+    </div> <!-- col -->
+  </div> <!-- row -->
+
+  <hr class="mb-4">
 
   <p class="h4 mb-0 mt-5 color-toca-red toca-uppercase">Part II:  Hardship Information</p>
   <p><small>This information is not anonymous and will be seen by the deciding committee.</small></p>
@@ -125,53 +138,58 @@
     <div class="field col-md-6 text-left">
       <%= form.label "Amount Requested", class: "mb-0" %><br>
       <small>The amount you need from TOCA Cares.</small>
-      <%= form.text_field :requested_amount, value: number_to_currency(form.object.requested_amount.to_f, delimeter: '', unit: '$'), step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount" %>
+      <%= form.text_field :requested_amount, value: number_to_currency(form.object.requested_amount.to_f, delimeter: '', unit: '$'), step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
     </div>
 
     <div class="field col-md-6 text-left">
       <%= form.label "Amount You Can Cover", class: "mb-0" %><br>
       <small>Not included in the amount requested.</small>
-      <%= form.text_field :self_fund, value: number_to_currency(form.object.self_fund.to_f, delimeter: '', unit: '$'), step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount" %>
+      <%= form.text_field :self_fund, value: number_to_currency(form.object.self_fund.to_f, delimeter: '', unit: '$'), step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
     </div>
   </div> <!-- prices row -->
 
   <div class="field">
-    <%= form.text_area :hardship_description, class: "form-control mb-4", placeholder: "Description of your hardship." %>
+    <%= form.text_area :hardship_description, class: "form-control mb-4", placeholder: "Description of your hardship", required: true %>
   </div>
 
   <hr class="mt-5 mb-4">
 
-  <p class="h4 mb-0 color-toca-red toca-uppercase">Part III:  Statements</p>
+  <p class="h4 mb-3 color-toca-red toca-uppercase">Part III:  Statements</p>
 
-  <div class="field">
-    <small>
-      I agree that all of the information provided in this application is truthful and reflects a genuine financial hardship. In no way am I attempting to take advantage of TOCA Cares, nor my fellow employees, as this is a community fund. If it appears that I have, serious actions will be taken, jeopardizing my job at TOCA and future access to the community fund.
-    </small>
-    <%= form.text_field :intent_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature" %>
-  </div>
+  <h5 class="mb-0 toca-uppercase">Statement of Intent</h5>
+  <small>
+    I agree that all of the information provided in this application is truthful and reflects a genuine financial hardship. In no way am I attempting to take advantage of TOCA Cares, nor my fellow employees, as this is a community fund. If it appears that I have, serious actions will be taken, jeopardizing my job at TOCA and future access to the community fund.
+  </small>
 
-  <div class="field">
-    <%= form.label :intent_signature_date %>
-    <%= form.date_select :intent_signature_date %>
-  </div>
+  <div class="row mt-2">
+    <div class="field col-sm-8">
+      <%= form.text_field :intent_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :release_signature %>
-    <%= form.text_field :release_signature, class: "form-control mb-4", placeholder: "" %>
-  </div>
+    <div class="field col-sm-4">
+      <%= form.date_select :intent_signature_date %>
+    </div>
+  </div> <!-- row -->
 
-  <div class="field">
-    <%= form.label :release_signature_date %>
-    <%= form.date_select :release_signature_date %>
-  </div>
+  <h5 class="mb-0 toca-uppercase">Release Agreement</h5>
+  <small>
+    I agree to the release of confidential information from TOCA Cares to the Associate Emergency Fund Committee and to allow verification by Helping Hands Ministries, Inc., of information pertinent to this request, including a credit bureau report, prior to receipt of any funds.
+  </small>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status, class: "form-control mb-4", placeholder: "" %>
-  </div>
+  <div class="row mt-2">
+    <div class="field col-sm-8">
+      <%= form.text_field :release_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
+    </div>
+
+    <div class="field col-sm-4">
+      <%= form.date_select :release_signature_date %>
+    </div>
+  </div> <!-- row -->
+
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save for Later", class: "btn btn-light" %>
+    <%= form.submit "Submit for Consideration", class: "btn btn-primary" %>
   </div>
 
 <% end %>  <!-- end of form -->
