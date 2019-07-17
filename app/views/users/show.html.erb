@@ -1,11 +1,23 @@
 <main class="mt-3">
   <div class="container">
 
-    <p class="text-right">
-      <%= link_to('Edit My Information', edit_user_registration_path(current_user)) %>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <%= link_to('Log Out', destroy_user_session_path, method: :delete) %>
-    </p>
+    <div class="row">
+      <p class="text-left col">
+        <% if @user.admin && @user.committee %>
+          <span class="toca-uppercase color-toca-red">Admin & Committee Member</span><br>
+        <% elsif @user.admin %>
+          <span class="toca-uppercase color-toca-red">Admin</span><br>
+        <% elsif @user.committee %>
+          <span class="toca-uppercase color-toca-red">Committee Member</span><br>
+        <% end %>
+      </p>
+      <p class="text-right col">
+        <%= link_to('Edit My Information', edit_user_registration_path(current_user)) %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= link_to('Log Out', destroy_user_session_path, method: :delete) %>
+      </p>
+    </div> <!-- row -->
+
     <h1 class="text-center">My Account</h1>
 
     <section>
@@ -17,11 +29,73 @@
       <!-- <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3> -->
     </section> <!-- mission description -->
 
-    <% if @hardships.count >= 1 %>
-      <% @hardships.each do |hardship| %>
+    <hr class="my-4">
 
-      <% end %>
+    <% if @user.admin %>
+      <div class="row">
+        <div class="col-md-4 py-2">
+          <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
+            Scholarship<br class="d-none d-md-block d-lg-none"> Applications
+          <% end %>
+        </div> <!-- col -->
+        <div class="col-md-4 py-2">
+          <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
+            Hardship<br class="d-none d-md-block d-lg-none"> Applications
+          <% end %>
+        </div> <!-- col -->
+        <div class="col-md-4 py-2">
+          <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
+            Charity<br class="d-none d-md-block d-lg-none"> Applications
+          <% end %>
+        </div> <!-- col -->
+      </div> <!-- row -->
+
+      <hr class="my-4">
     <% end %>
+
+    <section>
+      <h2 class="toca-uppercase color-toca-red">My Applications</h2>
+      <% if @hardships.count >= 1 %>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="black white-text">
+              <tr>
+                <th scope="col">Application</th>
+                <th scope="col">Status</th>
+                <th scope="col">Final Decision</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @hardships.each do |hardship| %>
+                <tr>
+                  <td>Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.user.last_name %>)</td>
+                  <td>
+                    <%= hardship.status %>
+                  </td>
+                  <td>
+                    <% if hardship.final_decision %>
+                      <%= hardship.final_decision %>
+                    <% else %>
+                      Not Yet Decided
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to "View", hardship_path(hardship) %>
+                    <% if hardship.status != "Submitted to Committee" && hardship.status != "Decision Reached" %>
+                      &nbsp;|&nbsp;
+                      <%= link_to "Edit", edit_hardship_path(hardship) %>
+                    <% end %>
+                    &nbsp;|&nbsp;
+                    <%= button_to "Withdraw", withdraw_application_path(hardship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                  </td>
+                </tr>
+              <% end %> <!-- hardships each -->
+            </tbody>
+          </table>
+        </div> <!-- responsive table -->
+      <% end %> <!-- if hardships.count >= 1 -->
+    </section> <!-- hardships -->
 
   </div> <!-- container -->
 </main>

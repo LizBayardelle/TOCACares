@@ -14,42 +14,44 @@
         <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
 
           <div class="view overlay rounded z-depth-2 mb-4">
-            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/81.jpg" alt="Sample image">
+            <%= image_tag "scholarship.jpg", class: "img-fluid", alt: "Young woman graduating from college." %>
             <a><div class="mask rgba-white-slight"></div></a>
           </div>
 
           <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Scholarship</strong></h4>
           <p class="dark-grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
             quo minus id quod maxime placeat facere possimus voluptas.</p>
-          <a class="btn btn-primary btn-md">Read more</a>
+          <a class="btn btn-primary btn-lg">Read more</a>
 
         </div> <!-- Grid column -->
 
         <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
 
           <div class="view overlay rounded z-depth-2 mb-4">
-            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Sample image">
-            <a><div class="mask rgba-white-slight"></div></a>
+            <%= image_tag "hardship.jpg", class: "img-fluid", alt: "Young man looking at the engine of a broken down car." %>
+            <%= link_to new_hardship_path do %>
+              <div class="mask rgba-white-slight"></div>
+            <% end %>
           </div>
 
           <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Hardship</strong></h4>
           <p class="dark-grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
             voluptatum deleniti atque corrupti quos dolores.</p>
-          <%= link_to "Apply for Hardship", new_hardship_path, class: "btn btn-primary btn-md" %>
+          <%= link_to "Apply for Hardship", new_hardship_path, class: "btn btn-primary btn-lg" %>
 
         </div> <!-- Grid column -->
 
         <div class="col-lg-4 col-md-6 mb-0">
 
           <div class="view overlay rounded z-depth-2 mb-4">
-            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/13.jpg" alt="Sample image">
+            <%= image_tag "charity.jpg", class: "img-fluid", alt: "Young man building a house for charity." %>
             <a><div class="mask rgba-white-slight"></div></a>
           </div>
 
           <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Charity</strong></h4>
           <p class="dark-grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
             quia consequuntur magni dolores eos qui ratione.</p>
-          <a class="btn btn-primary btn-md">Read more</a>
+          <a class="btn btn-primary btn-lg">Read more</a>
 
         </div> <!-- Grid column -->
 

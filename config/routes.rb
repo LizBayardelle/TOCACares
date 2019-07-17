@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
 
   resources :hardships
+  post "hardships/:id/withdraw_application" => "hardships#withdraw_application", as: "withdraw_application"
 
 end

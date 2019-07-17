@@ -188,8 +188,8 @@
 
 
   <div class="actions">
-    <%= form.submit "Save for Later", class: "btn btn-light" %>
-    <%= form.submit "Submit for Consideration", class: "btn btn-primary" %>
+    <%= form.button type: "submit", name: "status", value: "Application in Progress", class: "btn btn-light" do %>Save for Later<% end %>
+    <%= form.button type: "submit", name: "status", value: "Submitted to Committee", class: "btn btn-primary" do %>Submit for Consideration<% end %>
   </div>
 
 <% end %>  <!-- end of form -->

@@ -1,154 +1,169 @@
-<p id="notice"><%= notice %></p>
+<main class="my-5">
+  <div class="container">
 
-<p>
-  <strong>Full name:</strong>
-  <%= @hardship.full_name %>
-</p>
+    <h1 class="text-center">Application for Hardship</h1>
 
-<p>
-  <strong>Date:</strong>
-  <%= @hardship.date %>
-</p>
+    <p class="text-center">
+      <%= @hardship.status %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <% if @hardship.final_decision %>
+        <%= @hardship.final_decision %>
+      <% else %>
+        Not Yet Decided
+      <% end %>
 
-<p>
-  <strong>Position:</strong>
-  <%= @hardship.position %>
-</p>
+      <br>
 
-<p>
-  <strong>Branch:</strong>
-  <%= @hardship.branch %>
-</p>
+      <% if @hardship.review_first_status %>
+        First Review <%= @hardship.review_first_status %>
+        <% if current_user.admon %> (by: <%= User.find_by_id(@hardship.review_first_reviewer_id).first_name %> <%= User.find_by_id(@hardship.review_first_reviewer_id).last_name %><% end %>
+      <% else %>
+        No First Review
+      <% end %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <% if @hardship.review_second %>
+        Second Review <%= @hardship.review_second %>
+        <% if current_user.admon %> (by: <%= User.find_by_id(@hardship.review_xecond_reviewer_id).first_name %> <%= User.find_by_id(@hardship.review_second_reviewer_id).last_name %><% end %>
+      <% else %>
+        No Second Review
+      <% end %>
+    </p>
+  </div> <!-- container -->
 
-<p>
-  <strong>Email non toca:</strong>
-  <%= @hardship.email_non_toca %>
-</p>
 
-<p>
-  <strong>Mobile:</strong>
-  <%= @hardship.mobile %>
-</p>
+  <% unless current_user.committee %>
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Section I:  Personal Information</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>Address:</strong>
-  <%= @hardship.address %>
-</p>
+    <div class="container">
+      <section class="my-4">
 
-<p>
-  <strong>City:</strong>
-  <%= @hardship.city %>
-</p>
+        <p class="text-center"><em>This section is anonymous to the reviewing committee and can only be seen by the applicant and site administrators.</em></p>
 
-<p>
-  <strong>State:</strong>
-  <%= @hardship.state %>
-</p>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="bold">Applicant Information</h4>
+            <p>
+              <span class="bold"><%= @hardship.full_name %> (<%= @hardship.branch %>)</span><br>
+              <em><%= @hardship.position %> (Started <%= @hardship.start_date %>)</em><br>
+              <%= mail_to @hardship.email_non_toca %><br>
+              <%= number_to_phone(@hardship.mobile) %><br>
+              <%= @hardship.address %><br>
+              <%= @hardship.city %>, <%= @hardship.state %> &nbsp;<%= @hardship.zip %>
+            </p>
+          </div> <!-- col-md-6 -->
+          <div class="col-md-6">
+            <h4 class="bold">Bank Information</h4>
+            <p>
+              <strong>Bank Name:</strong> <%= @hardship.bank_name %><br>
+              <strong>Bank Phone:</strong> <%= number_to_phone(@hardship.bank_phone) %><br>
+              <strong>Bank Address:</strong> <%= @hardship.bank_address %>
+            </p>
+          </div> <!-- col-md-6 -->
+        </div> <!-- row -->
 
-<p>
-  <strong>Zip:</strong>
-  <%= @hardship.zip %>
-</p>
+        <h4 class="bold">Application Information</h4>
+        <p><strong>Application Date:</strong> <%= @hardship.date %><br>
 
-<p>
-  <strong>Bank name:</strong>
-  <%= @hardship.bank_name %>
-</p>
+          <% category_array = [] %>
 
-<p>
-  <strong>Bank phone:</strong>
-  <%= @hardship.bank_phone %>
-</p>
+          <% if @hardship.accident %>
+            <% category_array << "Accident" %>
+          <% end %>
+          <% if @hardship.catastrophe %>
+            <% category_array << "Catastrophic Event" %>
+          <% end %>
+          <% if @hardship.counseling %>
+            <% category_array << "Counseling" %>
+          <% end %>
+          <% if @hardship.family_emergency %>
+            <% category_array << "Family Emergency" %>
+          <% end %>
+          <% if @hardship.health %>
+            <% category_array << "Health/Medical" %>
+          <% end %>
+          <% if @hardship.memorial %>
+            <% category_array << "Memorial (Expenses Associated with Loss)" %>
+          <% end %>
+          <% if @hardship.other_hardship %>
+            <% category_array << "Other Hardship" %>
+          <% end %>
 
-<p>
-  <strong>Bank address:</strong>
-  <%= @hardship.bank_address %>
-</p>
+          <strong>Hardship Categories: </strong><%= category_array.join(', ') %>
+          <% if @hardship.other_hardship %>
+            <br><strong>Other Hardship Description:</strong> <%= @hardship.other_hardship_description %>
+          <% end %>
+        </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @hardship.start_date %>
-</p>
+      </section> <!-- personal info section -->
+    </div> <!-- container -->
+  <% end %> <!-- hidden to committee -->
 
-<p>
-  <strong>Accident:</strong>
-  <%= @hardship.accident %>
-</p>
+  <section class="my-4">
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Section II:  Hardship Information</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>Catastrophe:</strong>
-  <%= @hardship.catastrophe %>
-</p>
+    <div class="container">
 
-<p>
-  <strong>Counseling:</strong>
-  <%= @hardship.counseling %>
-</p>
+      <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
 
-<p>
-  <strong>Family emergency:</strong>
-  <%= @hardship.family_emergency %>
-</p>
+      <p><strong>Requested Amount:</strong>
+        <%= number_to_currency(@hardship.requested_amount, unit: "$") %>
+      </p>
 
-<p>
-  <strong>Health:</strong>
-  <%= @hardship.health %>
-</p>
+      <p><strong>Amount Applicant Can Self-Fund:</strong>
+        <%= number_to_currency(@hardship.self_fund, unit: "$") %>
+      </p>
 
-<p>
-  <strong>Memorial:</strong>
-  <%= @hardship.memorial %>
-</p>
+      <p><strong>Hardship description:</strong>
+        <%= @hardship.hardship_description %>
+      </p>
+    </div> <!-- container -->
+  </section> <!-- hardship section -->
 
-<p>
-  <strong>Other hardship:</strong>
-  <%= @hardship.other_hardship %>
-</p>
 
-<p>
-  <strong>Other hardship description:</strong>
-  <%= @hardship.other_hardship_description %>
-</p>
+  <section class="my-4">
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Section III:  Statements</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>Requested amount:</strong>
-  <%= @hardship.requested_amount %>
-</p>
+    <div class="container">
+      <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
 
-<p>
-  <strong>Hardship description:</strong>
-  <%= @hardship.hardship_description %>
-</p>
+      <p><strong>Statement of Intent Signed:</strong>
+        <%= @hardship.intent_signature %> (<%= @hardship.intent_signature_date %>)
+      </p>
 
-<p>
-  <strong>Self fund:</strong>
-  <%= @hardship.self_fund %>
-</p>
+      <p><strong>Release Statement Signed:</strong>
+        <%= @hardship.release_signature %> (<%= @hardship.release_signature_date %>)
+      </p>
+    </div> <!-- container -->
+  </section> <!-- hardship section -->
 
-<p>
-  <strong>Intent signature:</strong>
-  <%= @hardship.intent_signature %>
-</p>
+  <%# if current_user && current_user.committee %>
+  <section class="my4">
+    <div class="bg-toca-green mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Application Actions</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>Intent signature date:</strong>
-  <%= @hardship.intent_signature_date %>
-</p>
+    <div class="container">
+      <div class="row">
+        <%= link_to "Approve Application", root_path, class: "btn btn-light btn-lg btn-block my-2" %>
+        <%= link_to "Request Modification", root_path, class: "btn btn-light btn-lg btn-block my-2" %>
+        <%= link_to "Reject Application", root_path, class: "btn btn-light btn-lg btn-block my-2" %>        
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </section>
+  <%# end %> <!-- committee only for decisions -->
 
-<p>
-  <strong>Release signature:</strong>
-  <%= @hardship.release_signature %>
-</p>
-
-<p>
-  <strong>Release signature date:</strong>
-  <%= @hardship.release_signature_date %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @hardship.status %>
-</p>
-
-<%= link_to 'Edit', edit_hardship_path(@hardship) %> |
-<%= link_to 'Back', hardships_path %>
+</main>

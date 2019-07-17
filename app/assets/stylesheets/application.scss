@@ -22,27 +22,6 @@
 
 
 
- /*-----------------------------
- -------------------------------
- -------------FONTS-------------
- -------------------------------
- -------------------------------
- -----------------------------*/
-
-h1 {
-  text-transform: uppercase;
-  color: black;
-  letter-spacing: 0.1em;
-  font-size: 3em;
-}
-
-.toca-uppercase {
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-
-
 /*-----------------------------
 -------------------------------
 ------------COLORS-------------
@@ -79,6 +58,37 @@ $color-light-grey: #D1D3D4 !important;
 
 /*-----------------------------
 -------------------------------
+-------------FONTS-------------
+-------------------------------
+-------------------------------
+-----------------------------*/
+
+h1 {
+  text-transform: uppercase;
+  color: black;
+  letter-spacing: 0.1em;
+  font-size: 3em;
+}
+
+.toca-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+p a,
+td a {
+  color: $color-toca-red;
+  font-weight: bold;
+}
+
+.bold, strong { font-weight: bold; }
+
+
+
+
+
+/*-----------------------------
+-------------------------------
 ------------DESIGN-------------
 -------------------------------
 -------------------------------
@@ -94,6 +104,21 @@ $color-light-grey: #D1D3D4 !important;
 .btn-light { background-color: $color-light-grey; }
 
 * { border-radius: 0px !important; }
+
+form.button_to {
+  display: inline;
+}
+
+.not-button {
+  border: none;
+  background-color: transparent;
+  color: $color-toca-red;
+  font-weight: bold;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 
 
 

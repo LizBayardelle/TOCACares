@@ -1,85 +1,145 @@
-<p id="notice"><%= notice %></p>
+<main class="mt-5">
+  <div class="container">
 
-<h1>Hardships</h1>
+    <h1 class="text-center">Hardship Applications</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Full name</th>
-      <th>Date</th>
-      <th>Position</th>
-      <th>Branch</th>
-      <th>Email non toca</th>
-      <th>Mobile</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Bank name</th>
-      <th>Bank phone</th>
-      <th>Bank address</th>
-      <th>Start date</th>
-      <th>Accident</th>
-      <th>Catastrophe</th>
-      <th>Counseling</th>
-      <th>Family emergency</th>
-      <th>Health</th>
-      <th>Memorial</th>
-      <th>Other hardship</th>
-      <th>Other hardship description</th>
-      <th>Requested amount</th>
-      <th>Hardship description</th>
-      <th>Self fund</th>
-      <th>Intent signature</th>
-      <th>Intent signature date</th>
-      <th>Release signature</th>
-      <th>Release signature date</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <hr class="my-4"
 
-  <tbody>
-    <% @hardships.each do |hardship| %>
-      <tr>
-        <td><%= hardship.full_name %></td>
-        <td><%= hardship.date %></td>
-        <td><%= hardship.position %></td>
-        <td><%= hardship.branch %></td>
-        <td><%= hardship.email_non_toca %></td>
-        <td><%= hardship.mobile %></td>
-        <td><%= hardship.address %></td>
-        <td><%= hardship.city %></td>
-        <td><%= hardship.state %></td>
-        <td><%= hardship.zip %></td>
-        <td><%= hardship.bank_name %></td>
-        <td><%= hardship.bank_phone %></td>
-        <td><%= hardship.bank_address %></td>
-        <td><%= hardship.start_date %></td>
-        <td><%= hardship.accident %></td>
-        <td><%= hardship.catastrophe %></td>
-        <td><%= hardship.counseling %></td>
-        <td><%= hardship.family_emergency %></td>
-        <td><%= hardship.health %></td>
-        <td><%= hardship.memorial %></td>
-        <td><%= hardship.other_hardship %></td>
-        <td><%= hardship.other_hardship_description %></td>
-        <td><%= hardship.requested_amount %></td>
-        <td><%= hardship.hardship_description %></td>
-        <td><%= hardship.self_fund %></td>
-        <td><%= hardship.intent_signature %></td>
-        <td><%= hardship.intent_signature_date %></td>
-        <td><%= hardship.release_signature %></td>
-        <td><%= hardship.release_signature_date %></td>
-        <td><%= hardship.status %></td>
-        <td><%= link_to 'Show', hardship %></td>
-        <td><%= link_to 'Edit', edit_hardship_path(hardship) %></td>
-        <td><%= link_to 'Destroy', hardship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <section>
+      <h2 class="toca-uppercase color-toca-red" id="submitted-heading"><%= pluralize(@undecided.count, "Undecided Application") %></h2>
+      <div id="undecided">
+        <% if @undecided.count >= 1 %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="black white-text">
+                <tr>
+                  <th scope="col">Application</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @undecided.each do |hardship| %>
+                  <tr>
+                    <td>
+                      <%= link_to hardship_path(hardship) do %>
+                        Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.date %>)
+                      <% end %>
+                    </td>
+                    <td><%= number_to_currency(hardship.requested_amount, unit: "$") %></td>
+                    <td>
+                      <%= hardship.status %>
+                      <br>
+                      <% if hardship.final_decision %>
+                        <%= hardship.final_decision %>
+                      <% else %>
+                        Not Yet Decided
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %> <!-- hardships each -->
+              </tbody>
+            </table>
+          </div> <!-- responsive table -->
+        <% end %> <!-- if hardships.count >= 1 -->
+      </div> <!-- undecided hardships container -->
+    </section> <!-- undecided hardships -->
 
-<br>
+    <section>
+      <h2 class="toca-uppercase color-toca-red" id="approved-heading"><%= pluralize(@approved.count, "Approved Application") %></h2>
+      <div id="approved" class="hidden">
+        <% if @approved.count >= 1 %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="black white-text">
+                <tr>
+                  <th scope="col">Application</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @approved.each do |hardship| %>
+                  <tr>
+                    <td>
+                      <%= link_to hardship_path(hardship) do %>
+                        Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.date %>)
+                      <% end %>
+                    </td>
+                    <td><%= number_to_currency(hardship.requested_amount, unit: "$") %></td>
+                    <td>
+                      <%= hardship.status %>
+                      <br>
+                      <% if hardship.final_decision %>
+                        <%= hardship.final_decision %>
+                      <% else %>
+                        Not Yet Decided
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %> <!-- hardships each -->
+              </tbody>
+            </table>
+          </div> <!-- responsive table -->
+        <% end %> <!-- if hardships.count >= 1 -->
+      </div> <!-- approved hardships container -->
+    </section> <!-- approved hardships -->
 
-<%= link_to 'New Hardship', new_hardship_path %>
+    <section>
+      <h2 class="toca-uppercase color-toca-red" id="rejected-heading"><%= pluralize(@rejected.count, "Rejected Application") %></h2>
+      <div id="rejected" class="hidden">
+        <% if @rejected.count >= 1 %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="black white-text">
+                <tr>
+                  <th scope="col">Application</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @rejected.each do |hardship| %>
+                  <tr>
+                    <td>
+                      <%= link_to hardship_path(hardship) do %>
+                        Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.date %>)
+                      <% end %>
+                    </td>
+                    <td><%= number_to_currency(hardship.requested_amount, unit: "$") %></td>
+                    <td>
+                      <%= hardship.status %>
+                      <br>
+                      <% if hardship.final_decision %>
+                        <%= hardship.final_decision %>
+                      <% else %>
+                        Not Yet Decided
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %> <!-- hardships each -->
+              </tbody>
+            </table>
+          </div> <!-- responsive table -->
+        <% end %> <!-- if hardships.count >= 1 -->
+      </div> <!-- hardships container -->
+    </section> <!-- rejected hardships -->
+
+
+  </div> <!-- container -->
+</main>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#submitted-heading').click(function() {
+      $('#submitted').toggle();
+    });
+    $('#approved-heading').click(function() {
+      $('#approved').toggle();
+    });
+    $('#rejected-heading').click(function() {
+      $('#rejected').toggle();
+    });
+  });
+</script>

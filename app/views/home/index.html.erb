@@ -1,34 +1,27 @@
 <main>
 
-  <section class="view mt-1">
-    <div class="row">
-
-      <div class="col-md-6 px-5 my-5">
-        <div class="d-flex flex-column justify-content-center align-items-center h-100">
-          <h1 class="heading display-3">TOCA Cares</h1>
-          <h4 class="subheading font-weight-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis sem nunc, eu varius erat feugiat quis.</h4>
-          <%= link_to page_path(:apply), class: "btn btn-primary btn-lg" do %>Apply Now<% end %>
-        </div> <!-- flex -->
-      </div> <!-- text col -->
-
-      <div class="col-md-6">
-        <div class="view">
-          <img src="https://images.pexels.com/photos/325045/pexels-photo-325045.jpeg" class="img-fluid" alt="smaple image">
-          <div class="mask flex-center hm-gradient"></div>
-        </div> <!-- view -->
-      </div> <!-- img col -->
-
-    </div> <!-- row -->
-  </section> <!-- Intro section -->
+  <div class="card card-image" style="background-image: url(assets/feet-around-ball.jpg);">
+    <div class="text-white text-center rgba-black-strong py-5 px-4">
+      <div>
+        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>TOCA Cares</strong></h2>
+        <div class="row justify-content-center">
+          <p class="mx-5 mb-5 col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos. Odit sed qui, dolorum!
+          </p>
+        </div> <!-- row -->
+        <%= link_to page_path(:apply), class: "btn btn-secondary btn-lg" do %>Apply Now<% end %>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
      <section class="text-center">
-       <div class="row mb-4 wow fadeIn">
+       <div class="row mt-5 mb-3 wow fadeIn">
 
            <div class="col-lg-4 mb-4">
                <div class="card">
                    <div class="view overlay"> <!-- image -->
-                       <img src="https://mdbootstrap.com/wp-content/uploads/2017/11/brandflow-tutorial-fb.jpg" class="card-img-top" alt="">
+                       <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
                        <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
                            <div class="mask rgba-white-slight"></div>
                        </a>
@@ -49,7 +42,7 @@
            <div class="col-lg-4 mb-4">
                <div class="card">
                    <div class="view overlay"> <!-- image -->
-                       <img src="https://mdbootstrap.com/wp-content/uploads/2017/11/brandflow-tutorial-fb.jpg" class="card-img-top" alt="">
+                       <%= image_tag "hardship.jpg", class: "card-img-top", alt: "Young man trying to fix a broken down car." %>
                        <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
                            <div class="mask rgba-white-slight"></div></a>
                    </div>
@@ -69,7 +62,7 @@
            <div class="col-lg-4 mb-4">
                <div class="card">
                    <div class="view overlay"> <!-- image -->
-                       <img src="https://mdbootstrap.com/wp-content/uploads/2017/11/brandflow-tutorial-fb.jpg" class="card-img-top" alt="">
+                       <%= image_tag "charity.jpg", class: "card-img-top", alt: "Young man building a house for charity." %>
                        <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
                            <div class="mask rgba-white-slight"></div>
                        </a>
@@ -97,6 +90,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+     $('.card-img-top').matchHeight();
      $('.card-text').matchHeight();
    });
 </script>

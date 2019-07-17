@@ -1,16 +1,24 @@
 class HardshipsController < ApplicationController
   before_action :set_hardship, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :already_submitted, only: [:edit, :update]
+  before_action :admin_only, only: [:index]
+  before_action :self_admin_or_committee_if_submitted, only: [:show]
+
 
   # GET /hardships
   # GET /hardships.json
   def index
     @hardships = Hardship.all
+    @undecided = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided")
+    @approved = Hardship.where(status: "Decision Reached", final_decision: "Approved")
+    @rejected = Hardship.where(status: "Decision Reached", final_decision: "Rejected")
   end
 
   # GET /hardships/1
   # GET /hardships/1.json
   def show
+
   end
 
   # GET /hardships/new
@@ -27,10 +35,15 @@ class HardshipsController < ApplicationController
   def create
     @hardship = Hardship.new(hardship_params)
     @hardship.user_id = current_user.id
+    @hardship.status = params[:status]
 
     respond_to do |format|
       if @hardship.save
-        format.html { redirect_to @hardship, notice: 'Hardship was successfully created.' }
+        if @hardship.status == "Submitted to Committee"
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
+        else
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
+        end
         format.json { render :show, status: :created, location: @hardship }
       else
         format.html { render :new }
@@ -42,10 +55,16 @@ class HardshipsController < ApplicationController
   # PATCH/PUT /hardships/1
   # PATCH/PUT /hardships/1.json
   def update
+    @hardship.status = params[:status]
+
     respond_to do |format|
       if @hardship.update(hardship_params)
-        format.html { redirect_to @hardship, notice: 'Hardship was successfully updated.' }
-        format.json { render :show, status: :ok, location: @hardship }
+        if @hardship.status == "Submitted to Committee"
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
+        else
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
+        end
+          format.json { render :show, status: :ok, location: @hardship }
       else
         format.html { render :edit }
         format.json { render json: @hardship.errors, status: :unprocessable_entity }
@@ -58,12 +77,46 @@ class HardshipsController < ApplicationController
   def destroy
     @hardship.destroy
     respond_to do |format|
-      format.html { redirect_to hardships_url, notice: 'Hardship was successfully destroyed.' }
+      format.html { redirect_to hardships_url, notice: 'Your application has been successfully deleted.' }
       format.json { head :no_content }
     end
   end
 
+  def withdraw_application
+    @hardship = Hardship.find(params[:id])
+    @hardship.update_attributes(status: "Withdrawn")
+    if @hardship.update_attributes(status: "Withdrawn")
+        redirect_back(fallback_location: user_path(current_user))
+        flash[:notice] = "That application has been withdrawn!"
+    else
+        redirect_to user_path(current_user)
+        flash[:warning] = "Something went wrong.  Please try your request again later."
+    end
+  end
+
+  def already_submitted
+    if @hardship.status == "Submitted to Committee" || @hardship.status == "Final Decision Reached"
+      redirect_back(fallback_location: user_path(current_user))
+      flash[:warning] = "Sorry, you can't edit an application that's already been submitted."
+    end
+  end
+
+  def admin_only
+    unless current_user && current_user.admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you must be an administrator to access that page."
+    end
+  end
+
+  def self_admin_or_committee_if_submitted
+    unless current_user && (@hardship.user.id == current_user.id) || (current_user.admin) || (current_user.committee && ( @hardship.status == "Submitted to Committee" || @hardship.status == "Decision Reached" ))
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you cannot view that application at this time.  If you believe you have gotten this message in error, please contact the system administrator at admin@tocacares.com."
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_hardship
       @hardship = Hardship.find(params[:id])
