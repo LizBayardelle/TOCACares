@@ -31,7 +31,7 @@
 
     <hr class="my-4">
 
-    <% if @user.admin %>
+    <% if @user.admin || @user.committee %>
       <div class="row">
         <div class="col-md-4 py-2">
           <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
@@ -87,7 +87,7 @@
                       <%= link_to "Edit", edit_hardship_path(hardship) %>
                     <% end %>
                     &nbsp;|&nbsp;
-                    <%= button_to "Withdraw", withdraw_application_path(hardship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <%= button_to "Withdraw", withdraw_hardship_path(hardship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
                   </td>
                 </tr>
               <% end %> <!-- hardships each -->

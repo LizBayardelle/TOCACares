@@ -5,6 +5,10 @@
 
     <hr class="my-4"
 
+    <h3>ADD THOSE NEEDING YOUR VOTE HERE</h3>
+
+    <hr class="my-4"
+
     <section>
       <h2 class="toca-uppercase color-toca-red" id="submitted-heading"><%= pluralize(@undecided.count, "Undecided Application") %></h2>
       <div id="undecided">
@@ -30,11 +34,8 @@
                     <td>
                       <%= hardship.status %>
                       <br>
-                      <% if hardship.final_decision %>
-                        <%= hardship.final_decision %>
-                      <% else %>
-                        Not Yet Decided
-                      <% end %>
+                      <%= pluralize(hardship.approvals.count, "Approval") %><br>
+                      <%= pluralize(hardship.rejections.count, "Rejection") %>
                     </td>
                   </tr>
                 <% end %> <!-- hardships each -->

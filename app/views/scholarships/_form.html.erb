@@ -1,0 +1,157 @@
+<%= form_with(model: scholarship, local: true) do |form| %>
+  <% if scholarship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(scholarship.errors.count, "error") %> prohibited this scholarship from being saved:</h2>
+
+      <ul>
+      <% scholarship.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position %>
+    <%= form.text_field :position %>
+  </div>
+
+  <div class="field">
+    <%= form.label :branch %>
+    <%= form.text_field :branch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email_non_toca %>
+    <%= form.text_field :email_non_toca %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mobile %>
+    <%= form.text_field :mobile %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %>
+    <%= form.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :institution_name %>
+    <%= form.text_field :institution_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :institution_contact %>
+    <%= form.text_field :institution_contact %>
+  </div>
+
+  <div class="field">
+    <%= form.label :institution_phone %>
+    <%= form.text_field :institution_phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :institution_address %>
+    <%= form.text_field :institution_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :requested_amount %>
+    <%= form.text_field :requested_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :self_fund %>
+    <%= form.text_field :self_fund %>
+  </div>
+
+  <div class="field">
+    <%= form.label :scholarship_description %>
+    <%= form.text_area :scholarship_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intent_signature %>
+    <%= form.text_field :intent_signature %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intent_signature_date %>
+    <%= form.date_select :intent_signature_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_signature %>
+    <%= form.text_field :release_signature %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_signature_date %>
+    <%= form.date_select :release_signature_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :final_decision %>
+    <%= form.text_field :final_decision %>
+  </div>
+
+  <div class="field">
+    <%= form.label :returned %>
+    <%= form.check_box :returned %>
+  </div>
+
+  <div class="field">
+    <%= form.label :approvals %>
+    <%= form.text_area :approvals %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rejections %>
+    <%= form.text_area :rejections %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

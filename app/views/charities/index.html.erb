@@ -1,0 +1,81 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Charities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Date</th>
+      <th>Position</th>
+      <th>Branch</th>
+      <th>Start date</th>
+      <th>Email non toca</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Institution name</th>
+      <th>Institution contact</th>
+      <th>Institution phone</th>
+      <th>Institution address</th>
+      <th>Requested amount</th>
+      <th>Self fund</th>
+      <th>Opportunity description</th>
+      <th>Intent signature</th>
+      <th>Intent signature date</th>
+      <th>Release signature</th>
+      <th>Release signature date</th>
+      <th>Status</th>
+      <th>Final decision</th>
+      <th>Returned</th>
+      <th>Approvals</th>
+      <th>Rejections</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @charities.each do |charity| %>
+      <tr>
+        <td><%= charity.full_name %></td>
+        <td><%= charity.date %></td>
+        <td><%= charity.position %></td>
+        <td><%= charity.branch %></td>
+        <td><%= charity.start_date %></td>
+        <td><%= charity.email_non_toca %></td>
+        <td><%= charity.mobile %></td>
+        <td><%= charity.address %></td>
+        <td><%= charity.city %></td>
+        <td><%= charity.state %></td>
+        <td><%= charity.zip %></td>
+        <td><%= charity.institution_name %></td>
+        <td><%= charity.institution_contact %></td>
+        <td><%= charity.institution_phone %></td>
+        <td><%= charity.institution_address %></td>
+        <td><%= charity.requested_amount %></td>
+        <td><%= charity.self_fund %></td>
+        <td><%= charity.opportunity_description %></td>
+        <td><%= charity.intent_signature %></td>
+        <td><%= charity.intent_signature_date %></td>
+        <td><%= charity.release_signature %></td>
+        <td><%= charity.release_signature_date %></td>
+        <td><%= charity.status %></td>
+        <td><%= charity.final_decision %></td>
+        <td><%= charity.returned %></td>
+        <td><%= charity.approvals %></td>
+        <td><%= charity.rejections %></td>
+        <td><%= charity.user %></td>
+        <td><%= link_to 'Show', charity %></td>
+        <td><%= link_to 'Edit', edit_charity_path(charity) %></td>
+        <td><%= link_to 'Destroy', charity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Charity', new_charity_path %>

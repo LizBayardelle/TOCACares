@@ -2,14 +2,16 @@ class HardshipsController < ApplicationController
   before_action :set_hardship, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :already_submitted, only: [:edit, :update]
-  before_action :admin_only, only: [:index]
+  before_action :admin_or_committee_only, only: [:index]
   before_action :self_admin_or_committee_if_submitted, only: [:show]
+  before_action :committee_only, only: [:approve_hardship]
 
 
   # GET /hardships
   # GET /hardships.json
   def index
     @hardships = Hardship.all
+    @vote_needed = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided")
     @undecided = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided")
     @approved = Hardship.where(status: "Decision Reached", final_decision: "Approved")
     @rejected = Hardship.where(status: "Decision Reached", final_decision: "Rejected")
@@ -82,7 +84,7 @@ class HardshipsController < ApplicationController
     end
   end
 
-  def withdraw_application
+  def withdraw_hardship
     @hardship = Hardship.find(params[:id])
     @hardship.update_attributes(status: "Withdrawn")
     if @hardship.update_attributes(status: "Withdrawn")
@@ -94,6 +96,58 @@ class HardshipsController < ApplicationController
     end
   end
 
+  def approve_hardship
+    @hardship = Hardship.find(params[:id])
+    if @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" )
+      if @hardship.approvals.include?(current_user.id.to_s) || @hardship.rejections.include?(current_user.id.to_s)
+        redirect_back(fallback_location: hardship_path(@hardship))
+        flash[:warning] = "Sorry, you have already voted on that application!"
+      else
+        if @hardship.approvals.count < 1
+          @hardship.approvals << current_user.id
+          @hardship.save
+          redirect_back(fallback_location: hardship_path(@hardship))
+          flash[:notice] = "You have successfully voted to approve this application."
+        elsif @hardship.approvals.count >= 1
+          @hardship.approvals << current_user.id
+          @hardship.update_attributes(final_decision: "Approved")
+          @hardship.save
+          redirect_back(fallback_location: hardship_path(@hardship))
+          flash[:notice] = "That application has been officially approved!"
+        else
+          redirect_back(fallback_location: hardship_path(@hardship))
+          flash[:warning] = "Something went wrong.  Please try your request again later."
+        end
+      end
+    end
+  end
+
+  def reject_hardship
+    @hardship = Hardship.find(params[:id])
+    if @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" )
+      if @hardship.rejections.include?(current_user.id.to_s) || @hardship.approvals.include?(current_user.id.to_s)
+        redirect_back(fallback_location: hardship_path(@hardship))
+        flash[:warning] = "Sorry, you have already voted on that application!"
+      else
+        if @hardship.rejections.count < 1
+          @hardship.rejections << current_user.id
+          @hardship.save
+          redirect_back(fallback_location: hardship_path(@hardship))
+          flash[:notice] = "You have successfully voted to reject this application."
+        elsif @hardship.rejections.count >= 1
+          @hardship.rejections << current_user.id
+          @hardship.update_attributes(final_decision: "Approved")
+          @hardship.save
+          redirect_back(fallback_location: hardship_path(@hardship))
+          flash[:notice] = "That application has been officially rejected!"
+        else
+          redirect_back(fallback_location: hardship_path(@hardship))
+          flash[:warning] = "Something went wrong.  Please try your request again later."
+        end
+      end
+    end
+  end
+
   def already_submitted
     if @hardship.status == "Submitted to Committee" || @hardship.status == "Final Decision Reached"
       redirect_back(fallback_location: user_path(current_user))
@@ -101,8 +155,15 @@ class HardshipsController < ApplicationController
     end
   end
 
-  def admin_only
-    unless current_user && current_user.admin
+  def committee_only
+    unless current_user && current_user.committee
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you must be a committee member to do that."
+    end
+  end
+
+  def admin_or_committee_only
+    unless current_user && ( current_user.admin || current_user.committee )
       redirect_back(fallback_location: root_path)
       flash[:warning] = "Sorry, you must be an administrator to access that page."
     end
@@ -155,12 +216,11 @@ class HardshipsController < ApplicationController
         :release_signature,
         :release_signature_date,
         :status,
-        :review_first_status,
-        :review_first_reviewer_id,
-        :review_second,
-        :review_second_reviewer_id,
         :final_decision,
-        :user_id
+        :returned,
+        :user_id,
+        :approvals => [],
+        :rejections => []
       )
     end
 end

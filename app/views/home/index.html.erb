@@ -3,7 +3,7 @@
   <div class="card card-image" style="background-image: url(https://tocacares.s3-us-west-1.amazonaws.com/feet-around-ball.jpg);">
     <div class="text-white text-center rgba-black-strong py-5 px-4">
       <div>
-        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>TOCA Cares</strong></h2>
+        <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "pt-5 mb-5" %>
         <div class="row justify-content-center">
           <p class="mx-5 mb-5 col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
             optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos. Odit sed qui, dolorum!
@@ -31,8 +31,8 @@
                        <h4 class="card-title toca-uppercase">Scholarship</h4>
                        <!--Text-->
                        <p class="card-text">Donec blandit quam ac ante imperdiet posuere. Ut et nisi dictum nibh ornare iaculis in at elit. Phasellus vitae vulputate enim.</p>
-                       <%= link_to page_path(:apply), class: "btn btn-primary btn-md" do %>
-                          Apply for Scholarship
+                       <%= link_to new_scholarship_path, class: "btn btn-primary btn-lg" do %>
+                          Apply Now
                        <% end %>
                      </div>
                </div> <!-- card -->
@@ -51,8 +51,8 @@
                        <h4 class="card-title toca-uppercase">Hardship</h4>
                        <!--Text-->
                        <p class="card-text">Vivamus condimentum ultrices magna, a lobortis justo tincidunt sed. Donec vitae mattis lectus.</p>
-                       <%= link_to new_hardship_path, class: "btn btn-primary btn-md" do %>
-                          Apply for Hardship
+                       <%= link_to new_hardship_path, class: "btn btn-primary btn-lg" do %>
+                          Apply Now
                        <% end %>
                   </div>
                </div> <!-- card -->
@@ -72,8 +72,8 @@
                        <h4 class="card-title toca-uppercase">Charity</h4>
                        <!--Text-->
                        <p class="card-text">Quisque gravida leo lorem, sit amet dignissim risus laoreet quis. Quisque ultricies magna quis volutpat porttitor. </p>
-                       <%= link_to page_path(:apply), class: "btn btn-primary btn-md" do %>
-                        Apply for Charity
+                       <%= link_to new_charity_path, class: "btn btn-primary btn-lg" do %>
+                        Apply Now
                        <% end %>
                    </div>
                </div> <!-- card -->

@@ -1,0 +1,81 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Scholarships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Date</th>
+      <th>Position</th>
+      <th>Branch</th>
+      <th>Start date</th>
+      <th>Email non toca</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Institution name</th>
+      <th>Institution contact</th>
+      <th>Institution phone</th>
+      <th>Institution address</th>
+      <th>Requested amount</th>
+      <th>Self fund</th>
+      <th>Scholarship description</th>
+      <th>Intent signature</th>
+      <th>Intent signature date</th>
+      <th>Release signature</th>
+      <th>Release signature date</th>
+      <th>Status</th>
+      <th>Final decision</th>
+      <th>Returned</th>
+      <th>Approvals</th>
+      <th>Rejections</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scholarships.each do |scholarship| %>
+      <tr>
+        <td><%= scholarship.full_name %></td>
+        <td><%= scholarship.date %></td>
+        <td><%= scholarship.position %></td>
+        <td><%= scholarship.branch %></td>
+        <td><%= scholarship.start_date %></td>
+        <td><%= scholarship.email_non_toca %></td>
+        <td><%= scholarship.mobile %></td>
+        <td><%= scholarship.address %></td>
+        <td><%= scholarship.city %></td>
+        <td><%= scholarship.state %></td>
+        <td><%= scholarship.zip %></td>
+        <td><%= scholarship.institution_name %></td>
+        <td><%= scholarship.institution_contact %></td>
+        <td><%= scholarship.institution_phone %></td>
+        <td><%= scholarship.institution_address %></td>
+        <td><%= scholarship.requested_amount %></td>
+        <td><%= scholarship.self_fund %></td>
+        <td><%= scholarship.scholarship_description %></td>
+        <td><%= scholarship.intent_signature %></td>
+        <td><%= scholarship.intent_signature_date %></td>
+        <td><%= scholarship.release_signature %></td>
+        <td><%= scholarship.release_signature_date %></td>
+        <td><%= scholarship.status %></td>
+        <td><%= scholarship.final_decision %></td>
+        <td><%= scholarship.returned %></td>
+        <td><%= scholarship.approvals %></td>
+        <td><%= scholarship.rejections %></td>
+        <td><%= scholarship.user %></td>
+        <td><%= link_to 'Show', scholarship %></td>
+        <td><%= link_to 'Edit', edit_scholarship_path(scholarship) %></td>
+        <td><%= link_to 'Destroy', scholarship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Scholarship', new_scholarship_path %>

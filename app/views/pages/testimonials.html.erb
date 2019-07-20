@@ -22,15 +22,15 @@
             <div class="row">
               <div class="col-sm-4 col-lg-12">
                 <div class="avatar mx-auto mb-3">
-                  <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" class="z-depth-1 img-fluid" style="max-width: 100%">
+                  <%= image_tag "scholarship.jpg", class: "z-depth-1 img-fluid",  style: "max-width: 100%", alt: "Young woman graduating from college." %>
                 </div>
               </div> <!-- col -->
               <div class="col-sm-8 col-lg-12 text-left">
                 <h6 class="font-weight-bold color-black toca-uppercase mt-3">Example 1</h6>
                 <p class="font-weight-normal dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-green"></i>
+                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.
-                  <i class="fas fa-quote-right pl-2 color-toca-green"></i>
+                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
                 </p>
               </div> <!-- col -->
             </div> <!-- row -->
@@ -41,7 +41,7 @@
               <div class="col-11 text-truncate pl-0 mb-3">
                 <a>Another testimonial.</a>
               </div>
-              <a><i class="fas fa-angle-double-right"></i></a>
+              <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
             </div>
           </div> <!-- Small news -->
 
@@ -50,7 +50,7 @@
               <div class="col-11 text-truncate pl-0 mb-3">
                 <a>More testimonials</a>
               </div>
-              <a><i class="fas fa-angle-double-right"></i></a>
+              <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
             </div>
           </div> <!-- Small news -->
 
@@ -59,12 +59,12 @@
               <div class="col-11 text-truncate pl-0 mb-3">
                 <a>And so on</a>
               </div>
-              <a><i class="fas fa-angle-double-right"></i></a>
+              <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
             </div>
           </div> <!-- Small news -->
 
           <div class="text-center mb-5">
-            <%= link_to "Apply Now", page_path(:apply), class: "btn btn-primary" %>
+            <%= link_to "Apply Now", new_scholarship_path, class: "btn btn-primary" %>
           </div> <!-- center for button -->
 
         </div> <!--Grid column-->
@@ -76,15 +76,15 @@
             <div class="row">
               <div class="col-sm-4 col-lg-12">
                 <div class="avatar mx-auto mb-3">
-                  <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" class="z-depth-1 img-fluid" style="max-width: 100%">
+                  <%= image_tag "hardship.jpg", class: "z-depth-1 img-fluid",  style: "max-width: 100%", alt: "Young man bent over a broken-down car." %>
                 </div> <!-- avatar -->
               </div> <!-- column -->
               <div class="col-sm-8 col-lg-12 text-left">
                 <h6 class="font-weight-bold color-black toca-uppercase mt-3">Legal Assistance</h6>
                 <p class="font-weight-normal dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-green"></i>
+                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
                   When TOCA offered assistance to me during a very rough period in my life, I not only had the peace of mind that I was going to be ok and would get past this, but it also gave me the comfort of knowing that TOCA had my back; they were there to pick me up and help me move forward. I am blessed to work for a company that feels like a second family to me.
-                  <i class="fas fa-quote-right pl-2 color-toca-green"></i>
+                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
                 </p>
               </div> <!-- column -->
             </div> <!-- row -->
@@ -95,7 +95,7 @@
                 <div class="col-11 text-truncate pl-0 mb-3">
                   <a>Another testimonial.</a>
                 </div>
-                <a><i class="fas fa-angle-double-right"></i></a>
+                <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
               </div>
             </div> <!-- Small news -->
 
@@ -104,7 +104,7 @@
                 <div class="col-11 text-truncate pl-0 mb-3">
                   <a>More testimonials</a>
                 </div>
-                <a><i class="fas fa-angle-double-right"></i></a>
+                <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
               </div>
             </div> <!-- Small news -->
 
@@ -113,12 +113,12 @@
                 <div class="col-11 text-truncate pl-0 mb-3">
                   <a>And so on</a>
                 </div>
-                <a><i class="fas fa-angle-double-right"></i></a>
+                <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
               </div>
             </div> <!-- Small news -->
 
             <div class="text-center mb-5">
-              <%= link_to "Apply Now", page_path(:apply), class: "btn btn-primary" %>
+              <%= link_to "Apply Now", new_hardship_path, class: "btn btn-primary" %>
             </div> <!-- center for button -->
 
         </div> <!--Grid column-->
@@ -130,15 +130,15 @@
             <div class="row">
               <div class="col-sm-4 col-lg-12">
                 <div class="avatar mx-auto mb-3">
-                  <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="z-depth-1 img-fluid" style="max-width: 100%">
+                  <%= image_tag "charity.jpg", class: "z-depth-1 img-fluid",  style: "max-width: 100%", alt: "Young man building houses for charity." %>
                 </div> <!-- avatar -->
               </div> <!-- column -->
               <div class="col-sm-8 col-lg-12 text-left">
                 <h6 class="font-weight-bold color-black toca-uppercase mt-3">Example 3</h6>
                 <p class="font-weight-normal dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-green"></i>
+                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
                   At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
-                  <i class="fas fa-quote-right pl-2 color-toca-green"></i>
+                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
                 </p>
               </div> <!-- column -->
             </div> <!-- row -->
@@ -149,7 +149,7 @@
               <div class="col-11 text-truncate pl-0 mb-3">
                 <a>Another testimonial.</a>
               </div>
-              <a><i class="fas fa-angle-double-right"></i></a>
+              <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
             </div>
           </div> <!-- Small news -->
 
@@ -158,7 +158,7 @@
               <div class="col-11 text-truncate pl-0 mb-3">
                 <a>More testimonials</a>
               </div>
-              <a><i class="fas fa-angle-double-right"></i></a>
+              <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
             </div>
           </div> <!-- Small news -->
 
@@ -167,12 +167,12 @@
               <div class="col-11 text-truncate pl-0 mb-3">
                 <a>And so on</a>
               </div>
-              <a><i class="fas fa-angle-double-right"></i></a>
+              <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
             </div>
           </div> <!-- Small news -->
 
           <div class="text-center mb-5">
-            <%= link_to "Apply Now", page_path(:apply), class: "btn btn-primary" %>
+            <%= link_to "Apply Now", new_charity_path, class: "btn btn-primary" %>
           </div> <!-- center for button -->
 
         </div> <!--Grid column-->

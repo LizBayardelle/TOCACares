@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_180947) do
+ActiveRecord::Schema.define(version: 2019_07_18_202244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "charities", force: :cascade do |t|
+    t.string "full_name"
+    t.date "date"
+    t.string "position"
+    t.string "branch"
+    t.date "start_date"
+    t.string "email_non_toca"
+    t.string "mobile"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "institution_name"
+    t.string "institution_contact"
+    t.string "institution_phone"
+    t.string "institution_address"
+    t.decimal "requested_amount"
+    t.decimal "self_fund"
+    t.text "opportunity_description"
+    t.string "intent_signature"
+    t.date "intent_signature_date"
+    t.string "release_signature"
+    t.date "release_signature_date"
+    t.string "status", default: "Application Started"
+    t.string "final_decision", default: "Not Decided"
+    t.boolean "returned", default: false
+    t.text "approvals", default: [], array: true
+    t.text "rejections", default: [], array: true
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_charities_on_user_id"
+  end
 
   create_table "hardships", force: :cascade do |t|
     t.string "full_name"
@@ -46,15 +80,48 @@ ActiveRecord::Schema.define(version: 2019_07_10_180947) do
     t.string "release_signature"
     t.date "release_signature_date"
     t.string "status", default: "Application Started"
-    t.string "review_first_status"
-    t.string "review_first_reviewer_id"
-    t.string "review_second"
-    t.string "review_second_reviewer_id"
     t.string "final_decision", default: "Not Decided"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "returned", default: false
+    t.text "approvals", default: [], array: true
+    t.text "rejections", default: [], array: true
     t.index ["user_id"], name: "index_hardships_on_user_id"
+  end
+
+  create_table "scholarships", force: :cascade do |t|
+    t.string "full_name"
+    t.date "date"
+    t.string "position"
+    t.string "branch"
+    t.date "start_date"
+    t.string "email_non_toca"
+    t.string "mobile"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "institution_name"
+    t.string "institution_contact"
+    t.string "institution_phone"
+    t.string "institution_address"
+    t.decimal "requested_amount"
+    t.decimal "self_fund"
+    t.text "scholarship_description"
+    t.string "intent_signature"
+    t.date "intent_signature_date"
+    t.string "release_signature"
+    t.date "release_signature_date"
+    t.string "status", default: "Application Started"
+    t.string "final_decision", default: "Not Decided"
+    t.boolean "returned", default: false
+    t.text "approvals", default: [], array: true
+    t.text "rejections", default: [], array: true
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_scholarships_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,5 +143,7 @@ ActiveRecord::Schema.define(version: 2019_07_10_180947) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "charities", "users"
   add_foreign_key "hardships", "users"
+  add_foreign_key "scholarships", "users"
 end

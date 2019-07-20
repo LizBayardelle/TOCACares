@@ -5,28 +5,20 @@
 
     <p class="text-center">
       <%= @hardship.status %>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <% if @hardship.final_decision %>
-        <%= @hardship.final_decision %>
-      <% else %>
-        Not Yet Decided
+      <% if @hardship.returned %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Returned for Modification
       <% end %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= @hardship.final_decision %>
 
       <br>
 
-      <% if @hardship.review_first_status %>
-        First Review <%= @hardship.review_first_status %>
-        <% if current_user.admon %> (by: <%= User.find_by_id(@hardship.review_first_reviewer_id).first_name %> <%= User.find_by_id(@hardship.review_first_reviewer_id).last_name %><% end %>
-      <% else %>
-        No First Review
-      <% end %>
+      <%= pluralize(@hardship.approvals.count, "Approval") %>
+      <%= @hardship.approvals %>
       &nbsp;&nbsp;|&nbsp;&nbsp;
-      <% if @hardship.review_second %>
-        Second Review <%= @hardship.review_second %>
-        <% if current_user.admon %> (by: <%= User.find_by_id(@hardship.review_xecond_reviewer_id).first_name %> <%= User.find_by_id(@hardship.review_second_reviewer_id).last_name %><% end %>
-      <% else %>
-        No Second Review
-      <% end %>
+      <%= pluralize(@hardship.rejections.count, "Rejection") %>
+      <%= @hardship.rejections %>
     </p>
   </div> <!-- container -->
 
@@ -34,7 +26,7 @@
   <% unless current_user.committee %>
     <div class="bg-toca-red mb-3 px-5 py-3">
       <div class="container">
-        <h2 class="color-white toca-uppercase">Section I:  Personal Information</h2>
+        <h2 class="color-white toca-uppercase">Personal Information</h2>
       </div> <!-- container -->
     </div> <!-- red stripe -->
 
@@ -105,13 +97,15 @@
   <section class="my-4">
     <div class="bg-toca-red mb-3 px-5 py-3">
       <div class="container">
-        <h2 class="color-white toca-uppercase">Section II:  Hardship Information</h2>
+        <h2 class="color-white toca-uppercase">Hardship Information</h2>
       </div> <!-- container -->
     </div> <!-- red stripe -->
 
     <div class="container">
 
-      <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
+      <% unless current_user && current_user.committee %>
+        <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
+      <% end %>
 
       <p><strong>Requested Amount:</strong>
         <%= number_to_currency(@hardship.requested_amount, unit: "$") %>
@@ -121,49 +115,35 @@
         <%= number_to_currency(@hardship.self_fund, unit: "$") %>
       </p>
 
-      <p><strong>Hardship description:</strong>
+      <p>
         <%= @hardship.hardship_description %>
       </p>
     </div> <!-- container -->
   </section> <!-- hardship section -->
 
 
-  <section class="my-4">
-    <div class="bg-toca-red mb-3 px-5 py-3">
+  <% if current_user && current_user.committee && @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" ) %>
+    <section class="my4">
+      <div class="bg-toca-red mb-3 px-5 py-3">
+        <div class="container">
+          <h2 class="color-white toca-uppercase">Application Actions</h2>
+        </div> <!-- container -->
+      </div> <!-- red stripe -->
+
       <div class="container">
-        <h2 class="color-white toca-uppercase">Section III:  Statements</h2>
+        <div class="row justify-content-center">
+          <div class="col-sm-4">
+            <%= button_to "Approve Application", approve_hardship_path(@hardship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+          <div class="col-sm-4">
+            <%= button_to "Request Modification", approve_hardship_path(@hardship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+          <div class="col-sm-4">
+            <%= button_to "Reject Application", reject_hardship_path(@hardship), method: :post, data: { confirm: "Are you sure you want to reject this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+        </div> <!-- row -->
       </div> <!-- container -->
-    </div> <!-- red stripe -->
-
-    <div class="container">
-      <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
-
-      <p><strong>Statement of Intent Signed:</strong>
-        <%= @hardship.intent_signature %> (<%= @hardship.intent_signature_date %>)
-      </p>
-
-      <p><strong>Release Statement Signed:</strong>
-        <%= @hardship.release_signature %> (<%= @hardship.release_signature_date %>)
-      </p>
-    </div> <!-- container -->
-  </section> <!-- hardship section -->
-
-  <%# if current_user && current_user.committee %>
-  <section class="my4">
-    <div class="bg-toca-green mb-3 px-5 py-3">
-      <div class="container">
-        <h2 class="color-white toca-uppercase">Application Actions</h2>
-      </div> <!-- container -->
-    </div> <!-- red stripe -->
-
-    <div class="container">
-      <div class="row">
-        <%= link_to "Approve Application", root_path, class: "btn btn-light btn-lg btn-block my-2" %>
-        <%= link_to "Request Modification", root_path, class: "btn btn-light btn-lg btn-block my-2" %>
-        <%= link_to "Reject Application", root_path, class: "btn btn-light btn-lg btn-block my-2" %>        
-      </div> <!-- row -->
-    </div> <!-- container -->
-  </section>
-  <%# end %> <!-- committee only for decisions -->
+    </section>
+  <% end %> <!-- committee only for decisions -->
 
 </main>
