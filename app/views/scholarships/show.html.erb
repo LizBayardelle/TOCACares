@@ -1,144 +1,125 @@
-<p id="notice"><%= notice %></p>
+<main class="my-5">
+  <div class="container">
 
-<p>
-  <strong>Full name:</strong>
-  <%= @scholarship.full_name %>
-</p>
+    <h1 class="text-center">Application for Scholarship</h1>
 
-<p>
-  <strong>Date:</strong>
-  <%= @scholarship.date %>
-</p>
+    <p class="text-center">
+      <%= @scholarship.status %>
+      <% if @scholarship.returned %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Returned for Modification
+      <% end %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= @scholarship.final_decision %>
 
-<p>
-  <strong>Position:</strong>
-  <%= @scholarship.position %>
-</p>
+      <br>
 
-<p>
-  <strong>Branch:</strong>
-  <%= @scholarship.branch %>
-</p>
+      <%= pluralize(@scholarship.approvals.count, "Approval") %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= pluralize(@scholarship.rejections.count, "Rejection") %>
+    </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @scholarship.start_date %>
-</p>
+    <% if @scholarship.user == current_user && (@scholarship.status == "Application Started" || @scholarship.status == "Application in Progress" || @scholarship.status == "Returned for Modifications" )%>
+      <div class="text-center mb-4">
+        <%= link_to "Edit", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary" %>
+      </div>
+    <% end %>
 
-<p>
-  <strong>Email non toca:</strong>
-  <%= @scholarship.email_non_toca %>
-</p>
+  </div> <!-- container -->
 
-<p>
-  <strong>Mobile:</strong>
-  <%= @scholarship.mobile %>
-</p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @scholarship.address %>
-</p>
+  <% unless current_user.committee %>
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Personal Information</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>City:</strong>
-  <%= @scholarship.city %>
-</p>
+    <div class="container">
+      <section class="my-4">
 
-<p>
-  <strong>State:</strong>
-  <%= @scholarship.state %>
-</p>
+        <p class="text-center"><em>This section is anonymous to the reviewing committee and can only be seen by the applicant and site administrators.</em></p>
 
-<p>
-  <strong>Zip:</strong>
-  <%= @scholarship.zip %>
-</p>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="bold">Applicant Information</h4>
+            <p>
+              <span class="bold"><%= @scholarship.full_name %> (<%= @scholarship.branch %>)</span><br>
+              <em><%= @scholarship.position %> (Started <%= @scholarship.start_date %>)</em><br>
+              <%= mail_to @scholarship.email_non_toca %><br>
+              <%= number_to_phone(@scholarship.mobile) %><br>
+              <%= @scholarship.address %><br>
+              <%= @scholarship.city %>, <%= @scholarship.state %> &nbsp;<%= @scholarship.zip %>
+            </p>
+          </div> <!-- col-md-6 -->
+          <div class="col-md-6">
+            <h4 class="bold">Scholarship Information</h4>
+            <p>
+              <strong>Scholarship Name:</strong> <%= @scholarship.institution_name %><br>
+              <strong>Scholarship Contact Person:</strong> <%= @scholarship.institution_contact %><br>
+              <strong>Scholarship Phone:</strong> <%= number_to_phone(@scholarship.institution_phone) %><br>
+              <strong>Scholarship Address:</strong> <%= @scholarship.institution_address %>
+            </p>
+          </div> <!-- col-md-6 -->
+        </div> <!-- row -->
 
-<p>
-  <strong>Institution name:</strong>
-  <%= @scholarship.institution_name %>
-</p>
+        <h4 class="bold">Application Information</h4>
+        <p><strong>Application Date:</strong> <%= @scholarship.date %></p>
 
-<p>
-  <strong>Institution contact:</strong>
-  <%= @scholarship.institution_contact %>
-</p>
+      </section> <!-- personal info section -->
+    </div> <!-- container -->
+  <% end %> <!-- hidden to committee -->
 
-<p>
-  <strong>Institution phone:</strong>
-  <%= @scholarship.institution_phone %>
-</p>
+  <section class="my-4">
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Scholarship Information</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>Institution address:</strong>
-  <%= @scholarship.institution_address %>
-</p>
+    <div class="container">
 
-<p>
-  <strong>Requested amount:</strong>
-  <%= @scholarship.requested_amount %>
-</p>
+      <% unless current_user && current_user.committee %>
+        <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
+      <% end %>
 
-<p>
-  <strong>Self fund:</strong>
-  <%= @scholarship.self_fund %>
-</p>
+      <p><strong>Requested Amount:</strong>
+        <%= number_to_currency(@scholarship.requested_amount, unit: "$") %>
+      </p>
 
-<p>
-  <strong>Scholarship description:</strong>
-  <%= @scholarship.scholarship_description %>
-</p>
+      <p><strong>Amount Applicant Can Self-Fund:</strong>
+        <%= number_to_currency(@scholarship.self_fund, unit: "$") %>
+      </p>
 
-<p>
-  <strong>Intent signature:</strong>
-  <%= @scholarship.intent_signature %>
-</p>
+      <p>
+        <%= @scholarship.scholarship_description %>
+      </p>
+    </div> <!-- container -->
+  </section> <!-- scholarship section -->
 
-<p>
-  <strong>Intent signature date:</strong>
-  <%= @scholarship.intent_signature_date %>
-</p>
 
-<p>
-  <strong>Release signature:</strong>
-  <%= @scholarship.release_signature %>
-</p>
+  <% if current_user && current_user.committee && @scholarship.status == "Submitted to Committee" && ( @scholarship.final_decision == "Not Decided" || @scholarship.final_decision == "Modifications Requested" ) %>
+    <section class="my4">
+      <div class="bg-toca-red mb-3 px-5 py-3">
+        <div class="container">
+          <h2 class="color-white toca-uppercase">Application Actions</h2>
+        </div> <!-- container -->
+      </div> <!-- red stripe -->
 
-<p>
-  <strong>Release signature date:</strong>
-  <%= @scholarship.release_signature_date %>
-</p>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-4">
+            <%= button_to "Approve Application", approve_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+          <div class="col-sm-4">
+            <%= button_to "Request Modification", approve_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+          <div class="col-sm-4">
+            <%= button_to "Reject Application", reject_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to reject this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+        </div> <!-- row -->
+      </div> <!-- container -->
+    </section>
+  <% end %> <!-- committee only for decisions -->
 
-<p>
-  <strong>Status:</strong>
-  <%= @scholarship.status %>
-</p>
-
-<p>
-  <strong>Final decision:</strong>
-  <%= @scholarship.final_decision %>
-</p>
-
-<p>
-  <strong>Returned:</strong>
-  <%= @scholarship.returned %>
-</p>
-
-<p>
-  <strong>Approvals:</strong>
-  <%= @scholarship.approvals %>
-</p>
-
-<p>
-  <strong>Rejections:</strong>
-  <%= @scholarship.rejections %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @scholarship.user %>
-</p>
-
-<%= link_to 'Edit', edit_scholarship_path(@scholarship) %> |
-<%= link_to 'Back', scholarships_path %>
+</main>

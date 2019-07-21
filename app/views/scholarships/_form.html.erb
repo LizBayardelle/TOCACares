@@ -1,7 +1,7 @@
-<%= form_with(model: scholarship, local: true) do |form| %>
+<%= form_with(model: scholarship, local: true, class: "text-center py-4 mb-5") do |form| %>
   <% if scholarship.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(scholarship.errors.count, "error") %> prohibited this scholarship from being saved:</h2>
+      <h2><%= pluralize(scholarship.errors.count, "error") %> prohibited this application from being saved:</h2>
 
       <ul>
       <% scholarship.errors.full_messages.each do |message| %>
@@ -11,147 +11,145 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :full_name %>
-    <%= form.text_field :full_name %>
-  </div>
+  <p class="h4 mb-0 color-toca-red toca-uppercase">Part I:  Personal Information</p>
+  <p><small>This information is anonymous and will not be seen by the deciding committee.</small></p>
 
   <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date %>
+    <%= form.text_field :full_name, class: "form-control mb-4", placeholder: "Full Name", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :position %>
-    <%= form.text_field :position %>
+  <div class="field md-form">
+    <%= form.date_select :date, placeholder: "Today's Date", type: "text", id: "today-date", class: "form-control datepicker" %>
+    <label for="today-date">Today's Date</label>
   </div>
 
-  <div class="field">
-    <%= form.label :branch %>
-    <%= form.text_field :branch %>
-  </div>
+  <div class="row">
+    <div class="field col">
+      <%= form.text_field :position, class: "form-control mb-4", placeholder: "Position", required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :start_date %>
+    <div class="field col">
+      <%= form.text_field :branch, class: "form-control mb-4", placeholder: "TOCA Branch", required: true %>
+    </div>
+  </div> <!-- row -->
+
+  <div class="field text-left">
+    <%= form.label "Your Start Date at TOCA" %>
     <%= form.date_select :start_date %>
   </div>
 
-  <div class="field">
-    <%= form.label :email_non_toca %>
-    <%= form.text_field :email_non_toca %>
-  </div>
+  <div class="row">
+    <div class="field col">
+      <%= form.text_field :email_non_toca, class: "form-control mb-4", placeholder: "Email (Non-TOCA)", required: true %>
+    </div>
+
+    <div class="field col">
+      <%= form.text_field :mobile, class: "form-control mb-4", placeholder: "Mobile Phone", required: true %>
+    </div>
+  </div> <!-- row -->
 
   <div class="field">
-    <%= form.label :mobile %>
-    <%= form.text_field :mobile %>
+    <%= form.text_field :address, class: "form-control mb-4", placeholder: "Your Street Address", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
+  <div class="row">
+    <div class="field col-sm-5">
+      <%= form.text_field :city, class: "form-control mb-4", placeholder: "City", required: true %>
+    </div>
+
+    <div class="field col-sm-3">
+      <%= form.text_field :state, class: "form-control mb-4", placeholder: "State", required: true %>
+    </div>
+
+    <div class="field col-sm-4">
+      <%= form.text_field :zip, class: "form-control mb-4", placeholder: "Zip Code", required: true %>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="field col-md-4">
+      <%= form.text_field :institution_name, class: "form-control mb-4", placeholder: "Name of Institution", required: true %>
+    </div>
+
+    <div class="field col-md-4">
+      <%= form.text_field :institution_contact, class: "form-control mb-4", placeholder: "Full Name of Contact Person", required: true %>
+    </div>
+
+    <div class="field col-md-4">
+      <%= form.text_field :institution_phone, class: "form-control mb-4", placeholder: "Contact Phone", required: true %>
+    </div>
+  </div> <!-- row -->
 
   <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.text_field :institution_address, class: "form-control mb-4", placeholder: "Institution's Full Address", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state %>
-  </div>
+
+  <p class="h4 mb-0 mt-5 color-toca-red toca-uppercase">Part II:  Scholarship Information</p>
+  <p><small>This information is not anonymous and will be seen by the deciding committee.</small></p>
+
+  <div class="row">
+    <div class="field col-md-6 text-left">
+      <%= form.label "Amount Requested", class: "mb-0" %><br>
+      <small>The amount you need from TOCA Cares.</small>
+      <%= form.number_field :requested_amount, step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
+    </div>
+
+    <div class="field col-md-6 text-left">
+      <%= form.label "Amount You Can Cover", class: "mb-0" %><br>
+      <small>Not included in the amount requested.</small>
+      <%= form.number_field :self_fund, step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
+    </div>
+  </div> <!-- prices row -->
 
   <div class="field">
-    <%= form.label :zip %>
-    <%= form.text_field :zip %>
+    <%= form.text_area :scholarship_description, class: "form-control mb-4", placeholder: "Description of your scholarship opportunity", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :institution_name %>
-    <%= form.text_field :institution_name %>
-  </div>
 
-  <div class="field">
-    <%= form.label :institution_contact %>
-    <%= form.text_field :institution_contact %>
-  </div>
+  <p class="h4 mb-3 mt-5 color-toca-red toca-uppercase">Part III:  Statements</p>
 
-  <div class="field">
-    <%= form.label :institution_phone %>
-    <%= form.text_field :institution_phone %>
-  </div>
+  <h5 class="mb-0 toca-uppercase">Statement of Intent</h5>
+  <small>
+    I agree that all of the information provided in this application is truthful and reflects a genuine financial hardship. In no way am I attempting to take advantage of TOCA Cares, nor my fellow employees, as this is a community fund. If it appears that I have, serious actions will be taken, jeopardizing my job at TOCA and future access to the community fund.
+  </small>
 
-  <div class="field">
-    <%= form.label :institution_address %>
-    <%= form.text_field :institution_address %>
-  </div>
+  <div class="row mt-2">
+    <div class="field col-sm-8">
+      <%= form.text_field :intent_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :requested_amount %>
-    <%= form.text_field :requested_amount %>
-  </div>
+    <div class="field col-sm-4">
+      <%= form.date_select :intent_signature_date %>
+    </div>
+  </div> <!-- row -->
 
-  <div class="field">
-    <%= form.label :self_fund %>
-    <%= form.text_field :self_fund %>
-  </div>
+  <h5 class="mb-0 toca-uppercase">Release Agreement</h5>
+  <small>
+    I agree to the release of confidential information from TOCA Cares to the Associate Emergency Fund Committee and to allow verification by Helping Hands Ministries, Inc., of information pertinent to this request, including a credit bureau report, prior to receipt of any funds.
+  </small>
 
-  <div class="field">
-    <%= form.label :scholarship_description %>
-    <%= form.text_area :scholarship_description %>
-  </div>
+  <div class="row mt-2">
+    <div class="field col-sm-8">
+      <%= form.text_field :release_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :intent_signature %>
-    <%= form.text_field :intent_signature %>
-  </div>
+    <div class="field col-sm-4">
+      <%= form.date_select :release_signature_date %>
+    </div>
+  </div> <!-- row -->
 
-  <div class="field">
-    <%= form.label :intent_signature_date %>
-    <%= form.date_select :intent_signature_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :release_signature %>
-    <%= form.text_field :release_signature %>
-  </div>
-
-  <div class="field">
-    <%= form.label :release_signature_date %>
-    <%= form.date_select :release_signature_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :final_decision %>
-    <%= form.text_field :final_decision %>
-  </div>
-
-  <div class="field">
-    <%= form.label :returned %>
-    <%= form.check_box :returned %>
-  </div>
-
-  <div class="field">
-    <%= form.label :approvals %>
-    <%= form.text_area :approvals %>
-  </div>
-
-  <div class="field">
-    <%= form.label :rejections %>
-    <%= form.text_area :rejections %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.button type: "submit", name: "status", value: "Application in Progress", class: "btn btn-light" do %>Save for Later<% end %>
+    <%= form.button type: "submit", name: "status", value: "Submitted to Committee", class: "btn btn-primary" do %>Submit for Consideration<% end %>
   </div>
-<% end %>
+
+<% end %>  <!-- end of form -->
+
+
+
+<script>
+  // Data Picker Initialization
+  $('.datepicker').pickadate();
+</script>

@@ -23,7 +23,7 @@
     <section>
       <p class="text-center">
         <%= @user.first_name %> <%= @user.last_name %> (<%= @user.location %>)<br>
-        <%= @user.phone %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= mail_to @user.email %>
+        <%= number_to_phone(@user.phone) %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= mail_to @user.email %>
       </p>
 
       <!-- <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3> -->
@@ -32,20 +32,26 @@
     <hr class="my-4">
 
     <% if @user.admin || @user.committee %>
+      <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
+      <%= link_to home_pending_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        All Applications Needing Votes
+      <% end %>
+    <% end %>
+    <% if @user.admin %>
       <div class="row">
         <div class="col-md-4 py-2">
-          <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
-            Scholarship<br class="d-none d-md-block d-lg-none"> Applications
+          <%= link_to scholarships_path, class: "btn btn-primary btn-lg btn-block" do %>
+            All Scholarship<br class="d-none d-md-block d-lg-none"> Applications
           <% end %>
         </div> <!-- col -->
         <div class="col-md-4 py-2">
           <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
-            Hardship<br class="d-none d-md-block d-lg-none"> Applications
+            All Hardship<br class="d-none d-md-block d-lg-none"> Applications
           <% end %>
         </div> <!-- col -->
         <div class="col-md-4 py-2">
-          <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
-            Charity<br class="d-none d-md-block d-lg-none"> Applications
+          <%= link_to charities_path, class: "btn btn-primary btn-lg btn-block" do %>
+            All Charity<br class="d-none d-md-block d-lg-none"> Applications
           <% end %>
         </div> <!-- col -->
       </div> <!-- row -->
@@ -53,9 +59,55 @@
       <hr class="my-4">
     <% end %>
 
-    <section>
-      <h2 class="toca-uppercase color-toca-red">My Applications</h2>
-      <% if @hardships.count >= 1 %>
+    <% if @scholarships.count >= 1 %>
+      <section> <!-- scholarship applications -->
+        <h2 class="text-center toca-uppercase color-toca-red mt-5">My Scholarship Applications</h2>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="black white-text">
+              <tr>
+                <th scope="col">Application</th>
+                <th scope="col">Status</th>
+                <th scope="col">Final Decision</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @scholarships.each do |scholarship| %>
+                <tr>
+                  <td>Scholarship <%= fixed_digit_number(scholarship.id) %> (<%= scholarship.user.last_name %>)</td>
+                  <td>
+                    <%= scholarship.status %>
+                  </td>
+                  <td>
+                    <% if scholarship.final_decision %>
+                      <%= scholarship.final_decision %>
+                    <% else %>
+                      Not Yet Decided
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to "View", scholarship_path(scholarship) %>
+                    <% if scholarship.status != "Submitted to Committee" && scholarship.status != "Decision Reached" %>
+                      &nbsp;|&nbsp;
+                      <%= link_to "Edit", edit_scholarship_path(scholarship) %>
+                    <% end %>
+                    &nbsp;|&nbsp;
+                    <%= button_to "Withdraw", withdraw_scholarship_path(scholarship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                  </td>
+                </tr>
+              <% end %> <!-- hardships each -->
+            </tbody>
+          </table>
+        </div> <!-- responsive table -->
+      </section> <!-- scholarships -->
+    <% end %> <!-- if scholarships.count >= 1 -->
+
+
+
+    <% if @hardships.count >= 1 %>
+      <section> <!-- hardship applications -->
+        <h2 class="text-center toca-uppercase color-toca-red mt-4">My Hardship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead class="black white-text">
@@ -94,8 +146,54 @@
             </tbody>
           </table>
         </div> <!-- responsive table -->
-      <% end %> <!-- if hardships.count >= 1 -->
-    </section> <!-- hardships -->
+      </section> <!-- hardships -->
+    <% end %> <!-- if hardships.count >= 1 -->
+
+
+
+    <% if @charities.count >= 1 %>
+      <section> <!-- charity applications -->
+        <h2 class="text-center toca-uppercase color-toca-red mt-4">My Charity Applications</h2>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="black white-text">
+              <tr>
+                <th scope="col">Application</th>
+                <th scope="col">Status</th>
+                <th scope="col">Final Decision</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @charities.each do |charity| %>
+                <tr>
+                  <td>Charity <%= fixed_digit_number(charity.id) %> (<%= charity.user.last_name %>)</td>
+                  <td>
+                    <%= charity.status %>
+                  </td>
+                  <td>
+                    <% if charity.final_decision %>
+                      <%= charity.final_decision %>
+                    <% else %>
+                      Not Yet Decided
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to "View", charity_path(charity) %>
+                    <% if charity.status != "Submitted to Committee" && charity.status != "Decision Reached" %>
+                      &nbsp;|&nbsp;
+                      <%= link_to "Edit", edit_charity_path(charity) %>
+                    <% end %>
+                    &nbsp;|&nbsp;
+                    <%= button_to "Withdraw", withdraw_charity_path(charity), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                  </td>
+                </tr>
+              <% end %> <!-- charities each -->
+            </tbody>
+          </table>
+        </div> <!-- responsive table -->
+      </section> <!-- charities -->
+    <% end %> <!-- if charities.count >= 1 -->
 
   </div> <!-- container -->
 </main>

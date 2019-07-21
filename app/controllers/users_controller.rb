@@ -4,7 +4,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @scholarships = Scholarship.where(user_id: @user.id)
     @hardships = Hardship.where(user_id: @user.id)
+    @charities = Charity.where(user_id: @user.id)
   end
 
   def index

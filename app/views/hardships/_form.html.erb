@@ -1,4 +1,4 @@
-<%= form_with(model: hardship, local: true, class: "text-center border border-light px-5 py-4 mb-5") do |form| %>
+<%= form_with(model: hardship, local: true, class: "text-center py-4 mb-5") do |form| %>
   <% if hardship.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(hardship.errors.count, "error") %> prohibited this application from being saved:</h2>
@@ -10,7 +10,6 @@
       </ul>
     </div>
   <% end %>
-
 
   <p class="h4 mb-0 color-toca-red toca-uppercase">Part I:  Personal Information</p>
   <p><small>This information is anonymous and will not be seen by the deciding committee.</small></p>
@@ -33,6 +32,11 @@
       <%= form.text_field :branch, class: "form-control mb-4", placeholder: "TOCA Branch", required: true %>
     </div>
   </div> <!-- row -->
+
+  <div class="field text-left">
+    <%= form.label "Your Start Date at TOCA" %>
+    <%= form.date_select :start_date %>
+  </div>
 
   <div class="row">
     <div class="field col">
@@ -74,11 +78,6 @@
 
   <div class="field">
     <%= form.text_field :bank_address, class: "form-control mb-4", placeholder: "Bank's Full Address", required: true %>
-  </div>
-
-  <div class="field text-left">
-    <%= form.label "Your Start Date at TOCA" %>
-    <%= form.date_select :start_date %>
   </div>
 
   <h5 class="mb-0 toca-uppercase">Hardship Category</h5>
@@ -138,13 +137,13 @@
     <div class="field col-md-6 text-left">
       <%= form.label "Amount Requested", class: "mb-0" %><br>
       <small>The amount you need from TOCA Cares.</small>
-      <%= form.text_field :requested_amount, value: number_to_currency(form.object.requested_amount.to_f, delimeter: '', unit: '$'), step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
+      <%= form.number_field :requested_amount, step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
     </div>
 
     <div class="field col-md-6 text-left">
       <%= form.label "Amount You Can Cover", class: "mb-0" %><br>
       <small>Not included in the amount requested.</small>
-      <%= form.text_field :self_fund, value: number_to_currency(form.object.self_fund.to_f, delimeter: '', unit: '$'), step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
+      <%= form.number_field :self_fund, step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
     </div>
   </div> <!-- prices row -->
 

@@ -11,13 +11,13 @@
 // about supported directives.
 //
 
-
+//
 //= require jquery3
 //= require jquery_ujs
 //= require bootstrap
-//= require jquery-ui
 //= require popper
 //= require magnific-popup
+//= require jquery-ui
 //= require activestorage
 //= require font_awesome5
 //= require_tree .

@@ -15,11 +15,16 @@
       <br>
 
       <%= pluralize(@hardship.approvals.count, "Approval") %>
-      <%= @hardship.approvals %>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= pluralize(@hardship.rejections.count, "Rejection") %>
-      <%= @hardship.rejections %>
     </p>
+
+    <% if @hardship.user == current_user && (@hardship.status == "Application Started" || @hardship.status == "Application in Progress" || @hardship.status == "Returned for Modifications" )%>
+      <div class="text-center mb-4">
+        <%= link_to "Edit", edit_hardship_path(@hardship), class: "btn btn-md btn-secondary" %>
+      </div>
+    <% end %>
+
   </div> <!-- container -->
 
 

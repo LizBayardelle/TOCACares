@@ -98,25 +98,30 @@ class HardshipsController < ApplicationController
 
   def approve_hardship
     @hardship = Hardship.find(params[:id])
-    if @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" )
-      if @hardship.approvals.include?(current_user.id.to_s) || @hardship.rejections.include?(current_user.id.to_s)
-        redirect_back(fallback_location: hardship_path(@hardship))
-        flash[:warning] = "Sorry, you have already voted on that application!"
-      else
-        if @hardship.approvals.count < 1
-          @hardship.approvals << current_user.id
-          @hardship.save
+    if current_user && @hardship.user.id == current_user.id
+      redirect_back(fallback_location: hardship_path(@hardship))
+      flash[:warning] = "Sorry, you cannot vote on your own application!"
+    else
+      if @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" )
+        if @hardship.approvals.include?(current_user.id.to_s) || @hardship.rejections.include?(current_user.id.to_s)
           redirect_back(fallback_location: hardship_path(@hardship))
-          flash[:notice] = "You have successfully voted to approve this application."
-        elsif @hardship.approvals.count >= 1
-          @hardship.approvals << current_user.id
-          @hardship.update_attributes(final_decision: "Approved")
-          @hardship.save
-          redirect_back(fallback_location: hardship_path(@hardship))
-          flash[:notice] = "That application has been officially approved!"
+          flash[:warning] = "Sorry, you have already voted on that application!"
         else
-          redirect_back(fallback_location: hardship_path(@hardship))
-          flash[:warning] = "Something went wrong.  Please try your request again later."
+          if @hardship.approvals.count < 1
+            @hardship.approvals << current_user.id
+            @hardship.save
+            redirect_back(fallback_location: hardship_path(@hardship))
+            flash[:notice] = "You have successfully voted to approve this application."
+          elsif @hardship.approvals.count >= 1
+            @hardship.approvals << current_user.id
+            @hardship.update_attributes(final_decision: "Approved")
+            @hardship.save
+            redirect_back(fallback_location: hardship_path(@hardship))
+            flash[:notice] = "That application has been officially approved!"
+          else
+            redirect_back(fallback_location: hardship_path(@hardship))
+            flash[:warning] = "Something went wrong.  Please try your request again later."
+          end
         end
       end
     end
@@ -124,25 +129,30 @@ class HardshipsController < ApplicationController
 
   def reject_hardship
     @hardship = Hardship.find(params[:id])
-    if @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" )
-      if @hardship.rejections.include?(current_user.id.to_s) || @hardship.approvals.include?(current_user.id.to_s)
-        redirect_back(fallback_location: hardship_path(@hardship))
-        flash[:warning] = "Sorry, you have already voted on that application!"
-      else
-        if @hardship.rejections.count < 1
-          @hardship.rejections << current_user.id
-          @hardship.save
+    if current_user && @hardship.user.id == current_user.id
+      redirect_back(fallback_location: hardship_path(@hardship))
+      flash[:warning] = "Sorry, you cannot vote on your own application!"
+    else
+      if @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" )
+        if @hardship.rejections.include?(current_user.id.to_s) || @hardship.approvals.include?(current_user.id.to_s)
           redirect_back(fallback_location: hardship_path(@hardship))
-          flash[:notice] = "You have successfully voted to reject this application."
-        elsif @hardship.rejections.count >= 1
-          @hardship.rejections << current_user.id
-          @hardship.update_attributes(final_decision: "Approved")
-          @hardship.save
-          redirect_back(fallback_location: hardship_path(@hardship))
-          flash[:notice] = "That application has been officially rejected!"
+          flash[:warning] = "Sorry, you have already voted on that application!"
         else
-          redirect_back(fallback_location: hardship_path(@hardship))
-          flash[:warning] = "Something went wrong.  Please try your request again later."
+          if @hardship.rejections.count < 1
+            @hardship.rejections << current_user.id
+            @hardship.save
+            redirect_back(fallback_location: hardship_path(@hardship))
+            flash[:notice] = "You have successfully voted to reject this application."
+          elsif @hardship.rejections.count >= 1
+            @hardship.rejections << current_user.id
+            @hardship.update_attributes(final_decision: "Approved")
+            @hardship.save
+            redirect_back(fallback_location: hardship_path(@hardship))
+            flash[:notice] = "That application has been officially rejected!"
+          else
+            redirect_back(fallback_location: hardship_path(@hardship))
+            flash[:warning] = "Something went wrong.  Please try your request again later."
+          end
         end
       end
     end
@@ -186,6 +196,7 @@ class HardshipsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def hardship_params
       params.require(:hardship).permit(
+        :application_type,
         :full_name,
         :date,
         :position,

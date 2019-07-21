@@ -10,6 +10,10 @@ class CharitiesController < ApplicationController
   # GET /charities.json
   def index
     @charities = Charity.all
+    @vote_needed = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided")
+    @undecided = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided")
+    @approved = Charity.where(status: "Decision Reached", final_decision: "Approved")
+    @rejected = Charity.where(status: "Decision Reached", final_decision: "Rejected")
   end
 
   # GET /charities/1
@@ -30,10 +34,16 @@ class CharitiesController < ApplicationController
   # POST /charities.json
   def create
     @charity = Charity.new(charity_params)
+    @charity.user_id = current_user.id
+    @charity.status = params[:status]
 
     respond_to do |format|
       if @charity.save
-        format.html { redirect_to @charity, notice: 'Charity was successfully created.' }
+        if @charity.status == "Submitted to Committee"
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
+        else
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
+        end
         format.json { render :show, status: :created, location: @charity }
       else
         format.html { render :new }
@@ -45,10 +55,16 @@ class CharitiesController < ApplicationController
   # PATCH/PUT /charities/1
   # PATCH/PUT /charities/1.json
   def update
+    @charity.status = params[:status]
+
     respond_to do |format|
       if @charity.update(charity_params)
-        format.html { redirect_to @charity, notice: 'Charity was successfully updated.' }
-        format.json { render :show, status: :ok, location: @charity }
+        if @charity.status == "Submitted to Committee"
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
+        else
+          format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
+        end
+          format.json { render :show, status: :ok, location: @charity }
       else
         format.html { render :edit }
         format.json { render json: @charity.errors, status: :unprocessable_entity }
@@ -80,25 +96,30 @@ class CharitiesController < ApplicationController
 
   def approve_charity
     @charity = Charity.find(params[:id])
-    if @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" )
-      if @charity.approvals.include?(current_user.id.to_s) || @charity.rejections.include?(current_user.id.to_s)
-        redirect_back(fallback_location: charity_path(@charity))
-        flash[:warning] = "Sorry, you have already voted on that application!"
-      else
-        if @charity.approvals.count < 1
-          @charity.approvals << current_user.id
-          @charity.save
+    if current_user && @charity.user.id == current_user.id
+      redirect_back(fallback_location: charity_path(@charity))
+      flash[:warning] = "Sorry, you cannot vote on your own application!"
+    else
+      if @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" )
+        if @charity.approvals.include?(current_user.id.to_s) || @charity.rejections.include?(current_user.id.to_s)
           redirect_back(fallback_location: charity_path(@charity))
-          flash[:notice] = "You have successfully voted to approve this application."
-        elsif @charity.approvals.count >= 1
-          @charity.approvals << current_user.id
-          @charity.update_attributes(final_decision: "Approved")
-          @charity.save
-          redirect_back(fallback_location: charity_path(@charity))
-          flash[:notice] = "That application has been officially approved!"
+          flash[:warning] = "Sorry, you have already voted on that application!"
         else
-          redirect_back(fallback_location: charity_path(@charity))
-          flash[:warning] = "Something went wrong.  Please try your request again later."
+          if @charity.approvals.count < 1
+            @charity.approvals << current_user.id
+            @charity.save
+            redirect_back(fallback_location: charity_path(@charity))
+            flash[:notice] = "You have successfully voted to approve this application."
+          elsif @charity.approvals.count >= 1
+            @charity.approvals << current_user.id
+            @charity.update_attributes(final_decision: "Approved")
+            @charity.save
+            redirect_back(fallback_location: charity_path(@charity))
+            flash[:notice] = "That application has been officially approved!"
+          else
+            redirect_back(fallback_location: charity_path(@charity))
+            flash[:warning] = "Something went wrong.  Please try your request again later."
+          end
         end
       end
     end
@@ -106,25 +127,30 @@ class CharitiesController < ApplicationController
 
   def reject_charity
     @charity = Charity.find(params[:id])
-    if @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" )
-      if @charity.rejections.include?(current_user.id.to_s) || @charity.approvals.include?(current_user.id.to_s)
-        redirect_back(fallback_location: charity_path(@charity))
-        flash[:warning] = "Sorry, you have already voted on that application!"
-      else
-        if @charity.rejections.count < 1
-          @charity.rejections << current_user.id
-          @charity.save
+    if current_user && @charity.user.id == current_user.id
+      redirect_back(fallback_location: charity_path(@charity))
+      flash[:warning] = "Sorry, you cannot vote on your own application!"
+    else
+      if @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" )
+        if @charity.rejections.include?(current_user.id.to_s) || @charity.approvals.include?(current_user.id.to_s)
           redirect_back(fallback_location: charity_path(@charity))
-          flash[:notice] = "You have successfully voted to reject this application."
-        elsif @charity.rejections.count >= 1
-          @charity.rejections << current_user.id
-          @charity.update_attributes(final_decision: "Approved")
-          @charity.save
-          redirect_back(fallback_location: charity_path(@charity))
-          flash[:notice] = "That application has been officially rejected!"
+          flash[:warning] = "Sorry, you have already voted on that application!"
         else
-          redirect_back(fallback_location: charity_path(@charity))
-          flash[:warning] = "Something went wrong.  Please try your request again later."
+          if @charity.rejections.count < 1
+            @charity.rejections << current_user.id
+            @charity.save
+            redirect_back(fallback_location: charity_path(@charity))
+            flash[:notice] = "You have successfully voted to reject this application."
+          elsif @charity.rejections.count >= 1
+            @charity.rejections << current_user.id
+            @charity.update_attributes(final_decision: "Approved")
+            @charity.save
+            redirect_back(fallback_location: charity_path(@charity))
+            flash[:notice] = "That application has been officially rejected!"
+          else
+            redirect_back(fallback_location: charity_path(@charity))
+            flash[:warning] = "Something went wrong.  Please try your request again later."
+          end
         end
       end
     end
@@ -152,7 +178,7 @@ class CharitiesController < ApplicationController
   end
 
   def self_admin_or_committee_if_submitted
-    unless current_user && (@charity.user.id == current_user.id) || (current_user.admin) || (current_user.committee && ( @charity.status == "Submitted to Committee" || @charity.status == "Decision Reached" ))
+    unless (@charity.user.id == current_user.id) || (current_user.admin) || (current_user.committee && ( @charity.status == "Submitted to Committee" || @charity.status == "Decision Reached" ))
       redirect_back(fallback_location: root_path)
       flash[:warning] = "Sorry, you cannot view that application at this time.  If you believe you have gotten this message in error, please contact the system administrator at admin@tocacares.com."
     end
@@ -166,6 +192,6 @@ class CharitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def charity_params
-      params.require(:charity).permit(:full_name, :date, :position, :branch, :start_date, :email_non_toca, :mobile, :address, :city, :state, :zip, :institution_name, :institution_contact, :institution_phone, :institution_address, :requested_amount, :self_fund, :opportunity_description, :intent_signature, :intent_signature_date, :release_signature, :release_signature_date, :status, :final_decision, :returned, :approvals, :rejections, :user_id)
+      params.require(:charity).permit(:application_type, :full_name, :date, :position, :branch, :start_date, :email_non_toca, :mobile, :address, :city, :state, :zip, :institution_name, :institution_contact, :institution_phone, :institution_address, :requested_amount, :self_fund, :opportunity_description, :intent_signature, :intent_signature_date, :release_signature, :release_signature_date, :status, :final_decision, :returned, :approvals, :rejections, :user_id)
     end
 end

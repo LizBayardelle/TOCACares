@@ -1,144 +1,125 @@
-<p id="notice"><%= notice %></p>
+<main class="my-5">
+  <div class="container">
 
-<p>
-  <strong>Full name:</strong>
-  <%= @charity.full_name %>
-</p>
+    <h1 class="text-center">Application for Charity</h1>
 
-<p>
-  <strong>Date:</strong>
-  <%= @charity.date %>
-</p>
+    <p class="text-center">
+      <%= @charity.status %>
+      <% if @charity.returned %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Returned for Modification
+      <% end %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= @charity.final_decision %>
 
-<p>
-  <strong>Position:</strong>
-  <%= @charity.position %>
-</p>
+      <br>
 
-<p>
-  <strong>Branch:</strong>
-  <%= @charity.branch %>
-</p>
+      <%= pluralize(@charity.approvals.count, "Approval") %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= pluralize(@charity.rejections.count, "Rejection") %>
+    </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @charity.start_date %>
-</p>
+    <% if @charity.user == current_user && (@charity.status == "Application Started" || @charity.status == "Application in Progress" || @charity.status == "Returned for Modifications" )%>
+      <div class="text-center mb-4">
+        <%= link_to "Edit", edit_charity_path(@charity), class: "btn btn-md btn-secondary" %>
+      </div>
+    <% end %>
 
-<p>
-  <strong>Email non toca:</strong>
-  <%= @charity.email_non_toca %>
-</p>
+  </div> <!-- container -->
 
-<p>
-  <strong>Mobile:</strong>
-  <%= @charity.mobile %>
-</p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @charity.address %>
-</p>
+  <% unless current_user.committee %>
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Personal Information</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>City:</strong>
-  <%= @charity.city %>
-</p>
+    <div class="container">
+      <section class="my-4">
 
-<p>
-  <strong>State:</strong>
-  <%= @charity.state %>
-</p>
+        <p class="text-center"><em>This section is anonymous to the reviewing committee and can only be seen by the applicant and site administrators.</em></p>
 
-<p>
-  <strong>Zip:</strong>
-  <%= @charity.zip %>
-</p>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="bold">Applicant Information</h4>
+            <p>
+              <span class="bold"><%= @charity.full_name %> (<%= @charity.branch %>)</span><br>
+              <em><%= @charity.position %> (Started <%= @charity.start_date %>)</em><br>
+              <%= mail_to @charity.email_non_toca %><br>
+              <%= number_to_phone(@charity.mobile) %><br>
+              <%= @charity.address %><br>
+              <%= @charity.city %>, <%= @charity.state %> &nbsp;<%= @charity.zip %>
+            </p>
+          </div> <!-- col-md-6 -->
+          <div class="col-md-6">
+            <h4 class="bold">Charity Information</h4>
+            <p>
+              <strong>Charity Name:</strong> <%= @charity.institution_name %><br>
+              <strong>Charity Contact Person:</strong> <%= @charity.institution_contact %><br>
+              <strong>Charity Phone:</strong> <%= number_to_phone(@charity.institution_phone) %><br>
+              <strong>Charity Address:</strong> <%= @charity.institution_address %>
+            </p>
+          </div> <!-- col-md-6 -->
+        </div> <!-- row -->
 
-<p>
-  <strong>Institution name:</strong>
-  <%= @charity.institution_name %>
-</p>
+        <h4 class="bold">Application Information</h4>
+        <p><strong>Application Date:</strong> <%= @charity.date %></p>
 
-<p>
-  <strong>Institution contact:</strong>
-  <%= @charity.institution_contact %>
-</p>
+      </section> <!-- personal info section -->
+    </div> <!-- container -->
+  <% end %> <!-- hidden to committee -->
 
-<p>
-  <strong>Institution phone:</strong>
-  <%= @charity.institution_phone %>
-</p>
+  <section class="my-4">
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Charity Information</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-<p>
-  <strong>Institution address:</strong>
-  <%= @charity.institution_address %>
-</p>
+    <div class="container">
 
-<p>
-  <strong>Requested amount:</strong>
-  <%= @charity.requested_amount %>
-</p>
+      <% unless current_user && current_user.committee %>
+        <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
+      <% end %>
 
-<p>
-  <strong>Self fund:</strong>
-  <%= @charity.self_fund %>
-</p>
+      <p><strong>Requested Amount:</strong>
+        <%= number_to_currency(@charity.requested_amount, unit: "$") %>
+      </p>
 
-<p>
-  <strong>Opportunity description:</strong>
-  <%= @charity.opportunity_description %>
-</p>
+      <p><strong>Amount Applicant Can Self-Fund:</strong>
+        <%= number_to_currency(@charity.self_fund, unit: "$") %>
+      </p>
 
-<p>
-  <strong>Intent signature:</strong>
-  <%= @charity.intent_signature %>
-</p>
+      <p>
+        <%= @charity.opportunity_description %>
+      </p>
+    </div> <!-- container -->
+  </section> <!-- charity section -->
 
-<p>
-  <strong>Intent signature date:</strong>
-  <%= @charity.intent_signature_date %>
-</p>
 
-<p>
-  <strong>Release signature:</strong>
-  <%= @charity.release_signature %>
-</p>
+  <% if current_user && current_user.committee && @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" ) %>
+    <section class="my4">
+      <div class="bg-toca-red mb-3 px-5 py-3">
+        <div class="container">
+          <h2 class="color-white toca-uppercase">Application Actions</h2>
+        </div> <!-- container -->
+      </div> <!-- red stripe -->
 
-<p>
-  <strong>Release signature date:</strong>
-  <%= @charity.release_signature_date %>
-</p>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-4">
+            <%= button_to "Approve Application", approve_charity_path(@charity), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+          <div class="col-sm-4">
+            <%= button_to "Request Modification", approve_charity_path(@charity), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+          <div class="col-sm-4">
+            <%= button_to "Reject Application", reject_charity_path(@charity), method: :post, data: { confirm: "Are you sure you want to reject this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+          </div> <!-- col -->
+        </div> <!-- row -->
+      </div> <!-- container -->
+    </section>
+  <% end %> <!-- committee only for decisions -->
 
-<p>
-  <strong>Status:</strong>
-  <%= @charity.status %>
-</p>
-
-<p>
-  <strong>Final decision:</strong>
-  <%= @charity.final_decision %>
-</p>
-
-<p>
-  <strong>Returned:</strong>
-  <%= @charity.returned %>
-</p>
-
-<p>
-  <strong>Approvals:</strong>
-  <%= @charity.approvals %>
-</p>
-
-<p>
-  <strong>Rejections:</strong>
-  <%= @charity.rejections %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @charity.user %>
-</p>
-
-<%= link_to 'Edit', edit_charity_path(@charity) %> |
-<%= link_to 'Back', charities_path %>
+</main>

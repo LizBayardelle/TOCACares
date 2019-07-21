@@ -3,15 +3,9 @@
 
     <h1 class="text-center">Hardship Applications</h1>
 
-    <hr class="my-4"
-
-    <h3>ADD THOSE NEEDING YOUR VOTE HERE</h3>
-
-    <hr class="my-4"
-
-    <section>
+    <section class="mt-5">
       <h2 class="toca-uppercase color-toca-red" id="submitted-heading"><%= pluralize(@undecided.count, "Undecided Application") %></h2>
-      <div id="undecided">
+      <div id="undecided" class="hidden">
         <% if @undecided.count >= 1 %>
           <div class="table-responsive">
             <table class="table table-striped">
@@ -23,30 +17,30 @@
                 </tr>
               </thead>
               <tbody>
-                <% @undecided.each do |hardship| %>
+                <% @undecided.each do |application| %>
                   <tr>
                     <td>
-                      <%= link_to hardship_path(hardship) do %>
-                        Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.date %>)
+                      <%= link_to hardship_path(application) do %>
+                        Hardship <%= fixed_digit_number(application.id) %> (<%= application.date %>)
                       <% end %>
                     </td>
-                    <td><%= number_to_currency(hardship.requested_amount, unit: "$") %></td>
+                    <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
                     <td>
-                      <%= hardship.status %>
+                      <%= application.status %>
                       <br>
-                      <%= pluralize(hardship.approvals.count, "Approval") %><br>
-                      <%= pluralize(hardship.rejections.count, "Rejection") %>
+                      <%= pluralize(application.approvals.count, "Approval") %><br>
+                      <%= pluralize(application.rejections.count, "Rejection") %>
                     </td>
                   </tr>
-                <% end %> <!-- hardships each -->
+                <% end %> <!-- applications each -->
               </tbody>
             </table>
           </div> <!-- responsive table -->
-        <% end %> <!-- if hardships.count >= 1 -->
-      </div> <!-- undecided hardships container -->
-    </section> <!-- undecided hardships -->
+        <% end %> <!-- if applications.count >= 1 -->
+      </div> <!-- undecided applications container -->
+    </section> <!-- undecided applications -->
 
-    <section>
+    <section class="mt-5">
       <h2 class="toca-uppercase color-toca-red" id="approved-heading"><%= pluralize(@approved.count, "Approved Application") %></h2>
       <div id="approved" class="hidden">
         <% if @approved.count >= 1 %>
@@ -60,33 +54,33 @@
                 </tr>
               </thead>
               <tbody>
-                <% @approved.each do |hardship| %>
+                <% @approved.each do |application| %>
                   <tr>
                     <td>
-                      <%= link_to hardship_path(hardship) do %>
-                        Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.date %>)
+                      <%= link_to hardship_path(application) do %>
+                        Hardship <%= fixed_digit_number(application.id) %> (<%= application.date %>)
                       <% end %>
                     </td>
-                    <td><%= number_to_currency(hardship.requested_amount, unit: "$") %></td>
+                    <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
                     <td>
-                      <%= hardship.status %>
+                      <%= application.status %>
                       <br>
-                      <% if hardship.final_decision %>
-                        <%= hardship.final_decision %>
+                      <% if application.final_decision %>
+                        <%= application.final_decision %>
                       <% else %>
                         Not Yet Decided
                       <% end %>
                     </td>
                   </tr>
-                <% end %> <!-- hardships each -->
+                <% end %> <!-- applications each -->
               </tbody>
             </table>
           </div> <!-- responsive table -->
-        <% end %> <!-- if hardships.count >= 1 -->
-      </div> <!-- approved hardships container -->
-    </section> <!-- approved hardships -->
+        <% end %> <!-- if applications.count >= 1 -->
+      </div> <!-- approved applications container -->
+    </section> <!-- approved applications -->
 
-    <section>
+    <section class="my-5">
       <h2 class="toca-uppercase color-toca-red" id="rejected-heading"><%= pluralize(@rejected.count, "Rejected Application") %></h2>
       <div id="rejected" class="hidden">
         <% if @rejected.count >= 1 %>
@@ -100,31 +94,31 @@
                 </tr>
               </thead>
               <tbody>
-                <% @rejected.each do |hardship| %>
+                <% @rejected.each do |application| %>
                   <tr>
                     <td>
-                      <%= link_to hardship_path(hardship) do %>
-                        Hardship <%= fixed_digit_number(hardship.id) %> (<%= hardship.date %>)
+                      <%= link_to hardship_path(application) do %>
+                        Hardship <%= fixed_digit_number(application.id) %> (<%= application.date %>)
                       <% end %>
                     </td>
-                    <td><%= number_to_currency(hardship.requested_amount, unit: "$") %></td>
+                    <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
                     <td>
-                      <%= hardship.status %>
+                      <%= application.status %>
                       <br>
-                      <% if hardship.final_decision %>
-                        <%= hardship.final_decision %>
+                      <% if application.final_decision %>
+                        <%= application.final_decision %>
                       <% else %>
                         Not Yet Decided
                       <% end %>
                     </td>
                   </tr>
-                <% end %> <!-- hardships each -->
+                <% end %> <!-- applications each -->
               </tbody>
             </table>
           </div> <!-- responsive table -->
-        <% end %> <!-- if hardships.count >= 1 -->
-      </div> <!-- hardships container -->
-    </section> <!-- rejected hardships -->
+        <% end %> <!-- if applications.count >= 1 -->
+      </div> <!-- applications container -->
+    </section> <!-- rejected applications -->
 
 
   </div> <!-- container -->
