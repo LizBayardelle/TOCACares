@@ -3,26 +3,114 @@
 
     <h1 class="text-center">Users</h1>
 
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead class="black white-text">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |user| %>
+    <section class="my-5">
+      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@committee_requests.count, "Committee Request") %></h2>
+      <ul class="list-group">
+        <% @committee_requests.each do |user| %>
+          <li class="list-group-item"><%= user.last_name %>, <%= user.first_name %>
+            ( <%= button_to "Approve", make_committee_path(user), class: "not-button", method: :post, confirm: "Are you sure you want to approve that committee request?" %> | <%= button_to "Deny", deny_committee_path(user), class: "not-button", method: :post, confirm: "Are you sure you want to deny that committee request?" %> )</li>
+        <% end %>
+      </ul>
+    </section> <!-- contributor requests -->
+
+    <section class="my-5">
+      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@admin.count, "Admin") %></h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="black white-text">
             <tr>
-              <td><%= user.id %></td>
-              <td><%= user.last_name %>, <%= user.first_name %></td>
-              <td><%= user.email %></td>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div> <!-- responsive table -->
+          </thead>
+          <tbody>
+            <% @admin.each do |user| %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.last_name %>, <%= user.first_name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <%= link_to "Remove as Admin", remove_admin_path(user), method: :post, confirm: "Are you sure you want to remove this user as an admin?" %><br>
+                  <% if user.committee %>
+                    <%= link_to "Remove from Committee", remove_committee_path(user), method: :post, confirm: "Are you sure you want to remove this user as a committee member?" %>
+                  <% else %>
+                    <%= link_to "Add to Committee", make_committee_path(user), method: :post, confirm: "Are you sure you want to make this user a committee member?" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> <!-- responsive table -->
+    </section> <!-- admin -->
+
+
+    <section class="my-5">
+      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@committee.count, "Committee Member") %></h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="black white-text">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @committee.each do |user| %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.last_name %>, <%= user.first_name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <% if user.admin %>
+                    <%= link_to "Remove as Admin", remove_admin_path(user), method: :post, confirm: "Are you sure you want to remove this user as an admin?" %><br>
+                  <% else %>
+                    <%= link_to "Make Admin", make_admin_path(user), method: :post, confirm: "Are you sure you want to make this user an admin?" %><br>
+                  <% end %>
+                  <%= link_to "Remove from Committee", remove_committee_path(user), method: :post, confirm: "Are you sure you want to remove this user as a committee member?" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> <!-- responsive table -->
+    </section> <!-- committee -->
+
+
+    <section class="my-5">
+      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@members.count, "Member") %></h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="black white-text">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @members.each do |user| %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.last_name %>, <%= user.first_name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <%= link_to "Make Admin", make_admin_path(user), method: :post, confirm: "Are you sure you want to make this user an admin?" %><br>
+                  <%= link_to "Add to Committee", make_committee_path(user), method: :post, confirm: "Are you sure you want to make this user a committee member?" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> <!-- responsive table -->
+    </section> <!-- members -->
+
+
 
   </div> <!-- container -->
 </main>

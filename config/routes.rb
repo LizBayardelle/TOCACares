@@ -5,6 +5,12 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :index]
+  post "users/:id/make_admin" => "users#make_admin", as: "make_admin"
+  post "users/:id/make_committee" => "users#make_committee", as: "make_committee"
+  post "users/:id/remove_admin" => "users#remove_admin", as: "remove_admin"
+  post "users/:id/remove_committee" => "users#remove_committee", as: "remove_committee"
+  post "users/:id/committee_request" => "users#committee_request", as: "committee_request"
+  post "users/:id/deny_committee" => "users#deny_committee", as: "deny_committee"
 
   resources :hardships
   post "hardships/:id/withdraw_hardship" => "hardships#withdraw_hardship", as: "withdraw_hardship"

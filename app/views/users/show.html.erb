@@ -25,19 +25,16 @@
         <%= @user.first_name %> <%= @user.last_name %> (<%= @user.location %>)<br>
         <%= number_to_phone(@user.phone) %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= mail_to @user.email %>
       </p>
+    </section> <!-- user info -->
 
-      <!-- <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3> -->
-    </section> <!-- mission description -->
-
-    <hr class="my-4">
-
-    <% if @user.admin || @user.committee %>
+    <% if @user.committee %>
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
       <%= link_to home_pending_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
         All Applications Needing Votes
       <% end %>
     <% end %>
     <% if @user.admin %>
+      <h2 class="text-center toca-uppercase color-toca-red mt-5">Admin Actions</h2>
       <div class="row">
         <div class="col-md-4 py-2">
           <%= link_to scholarships_path, class: "btn btn-primary btn-lg btn-block" do %>
@@ -56,11 +53,14 @@
         </div> <!-- col -->
       </div> <!-- row -->
 
-      <hr class="my-4">
+      <%= link_to users_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        Manage Users
+      <% end %>
     <% end %>
 
+
     <% if @scholarships.count >= 1 %>
-      <section> <!-- scholarship applications -->
+      <section class="my-5"> <!-- scholarship applications -->
         <h2 class="text-center toca-uppercase color-toca-red mt-5">My Scholarship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
@@ -106,7 +106,7 @@
 
 
     <% if @hardships.count >= 1 %>
-      <section> <!-- hardship applications -->
+      <section class="my-5"> <!-- hardship applications -->
         <h2 class="text-center toca-uppercase color-toca-red mt-4">My Hardship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
@@ -152,7 +152,7 @@
 
 
     <% if @charities.count >= 1 %>
-      <section> <!-- charity applications -->
+      <section class="mt-5"> <!-- charity applications -->
         <h2 class="text-center toca-uppercase color-toca-red mt-4">My Charity Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
@@ -194,6 +194,16 @@
         </div> <!-- responsive table -->
       </section> <!-- charities -->
     <% end %> <!-- if charities.count >= 1 -->
+
+    <% if @user.committee == false %>
+      <div class="text-center mb-5">
+        <% if @user.committee_request == "Requested" %>
+          <p><em>You have already requested to be a member of the deciding committee.</em></p>
+        <% else %>
+            <p><em>Please click <%= link_to "here", committee_request_path(@user), method: :post %> to request to serve as a deciding committee member.</em></p>
+        <% end %>
+      </div> <!-- committee request -->
+    <% end %>
 
   </div> <!-- container -->
 </main>
