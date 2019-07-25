@@ -43,35 +43,6 @@
            <div class="col-lg-4 mb-4">
                <div class="card">
                    <div class="view overlay"> <!-- image -->
-                       <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
-                       <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
-                           <div class="mask rgba-white-slight"></div>
-                       </a>
-                   </div>
-                   <div class="card-body h-100">
-                       <!--Title-->
-                       <h4 class="card-title toca-uppercase">Scholarship</h4>
-                       <!--Text-->
-                       <h5 class="card-quote color-toca-red">
-                         Knowledge is a weapon. I intend to be formidably armed.
-                         <br><em><small>―Terry Goodkind</small></em>
-                       </h5>
-                       <p class="card-text">
-                         We can always grow and improve.  TOCA Cares will pay up to 80% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
-                       <br><br>
-                         Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
-                       </p>
-                       <%= link_to new_scholarship_path, class: "btn btn-primary btn-lg" do %>
-                          Apply Now
-                       <% end %>
-                     </div>
-               </div> <!-- card -->
-           </div> <!--Grid column-->
-           <!--Grid column-->
-
-           <div class="col-lg-4 mb-4">
-               <div class="card">
-                   <div class="view overlay"> <!-- image -->
                        <%= image_tag "hardship.jpg", class: "card-img-top", alt: "Young man trying to fix a broken down car." %>
                        <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
                            <div class="mask rgba-white-slight"></div></a>
@@ -94,6 +65,35 @@
                   </div>
                </div> <!-- card -->
            </div> <!--Grid column-->
+
+           <div class="col-lg-4 mb-4">
+             <div class="card">
+               <div class="view overlay"> <!-- image -->
+                 <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
+                 <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
+                   <div class="mask rgba-white-slight"></div>
+                 </a>
+               </div>
+               <div class="card-body h-100">
+                 <!--Title-->
+                 <h4 class="card-title toca-uppercase">Scholarship</h4>
+                 <!--Text-->
+                 <h5 class="card-quote color-toca-red">
+                   Knowledge is a weapon. I intend to be formidably armed.
+                   <br><em><small>―Terry Goodkind</small></em>
+                 </h5>
+                 <p class="card-text">
+                   We can always grow and improve.  TOCA Cares will pay up to 80% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
+                   <br><br>
+                   Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
+                 </p>
+                 <%= link_to new_scholarship_path, class: "btn btn-primary btn-lg" do %>
+                 Apply Now
+                 <% end %>
+               </div>
+             </div> <!-- card -->
+           </div> <!--Grid column-->
+           <!--Grid column-->
 
            <!--Grid column-->
            <div class="col-lg-4 mb-4">
