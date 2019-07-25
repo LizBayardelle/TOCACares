@@ -27,5 +27,6 @@ Rails.application.routes.draw do
   post "scholarships/:id/approve_scholarship" => "scholarships#approve_scholarship", as: "approve_scholarship"
   post "scholarships/:id/reject_scholarship" => "scholarships#reject_scholarship", as: "reject_scholarship"
 
+  resources :modifications
 
 end

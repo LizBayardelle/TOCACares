@@ -141,14 +141,79 @@
             <%= button_to "Approve Application", approve_hardship_path(@hardship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
           </div> <!-- col -->
           <div class="col-sm-4">
-            <%= button_to "Request Modification", approve_hardship_path(@hardship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+            <button type="button" class="btn btn-light btn-lg mx-2 my-2" data-toggle="modal" data-target="#newModificationModal">
+              Suggest Modification
+            </button>
           </div> <!-- col -->
           <div class="col-sm-4">
             <%= button_to "Reject Application", reject_hardship_path(@hardship), method: :post, data: { confirm: "Are you sure you want to reject this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
           </div> <!-- col -->
         </div> <!-- row -->
       </div> <!-- container -->
+
+      <div class="container pt-4">
+        <h3 class="toca-uppercase color-toca-red">Proposed Modifications</h3>
+        <ul>
+          <% @modifications.each do |m| %>
+            <li><%= m.body %></li>
+          <% end %>
+        </ul>
+      </div> <!-- container -->
+
     </section>
   <% end %> <!-- committee only for decisions -->
 
 </main>
+
+
+
+
+
+
+
+
+<!-- Central Modal Small -->
+<div class="modal fade" id="newModificationModal" tabindex="-1" role="dialog" aria-labelledby="newModificationModal"
+  aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-fluid" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Suggest a Modification</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= simple_form_for @new_modification, class: "text-center py-4 mb-5" do |form| %>
+        <div class="modal-body">
+          <% if @new_modification.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@new_modification.errors.count, "error") %> prohibited this modification from being saved:</h2>
+
+              <ul>
+              <% @new_modification.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= form.text_area :body, class: "form-control mb-4", placeholder: "What does the applicant need to change in their application?", required: true %>
+          </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <div class="actions">
+          <%= form.button :submit, "Submit Modification", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>  <!-- end of form -->
+    </div>
+  </div>
+</div>
+<!-- Central Modal Small -->

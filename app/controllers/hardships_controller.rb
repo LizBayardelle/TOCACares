@@ -20,7 +20,8 @@ class HardshipsController < ApplicationController
   # GET /hardships/1
   # GET /hardships/1.json
   def show
-
+    @new_modification = Modification.new
+    @modifications = @hardship.modifications
   end
 
   # GET /hardships/new

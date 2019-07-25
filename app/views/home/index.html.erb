@@ -1,18 +1,40 @@
 <main>
 
-  <div class="card card-image" style="background-image: url(https://tocacares.s3-us-west-1.amazonaws.com/feet-around-ball.jpg);">
+  <div class="card card-image" style="background-image: url(https://tocacares.s3-us-west-1.amazonaws.com/feet-around-ball.jpg);background-repeat: no-repeat; background-size: cover;">
     <div class="text-white text-center rgba-black-strong py-5 px-4">
       <div>
         <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "pt-5 mb-5" %>
         <div class="row justify-content-center">
-          <p class="mx-5 mb-5 col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
-            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos. Odit sed qui, dolorum!
-          </p>
+          <div class="container">
+            <p class="h5 text-left thin mb-3">
+              The employees and shareholders of TOCA have established this fund to:
+              <ul class="text-left h5 thin">
+                <li class="mb-1"><strong>Support</strong> each other in times of financial stress</li>
+                <li class="mb-1">Encourage each other to further our <strong>education</strong></li>
+                <li>Reach out to our local community through involvement with and giving to <strong>charity</strong></li>
+              </ul>
+            </p>
+            <div class="thin-white-box my-5 px-5 py-3">
+              <p class="h5">
+                By participating in this program, you have made a commitment to strengthen and value your&nbsp;teammates.
+              </p>
+            </div>
+            <p class="h5 thin mb-5">
+              Explore how this works and feel the love.
+            </p>
+          </div> <!-- container -->
         </div> <!-- row -->
         <%= link_to page_path(:apply), class: "btn btn-secondary btn-lg" do %>Apply Now<% end %>
       </div>
     </div>
   </div>
+
+  <section class="container mt-5 px-3 text-center">
+    <h2>
+      The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
+      <br><em><small>―Phil Jackson</small></em>
+    </h2>
+  </section>
 
   <div class="container">
      <section class="text-center">
@@ -30,7 +52,15 @@
                        <!--Title-->
                        <h4 class="card-title toca-uppercase">Scholarship</h4>
                        <!--Text-->
-                       <p class="card-text">Donec blandit quam ac ante imperdiet posuere. Ut et nisi dictum nibh ornare iaculis in at elit. Phasellus vitae vulputate enim.</p>
+                       <h5 class="card-quote color-toca-red">
+                         Knowledge is a weapon. I intend to be formidably armed.
+                         <br><em><small>―Terry Goodkind</small></em>
+                       </h5>
+                       <p class="card-text">
+                         We can always grow and improve.  TOCA Cares will pay up to 80% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
+                       <br><br>
+                         Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
+                       </p>
                        <%= link_to new_scholarship_path, class: "btn btn-primary btn-lg" do %>
                           Apply Now
                        <% end %>
@@ -49,8 +79,15 @@
                    <div class="card-body h-100">
                        <!--Title-->
                        <h4 class="card-title toca-uppercase">Hardship</h4>
-                       <!--Text-->
-                       <p class="card-text">Vivamus condimentum ultrices magna, a lobortis justo tincidunt sed. Donec vitae mattis lectus.</p>
+                       <h5 class="card-quote color-toca-red">
+                         When the going gets tough – the tough get going!
+                         <br><em><small>―John Belushi</small></em>
+                       </h5>
+                       <p class="card-text">
+                         78% of U.S. workers are living paycheck to paycheck. Unexpected financial challenges can cause good people to go tilt.
+                         <br><br>
+                         TOCACares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
+                       </p>
                        <%= link_to new_hardship_path, class: "btn btn-primary btn-lg" do %>
                           Apply Now
                        <% end %>
@@ -70,8 +107,15 @@
                    <div class="card-body">
                        <!--Title-->
                        <h4 class="card-title toca-uppercase">Charity</h4>
-                       <!--Text-->
-                       <p class="card-text">Quisque gravida leo lorem, sit amet dignissim risus laoreet quis. Quisque ultricies magna quis volutpat porttitor. </p>
+                       <h5 class="card-quote color-toca-red">
+                         Service to others is the rent you pay for your room here on earth.
+                         <br><em><small>―Mohammed Ali</small></em>
+                       </h5>
+                       <p class="card-text">
+                         Our team is going to positively impact each community we touch.  TOCACares wants to support your involvement in local charities.
+                         <br><br>
+                         If you have an idea of how to work with registered charities, TOCACares will pay 80% of your costs or in some case make direct contributions.
+                       </p>
                        <%= link_to new_charity_path, class: "btn btn-primary btn-lg" do %>
                         Apply Now
                        <% end %>
@@ -91,6 +135,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
      $('.card-img-top').matchHeight();
+     $('.card-quote').matchHeight();
      $('.card-text').matchHeight();
    });
 </script>

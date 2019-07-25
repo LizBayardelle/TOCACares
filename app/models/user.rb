@@ -4,4 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :hardships
+  has_many :charities
+  has_many :scholarships
+  has_many :modifications
 end

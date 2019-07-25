@@ -1,0 +1,22 @@
+<%= simple_form_for modification, class: "text-center py-4 mb-5" do |form| %>
+  <% if modification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(modification.errors.count, "error") %> prohibited this modification from being saved:</h2>
+
+      <ul>
+      <% modification.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_area :body, class: "form-control mb-4", placeholder: "What does the applicant need to change in their application?", required: true %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.button :submit, "Submit Modification", class: "btn btn-primary" %>
+  </div>
+<% end %>  <!-- end of form -->

@@ -82,6 +82,8 @@ td a {
 }
 
 .bold, strong { font-weight: bold; }
+.not-bold { font-weight: 400; }
+.thin { font-weight: 200; }
 
 
 
@@ -100,7 +102,7 @@ td a {
 .non-footer { min-height: calc(100vh - 122px) }
 
 .btn-primary  { background-color: $color-toca-red; }
-.btn-secondary  { background-color: $color-toca-green; }
+.btn-secondary  { background-color: $color-toca-green; color: black !important; }
 .btn-light { background-color: $color-light-grey; }
 
 * { border-radius: 0px !important; }
@@ -119,9 +121,11 @@ form.button_to {
   padding: 0;
 }
 
+img { max-width: 100%; }
 
+.startHidden { display: none; }
 
-
+.thin-white-box { border: thin white solid; }
 
 
 
