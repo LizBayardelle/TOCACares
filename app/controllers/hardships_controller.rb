@@ -21,7 +21,7 @@ class HardshipsController < ApplicationController
   # GET /hardships/1.json
   def show
     @new_modification = Modification.new
-    @modifications = @hardship.modifications
+    @modifications = Modification.where(app_type: "hardship", app_id: @hardship.id, superseded: false)
   end
 
   # GET /hardships/new
@@ -39,6 +39,7 @@ class HardshipsController < ApplicationController
     @hardship = Hardship.new(hardship_params)
     @hardship.user_id = current_user.id
     @hardship.status = params[:status]
+    @hardship.application_type = "hardship"
 
     respond_to do |format|
       if @hardship.save

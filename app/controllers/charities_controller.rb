@@ -19,6 +19,8 @@ class CharitiesController < ApplicationController
   # GET /charities/1
   # GET /charities/1.json
   def show
+    @new_modification = Modification.new
+    @modifications = Modification.where(app_type: "charity", app_id: @charity.id, superseded: false)
   end
 
   # GET /charities/new
@@ -36,6 +38,7 @@ class CharitiesController < ApplicationController
     @charity = Charity.new(charity_params)
     @charity.user_id = current_user.id
     @charity.status = params[:status]
+    @charity.application_type = "charity"
 
     respond_to do |format|
       if @charity.save

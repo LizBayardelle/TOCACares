@@ -1,9 +1,35 @@
 <main class="mt-5">
   <div class="container">
 
-    <h1 class="text-center mb-3">Complete Your Hardship Application</h1>
+    <% if current_user && @hardship.user && @hardship.status == "Returned for Modifications" %>
 
-    <%= render 'form', hardship: @hardship %>
+      <h1 class="text-center mb-3">Complete Your Hardship Application</h1>
+
+
+      <section class="my-4 pb-5">
+        <div class="bg-toca-red mb-3 px-5 py-3">
+          <div class="container">
+            <h2 class="color-white toca-uppercase">Requested Modifications</h2>
+          </div> <!-- container -->
+        </div> <!-- red stripe -->
+
+        <div class="container">
+          <% @modifications.each do |m| %>
+            <p><%= m.body %></p>
+          <% end %>
+      </section>
+
+      <%= render 'form', hardship: @hardship %>
+
+
+
+    <% else %> <!-- if not modified... -->
+
+      <h1 class="text-center mb-3">Complete Your Hardship Application</h1>
+
+      <%= render 'form', hardship: @hardship %>
+
+    <% end %>
 
   </div> <!-- container -->
 </main>

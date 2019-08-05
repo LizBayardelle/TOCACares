@@ -1,5 +1,5 @@
 <main class="mt-5">
-  <div class="container">
+  <div class="container-fluid">
 
     <h1 class="text-center">Testimonials</h1>
 
@@ -16,7 +16,63 @@
 
     <div class="row text-center">
 
-      <div class="col-lg-4 mb-md-0 mb-5">
+
+
+
+      <div class="col-lg-4 mb-md-0 mb-5"> <!-- hardship -->
+
+        <div class="testimonial">
+          <h3 class="font-weight-bold color-toca-red toca-uppercase my-4">Hardship</h3>
+          <div class="row">
+            <div class="col-sm-4 col-lg-12">
+              <div class="avatar mx-auto mb-3">
+                <%= image_tag "hardship.jpg", class: "z-depth-1 img-fluid",  style: "max-width: 100%", alt: "Young man bent over a broken-down car." %>
+              </div> <!-- avatar -->
+            </div> <!-- column -->
+            <div class="col-sm-8 col-lg-12 text-left">
+              <h6 class="font-weight-bold color-black toca-uppercase mt-3">Legal Assistance</h6>
+              <p class="font-weight-normal dark-grey-text">
+                <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                When TOCA offered assistance to me during a very rough period in my life, I not only had the peace of mind that I was going to be ok and would get past this, but it also gave me the comfort of knowing that TOCA had my back; they were there to pick me up and help me move forward. I am blessed to work for a company that feels like a second family to me.
+                <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+              </p>
+            </div> <!-- column -->
+          </div> <!-- row -->
+        </div> <!-- testimonial -->
+
+        <div class="single-news text-left mb-3">
+          <div class="d-flex justify-content-between">
+            <div class="col-11 text-truncate pl-0 mb-3">
+              <a>Another testimonial.</a>
+            </div>
+            <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
+          </div>
+        </div> <!-- Small news -->
+
+        <div class="single-news text-left mb-3">
+          <div class="d-flex justify-content-between">
+            <div class="col-11 text-truncate pl-0 mb-3">
+              <a>More testimonials</a>
+            </div>
+            <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
+          </div>
+        </div> <!-- Small news -->
+
+        <div class="single-news text-left mb-3">
+          <div class="d-flex justify-content-between">
+            <div class="col-11 text-truncate pl-0 mb-3">
+              <a>And so on</a>
+            </div>
+            <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
+          </div>
+        </div> <!-- Small news -->
+
+      </div> <!-- end hardship -->
+
+
+
+
+      <div class="col-lg-4 mb-md-0 mb-5"> <!-- scholarship -->
         <div class="testimonial">
             <h3 class="font-weight-bold color-toca-red toca-uppercase my-4">Scholarship</h3>
             <div class="row">
@@ -63,67 +119,12 @@
             </div>
           </div> <!-- Small news -->
 
-          <div class="text-center mb-5">
-            <%= link_to "Apply Now", new_scholarship_path, class: "btn btn-primary" %>
-          </div> <!-- center for button -->
+        </div> <!--  scholarship  -->
 
-        </div> <!--Grid column-->
 
-        <div class="col-lg-4 mb-md-0 mb-5">
 
-          <div class="testimonial">
-            <h3 class="font-weight-bold color-toca-red toca-uppercase my-4">Hardship</h3>
-            <div class="row">
-              <div class="col-sm-4 col-lg-12">
-                <div class="avatar mx-auto mb-3">
-                  <%= image_tag "hardship.jpg", class: "z-depth-1 img-fluid",  style: "max-width: 100%", alt: "Young man bent over a broken-down car." %>
-                </div> <!-- avatar -->
-              </div> <!-- column -->
-              <div class="col-sm-8 col-lg-12 text-left">
-                <h6 class="font-weight-bold color-black toca-uppercase mt-3">Legal Assistance</h6>
-                <p class="font-weight-normal dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
-                  When TOCA offered assistance to me during a very rough period in my life, I not only had the peace of mind that I was going to be ok and would get past this, but it also gave me the comfort of knowing that TOCA had my back; they were there to pick me up and help me move forward. I am blessed to work for a company that feels like a second family to me.
-                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
-                </p>
-              </div> <!-- column -->
-            </div> <!-- row -->
-          </div> <!-- testimonial -->
 
-            <div class="single-news text-left mb-3">
-              <div class="d-flex justify-content-between">
-                <div class="col-11 text-truncate pl-0 mb-3">
-                  <a>Another testimonial.</a>
-                </div>
-                <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
-              </div>
-            </div> <!-- Small news -->
-
-            <div class="single-news text-left mb-3">
-              <div class="d-flex justify-content-between">
-                <div class="col-11 text-truncate pl-0 mb-3">
-                  <a>More testimonials</a>
-                </div>
-                <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
-              </div>
-            </div> <!-- Small news -->
-
-            <div class="single-news text-left mb-3">
-              <div class="d-flex justify-content-between">
-                <div class="col-11 text-truncate pl-0 mb-3">
-                  <a>And so on</a>
-                </div>
-                <a><i class="color-toca-green fas fa-angle-double-right"></i></a>
-              </div>
-            </div> <!-- Small news -->
-
-            <div class="text-center mb-5">
-              <%= link_to "Apply Now", new_hardship_path, class: "btn btn-primary" %>
-            </div> <!-- center for button -->
-
-        </div> <!--Grid column-->
-
-        <div class="col-lg-4 mb-md-0 mb-5">
+        <div class="col-lg-4 mb-md-0 mb-5"> <!-- charity -->
 
           <div class="testimonial">
             <h3 class="font-weight-bold color-toca-red toca-uppercase my-4">Charity</h3>
@@ -134,10 +135,10 @@
                 </div> <!-- avatar -->
               </div> <!-- column -->
               <div class="col-sm-8 col-lg-12 text-left">
-                <h6 class="font-weight-bold color-black toca-uppercase mt-3">Example 3</h6>
+                <h6 class="font-weight-bold color-black toca-uppercase mt-3">Special Olympics</h6>
                 <p class="font-weight-normal dark-grey-text">
                   <i class="fas fa-quote-left pr-2 color-toca-red"></i>
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
+                  Until I started working with the Special Olympics, I didn't understand the value for me and my community of charitable work.
                   <i class="fas fa-quote-right pl-2 color-toca-red"></i>
                 </p>
               </div> <!-- column -->
@@ -171,11 +172,9 @@
             </div>
           </div> <!-- Small news -->
 
-          <div class="text-center mb-5">
-            <%= link_to "Apply Now", new_charity_path, class: "btn btn-primary" %>
-          </div> <!-- center for button -->
+        </div> <!--  end charity  -->
 
-        </div> <!--Grid column-->
+
 
       </div> <!--Grid row-->
 

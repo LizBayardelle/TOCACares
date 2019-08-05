@@ -28,7 +28,7 @@
   </div> <!-- container -->
 
 
-  <% unless current_user.committee %>
+  <% unless current_user.committee && current_user != @scholarship.user %>
     <div class="bg-toca-red mb-3 px-5 py-3">
       <div class="container">
         <h2 class="color-white toca-uppercase">Personal Information</h2>
@@ -98,6 +98,30 @@
   </section> <!-- scholarship section -->
 
 
+
+  <% if current_user && @scholarship.user && @scholarship.status == "Returned for Modifications" %>
+    <section class="my-4 pb-5">
+      <div class="bg-toca-red mb-3 px-5 py-3">
+        <div class="container">
+          <h2 class="color-white toca-uppercase">Requested Modifications</h2>
+        </div> <!-- container -->
+      </div> <!-- red stripe -->
+
+      <div class="container">
+        <% @modifications.each do |m| %>
+          <p><%= m.body %></p>
+        <% end %>
+        <div class="text-center">
+          <%= link_to "Modify My Application Now", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary" %>
+        </div>
+      </div> <!-- container -->
+    </section>
+  <% end %> <!-- committee only for decisions -->
+
+
+
+
+
   <% if current_user && current_user.committee && @scholarship.status == "Submitted to Committee" && ( @scholarship.final_decision == "Not Decided" || @scholarship.final_decision == "Modifications Requested" ) %>
     <section class="my4">
       <div class="bg-toca-red mb-3 px-5 py-3">
@@ -106,13 +130,36 @@
         </div> <!-- container -->
       </div> <!-- red stripe -->
 
+
+      <% if @modifications.count > 0 %>
+        <div class="container py-3">
+          <h3 class="toca-uppercase color-toca-red">Proposed Modifications</h3>
+          <p class="color-dark-grey"><em>
+            Seconding a proposed modification will remove this application from consideration and send it back to the applicant for revision.
+          </em></p>
+            <% @modifications.each do |m| %>
+              <div>
+                <% if m.user_id == current_user.id %>
+                  <%= button_to "Your Own Modification", second_modification_path(m), class: "btn btn-sm mr-3 btn-light" %>
+                <% else %>
+                  <%= button_to "Second This Modification", second_modification_path(m), class: "btn btn-sm mr-3 btn-secondary" %>
+                <% end %>
+                <%= m.body %>
+              </div>
+            <% end %>
+        </div> <!-- container -->
+      <% end %>
+
+
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-sm-4">
             <%= button_to "Approve Application", approve_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
           </div> <!-- col -->
           <div class="col-sm-4">
-            <%= button_to "Request Modification", approve_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
+            <button type="button" class="btn btn-secondary btn-lg mx-2 my-2" data-toggle="modal" data-target="#newModificationModal">
+              Suggest Modification
+            </button>
           </div> <!-- col -->
           <div class="col-sm-4">
             <%= button_to "Reject Application", reject_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to reject this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
@@ -123,3 +170,59 @@
   <% end %> <!-- committee only for decisions -->
 
 </main>
+
+
+
+
+
+
+
+
+<!-- Central Modal Small -->
+<div class="modal fade" id="newModificationModal" tabindex="-1" role="dialog" aria-labelledby="newModificationModal"
+  aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Suggest a Modification</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= simple_form_for @new_modification, class: "text-center py-4 mb-5" do |form| %>
+        <div class="modal-body">
+          <% if @new_modification.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@new_modification.errors.count, "error") %> prohibited this modification from being saved:</h2>
+
+              <ul>
+              <% @new_modification.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= form.text_area :body, class: "form-control mb-4", placeholder: "What does the applicant need to change in their application?", required: true %>
+
+            <%= form.hidden_field :app_type, value: "scholarship" %>
+            <%= form.hidden_field :app_id, value: @scholarship.id %>
+          </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <div class="actions">
+          <%= form.button :submit, "Submit Modification", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>  <!-- end of form -->
+    </div>
+  </div>
+</div>
+<!-- Central Modal Small -->

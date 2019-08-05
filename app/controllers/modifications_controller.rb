@@ -1,5 +1,6 @@
 class ModificationsController < ApplicationController
   before_action :set_modification, only: [:show, :edit, :update, :destroy]
+  before_action :set_application, only: [:second_modification]
   before_action :authenticate_user!
   before_action :committee_only, only: [:new, :create, :update, :destroy]
 
@@ -72,6 +73,48 @@ class ModificationsController < ApplicationController
     end
   end
 
+  def set_application
+    @modification = Modification.find(params[:id])
+    if @modification.app_type == "hardship"
+      @application = Hardship.find_by(id: @modification.app_id)
+    elsif @modification.app_type == "scholarship"
+      @application = Scholarship.find_by(id: @modification.app_id)
+    elsif @modification.app_type == "charity"
+      @application = Charity.find_by(id: @modification.app_id)
+    end
+  end
+
+  def second_modification
+    @modification = Modification.find(params[:id])
+
+    if current_user && @modification.user.id == current_user.id
+      redirect_back(fallback_location: home_pending_path)
+      flash[:warning] = "Sorry, you cannot second a modification you submitted!"
+    elsif current_user.id == @application.user.id
+      redirect_back(fallback_location: home_pending_path)
+      flash[:warning] = "Sorry, you cannot second a modification on your own application."
+    else
+
+      @other_modifications = Modification.where(app_type: @modification.app_type, app_id: @modification.app_id).where.not(id: @modification.id)
+      @other_modifications.update_all(superseded: true)
+
+      # Send email to user about requested modification
+
+      if @modification.app_type == "hardship"
+        @application = Hardship.find_by(id: @modification.app_id)
+      elsif @modification.app_type == "scholarship"
+        @application = Scholarship.find_by(id: @modification.app_id)
+      elsif @modification.app_type == "charity"
+        @application = Charity.find_by(id: @modification.app_id)
+      end
+
+      @application.update_attributes(status: "Returned for Modifications", final_decision: "Modifications Requested", approvals: [], rejections: [])
+
+      redirect_to home_pending_path
+      flash[:notice] = "The modification has been successfully seconded, sending the application back to the original applicant for revision.  It will appear on this page again once it has been resubmitted."
+    end
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -85,7 +128,10 @@ class ModificationsController < ApplicationController
         :body,
         :seconded,
         :user_id,
-        :commentable_id
+        :modifiable_id,
+        :app_type,
+        :app_id,
+        :superseded
       )
     end
 end

@@ -19,6 +19,8 @@ class ScholarshipsController < ApplicationController
   # GET /scholarships/1
   # GET /scholarships/1.json
   def show
+    @new_modification = Modification.new
+    @modifications = Modification.where(app_type: "scholarship", app_id: @scholarship.id, superseded: false)
   end
 
   # GET /scholarships/new
@@ -36,6 +38,7 @@ class ScholarshipsController < ApplicationController
     @scholarship = Scholarship.new(scholarship_params)
     @scholarship.user_id = current_user.id
     @scholarship.status = params[:status]
+    @scholarship.application_type = "scholarship"
 
     respond_to do |format|
       if @scholarship.save

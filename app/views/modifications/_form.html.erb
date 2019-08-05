@@ -15,6 +15,9 @@
     <%= form.text_area :body, class: "form-control mb-4", placeholder: "What does the applicant need to change in their application?", required: true %>
   </div>
 
+  <%= form.hidden_field :app_type %>
+  <%= form.hidden_field :app_id %>  
+
 
   <div class="actions">
     <%= form.button :submit, "Submit Modification", class: "btn btn-primary" %>

@@ -1,33 +1,19 @@
 <main class="mt-5">
-  <div class="container">
+  <div class="container-fluid">
 
     <h1 class="text-center">Apply</h1>
 
     <section>
-      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -Author</h3>
+      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">
+        This is not a giveaway.  We are banding together as a team to help each other in three areas of life.
+      </h3>
     </section> <!-- mission description -->
 
 
     <section class="text-center my-5">
       <div class="row">
 
-        <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
-
-          <div class="view overlay rounded z-depth-2 mb-4">
-            <%= image_tag "scholarship.jpg", class: "img-fluid", alt: "Young woman graduating from college." %>
-            <%= link_to new_scholarship_path do %>
-              <div class="mask rgba-white-slight"></div>
-            <% end %>
-          </div>
-
-          <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Scholarship</strong></h4>
-          <p class="dark-grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
-            quo minus id quod maxime placeat facere possimus voluptas.</p>
-          <%= link_to "Apply Now", new_scholarship_path, class: "btn btn-primary btn-lg" %>
-
-        </div> <!-- Grid column -->
-
-        <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
+        <div class="col-md-4 col-sm-12 mb-lg-0 mb-4"> <!-- hardship -->
 
           <div class="view overlay rounded z-depth-2 mb-4">
             <%= image_tag "hardship.jpg", class: "img-fluid", alt: "Young man looking at the engine of a broken down car." %>
@@ -36,14 +22,79 @@
             <% end %>
           </div>
 
-          <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Hardship</strong></h4>
-          <p class="dark-grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-            voluptatum deleniti atque corrupti quos dolores.</p>
+          <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Life Happens</strong></h4>
+          <p class="dark-grey-text text-left">
+            If you have a financial hardship you can't meet, TOCA Cares may be able to help.
+          </p>
+
+          <p class="dark-grey-text text-left">
+            <strong class="toca-uppercase bold">Grants</strong><br>
+            TOCA Cares may be able to quickly pay up to $1,000 to prevent you from going under.
+          </p>
+
+          <p class="dark-grey-text text-left">
+            <strong class="toca-uppercase bold">Need</strong><br>
+            You must prove you can't handle this unexpected expense (such as a health bill, cell phone replacement, or need to attend a funeral).
+          </p>
+
+          <p class="dark-grey-text text-left pb-0 mb-0">
+            <strong class="toca-uppercase bold">Process</strong>
+          </p>
+          <ol class="text-left">
+            <li>You submit <%= link_to "your application", new_hardship_path %> online.</li>
+            <li>A committee of three fellow employees will review your application.</li>
+            <li>If approved, a third-party administrator will contact you to verify the need and directly pay the bill.</li>
+          </ol>
+
           <%= link_to "Apply Now", new_hardship_path, class: "btn btn-primary btn-lg" %>
 
-        </div> <!-- Grid column -->
+        </div> <!-- End Hardship -->
 
-        <div class="col-lg-4 col-md-6 mb-0">
+
+
+
+        <div class="col-md-4 col-sm-12 mb-lg-0 mb-4"> <!-- scholarship -->
+
+          <div class="view overlay rounded z-depth-2 mb-4">
+            <%= image_tag "scholarship.jpg", class: "img-fluid", alt: "Young woman graduating from college." %>
+            <%= link_to new_scholarship_path do %>
+            <div class="mask rgba-white-slight"></div>
+            <% end %>
+          </div>
+
+          <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Grow Your Mind</strong></h4>
+
+          <p class="dark-grey-text text-left">
+            We think education is a key to a happy and productive life.  TOCA Cares wants to invest in your future education.
+          </p>
+
+          <p class="dark-grey-text text-left">
+            <strong class="toca-uppercase bold">Classes</strong><br>
+            TOCA Cares will pay 80% of the cost (up to $500 per year) in the cost of a class you think will expand your mind.  It could be a class in coding, nutrition, or CPR.
+          </p>
+
+          <p class="dark-grey-text text-left">
+            <strong class="toca-uppercase bold">College</strong><br>
+            TOCA Cares believes in the value of a college education.  We will provide 80% of your tuition (up to $1,250 per year for employees after 6 months of employment and $2,500 per year after 2 years of employment).
+          </p>
+
+          <p class="dark-grey-text text-left pb-0 mb-0">
+            <strong class="toca-uppercase bold">Process</strong>
+          </p>
+          <ol class="text-left">
+            <li>You submit <%= link_to "your application", new_scholarship_path %> online.</li>
+            <li>A committee of three fellow employees will review your application.</li>
+            <li>If approved, payment will be made directly to your specified educational institution.</li>
+          </ol>
+
+          <%= link_to "Apply Now", new_scholarship_path, class: "btn btn-primary btn-lg" %>
+
+          </div> <!-- End scholarship -->
+
+
+
+
+        <div class="col-md-4 col-sm-12 mb-lg-0 mb-4">
 
           <div class="view overlay rounded z-depth-2 mb-4">
             <%= image_tag "charity.jpg", class: "img-fluid", alt: "Young man building a house for charity." %>
@@ -52,9 +103,27 @@
             <% end %>
           </div>
 
-          <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Charity</strong></h4>
-          <p class="dark-grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
-            quia consequuntur magni dolores eos qui ratione.</p>
+          <h4 class="font-weight-bold mb-3 toca-uppercase"><strong>Good Deeds Done Dirt&nbsp;Cheap</strong></h4>
+
+          <p class="dark-grey-text text-left">
+            If you want to help your local community, TOCA Cares wants to help you do it.
+          </p>
+
+          <p class="dark-grey-text text-left">
+            <strong class="toca-uppercase bold">Cost Sharing</strong><br>
+            TOCA Cares will pay 80% (up to $500 per year) of the costs of joining or participating in a charity serving your local community.  This is not a subsidy for you giving to a charity; it is a subsity for you participating, such as the cost of joining a Rotary Club, being a Big Brother or Big Sister, or coaching a soccer team for disadvantaged kids.
+          </p>
+
+
+          <p class="dark-grey-text text-left pb-0 mb-0">
+            <strong class="toca-uppercase bold">Process</strong>
+          </p>
+          <ol class="text-left">
+            <li>You submit <%= link_to "your application", new_charity_path %> online.</li>
+            <li>A committee of three fellow employees will review your application.</li>
+            <li>If approved, payment will be made directly to your specified charitable organization.  The charity will then work with you on paying the expenses.</li>
+          </ol>
+
           <%= link_to "Apply Now", new_charity_path, class: "btn btn-primary btn-lg" %>
 
         </div> <!-- Grid column -->

@@ -6,20 +6,24 @@
         <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "pt-5 mb-5" %>
         <div class="row justify-content-center">
           <div class="container">
-            <p class="h5 text-left thin mb-3">
-              The employees and shareholders of TOCA have established this fund to:
-              <ul class="text-left h5 thin">
+            <p class="h3 text-left thin mb-3">
+              We, the employees and shareholders of TOCA, have established
+              <%= image_tag "TOCA_CARES_LOGO_FNL7.png", style: "display: inline-block; height: 25px" %>
+              to help each other.  Our collective contributions will:
+
+              <ul class="text-left h4 thin">
                 <li class="mb-1"><strong>Support</strong> each other in times of financial stress</li>
                 <li class="mb-1">Encourage each other to further our <strong>education</strong></li>
                 <li>Reach out to our local community through involvement with and giving to <strong>charity</strong></li>
               </ul>
             </p>
-            <div class="thin-white-box my-5 px-5 py-3">
-              <p class="h5">
-                By participating in this program, you have made a commitment to strengthen and value your&nbsp;teammates.
-              </p>
+            <div class="bg-transparent-white py-3 px-4 my-4">
+              <h2 class="bold">
+                The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
+                <br><em><small>―Phil Jackson</small></em>
+              </h2>
             </div>
-            <p class="h5 thin mb-5">
+            <p class="h1 thin mb-5">
               Explore how it works and feel the love.
             </p>
           </div> <!-- container -->
@@ -29,18 +33,15 @@
     </div>
   </div>
 
-  <section class="container mt-5 px-3 text-center">
-    <h2>
-      The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
-      <br><em><small>―Phil Jackson</small></em>
-    </h2>
-  </section>
 
-  <div class="container">
+
+
+
+  <div class="container-fluid">
      <section class="text-center">
        <div class="row mt-5 mb-3 wow fadeIn">
 
-           <div class="col-lg-4 mb-4">
+           <div class="col-md-4 mb-4">
                <div class="card">
                    <div class="view overlay"> <!-- image -->
                        <%= image_tag "hardship.jpg", class: "card-img-top", alt: "Young man trying to fix a broken down car." %>
@@ -55,18 +56,15 @@
                          <br><em><small>―Paul McCartney/John Lennon</small></em>
                        </h5>
                        <p class="card-text">
-                         78% of U.S. workers are living paycheck to paycheck. Unexpected financial challenges can cause good people to go tilt.
+                         Unexpected financial challenges can cause good people to go tilt.
                          <br><br>
                          TOCACares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
                        </p>
-                       <%= link_to new_hardship_path, class: "btn btn-primary btn-lg" do %>
-                          Apply Now
-                       <% end %>
                   </div>
                </div> <!-- card -->
            </div> <!--Grid column-->
 
-           <div class="col-lg-4 mb-4">
+           <div class="col-md-4 mb-4">
              <div class="card">
                <div class="view overlay"> <!-- image -->
                  <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
@@ -87,16 +85,13 @@
                    <br><br>
                    Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
                  </p>
-                 <%= link_to new_scholarship_path, class: "btn btn-primary btn-lg" do %>
-                 Apply Now
-                 <% end %>
                </div>
              </div> <!-- card -->
            </div> <!--Grid column-->
            <!--Grid column-->
 
            <!--Grid column-->
-           <div class="col-lg-4 mb-4">
+           <div class="col-md-4 mb-4">
                <div class="card">
                    <div class="view overlay"> <!-- image -->
                        <%= image_tag "charity.jpg", class: "card-img-top", alt: "Young man building a house for charity." %>
@@ -116,9 +111,6 @@
                          <br><br>
                          If you have an idea of how to work with tax-deductible charities, TOCACares will pay 80% of your costs to participate (membership fee, out of pocket costs of being a Big Brother or Big Sister, etc.), or, in some cases, make direct contributions to the charity.
                        </p>
-                       <%= link_to new_charity_path, class: "btn btn-primary btn-lg" do %>
-                        Apply Now
-                       <% end %>
                    </div>
                </div> <!-- card -->
            </div> <!--Grid column-->

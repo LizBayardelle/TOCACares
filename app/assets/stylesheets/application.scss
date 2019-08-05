@@ -34,6 +34,7 @@ $color-dark-red: #780E0F !important;
 $color-toca-green: #CDDC29 !important;
 $color-dark-grey: #58595B !important;
 $color-light-grey: #D1D3D4 !important;
+$transparent-white: rgba(255, 255, 255, .5);
 
 .color-toca-red { color: $color-toca-red; }
 .color-dark-red { color: $color-dark-red; }
@@ -50,6 +51,7 @@ $color-light-grey: #D1D3D4 !important;
 .bg-light-grey { background-color: $color-light-grey; }
 .bg-black { background-color: black !important; }
 .bg-white { background-color: white !important; }
+.bg-transparent-white { background-color: $transparent-white; }
 
 
 
@@ -76,7 +78,8 @@ h1 {
 }
 
 p a,
-td a {
+td a,
+li a {
   color: $color-toca-red;
   font-weight: bold;
 }
