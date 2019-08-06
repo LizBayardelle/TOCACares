@@ -1,22 +1,11 @@
 <main>
 
   <div class="card card-image" style="background-image: url(https://tocacares.s3-us-west-1.amazonaws.com/feet-around-ball.jpg);background-repeat: no-repeat; background-size: cover;">
-    <div class="text-white text-center rgba-black-strong py-5 px-4">
+    <div class="text-white text-center rgba-black-light py-5 px-4">
       <div>
-        <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "pt-5 mb-5" %>
+        <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "mb-2" %>
         <div class="row justify-content-center">
           <div class="container">
-            <p class="h3 text-left thin mb-3">
-              We, the employees and shareholders of TOCA, have established
-              <%= image_tag "TOCA_CARES_LOGO_FNL7.png", style: "display: inline-block; height: 25px" %>
-              to help each other.  Our collective contributions will:
-
-              <ul class="text-left h4 thin">
-                <li class="mb-1"><strong>Support</strong> each other in times of financial stress</li>
-                <li class="mb-1">Encourage each other to further our <strong>education</strong></li>
-                <li>Reach out to our local community through involvement with and giving to <strong>charity</strong></li>
-              </ul>
-            </p>
             <div class="bg-transparent-white py-3 px-4 my-4">
               <h2 class="bold">
                 The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
@@ -28,17 +17,38 @@
             </p>
           </div> <!-- container -->
         </div> <!-- row -->
-        <%= link_to page_path(:apply), class: "btn btn-secondary btn-lg" do %>Apply Now<% end %>
+        <%= link_to page_path(:info), class: "btn btn-light btn-lg mx-3", style: "display:inline-block" do %>Learn More<% end %>
+        <%= link_to new_user_registration_path, class: "btn btn-secondary btn-lg mx-3", style: "display:inline-block" do %>Get Started<% end %>
       </div>
     </div>
   </div>
 
 
 
+  <div class="container my-5">
+    <p class="h2 text-center thin mb-4">
+      We, the employees and shareholders of TOCA, have established
+      <%= image_tag "TOCA_CARES_LOGO_FNL5.png", style: "display: inline-block; height: 25px" %>
+      to help&nbsp;each&nbsp;other.
+    </p>
+    <p class="h4 text-left thin">
+      Our collective contributions will:
+    </p>
+
+    <ul class="text-left h4 thin">
+      <li class="mb-1"><strong>Support</strong> each other in times of financial stress</li>
+      <li class="mb-1">Encourage each other to further our <strong>education</strong></li>
+      <li>Reach out to our local community through involvement with and giving to <strong>charity</strong></li>
+    </ul>
+  </div> <!-- container -->
 
 
-  <div class="container-fluid">
+  <hr>
+
+  <div class="container-fluid px-5">
      <section class="text-center">
+
+
        <div class="row mt-5 mb-3 wow fadeIn">
 
            <div class="col-md-4 mb-4">
@@ -77,7 +87,7 @@
                  <h4 class="card-title toca-uppercase">Scholarship</h4>
                  <!--Text-->
                  <h5 class="card-quote color-toca-red">
-                   Knowledge is a weapon. I&nbsp;intend to be formidably armed.
+                   Knowledge is a weapon. I&nbsp;intend to be formidably&nbsp;armed.
                    <br><em><small>―Terry Goodkind</small></em>
                  </h5>
                  <p class="card-text">

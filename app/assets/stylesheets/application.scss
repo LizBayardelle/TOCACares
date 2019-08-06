@@ -34,7 +34,7 @@ $color-dark-red: #780E0F !important;
 $color-toca-green: #CDDC29 !important;
 $color-dark-grey: #58595B !important;
 $color-light-grey: #D1D3D4 !important;
-$transparent-white: rgba(255, 255, 255, .5);
+$transparent-white: rgba(255, 255, 255, .3);
 
 .color-toca-red { color: $color-toca-red; }
 .color-dark-red { color: $color-dark-red; }
@@ -88,7 +88,18 @@ li a {
 .not-bold { font-weight: 400; }
 .thin { font-weight: 200; }
 
+/* MOBILE FONTS */
+@media (max-width: 900px) {
+  h1 { font-size: 2em; }
+  .faq .h1 { font-size: 1.5em; }
+}
 
+/* LARGE SCREEN FONTS */
+@media (min-width: 1200px) {
+  h1 { font-size: 3.5em; }
+  p, li { font-size: 1.5rem; font-weight: 300 !important; }
+  .card .card-body .card-text { font-size: 1.2rem; font-weight: 300; }
+}
 
 
 
