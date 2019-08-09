@@ -1,32 +1,59 @@
 <main class="my-5">
-  <div class="container">
+  <div class="container-fluid px-5">
 
     <h1 class="text-center">Contribute</h1>
 
     <section>
-      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">
-        None of this cool stuff can happen if we don't have contributions from employees and shareholders.
-      </h3>
+      <div class="text-center mt-4">
+        <h3 class="text-center dark-grey-text w-responsive mx-auto">
+          None of this cool stuff can happen if we don't have contributions from employees and shareholders.
+        </h3>
+      </div> <!-- center for button -->
     </section> <!-- mission description -->
 
-    <section class="magazine-section">
-      <div class="view">
-        <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid" alt="placeholder">
-        <div class="mask flex-center waves-effect waves-light rgba-black-strong">
-          <h4 class="text-center white-text w-responsive mx-auto">
-            <span class="toca-uppercase">Employees: </span>
-            Shareholders have agreed to make contributions which are a multiple of the amount contributed by emplyees.
-        <br><br>
-            Please click on the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
-          </h4>
+
+    <div class="row">
+      <section class="col-md-6 magazine-section mt-3">
+        <div class="view">
+          <img src="https://tocacares.s3-us-west-1.amazonaws.com/contribute.jpg" class="img-fluid" alt="placeholder">
+          <div class="mask flex-center waves-effect waves-light rgba-black-light px-5">
+            <h4 class="text-center bold white-text w-responsive mx-auto">
+              With a contribution as little as the cost of a cup of coffee every pay period...
+            </h4>
+          </div>
         </div>
-      </div>
+      </section> <!-- mission description -->
+
+
+      <section class="col-md-6 magazine-section mt-3">
+        <div class="view">
+          <img src="https://tocacares.s3-us-west-1.amazonaws.com/Jumping+Staff.png" class="img-fluid" alt="placeholder">
+          <div class="mask flex-center waves-effect waves-light rgba-black-light px-5">
+            <h4 class="text-center bold white-text w-responsive mx-auto">
+              ...you can help the entire TOCA team.
+            </h4>
+          </div>
+        </div>
+      </section> <!-- mission description -->
+    </div> <!-- row -->
+
+    <section>
+      <div class="text-center mt-4">
+        <h3 class="text-center dark-grey-text w-responsive mx-auto">
+          Click the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
+        </h3>
+        <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions.pdf"), target: "_blank", class: "btn btn-primary btn-lg my-3" %>
+      </div> <!-- center for button -->
+    </section> <!-- mission description -->
+
+    <section class="text-center">
+      <h3 class="dark-grey-text w-responsive mx-auto mt-3 mb-5">
+        Shareholders have agreed to make contributions which are a multiple of the amount contributed by emplyees.
+      </h3>
+      <%= image_tag "matching.jpg", class: "width: 100%; max-width: 600px" %>
     </section> <!-- mission description -->
 
 
-    <div class="text-center mt-5 mb-3">
-      <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions.pdf"), target: "_blank", class: "btn btn-primary btn-lg" %>
-    </div> <!-- center for button -->
 
   </div> <!-- container -->
 </main>
