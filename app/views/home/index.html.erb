@@ -54,8 +54,9 @@
                <div class="card">
                    <div class="view overlay"> <!-- image -->
                        <%= image_tag "hardship.jpg", class: "card-img-top", alt: "Young man trying to fix a broken down car." %>
-                       <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
-                           <div class="mask rgba-white-slight"></div></a>
+                       <%= link_to new_hardship_path, target: "_blank" do %>
+                           <div class="mask rgba-white-slight"></div>
+                       <% end %>
                    </div>
                    <div class="card-body h-100">
                        <!--Title-->
@@ -67,7 +68,7 @@
                        <p class="card-text">
                          Unexpected financial challenges can cause good people to go tilt.
                          <br><br>
-                         TOCACares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
+                         TOCA Cares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
                        </p>
                   </div>
                </div> <!-- card -->
@@ -77,9 +78,9 @@
              <div class="card">
                <div class="view overlay"> <!-- image -->
                  <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
-                 <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
+                 <%= link_to new_scholarship_path, target: "_blank" do %>
                    <div class="mask rgba-white-slight"></div>
-                 </a>
+                 <% end %>
                </div>
                <div class="card-body h-100">
                  <!--Title-->
@@ -104,9 +105,9 @@
                <div class="card">
                    <div class="view overlay"> <!-- image -->
                        <%= image_tag "charity.jpg", class: "card-img-top", alt: "Young man building a house for charity." %>
-                       <a href="https://mdbootstrap.com/education/tech-marketing/automated-app-introduction/" target="_blank">
+                       <%= link_to new_charity_path, target: "_blank" do %>
                            <div class="mask rgba-white-slight"></div>
-                       </a>
+                         <% end %>
                    </div>
                    <div class="card-body">
                        <!--Title-->
@@ -116,9 +117,9 @@
                          <br><em><small>―Mohammed Ali</small></em>
                        </h5>
                        <p class="card-text">
-                         Our team is going to positively impact each community we touch.  TOCACares wants to support your involvement in local charities.
+                         Our team is going to positively impact each community we touch.  TOCA Cares wants to support your involvement in local charities.
                          <br><br>
-                         If you have an idea of how to work with tax-deductible charities, TOCACares will pay 80% of your costs to participate (membership fee, out of pocket costs of being a Big Brother or Big Sister, etc.), or, in some cases, make direct contributions to the charity.
+                         If you have an idea of how to work with tax-deductible charities, TOCA Cares will pay 80% of your costs to participate (membership fee, out of pocket costs of being a Big Brother or Big Sister, etc.), or, in some cases, make direct contributions to the charity.
                        </p>
                    </div>
                </div> <!-- card -->
