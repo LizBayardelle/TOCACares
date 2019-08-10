@@ -200,6 +200,7 @@ class HardshipsController < ApplicationController
       params.require(:hardship).permit(
         :application_type,
         :full_name,
+        :loan_preferred,
         :date,
         :position,
         :branch,

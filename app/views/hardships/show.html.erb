@@ -63,37 +63,7 @@
         </div> <!-- row -->
 
         <h4 class="bold">Application Information</h4>
-        <p><strong>Application Date:</strong> <%= @hardship.date %><br>
-
-          <% category_array = [] %>
-
-          <% if @hardship.accident %>
-            <% category_array << "Accident" %>
-          <% end %>
-          <% if @hardship.catastrophe %>
-            <% category_array << "Catastrophic Event" %>
-          <% end %>
-          <% if @hardship.counseling %>
-            <% category_array << "Counseling" %>
-          <% end %>
-          <% if @hardship.family_emergency %>
-            <% category_array << "Family Emergency" %>
-          <% end %>
-          <% if @hardship.health %>
-            <% category_array << "Health/Medical" %>
-          <% end %>
-          <% if @hardship.memorial %>
-            <% category_array << "Memorial (Expenses Associated with Loss)" %>
-          <% end %>
-          <% if @hardship.other_hardship %>
-            <% category_array << "Other Hardship" %>
-          <% end %>
-
-          <strong>Hardship Categories: </strong><%= category_array.join(', ') %>
-          <% if @hardship.other_hardship %>
-            <br><strong>Other Hardship Description:</strong> <%= @hardship.other_hardship_description %>
-          <% end %>
-        </p>
+        <p><strong>Application Date:</strong> <%= @hardship.date %><p>
 
       </section> <!-- personal info section -->
     </div> <!-- container -->
@@ -121,8 +91,44 @@
       </p>
 
       <p>
+        <% category_array = [] %>
+
+        <% if @hardship.accident %>
+          <% category_array << "Accident" %>
+        <% end %>
+        <% if @hardship.catastrophe %>
+          <% category_array << "Catastrophic Event" %>
+        <% end %>
+        <% if @hardship.counseling %>
+          <% category_array << "Counseling" %>
+        <% end %>
+        <% if @hardship.family_emergency %>
+          <% category_array << "Family Emergency" %>
+        <% end %>
+        <% if @hardship.health %>
+          <% category_array << "Health/Medical" %>
+        <% end %>
+        <% if @hardship.memorial %>
+          <% category_array << "Memorial (Expenses Associated with Loss)" %>
+        <% end %>
+        <% if @hardship.other_hardship %>
+          <% category_array << "Other Hardship" %>
+        <% end %>
+
+        <strong>Hardship Categories: </strong><%= category_array.join(', ') %>
+        <% if @hardship.other_hardship %>
+          <br><strong>Other Hardship Description:</strong> <%= @hardship.other_hardship_description %>
+        <% end %>
+      </p>
+
+      <p>
         <%= @hardship.hardship_description %>
       </p>
+
+      <% if @hardship.loan_preferred %>
+        <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
+      <% end %>
+
     </div> <!-- container -->
   </section> <!-- hardship section -->
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_172452) do
+ActiveRecord::Schema.define(version: 2019_08_09_221938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2019_08_02_172452) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "application_type", default: "charity"
+    t.boolean "loan_preferred", default: false
     t.index ["user_id"], name: "index_charities_on_user_id"
   end
 
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(version: 2019_08_02_172452) do
     t.text "approvals", default: [], array: true
     t.text "rejections", default: [], array: true
     t.string "application_type", default: "hardship"
+    t.boolean "loan_preferred", default: false
     t.index ["user_id"], name: "index_hardships_on_user_id"
   end
 
@@ -139,6 +141,7 @@ ActiveRecord::Schema.define(version: 2019_08_02_172452) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "application_type", default: "scholarship"
+    t.boolean "loan_preferred", default: false
     t.index ["user_id"], name: "index_scholarships_on_user_id"
   end
 

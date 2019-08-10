@@ -80,53 +80,6 @@
     <%= form.text_field :bank_address, class: "form-control mb-4", placeholder: "Bank's Full Address", required: true %>
   </div>
 
-  <h5 class="mb-0 toca-uppercase">Hardship Category</h5>
-  <small>Select as many as apply.</small>
-
-  <div class="row">
-    <div class="col">
-      <div class="field form-check text-left">
-        <%= form.check_box :accident, class: "form-check-input", id: "accident" %>
-        <%= form.label :accident, class: "form-check-label", for: "accident" %>
-      </div>
-
-      <div class="field form-check text-left">
-        <%= form.check_box :catastrophe, class: "form-check-input", id: "catastrophe" %>
-        <%= form.label :catastrophe, class: "form-check-label", for: "catastrophe" %>
-      </div>
-
-      <div class="field form-check text-left">
-        <%= form.check_box :counseling, class: "form-check-input", id: "counseling" %>
-        <%= form.label :counseling, class: "form-check-label", for: "counseling" %>
-      </div>
-
-      <div class="field form-check text-left">
-        <%= form.check_box :family_emergency, class: "form-check-input", id: "family_emergency" %>
-        <%= form.label "Family Emergency", class: "form-check-label", for: "family_emergency" %>
-      </div>
-    </div> <!-- column -->
-
-    <div class="col">
-      <div class="field form-check text-left">
-        <%= form.check_box :health, class: "form-check-input", id: "health" %>
-        <%= form.label :health, class: "form-check-label", for: "health" %>
-      </div>
-
-      <div class="field form-check text-left">
-        <%= form.check_box :memorial, class: "form-check-input", id: "memorial" %>
-        <%= form.label :memorial, class: "form-check-label", for: "memorial" %>
-      </div>
-
-      <div class="field form-check text-left">
-        <%= form.check_box :other_hardship, class: "form-check-input", id: "other_hardship" %>
-        <%= form.label :other_hardship, class: "form-check-label", for: "other_hardship" %>
-      </div>
-
-      <div class="field col-9">
-        <%= form.text_field :other_hardship_description, class: "form-control mb-4", style: "margin-left: 40px", placeholder: "Other Description" %>
-      </div>
-    </div> <!-- col -->
-  </div> <!-- row -->
 
   <hr class="mb-4">
 
@@ -147,8 +100,65 @@
     </div>
   </div> <!-- prices row -->
 
+  <div class="row">
+    <div class="field form-check text-left mb-4">
+      <%= form.check_box :loan_preferred, class: "form-check-input", id: "loan_preferred" %>
+      <%= form.label "I would prefer to receive a loan than get a grant.", class: "form-check-label", for: "loan_preferred" %>
+    </div>
+  </div> <!-- row -->
+
+    <h5 class="mb-0 toca-uppercase color-toca-red">Hardship Category</h5>
+    <small>Select as many as apply.</small>
+
+    <div class="row">
+      <div class="col">
+        <div class="field form-check text-left">
+          <%= form.check_box :accident, class: "form-check-input", id: "accident" %>
+          <%= form.label :accident, class: "form-check-label", for: "accident" %>
+        </div>
+
+        <div class="field form-check text-left">
+          <%= form.check_box :catastrophe, class: "form-check-input", id: "catastrophe" %>
+          <%= form.label :catastrophe, class: "form-check-label", for: "catastrophe" %>
+        </div>
+
+        <div class="field form-check text-left">
+          <%= form.check_box :counseling, class: "form-check-input", id: "counseling" %>
+          <%= form.label :counseling, class: "form-check-label", for: "counseling" %>
+        </div>
+
+        <div class="field form-check text-left">
+          <%= form.check_box :family_emergency, class: "form-check-input", id: "family_emergency" %>
+          <%= form.label "Family Emergency", class: "form-check-label", for: "family_emergency" %>
+        </div>
+      </div> <!-- column -->
+
+      <div class="col">
+        <div class="field form-check text-left">
+          <%= form.check_box :health, class: "form-check-input", id: "health" %>
+          <%= form.label :health, class: "form-check-label", for: "health" %>
+        </div>
+
+        <div class="field form-check text-left">
+          <%= form.check_box :memorial, class: "form-check-input", id: "memorial" %>
+          <%= form.label :memorial, class: "form-check-label", for: "memorial" %>
+        </div>
+
+        <div class="field form-check text-left">
+          <%= form.check_box :other_hardship, class: "form-check-input", id: "other_hardship" %>
+          <%= form.label :other_hardship, class: "form-check-label", for: "other_hardship" %>
+        </div>
+
+        <div class="field col-9">
+          <%= form.text_field :other_hardship_description, class: "form-control mb-4", style: "margin-left: 40px", placeholder: "Other Description" %>
+        </div>
+
+      </div> <!-- col -->
+    </div> <!-- row -->
+
   <div class="field">
-    <%= form.text_area :hardship_description, class: "form-control mb-4", placeholder: "Description of your hardship", required: true %>
+    <h5 class="mb-3 toca-uppercase color-toca-red">Hardship Description</h5>
+    <%= form.text_area :hardship_description, class: "form-control mb-4", placeholder: "Please describe your hardship", required: true %>
   </div>
 
   <hr class="mt-5 mb-4">

@@ -102,6 +102,13 @@
     </div>
   </div> <!-- prices row -->
 
+  <div class="row">
+    <div class="field form-check text-left mb-4">
+      <%= form.check_box :loan_preferred, class: "form-check-input", id: "loan_preferred" %>
+      <%= form.label "I would prefer to receive a loan than get a grant.", class: "form-check-label", for: "loan_preferred" %>
+    </div>
+  </div> <!-- row -->
+
   <div class="field">
     <%= form.text_area :scholarship_description, class: "form-control mb-4", placeholder: "Description of your scholarship opportunity", required: true %>
   </div>

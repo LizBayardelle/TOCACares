@@ -200,7 +200,8 @@
         <% if @user.committee_request == "Requested" %>
           <p><em>You have already requested to be a member of the deciding committee.</em></p>
         <% else %>
-            <p><em>Please click <%= link_to "here", committee_request_path(@user), method: :post %> to request to serve as a deciding committee member.</em></p>
+            <p><em>Want to help decide which applications get approved for a TOCA Cares grant?
+              <br>Click <%= link_to "here", committee_request_path(@user), method: :post %> to request to serve as a member of the deciding committee.</em></p>
         <% end %>
       </div> <!-- committee request -->
     <% end %>

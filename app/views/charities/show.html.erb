@@ -94,6 +94,11 @@
       <p>
         <%= @charity.opportunity_description %>
       </p>
+
+      <% if @charity.loan_preferred %>
+        <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
+      <% end %>
+
     </div> <!-- container -->
   </section> <!-- charity section -->
 

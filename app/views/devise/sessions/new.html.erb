@@ -5,8 +5,8 @@
 
     <section>
       <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">
-        The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
-        <br><em><small>―Phil Jackson</small></em>
+        Teamwork is the fuel that allows common people to attain uncommon results.
+        <br><em><small>―Andrew Carnegie</small></em>
       </h3>
     </section> <!-- mission description -->
 
@@ -33,9 +33,9 @@
                             class: "form-control",
                             placeholder: 'Password (required)'} %>
 
-                <div class="custom-control custom-checkbox my-3">
-                    <%= f.input :remember_me, as: :boolean, label: false, class: "custom-control-input", id: "defaultRegisterFormRememberMe" if devise_mapping.rememberable? %>
-                    <label class="custom-control-label" for="defaultRegisterFormRememberMe">Remember Me</label>
+                <div class="my-3 text-center field form-check text-left">
+                  <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
+                  <%= f.label :remember_me, class: "form-check-label", for: "remember_me" %>
                 </div>
               </div> <!-- form-inputs -->
 

@@ -94,6 +94,11 @@
       <p>
         <%= @scholarship.scholarship_description %>
       </p>
+
+      <% if @scholarship.loan_preferred %>
+        <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
+      <% end %>
+      
     </div> <!-- container -->
   </section> <!-- scholarship section -->
 
