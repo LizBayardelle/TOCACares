@@ -18,9 +18,17 @@
     <%= form.text_field :full_name, class: "form-control mb-4", placeholder: "Full Name", required: true %>
   </div>
 
-  <div class="field md-form">
-    <%= form.date_select :date, placeholder: "Today's Date", type: "text", id: "today-date", class: "form-control datepicker" %>
-    <label for="today-date">Today's Date</label>
+  <div class="row">
+    <div class="col-2">
+      <p class="lead my-4">
+        <span class="badge info-color-dark p-2">Today's Date</span>
+      </p>
+    </div>
+    <div class="col-4">
+      <div class="md-form">
+        <%= form.text_field :date, placeholder: "Selected date", class: "form-control datepicker", id: "today-date" %>
+      </div>
+    </div>
   </div>
 
   <div class="row">
@@ -207,5 +215,7 @@
 
 <script>
   // Data Picker Initialization
-  $('.datepicker').pickadate();
+  $(function () {
+    $('.datepicker').pickadate();
+  })
 </script>
