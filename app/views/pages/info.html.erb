@@ -50,7 +50,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q3H">How do I donate to the fund? </h5>
           <p class="color-dark-grey mb-0" id ="Q3P">
-            You can donate <%= link_to "here", page_path(:contribute) %>.  Any TOCA employees who want to contribute can select any amount they want to donate directly from their paycheck.  All contributions go straight to the community fund and are completely tax-deductible.
+            You can donate <%= link_to "here", page_path(:contribute) %>.  Any TOCA employees who want to contribute can select any amount they want to donate directly from their paycheck.  (You can updated your donation info any time by going to the <%= link_to "contribute", page_path(:contribute) %> section of the TOCA Cares website.)  All contributions go straight to the community fund and are completely tax-deductible.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -78,11 +78,26 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q5H">How do I apply to use the fund?</h5>
           <p class="color-dark-grey mb-0" id ="Q5P">
-            To get started, create an account on <%= link_to "TOCA Cares", new_user_session_path %> and fill out the <%= link_to "application", page_path(:apply) %>. Check out the <%= link_to "application process map", root_path(anchor: "process-map") %> for the complete application journey.
+            To get started, create an account on <%= link_to "TOCA Cares", new_user_session_path %> and fill out the <%= link_to "application", page_path(:apply) %>. Check out the <%= link_to "application process map", page_path(:apply, anchor: "process-map") %> for the complete application journey.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
 
+
+
+
+      <div class="row mb-3"> <!-- individual question -->
+        <div class="col-1">
+          <p class="h1 color-toca-red"><%= n %><% n += 1 %></p>
+        </div> <!-- Grid column -->
+
+        <div class="col-xl-10 col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3" id="Q24H">TOCA Cares will sponsor my education and cheritable endeavors?</h5>
+          <p class="color-dark-grey mb-0" id ="Q24P">
+            Correct! If you have not used the fund towards any hardship expenses, TOCA Cares will sponsor a charity of your choice that you’re personally involved in or contribute towards you furthering your education. See the <%= link_to "apply", page_path(:apply) %> page for more information.
+          </p>
+        </div> <!-- Grid column -->
+      </div> <!--Grid row-->
 
 
       <div class="row mb-3"> <!-- individual question -->
@@ -135,7 +150,7 @@
         </div> <!-- Grid column -->
 
         <div class="col-xl-10 col-md-11 col-10">
-          <h5 class="font-weight-bold mb-3" id="Q10H">Which situations qualify to receive money from the fund?</h5>
+          <h5 class="font-weight-bold mb-3" id="Q10H">Which hardship situations qualify to receive money from the fund?</h5>
           <p class="color-dark-grey mb-0" id ="Q10P">
             The point of the fund is to help employees in serious and unexpected financial situtations. Examples include medical costs, car accidents, home accidents, an airplane ticket for event you can’t miss, funeral expenses, etc. If you’re not sure, it doesn’t hurt to apply. If the situation does not qualify or exceeds the maximum grant amount, you could be offered a small loan.
           </p>
@@ -183,7 +198,7 @@
         </div> <!-- Grid column -->
 
         <div class="col-xl-10 col-md-11 col-10">
-          <h5 class="font-weight-bold mb-3" id="Q13H">How long do I have to request financial assistance?</h5>
+          <h5 class="font-weight-bold mb-3" id="Q13H">How long do I have to request financial assistance for a hardship?</h5>
           <p class="color-dark-grey mb-0" id ="Q13P">
             Usually financial emergencies happen fairly quickly. A good rule of thumb is no later than 30 days, but if you're not sure it doesn't hurt to apply.
           </p>
@@ -217,7 +232,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q15H">Is there a max amount I can receive?</h5>
           <p class="color-dark-grey mb-0" id ="Q15P">
-            Typical grant amounts range from $500-$1,500. Depending on the situation (especially if it exceeds this amount), you may also be offered a mixture of a grant and a loan. If your needs drastically exceed our loan amounts, then TOCA may set up an employee crowdfunding platform on your behalf and publicize it to TOCA employees across the nation. Whatever your situation, TOCA is here to help you figure it out.
+            In terms of a hardship, typical grant amounts range from $500-$1,500. Depending on the situation (especially if it exceeds this amount), you may also be offered a mixture of a grant and a loan. If your needs drastically exceed our loan amounts, then TOCA may set up an employee crowdfunding platform on your behalf and publicize it to TOCA employees across the nation. Whatever your situation, TOCA is here to help you figure it out.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -334,7 +349,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q24H">Wait, there are benefits under our insurance?</h5>
           <p class="color-dark-grey mb-0" id ="Q24P">
-            Yes! There are insurance benefits completely separate from the TOCA Cares community fund. As part of your benefits, WorkLife services are available at no extra cost and are completely confidential. Depending on your need, you can be connected to a counselor, mediator, clinician, lawyer, or financial advisor.  Either call 866-402-0003 or log on to <a href="https://wwwliveandworkwell.com" target="_blank">liveandworkwell.com</a> (access code: Insperity).
+            Yes! There are insurance benefits completely separate from the TOCA Cares community fund. As part of your benefits, WorkLife services are available at no extra cost and are completely confidential. Depending on your need, you can be connected to a counselor, mediator, clinician, lawyer, or financial advisor.  Either call 866-402-0003 or log on to <a href="https://www.liveandworkwell.com" target="_blank">liveandworkwell.com</a> (access code: Insperity).
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->

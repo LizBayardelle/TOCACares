@@ -113,6 +113,8 @@ li a {
 -------------------------------
 -----------------------------*/
 
+html { scroll-behavior: smooth; }
+
 .buffer { width: 100%; height: 50px; }
 .half-buffer { width: 100%; height: 25px; }
 

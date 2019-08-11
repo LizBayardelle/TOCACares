@@ -4,9 +4,14 @@
     <h1 class="text-center">Apply</h1>
 
     <section>
-      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-5">
+      <h3 class="text-center dark-grey-text w-responsive mx-auto mb-2">
         This is not a giveaway.  We are banding together as a team to help each other in three areas of life.
       </h3>
+
+      <a href="#process-map" class="text-center mb-5">
+        <p class="h5 color-toca-red bold">See the Application Process</p>
+      </a>
+
     </section> <!-- mission description -->
 
 
@@ -36,15 +41,6 @@
             <strong class="toca-uppercase bold">Need</strong><br>
             You must prove you can't handle this unexpected expense (such as a health bill, cell phone replacement, or need to attend a funeral).
           </p>
-
-          <p class="dark-grey-text text-left pb-0 mb-0">
-            <strong class="toca-uppercase bold">Process</strong>
-          </p>
-          <ol class="text-left">
-            <li>You submit <%= link_to "your application", new_hardship_path %> online.</li>
-            <li>A committee of three fellow employees will review your application.</li>
-            <li>If approved, a third-party administrator will contact you to verify the need and directly pay the bill.</li>
-          </ol>
 
           <%= link_to "Apply Now", new_hardship_path, class: "btn btn-primary btn-lg" %>
 
@@ -78,15 +74,6 @@
             TOCA Cares believes in the value of a college education.  We will provide 80% of your tuition (up to $1,250 per year for employees after 6 months of employment and $2,500 per year after 2 years of employment).
           </p>
 
-          <p class="dark-grey-text text-left pb-0 mb-0">
-            <strong class="toca-uppercase bold">Process</strong>
-          </p>
-          <ol class="text-left">
-            <li>You submit <%= link_to "your application", new_scholarship_path %> online.</li>
-            <li>A committee of three fellow employees will review your application.</li>
-            <li>If approved, payment will be made directly to your specified educational institution.</li>
-          </ol>
-
           <%= link_to "Apply Now", new_scholarship_path, class: "btn btn-primary btn-lg" %>
 
           </div> <!-- End scholarship -->
@@ -114,16 +101,6 @@
             TOCA Cares will pay 80% (up to $500 per year) of the costs of joining or participating in a charity serving your local community.  This is not a subsidy for you giving to a charity; it is a subsity for you participating, such as the cost of joining a Rotary Club, being a Big Brother or Big Sister, or coaching a soccer team for disadvantaged kids.
           </p>
 
-
-          <p class="dark-grey-text text-left pb-0 mb-0">
-            <strong class="toca-uppercase bold">Process</strong>
-          </p>
-          <ol class="text-left">
-            <li>You submit <%= link_to "your application", new_charity_path %> online.</li>
-            <li>A committee of three fellow employees will review your application.</li>
-            <li>If approved, payment will be made directly to your specified charitable organization.  The charity will then work with you on paying the expenses.</li>
-          </ol>
-
           <%= link_to "Apply Now", new_charity_path, class: "btn btn-primary btn-lg" %>
 
         </div> <!-- Grid column -->
@@ -131,6 +108,21 @@
       </div> <!-- Grid row -->
 
     </section> <!-- Section: Blog v.2 -->
+
+
+
+
+
+
+    <section id="process-map" class="text-center pb-5"> <!-- process map -->
+      <%= image_tag "process-map.jpg", style: "max-width: 100%; max-height: 90vh" %>
+    </section> <!-- process map -->
+
+
+
+
+
+
 
   </div> <!-- container -->
 </main>
