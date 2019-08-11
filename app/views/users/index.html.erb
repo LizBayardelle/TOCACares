@@ -1,7 +1,13 @@
-<main class="mt-5">
+<div class="text-right pt-3 pr-5">
+  <%= link_to 'Preauthorize Members', new_authorization_path, class: "color-toca-red bold" %>
+</div>
+
+<main>
   <div class="container">
 
-    <h1 class="text-center">Users</h1>
+    <div class="text-center">
+      <h1>Users</h1>
+    </div>
 
     <section class="my-5">
       <h2 class="toca-uppercase color-toca-red"><%= pluralize(@committee_requests.count, "Committee Request") %></h2>
@@ -44,6 +50,19 @@
           </tbody>
         </table>
       </div> <!-- responsive table -->
+
+      <p><strong>Preauthorizations:</strong>
+        <% if @admin_authorizations.count >= 1 %>
+          <% admin_preauthorizations = [] %>
+          <% @admin_authorizations.each do |a| %>
+            <% admin_preauthorizations << a.email %>
+          <% end %>
+          <%= admin_preauthorizations.join(", ") %>
+        <% else %>
+          None
+        <% end %>
+      </p>
+
     </section> <!-- admin -->
 
 
@@ -78,6 +97,19 @@
           </tbody>
         </table>
       </div> <!-- responsive table -->
+
+      <p><strong>Preauthorizations:</strong>
+        <% if @committee_authorizations.count >= 1 %>
+          <% committee_preauthorizations = [] %>
+          <% @committee_authorizations.each do |a| %>
+            <% committee_preauthorizations << a.email %>
+          <% end %>
+          <%= committee_preauthorizations.join(", ") %>
+        <% else %>
+          None
+        <% end %>
+      </p>
+
     </section> <!-- committee -->
 
 

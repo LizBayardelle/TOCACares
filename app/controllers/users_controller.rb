@@ -15,6 +15,8 @@ class UsersController < ApplicationController
     @committee = User.where(committee: true)
     @members = User.where(admin: false, committee: false)
     @committee_requests = User.where(committee_request: "Requested")
+    @admin_authorizations = Authorization.where(account_created: false, admin: true)
+    @committee_authorizations = Authorization.where(account_created: false, committee: true)
   end
 
   def only_self

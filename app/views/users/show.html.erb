@@ -27,14 +27,29 @@
       </p>
     </section> <!-- user info -->
 
+
+
+    <!-- IF COMMITTEE -->
     <% if @user.committee %>
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
       <%= link_to home_pending_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
         All Applications Needing Votes
       <% end %>
     <% end %>
+    <!-- END COMMITTEE ONLY -->
+
+
+
+
+    <!-- IF ADMIN -->
     <% if @user.admin %>
+
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Admin Actions</h2>
+
+      <%= link_to "Manage Users", users_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
+      <%= link_to 'Manage Testimonials', home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
+
+
       <div class="row">
         <div class="col-md-4 py-2">
           <%= link_to scholarships_path, class: "btn btn-primary btn-lg btn-block" do %>
@@ -53,10 +68,9 @@
         </div> <!-- col -->
       </div> <!-- row -->
 
-      <%= link_to "Manage Users", users_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
-      <%= link_to 'Manage Testimonials', home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
-
     <% end %>
+    <!-- END ADMIN ONLY -->
+
 
 
     <% if @scholarships.count >= 1 %>

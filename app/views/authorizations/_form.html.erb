@@ -4,13 +4,28 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :email %>
-    <%= f.input :admin %>
-    <%= f.input :committee %>
-    <%= f.input :account_created %>
+
+    <div class="field">
+      <%= f.text_field :email, class: "form-control mb-4", placeholder: "Email Address", required: true %>
+    </div>
+
+    <div class="row">
+      <div class="field form-check text-left">
+        <%= f.check_box :admin, class: "form-check-input", id: "admin" %>
+        <%= f.label "Authorize as Admin", class: "form-check-label", for: "admin" %>
+      </div>
+    </div> <!-- row -->
+
+    <div class="row">
+      <div class="field form-check text-left">
+        <%= f.check_box :committee, class: "form-check-input", id: "committee" %>
+        <%= f.label "Authorize as Committee Member", class: "form-check-label", for: "committee" %>
+      </div>
+    </div> <!-- row -->
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions text-center mt-4">
+    <%= f.button :submit, class: "btn btn-primary" %>
   </div>
 <% end %>

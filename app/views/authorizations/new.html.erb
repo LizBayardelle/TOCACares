@@ -1,5 +1,16 @@
-<h1>New Authorization</h1>
+<main class="mt-5">
+  <div class="container">
 
-<%= render 'form', authorization: @authorization %>
+    <h1 class="text-center">Create a New Preauthorization</h1>
 
-<%= link_to 'Back', authorizations_path %>
+    <section class="team-section magazine-section text-center mb-2">
+      <p class="dark-color-dark-grey w-responsive mx-auto">
+        After a preauthorization is created, an invitation email will be sent to that email address.
+        Please only use the user's official TOCA email address.
+      </p>
+    </section>
+
+    <%= render 'form', authorization: @authorization %>
+
+  </div> <!-- container -->
+</main>
