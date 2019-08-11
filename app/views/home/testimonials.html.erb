@@ -1,0 +1,96 @@
+<main class="mt-5">
+  <div class="container">
+
+    <div class="text-center">
+      <h1>Testimonials</h1>
+      <%= link_to 'Back to Testimonials Page', testimonials_path, class: "btn btn-secondary" %>
+    </div> <!-- center -->
+
+    <section class="mt-5">
+      <h2 class="toca-uppercase color-toca-red link-cursor" id="pending-heading"><%= pluralize(@pending_testimonials.count, "Testimonial") %> Awaiting Approval</h2>
+      <div id="pending">
+        <% if @pending_testimonials.count >= 1 %>
+          <% @pending_testimonials.each do |testimonial| %>
+            <h4 class="toca-uppercase mt-3"><%= testimonial.category %>: <%= testimonial.title %></h4>
+            <p class="mb-1">
+              <%= testimonial.body %>
+            </p>
+            <%= button_to "Approve", approve_testimonial_path(testimonial), method: :post, data: { confirm: "Are you sure you want to approve this testimonial?"}, class: "not-button link-cursor" %>
+            &nbsp;|&nbsp;
+            <%= button_to "Delete", testimonial_path(testimonial), method: :delete, data: { confirm: "Are you sure you want to delete this testimonial?"}, class: "not-button link-cursor" %>
+          <% end %> <!-- testimonials each -->
+        <% else %>
+          <p>You currently have no approved testimonials.</p>
+        <% end %> <!-- if testimonials  -->
+      </div> <!-- show/hide div -->
+    </section> <!-- undecided testimonials -->
+
+    <section class="mt-4">
+      <h2 class="toca-uppercase color-toca-red link-cursor" id="approved-heading"><%= pluralize(@approved_testimonials.count, "Approved Testimonial") %></h2>
+      <div id="approved">
+        <% if @approved_testimonials.count >= 1 %>
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="white black-text">
+                <tr>
+                  <th scope="col">Featured</th>
+                  <th scope="col">Category: Title</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @approved_testimonials.each do |testimonial| %>
+                  <tr>
+                    <td>
+                      <% if testimonial.featured %>
+                        <%= link_to unfeature_testimonial_path(testimonial), method: :post, class: "link-cursor" do %>
+                          <i class="fas fa-star"></i>
+                        <% end %>
+                      <% else %>
+                        <%= link_to feature_testimonial_path(testimonial), method: :post, class: "link-cursor" do %>
+                          <i class="far fa-star"></i>
+                        <% end %>
+                      <% end %>
+                    </td>
+                    <td><span class="toca-uppercase"><%= testimonial.category %></span>:&nbsp;&nbsp;<%= testimonial.title %></td>
+                    <td id="heading<%= testimonial.id %>" class="linkish">Show/Hide</td>
+                  </tr>
+                  <tr style="display: none" id="testimonial<%= testimonial.id %>">
+                    <td colspan="4"><%= testimonial.body %></td>
+
+                    <script type="text/javascript">
+                      $(document).ready(function() {
+                        $('#heading<%= testimonial.id %>').click(function() {
+                          $('#testimonial<%= testimonial.id %>').toggle();
+                        });
+                      });
+                    </script>
+
+                  </tr>
+                <% end %> <!-- testimonials each -->
+              </tbody>
+            </table>
+          </div> <!-- responsive table -->
+
+        <% else %>
+          <p>You currently have no approved testimonials.</p>
+        <% end %> <!-- if testimonials  -->
+      </div> <!-- show/hide div -->
+    </section> <!-- undecided testimonials -->
+
+
+  </div> <!-- container -->
+</main>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#pending-heading').click(function() {
+      $('#pending').toggle();
+    });
+    $('#approved-heading').click(function() {
+      $('#approved').toggle();
+    });
+  });
+</script>

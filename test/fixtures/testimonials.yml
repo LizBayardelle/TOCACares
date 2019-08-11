@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  title: MyString
+  body: MyString
+  featured: false
+  approved: false
+  user: one
+
+two:
+  category: MyString
+  title: MyString
+  body: MyString
+  featured: false
+  approved: false
+  user: two

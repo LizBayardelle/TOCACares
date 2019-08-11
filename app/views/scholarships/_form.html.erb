@@ -18,9 +18,9 @@
     <%= form.text_field :full_name, class: "form-control mb-4", placeholder: "Full Name", required: true %>
   </div>
 
-  <div class="field md-form">
-    <%= form.date_select :date, placeholder: "Today's Date", type: "text", id: "today-date", class: "form-control datepicker" %>
-    <label for="today-date">Today's Date</label>
+  <div class="md-form mt-4">
+    <label for="date">Date of Your Scholarship Application (Today's Date)</label>
+    <%= form.text_field :date, placeholder: "Select Application Date", class: "form-control datepicker", id: "date" %>
   </div>
 
   <div class="row">
@@ -33,9 +33,9 @@
     </div>
   </div> <!-- row -->
 
-  <div class="field text-left">
-    <%= form.label "Your Start Date at TOCA" %>
-    <%= form.date_select :start_date %>
+  <div class="md-form mt-2">
+    <label for="start_date">Date You Started at TOCA</label>
+    <%= form.text_field :start_date, placeholder: "Select Start Date", class: "form-control datepicker", id: "start_date" %>
   </div>
 
   <div class="row">
@@ -122,12 +122,13 @@
   </small>
 
   <div class="row mt-2">
-    <div class="field col-sm-8">
+    <div class="field col-sm-8 pt-4">
       <%= form.text_field :intent_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
     </div>
 
-    <div class="field col-sm-4">
-      <%= form.date_select :intent_signature_date %>
+    <div class="md-form mt-4">
+      <label for="intent_signature_date">Date</label>
+      <%= form.text_field :intent_signature_date, placeholder: "Select Today's Date", class: "form-control datepicker", id: "intent_signature_date" %>
     </div>
   </div> <!-- row -->
 
@@ -137,12 +138,13 @@
   </small>
 
   <div class="row mt-2">
-    <div class="field col-sm-8">
+    <div class="field col-sm-8 pt-4">
       <%= form.text_field :release_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
     </div>
 
-    <div class="field col-sm-4">
-      <%= form.date_select :release_signature_date %>
+    <div class="md-form mt-4">
+      <label for="release_signature_date">Date</label>
+      <%= form.text_field :release_signature_date, placeholder: "Select Today's Date", class: "form-control datepicker", id: "release_signature_date" %>
     </div>
   </div> <!-- row -->
 

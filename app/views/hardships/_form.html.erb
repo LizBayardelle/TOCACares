@@ -14,21 +14,13 @@
   <p class="h4 mb-0 color-toca-red toca-uppercase">Part I:  Personal Information</p>
   <p><small>This information is anonymous and will not be seen by the deciding committee.</small></p>
 
-  <div class="field">
+  <div class="field mb-2">
     <%= form.text_field :full_name, class: "form-control mb-4", placeholder: "Full Name", required: true %>
   </div>
 
-  <div class="row">
-    <div class="col-2">
-      <p class="lead my-4">
-        <span class="badge info-color-dark p-2">Today's Date</span>
-      </p>
-    </div>
-    <div class="col-4">
-      <div class="md-form">
-        <%= form.text_field :date, placeholder: "Selected date", class: "form-control datepicker", id: "today-date" %>
-      </div>
-    </div>
+  <div class="md-form mt-4">
+    <label for="date">Date of Your Hardship Application (Today's Date)</label>
+    <%= form.text_field :date, placeholder: "Select Application Date", class: "form-control datepicker", id: "date" %>
   </div>
 
   <div class="row">
@@ -41,9 +33,9 @@
     </div>
   </div> <!-- row -->
 
-  <div class="field text-left">
-    <%= form.label "Your Start Date at TOCA" %>
-    <%= form.date_select :start_date %>
+  <div class="md-form mt-2">
+    <label for="start_date">Date You Started at TOCA</label>
+    <%= form.text_field :start_date, placeholder: "Select Start Date", class: "form-control datepicker", id: "start_date" %>
   </div>
 
   <div class="row">
@@ -157,11 +149,16 @@
           <%= form.label :other_hardship, class: "form-check-label", for: "other_hardship" %>
         </div>
 
-        <div class="field col-9">
+        <div class="field col-9 d-none d-sm-block">
           <%= form.text_field :other_hardship_description, class: "form-control mb-4", style: "margin-left: 40px", placeholder: "Other Description" %>
         </div>
 
       </div> <!-- col -->
+
+      <div class="field col-9 d-block d-sm-none">
+        <%= form.text_field :other_hardship_description, class: "form-control mb-4", style: "margin-left: 40px", placeholder: "Description of 'Other' Category" %>
+      </div>
+
     </div> <!-- row -->
 
   <div class="field">
@@ -179,12 +176,13 @@
   </small>
 
   <div class="row mt-2">
-    <div class="field col-sm-8">
+    <div class="field col-sm-8 pt-4">
       <%= form.text_field :intent_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
     </div>
 
-    <div class="field col-sm-4">
-      <%= form.date_select :intent_signature_date %>
+    <div class="md-form mt-4">
+      <label for="intent_signature_date">Date</label>
+      <%= form.text_field :intent_signature_date, placeholder: "Select Today's Date", class: "form-control datepicker", id: "intent_signature_date" %>
     </div>
   </div> <!-- row -->
 
@@ -194,12 +192,13 @@
   </small>
 
   <div class="row mt-2">
-    <div class="field col-sm-8">
+    <div class="field col-sm-8 pt-4">
       <%= form.text_field :release_signature, class: "form-control mb-4", placeholder: "Type Your Name to Represent Your Signature", required: true %>
     </div>
 
-    <div class="field col-sm-4">
-      <%= form.date_select :release_signature_date %>
+    <div class="md-form mt-4">
+      <label for="release_signature_date">Date</label>
+      <%= form.text_field :release_signature_date, placeholder: "Select Today's Date", class: "form-control datepicker", id: "release_signature_date" %>
     </div>
   </div> <!-- row -->
 
@@ -213,8 +212,11 @@
 
 
 
+
+
+
+
 <script>
-  // Data Picker Initialization
   $(function () {
     $('.datepicker').pickadate();
   })

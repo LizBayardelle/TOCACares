@@ -103,6 +103,9 @@ li a {
 
 
 
+
+
+
 /*-----------------------------
 -------------------------------
 ------------DESIGN-------------
@@ -140,6 +143,13 @@ img { max-width: 100%; }
 .startHidden { display: none; }
 
 .thin-white-box { border: thin white solid; }
+
+.link-cursor { cursor: pointer; }
+.linkish {
+  cursor: pointer;
+  color: $color-toca-red;
+  font-weight: 700;
+}
 
 
 
@@ -185,4 +195,23 @@ img { max-width: 100%; }
 .form-check-input[type="checkbox"]:checked + label:before, label.btn input[type="checkbox"]:checked + label:before {
   border-right: 2px solid $color-toca-red;
   border-bottom: 2px solid $color-toca-red;
+}
+
+
+.md-form label {
+    -webkit-transform: translateY(-140%);
+    transform: translateY(-140%);
+    font-size: 0.8rem;
+  }
+
+.colorful-select .dropdown-content li.active span {
+  display: none !important;
+}
+
+.colorful-select .dropdown-content li span {
+  color: $color-toca-red;
+}
+
+.select-wrapper input.select-dropdown {
+  margin-top: -30px;
 }

@@ -8,9 +8,13 @@
         Read what others say about the program and share your thoughts of how grants have helped you.  This section is to let you know your contributions make a difference and to show you how others are using the program to improve their lives.  The program is confidential, but the impact on the group&nbsp;is&nbsp;tangible.
       </p>
 
-    <div class="text-center mb-5">
-      <%= link_to "Submit a Testimonial", page_path(:apply), class: "btn btn-secondary" %>
-    </div> <!-- center for button -->
+      <div class="text-center mb-5">
+        <%= link_to 'Submit a Testimonial', new_testimonial_path, class: "btn btn-primary" %>
+        <% if current_user && current_user.admin %>
+          <%= link_to 'Manage Testimonials', home_testimonials_path, class: "btn btn-secondary" %>
+        <% end %>
+      </div> <!-- center for button -->
+    </section>
   </div> <!-- container -->
 
 
@@ -33,12 +37,14 @@
               </div> <!-- avatar -->
             </div> <!-- column -->
             <div class="col-sm-8 col-lg-12 text-left">
-              <h6 class="font-weight-bold color-black toca-uppercase mt-3">Hardship:  Legal Assistance</h6>
-              <p class="dark-grey-text">
-                <i class="fas fa-quote-left pr-2 color-toca-red"></i>
-                When TOCA offered assistance to me during a very rough period in my life, I not only had the peace of mind that I was going to be ok and would get past this, but it also gave me the comfort of knowing that TOCA had my back; they were there to pick me up and help me move forward. I am blessed to work for a company that feels like a second family to me.
-                <i class="fas fa-quote-right pl-2 color-toca-red"></i>
-              </p>
+              <% @featured_hardship.each do |testimonial| %>
+                <h6 class="font-weight-bold color-black toca-uppercase mt-3"><%= testimonial.category %>:  <%= testimonial.title %></h6>
+                <p class="dark-grey-text">
+                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                  <%= testimonial.body %>
+                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                </p>
+              <% end %>
             </div> <!-- column -->
           </div> <!-- row -->
         </div> <!-- testimonial -->
@@ -57,12 +63,24 @@
                 </div>
               </div> <!-- col -->
               <div class="col-sm-8 col-lg-12 text-left">
-                <h6 class="font-weight-bold color-black toca-uppercase mt-3">Scholarship:  Example 1</h6>
-                <p class="dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.
-                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
-                </p>
+                <% if @featured_scholarship.count == 0 %>
+                  <h6 class="font-weight-bold color-black toca-uppercase mt-3">Scholarship</h6>
+                  <p class="dark-grey-text">
+                    <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                    Knowledge is a weapon. I&nbsp;intend to be formidably&nbsp;armed.
+                    <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                    <br><em><small>―Terry Goodkind</small></em>
+                  </p>
+                <% else %>
+                  <% @featured_scholarship.each do |testimonial| %>
+                    <h6 class="font-weight-bold color-black toca-uppercase mt-3"><%= testimonial.category %>:  <%= testimonial.title %></h6>
+                    <p class="dark-grey-text">
+                      <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                      <%= testimonial.body %>
+                      <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                    </p>
+                  <% end %>
+                <% end %>
               </div> <!-- col -->
             </div> <!-- row -->
           </div> <!-- testimonial -->
@@ -82,15 +100,14 @@
                 </div> <!-- avatar -->
               </div> <!-- column -->
               <div class="col-sm-8 col-lg-12 text-left">
-                <h6 class="font-weight-bold color-black toca-uppercase mt-3">Charity: Community Support</h6>
-                <p class="dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
-                  I always thought charity was something rich, older people did with their extra money and time. It wasn’t until I started to volunteer and get involved with helping others, did I understand the value and how good it made me feel to support my community.
-                  <!--
-                  Until I started working with the Special Olympics, I didn't understand the value for me and my community of charitable work.
-                  -->
-                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
-                </p>
+                <% @featured_charity.each do |testimonial| %>
+                  <h6 class="font-weight-bold color-black toca-uppercase mt-3"><%= testimonial.category %>:  <%= testimonial.title %></h6>
+                  <p class="dark-grey-text">
+                    <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                    <%= testimonial.body %>
+                    <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                  </p>
+                <% end %>
               </div> <!-- column -->
             </div> <!-- row -->
           </div> <!-- testimonial -->
@@ -100,8 +117,6 @@
 
 
       </div> <!--Grid row-->
-
-    </section> <!-- Section: Testimonials v.3 -->
 
 
    </div> <!-- container -->

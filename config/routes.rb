@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
   get 'home/pending'
+  get 'home/testimonials'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :index]
@@ -29,6 +30,11 @@ Rails.application.routes.draw do
 
   resources :modifications
   post "modifications/:id/second_modification" => "modifications#second_modification", as: "second_modification"
+
+  resources :testimonials
+  post "testimonials/:id/approve_testimonial" => "testimonials#approve_testimonial", as: "approve_testimonial"
+  post "testimonials/:id/feature_testimonial" => "testimonials#feature_testimonial", as: "feature_testimonial"
+  post "testimonials/:id/unfeature_testimonial" => "testimonials#unfeature_testimonial", as: "unfeature_testimonial"
 
 
 end
