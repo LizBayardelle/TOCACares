@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  admin: false
+  committee: false
+  account_created: false
+
+two:
+  email: MyString
+  admin: false
+  committee: false
+  account_created: false

@@ -199,6 +199,7 @@ class HardshipsController < ApplicationController
     def hardship_params
       params.require(:hardship).permit(
         :application_type,
+        :for_other,
         :full_name,
         :loan_preferred,
         :date,

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_10_183316) do
+ActiveRecord::Schema.define(version: 2019_08_11_202845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authorizations", force: :cascade do |t|
+    t.string "email"
+    t.boolean "admin", default: false
+    t.boolean "committee", default: false
+    t.boolean "account_created", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "charities", force: :cascade do |t|
     t.string "full_name"
@@ -91,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_08_10_183316) do
     t.text "rejections", default: [], array: true
     t.string "application_type", default: "hardship"
     t.boolean "loan_preferred", default: false
+    t.boolean "for_other", default: false
     t.index ["user_id"], name: "index_hardships_on_user_id"
   end
 

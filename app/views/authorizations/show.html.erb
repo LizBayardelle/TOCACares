@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @authorization.email %>
+</p>
+
+<p>
+  <strong>Admin:</strong>
+  <%= @authorization.admin %>
+</p>
+
+<p>
+  <strong>Committee:</strong>
+  <%= @authorization.committee %>
+</p>
+
+<p>
+  <strong>Account created:</strong>
+  <%= @authorization.account_created %>
+</p>
+
+<%= link_to 'Edit', edit_authorization_path(@authorization) %> |
+<%= link_to 'Back', authorizations_path %>
