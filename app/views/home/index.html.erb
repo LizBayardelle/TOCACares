@@ -18,7 +18,11 @@
           </div> <!-- container -->
         </div> <!-- row -->
         <%= link_to page_path(:info), class: "btn btn-light btn-lg mx-3", style: "display:inline-block" do %>Learn More<% end %>
-        <%= link_to new_user_registration_path, class: "btn btn-secondary btn-lg mx-3", style: "display:inline-block" do %>Get Started<% end %>
+        <% if current_user %>
+          <%= link_to page_path(:apply), class: "btn btn-secondary btn-lg mx-3", style: "display:inline-block" do %>Get Started<% end %>
+        <% else %>
+          <%= link_to new_user_registration_path, class: "btn btn-secondary btn-lg mx-3", style: "display:inline-block" do %>Get Started<% end %>
+        <% end %>
       </div>
     </div>
   </div>
