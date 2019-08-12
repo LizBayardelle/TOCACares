@@ -43,6 +43,7 @@ class CharitiesController < ApplicationController
     respond_to do |format|
       if @charity.save
         if @charity.status == "Submitted to Committee"
+          NewApplicationMailer.send_new_application_email(@charity).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
@@ -63,6 +64,7 @@ class CharitiesController < ApplicationController
     respond_to do |format|
       if @charity.update(charity_params)
         if @charity.status == "Submitted to Committee"
+          NewApplicationMailer.send_new_application_email(@charity).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }

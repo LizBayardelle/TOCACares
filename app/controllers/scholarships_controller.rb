@@ -43,6 +43,7 @@ class ScholarshipsController < ApplicationController
     respond_to do |format|
       if @scholarship.save
         if @scholarship.status == "Submitted to Committee"
+          NewApplicationMailer.send_new_application_email(@scholarship).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
@@ -63,6 +64,7 @@ class ScholarshipsController < ApplicationController
     respond_to do |format|
       if @scholarship.update(scholarship_params)
         if @scholarship.status == "Submitted to Committee"
+          NewApplicationMailer.send_new_application_email(@scholarship).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }

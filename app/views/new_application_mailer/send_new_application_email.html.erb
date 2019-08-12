@@ -7,20 +7,13 @@
 
   <body>
     <hr style="border: 0; border-top: solid 2px #EB0029;" />
-    <h1 style="text-align: center">A New Testimonial was Just Submitted on TOCA Cares</h1>
+    <h1 style="text-align: center">A New Application was Just Submitted on TOCA Cares</h1>
     <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
     <p>
-      As an admin, you have the power to approve submitted testimonials and choose to feature them on the website.
-      <br>Here's what was just submitted:
+      As a committee member, you have the power to vote to approve, deny, or request modifications on applications submitted to&nbsp;TOCA&nbsp;Cares. A new <%= @application.application_type %> application was just submitted and needs your attention.
     </p>
     <p>
-      <strong><%= @testimonial.category %>:  <%= @testimonial.title %></strong>
-    </p>
-    <p>
-      <em><%= @testimonial.body %></em>
-    </p>
-    <p>
-      To approve or feature this new testimonial, sign into your TOCA Cares account and visit the <%= link_to "manage testimonials", home_testimonials_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> page.
+      <strong>To see all the pending applications, sign into your TOCA Cares account and visit the <%= link_to "manage applications", home_pending_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> page on TOCA Cares.</strong>
     </p>
     <p>
       If you have any issues, feel free to email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a>.

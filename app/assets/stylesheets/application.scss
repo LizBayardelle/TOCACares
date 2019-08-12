@@ -35,6 +35,8 @@ $color-toca-green: #CDDC29 !important;
 $color-dark-grey: #58595B !important;
 $color-light-grey: #D1D3D4 !important;
 $transparent-white: rgba(255, 255, 255, .3);
+$transparent-red: rgba(235, 0, 41, .7);
+$transparent-green: rgba(205, 220, 41, .7);
 
 .color-toca-red { color: $color-toca-red; }
 .color-dark-red { color: $color-dark-red; }
@@ -152,6 +154,11 @@ img { max-width: 100%; }
   color: $color-toca-red;
   font-weight: 700;
 }
+
+.alert { margin-bottom: 0px; }
+.alert-success { color: $color-dark-grey; background-color: $transparent-green; border-color: $transparent-green;}
+.alert-warning, .alert-danger { color: $color-dark-grey; background-color: $transparent-red; border-color: $transparent-red;}
+
 
 
 
