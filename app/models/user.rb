@@ -7,4 +7,16 @@ class User < ApplicationRecord
   has_many :charities
   has_many :scholarships
   has_many :modifications
+
+  def self.admin_users
+    User.where(admin: true)
+  end
+
+  def self.committee_users
+    User.where(committee: true)
+  end
+
+  def self.admin_and_committee_users
+    User.where(admin: true, committee: true)
+  end
 end

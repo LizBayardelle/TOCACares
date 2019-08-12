@@ -38,6 +38,7 @@ class TestimonialsController < ApplicationController
 
     respond_to do |format|
       if @testimonial.save
+        TestimonialMailer.send_testimonial_email(@testimonial).deliver
         format.html { redirect_to root_path, notice: "Thank you for submitting a testimonial!  As soon as it's approved by administrators it could be featured on the TOCA Cares site." }
         format.json { render :show, status: :created, location: @testimonial }
       else
