@@ -35,13 +35,14 @@ class AuthorizationsController < ApplicationController
         p.admin = @authorization.admin
         p.committee = @authorization.committee
         p.save
-        # resend email
+        PreauthorizationMailer.send_preauthorization_email(p).deliver
         redirect_to users_path, notice: "That user was already preauthorized, but the info has been updated and an invitation email has been resent." and return
       end
     end
 
     respond_to do |format|
       if @authorization.save
+        PreauthorizationMailer.send_preauthorization_email(@authorization).deliver
         format.html { redirect_to users_path, notice: 'That email has been preauthorized and an email invite has been sent.' }
         format.json { render :show, status: :created, location: @authorization }
       else
@@ -52,8 +53,6 @@ class AuthorizationsController < ApplicationController
   end
 
 
-  # DELETE /authorizations/1
-  # DELETE /authorizations/1.json
   def destroy
     @authorization.destroy
     respond_to do |format|
