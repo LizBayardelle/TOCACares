@@ -110,6 +110,13 @@ class ModificationsController < ApplicationController
 
       @application.update_attributes(status: "Returned for Modifications", final_decision: "Modifications Requested", approvals: [], rejections: [])
 
+      if @modification.app_type == "hardship" && @application.for_other
+        #send applicant email to transfer ownership
+        #send email to submitting member
+      else
+        #send modification email to applicant
+      end
+
       redirect_to home_pending_path
       flash[:notice] = "The modification has been successfully seconded, sending the application back to the original applicant for revision.  It will appear on this page again once it has been resubmitted."
     end

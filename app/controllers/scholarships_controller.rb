@@ -120,6 +120,7 @@ class ScholarshipsController < ApplicationController
               @scholarship.approvals << current_user.id
               @scholarship.update_attributes(final_decision: "Approved")
               @scholarship.save
+              # send approval email to applicant
               redirect_back(fallback_location: scholarship_path(@scholarship))
               flash[:notice] = "That application has been officially approved!"
             else
@@ -151,6 +152,7 @@ class ScholarshipsController < ApplicationController
               @scholarship.rejections << current_user.id
               @scholarship.update_attributes(final_decision: "Approved")
               @scholarship.save
+              # send rejection email to applicant
               redirect_back(fallback_location: scholarship_path(@scholarship))
               flash[:notice] = "That application has been officially rejected!"
             else

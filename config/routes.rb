@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :authorizations
   get 'home/index'
   root 'home#index'
   get 'home/pending'
@@ -37,5 +36,10 @@ Rails.application.routes.draw do
   post "testimonials/:id/feature_testimonial" => "testimonials#feature_testimonial", as: "feature_testimonial"
   post "testimonials/:id/unfeature_testimonial" => "testimonials#unfeature_testimonial", as: "unfeature_testimonial"
 
+  resources :authorizations
+
+  resources :questions
+  post "questions/:id/mark_answered" => "questions#mark_answered", as: "mark_answered"
+  post "questions/:id/mark_unanswered" => "questions#mark_unanswered", as: "mark_unanswered"
 
 end

@@ -134,8 +134,60 @@
   </section>
 
 
+  <hr>
 
- </main>
+
+  <section class="container">
+    <div class="text-center">
+      <h2>Have a Question? Ask an admin!</h2>
+      <p>
+        We want all TOCA employees to get the most out of TOCA Cares.  If you have any questions, don't hesitate to ask.  An admin will reach out shortly with answers.
+      </p>
+    </div>
+
+    <div> <!-- form -->
+      <%= simple_form_for @question, class: "text-center py-4 mb-5" do |form| %>
+          <% if @question.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@new_question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+              <ul>
+              <% @question.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="row">
+            <div class="field col">
+              <%= form.invisible_captcha :subtitle %>
+              <%= form.text_field :name, class: "form-control mb-4", placeholder: "Your Name", required: true %>
+            </div>
+
+            <div class="field col">
+              <%= form.text_field :email, class: "form-control mb-4", placeholder: "Your Email", required: true %>
+            </div>
+          </div> <!-- row -->
+
+          <div class="field">
+            <%= form.text_field :subject, class: "form-control mb-4", placeholder: "Your Email", required: true %>
+          </div>
+
+          <div class="field">
+            <%= form.text_area :body, class: "form-control mb-4", placeholder: "What does the applicant need to change in their application?", required: true %>
+          </div>
+
+          <div class="actions text-center mb-5">
+            <%= form.button :submit, "Submit", class: "btn btn-primary" %>
+          </div>
+      <% end %>  <!-- end of form -->
+    </div> <!-- form -->
+
+  </section>
+
+
+</main>
 
 
 

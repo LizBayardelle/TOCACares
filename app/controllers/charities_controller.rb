@@ -119,6 +119,7 @@ class CharitiesController < ApplicationController
             @charity.approvals << current_user.id
             @charity.update_attributes(final_decision: "Approved")
             @charity.save
+            # send approval email to applicant
             redirect_back(fallback_location: charity_path(@charity))
             flash[:notice] = "That application has been officially approved!"
           else
@@ -150,6 +151,7 @@ class CharitiesController < ApplicationController
             @charity.rejections << current_user.id
             @charity.update_attributes(final_decision: "Approved")
             @charity.save
+            # send rejection email to applicant
             redirect_back(fallback_location: charity_path(@charity))
             flash[:notice] = "That application has been officially rejected!"
           else

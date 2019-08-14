@@ -120,6 +120,12 @@ class HardshipsController < ApplicationController
             @hardship.approvals << current_user.id
             @hardship.update_attributes(final_decision: "Approved")
             @hardship.save
+            if @hardship.for_other
+              #send applicant email to transfer ownership
+              #send email to submitting member
+            else
+              #send approval email to applicant
+            end
             redirect_back(fallback_location: hardship_path(@hardship))
             flash[:notice] = "That application has been officially approved!"
           else
@@ -151,6 +157,11 @@ class HardshipsController < ApplicationController
             @hardship.rejections << current_user.id
             @hardship.update_attributes(final_decision: "Approved")
             @hardship.save
+            if @hardship.for_other
+              #send email to submitting member
+            else
+              #send rejection email to applicant
+            end
             redirect_back(fallback_location: hardship_path(@hardship))
             flash[:notice] = "That application has been officially rejected!"
           else
@@ -202,6 +213,7 @@ class HardshipsController < ApplicationController
       params.require(:hardship).permit(
         :application_type,
         :for_other,
+        :for_other_email,
         :full_name,
         :loan_preferred,
         :date,
