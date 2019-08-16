@@ -121,10 +121,11 @@ class HardshipsController < ApplicationController
             @hardship.update_attributes(final_decision: "Approved")
             @hardship.save
             if @hardship.for_other
-              #send applicant email to transfer ownership
-              #send email to submitting member
+              # transfer ownership of application to recipient
+              # send email to submitting member
+              HardshipMailer.by_other_hardship_accepted_email(@hardship).deliver
             else
-              #send approval email to applicant
+              HardshipMailer.hardship_accepted_email(@hardship).deliver
             end
             redirect_back(fallback_location: hardship_path(@hardship))
             flash[:notice] = "That application has been officially approved!"

@@ -7,19 +7,20 @@
 
   <body>
     <hr style="border: 0; border-top: solid 2px #EB0029;" />
-    <h1 style="text-align: center">Create Your TOCA Cares Account</h1>
+    <h1 style="text-align: center">Your TOCA Cares Charity Application Has Been Accepted</h1>
     <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
     <p>
-      You have been preauthorized as
-      <% if @authorization.admin && @authorization.committee %>
-        an admin and committee member
-      <% elsif @authorization.admin %>
-        an admin
-      <% elsif @authorization.committee %>
-        a committee member
-      <% end %>
-      at TOCA Cares.
-      Please <%= link_to "create an account", new_user_registration_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %>create an account<% end %> using this email address to finish setting up your account.
+      Dear Employee,
+    </p>
+    <p>
+      We are delighted to inform you that your application to TOCA Cares has been approved!
+    </p>
+    <p>
+      You will soon be contacted by our partnering organization, Helping Hands, who will reach out to you and request additional information pertaining to the charity and bill. Once verified, Helping Hands will pay the agreed amount of your bill directly in a confidential and secure process. Please keep in mind that your response time to Helping Hands’ inquiries will determine the speed of the process. TOCA Cares is glad we can assist valued employees like you.
+    </p>
+    <p>
+      Sincerely,
+      <br>TOCA Cares
     </p>
     <p>
       If you have any issues, feel free to email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a>.

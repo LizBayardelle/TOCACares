@@ -120,7 +120,7 @@ class ScholarshipsController < ApplicationController
               @scholarship.approvals << current_user.id
               @scholarship.update_attributes(final_decision: "Approved")
               @scholarship.save
-              # send approval email to applicant
+              ScholarshipMailer.scholarship_accepted_email(@scholarship).deliver
               redirect_back(fallback_location: scholarship_path(@scholarship))
               flash[:notice] = "That application has been officially approved!"
             else
@@ -152,7 +152,7 @@ class ScholarshipsController < ApplicationController
               @scholarship.rejections << current_user.id
               @scholarship.update_attributes(final_decision: "Approved")
               @scholarship.save
-              # send rejection email to applicant
+              ScholarshipMailer.scholarship_rejected_email(@scholarship).deliver
               redirect_back(fallback_location: scholarship_path(@scholarship))
               flash[:notice] = "That application has been officially rejected!"
             else
@@ -193,12 +193,10 @@ class ScholarshipsController < ApplicationController
     end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_scholarship
       @scholarship = Scholarship.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def scholarship_params
       params.require(:scholarship).permit(:application_type, :loan_preferred, :full_name, :date, :position, :branch, :start_date, :email_non_toca, :mobile, :address, :city, :state, :zip, :institution_name, :institution_contact, :institution_phone, :institution_address, :requested_amount, :self_fund, :scholarship_description, :intent_signature, :intent_signature_date, :release_signature, :release_signature_date, :status, :final_decision, :returned, :approvals, :rejections, :user_id)
     end

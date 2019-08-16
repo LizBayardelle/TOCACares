@@ -56,8 +56,6 @@ class CharitiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /charities/1
-  # PATCH/PUT /charities/1.json
   def update
     @charity.status = params[:status]
 
@@ -77,8 +75,6 @@ class CharitiesController < ApplicationController
     end
   end
 
-  # DELETE /charities/1
-  # DELETE /charities/1.json
   def destroy
     @charity.destroy
     respond_to do |format|
@@ -119,7 +115,7 @@ class CharitiesController < ApplicationController
             @charity.approvals << current_user.id
             @charity.update_attributes(final_decision: "Approved")
             @charity.save
-            # send approval email to applicant
+            CharityMailer.charity_accepted_email(@charity).deliver
             redirect_back(fallback_location: charity_path(@charity))
             flash[:notice] = "That application has been officially approved!"
           else
@@ -151,7 +147,7 @@ class CharitiesController < ApplicationController
             @charity.rejections << current_user.id
             @charity.update_attributes(final_decision: "Approved")
             @charity.save
-            # send rejection email to applicant
+            CharityMailer.charity_rejected_email(@charity).deliver
             redirect_back(fallback_location: charity_path(@charity))
             flash[:notice] = "That application has been officially rejected!"
           else
