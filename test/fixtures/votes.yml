@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  application_type: MyString
+  application_id: 1
+  accept: false
+  modify: false
+  modification: MyText
+  suggest_loan: false
+  describe_loan: MyText
+  deny: false
+  denial_fund_overuse: false
+  denial_not_qualify: false
+  denial_unreasonable_request: false
+  denial_not_involved_charity: false
+  denial_other: false
+  denial_other_description: MyText
+  superseded: false
+  references: 
+
+two:
+  application_type: MyString
+  application_id: 1
+  accept: false
+  modify: false
+  modification: MyText
+  suggest_loan: false
+  describe_loan: MyText
+  deny: false
+  denial_fund_overuse: false
+  denial_not_qualify: false
+  denial_unreasonable_request: false
+  denial_not_involved_charity: false
+  denial_other: false
+  denial_other_description: MyText
+  superseded: false
+  references: 

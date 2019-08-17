@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Votes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Application type</th>
+      <th>Application</th>
+      <th>Accept</th>
+      <th>Modify</th>
+      <th>Modification</th>
+      <th>Suggest loan</th>
+      <th>Describe loan</th>
+      <th>Deny</th>
+      <th>Denial fund overuse</th>
+      <th>Denial not qualify</th>
+      <th>Denial unreasonable request</th>
+      <th>Denial not involved charity</th>
+      <th>Denial other</th>
+      <th>Denial other description</th>
+      <th>Superseded</th>
+      <th>References</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @votes.each do |vote| %>
+      <tr>
+        <td><%= vote.application_type %></td>
+        <td><%= vote.application_id %></td>
+        <td><%= vote.accept %></td>
+        <td><%= vote.modify %></td>
+        <td><%= vote.modification %></td>
+        <td><%= vote.suggest_loan %></td>
+        <td><%= vote.describe_loan %></td>
+        <td><%= vote.deny %></td>
+        <td><%= vote.denial_fund_overuse %></td>
+        <td><%= vote.denial_not_qualify %></td>
+        <td><%= vote.denial_unreasonable_request %></td>
+        <td><%= vote.denial_not_involved_charity %></td>
+        <td><%= vote.denial_other %></td>
+        <td><%= vote.denial_other_description %></td>
+        <td><%= vote.superseded %></td>
+        <td><%= vote.references %></td>
+        <td><%= link_to 'Show', vote %></td>
+        <td><%= link_to 'Edit', edit_vote_path(vote) %></td>
+        <td><%= link_to 'Destroy', vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vote', new_vote_path %>

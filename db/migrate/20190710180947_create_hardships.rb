@@ -1,6 +1,10 @@
 class CreateHardships < ActiveRecord::Migration[5.2]
   def change
     create_table :hardships do |t|
+      t.string :application_type, default: "hardship"
+      t.boolean :loan_preferred, default: false
+      t.boolean :for_other, default: false
+      t.string :for_other_email
       t.string :full_name
       t.date :date
       t.string :position
@@ -30,12 +34,15 @@ class CreateHardships < ActiveRecord::Migration[5.2]
       t.date :intent_signature_date
       t.string :release_signature
       t.date :release_signature_date
+
       t.string :status, default: "Application Started"
-      t.string :review_first_status
-      t.string :review_first_reviewer_id
-      t.string :review_second
-      t.string :review_second_reviewer_id
       t.string :final_decision, default: "Not Decided"
+
+      t.boolean :approved, default: false
+      t.boolean :returned, default: false
+      t.boolean :denied, default: false
+      t.boolean :closed, default: false
+      
       t.references :user, foreign_key: true
 
       t.timestamps

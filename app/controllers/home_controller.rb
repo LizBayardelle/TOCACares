@@ -30,6 +30,18 @@ class HomeController < ApplicationController
     @approved_testimonials = Testimonial.where(approved: true).order(category: :asc).order(created_at: :desc).sort_by { |a| a.featured ? 0 : 1 }
   end
 
+  def applications
+    @hardships = Hardship.where(closed: false)
+    @scholarships = Scholarship.where(closed: false)
+    @charities = Charity.where(closed: false)
+    @open_applications = [@scholarships, @hardships, @charities].flatten
+
+    @closed_hardships = Hardship.where(closed: true)
+    @closed_scholarships = Scholarship.where(closed: true)
+    @closed_charities = Charity.where(closed: true)
+    @closed_applications = [@closed_scholarships, @closed_hardships, @closed_charities].flatten
+  end
+
 
   def admin_only
     unless current_user && current_user.admin

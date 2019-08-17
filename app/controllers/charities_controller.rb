@@ -195,6 +195,42 @@ class CharitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def charity_params
-      params.require(:charity).permit(:application_type, :loan_preferred, :full_name, :date, :position, :branch, :start_date, :email_non_toca, :mobile, :address, :city, :state, :zip, :institution_name, :institution_contact, :institution_phone, :institution_address, :requested_amount, :self_fund, :opportunity_description, :intent_signature, :intent_signature_date, :release_signature, :release_signature_date, :status, :final_decision, :returned, :approvals, :rejections, :user_id)
+      params.require(:charity).permit(
+        :user_id,
+        :application_type,
+
+        :loan_preferred,
+
+        :full_name,
+        :date,
+        :position,
+        :branch,
+        :start_date,
+        :email_non_toca,
+        :mobile,
+        :address,
+        :city,
+        :state,
+        :zip,
+        :institution_name,
+        :institution_contact,
+        :institution_phone,
+        :institution_address,
+        :requested_amount,
+        :self_fund,
+        :opportunity_description,
+        :intent_signature,
+        :intent_signature_date,
+        :release_signature,
+        :release_signature_date,
+
+        :approved,
+        :returned,
+        :denied,
+        :closed,
+
+        :status,
+        :final_decision
+      )
     end
 end

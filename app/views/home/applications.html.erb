@@ -1,0 +1,98 @@
+<main class="mt-5">
+  <div class="container">
+
+    <h1 class="text-center">Hardship Applications</h1>
+
+    <section class="mt-5">
+      <h2 class="toca-uppercase color-toca-red" id="open-heading"><%= pluralize(@open_applications.count, "Open Application") %></h2>
+      <div id="open" class="hidden">
+        <% if @open_applications.count >= 1 %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="black white-text">
+                <tr>
+                  <th scope="col">Application</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @open_applications.each do |application| %>
+                  <tr>
+                    <td>
+                      <%= link_to hardship_path(application) do %>
+                        <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                      <% end %>
+                    </td>
+                    <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
+                    <td>
+                      <%= application.status %>
+                      <br>
+                      <%#= pluralize(application.approvals.count, "Approval") %><br>
+                      <%#= pluralize(application.rejections.count, "Rejection") %>
+                    </td>
+                  </tr>
+                <% end %> <!-- applications each -->
+              </tbody>
+            </table>
+          </div> <!-- responsive table -->
+        <% end %> <!-- if applications.count >= 1 -->
+      </div> <!-- open_applications applications container -->
+    </section> <!-- undecided applications -->
+
+    <section class="mb-5">
+      <h2 class="toca-uppercase color-toca-red" id="closed-heading"><%= pluralize(@closed_applications.count, "Closed Application") %></h2>
+      <div id="closed" class="hidden">
+        <% if @closed_applications.count >= 1 %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="black white-text">
+                <tr>
+                  <th scope="col">Application</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @closed_applications.each do |application| %>
+                  <tr>
+                    <td>
+                      <%= link_to hardship_path(application) do %>
+                        <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                      <% end %>
+                    </td>
+                    <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
+                    <td>
+                      <%= application.status %>
+                      <br>
+                      <% if application.final_decision %>
+                        <%= application.final_decision %>
+                      <% else %>
+                        Not Yet Decided
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %> <!-- applications each -->
+              </tbody>
+            </table>
+          </div> <!-- responsive table -->
+        <% end %> <!-- if applications.count >= 1 -->
+      </div> <!-- closed_applications applications container -->
+    </section> <!-- approved applications -->
+
+
+  </div> <!-- container -->
+</main>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#open-heading').click(function() {
+      $('#open').toggle();
+    });
+    $('#closed-heading').click(function() {
+      $('#closed').toggle();
+    });
+
+  });
+</script>

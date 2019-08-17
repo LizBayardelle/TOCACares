@@ -1,0 +1,84 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Application type:</strong>
+  <%= @vote.application_type %>
+</p>
+
+<p>
+  <strong>Application:</strong>
+  <%= @vote.application_id %>
+</p>
+
+<p>
+  <strong>Accept:</strong>
+  <%= @vote.accept %>
+</p>
+
+<p>
+  <strong>Modify:</strong>
+  <%= @vote.modify %>
+</p>
+
+<p>
+  <strong>Modification:</strong>
+  <%= @vote.modification %>
+</p>
+
+<p>
+  <strong>Suggest loan:</strong>
+  <%= @vote.suggest_loan %>
+</p>
+
+<p>
+  <strong>Describe loan:</strong>
+  <%= @vote.describe_loan %>
+</p>
+
+<p>
+  <strong>Deny:</strong>
+  <%= @vote.deny %>
+</p>
+
+<p>
+  <strong>Denial fund overuse:</strong>
+  <%= @vote.denial_fund_overuse %>
+</p>
+
+<p>
+  <strong>Denial not qualify:</strong>
+  <%= @vote.denial_not_qualify %>
+</p>
+
+<p>
+  <strong>Denial unreasonable request:</strong>
+  <%= @vote.denial_unreasonable_request %>
+</p>
+
+<p>
+  <strong>Denial not involved charity:</strong>
+  <%= @vote.denial_not_involved_charity %>
+</p>
+
+<p>
+  <strong>Denial other:</strong>
+  <%= @vote.denial_other %>
+</p>
+
+<p>
+  <strong>Denial other description:</strong>
+  <%= @vote.denial_other_description %>
+</p>
+
+<p>
+  <strong>Superseded:</strong>
+  <%= @vote.superseded %>
+</p>
+
+<p>
+  <strong>References:</strong>
+  <%= @vote.references %>
+</p>
+
+<%= link_to 'Edit', edit_vote_path(@vote) %> |
+<%= link_to 'Back', votes_path %>

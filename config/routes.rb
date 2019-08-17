@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :votes
+  resources :actions
   get 'home/index'
   root 'home#index'
   get 'home/pending'
   get 'home/testimonials'
+  get 'home/applications'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :index]

@@ -133,6 +133,9 @@ class ModificationsController < ApplicationController
     def modification_params
       params.require(:modification).permit(
         :body,
+        :suggest_loan,
+        :describe_loan,
+        
         :seconded,
         :user_id,
         :modifiable_id,

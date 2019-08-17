@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_045839) do
+ActiveRecord::Schema.define(version: 2019_08_16_224337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,13 +50,14 @@ ActiveRecord::Schema.define(version: 2019_08_14_045839) do
     t.string "status", default: "Application Started"
     t.string "final_decision", default: "Not Decided"
     t.boolean "returned", default: false
-    t.text "approvals", default: [], array: true
-    t.text "rejections", default: [], array: true
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "application_type", default: "charity"
     t.boolean "loan_preferred", default: false
+    t.boolean "closed", default: false
+    t.boolean "denied", default: false
+    t.boolean "approved", default: false
     t.index ["user_id"], name: "index_charities_on_user_id"
   end
 
@@ -96,28 +97,14 @@ ActiveRecord::Schema.define(version: 2019_08_14_045839) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "returned", default: false
-    t.text "approvals", default: [], array: true
-    t.text "rejections", default: [], array: true
     t.string "application_type", default: "hardship"
     t.boolean "loan_preferred", default: false
     t.boolean "for_other", default: false
     t.string "for_other_email"
+    t.boolean "closed", default: false
+    t.boolean "denied", default: false
+    t.boolean "approved", default: false
     t.index ["user_id"], name: "index_hardships_on_user_id"
-  end
-
-  create_table "modifications", force: :cascade do |t|
-    t.text "body"
-    t.boolean "seconded", default: false
-    t.string "modifiable_type"
-    t.bigint "modifiable_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "app_type"
-    t.integer "app_id"
-    t.boolean "superseded", default: false
-    t.index ["modifiable_type", "modifiable_id"], name: "index_modifications_on_modifiable_type_and_modifiable_id"
-    t.index ["user_id"], name: "index_modifications_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -156,13 +143,14 @@ ActiveRecord::Schema.define(version: 2019_08_14_045839) do
     t.string "status", default: "Application Started"
     t.string "final_decision", default: "Not Decided"
     t.boolean "returned", default: false
-    t.text "approvals", default: [], array: true
-    t.text "rejections", default: [], array: true
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "application_type", default: "scholarship"
     t.boolean "loan_preferred", default: false
+    t.boolean "closed", default: false
+    t.boolean "denied", default: false
+    t.boolean "approved", default: false
     t.index ["user_id"], name: "index_scholarships_on_user_id"
   end
 
@@ -197,9 +185,32 @@ ActiveRecord::Schema.define(version: 2019_08_14_045839) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.string "application_type"
+    t.integer "application_id"
+    t.boolean "accept", default: false
+    t.boolean "modify", default: false
+    t.text "modification"
+    t.boolean "suggest_loan", default: false
+    t.text "describe_loan"
+    t.boolean "deny", default: false
+    t.boolean "denial_fund_overuse", default: false
+    t.boolean "denial_not_qualify", default: false
+    t.boolean "denial_unreasonable_request", default: false
+    t.boolean "denial_not_involved_charity", default: false
+    t.boolean "denial_other", default: false
+    t.text "denial_other_description"
+    t.boolean "superseded", default: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "seconded", default: false
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "charities", "users"
   add_foreign_key "hardships", "users"
-  add_foreign_key "modifications", "users"
   add_foreign_key "scholarships", "users"
   add_foreign_key "testimonials", "users"
+  add_foreign_key "votes", "users"
 end

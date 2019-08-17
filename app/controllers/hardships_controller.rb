@@ -78,8 +78,9 @@ class HardshipsController < ApplicationController
     end
   end
 
-  # DELETE /hardships/1
-  # DELETE /hardships/1.json
+
+
+
   def destroy
     @hardship.destroy
     respond_to do |format|
@@ -87,6 +88,9 @@ class HardshipsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
 
   def withdraw_hardship
     @hardship = Hardship.find(params[:id])
@@ -99,6 +103,9 @@ class HardshipsController < ApplicationController
         flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
+
+
+
 
   def approve_hardship
     @hardship = Hardship.find(params[:id])
@@ -118,7 +125,7 @@ class HardshipsController < ApplicationController
             flash[:notice] = "You have successfully voted to approve this application."
           elsif @hardship.approvals.count >= 1
             @hardship.approvals << current_user.id
-            @hardship.update_attributes(final_decision: "Approved")
+            @hardship.update_attributes(status: "Decision Reached", final_decision: "Approved", approved: true)
             @hardship.save
             if @hardship.for_other
               # transfer ownership of application to recipient
@@ -156,7 +163,7 @@ class HardshipsController < ApplicationController
             flash[:notice] = "You have successfully voted to reject this application."
           elsif @hardship.rejections.count >= 1
             @hardship.rejections << current_user.id
-            @hardship.update_attributes(final_decision: "Approved")
+            @hardship.update_attributes(status: "Decision Reached", final_decision: "Denied", denied: true)
             @hardship.save
             if @hardship.for_other
               #send email to submitting member
@@ -164,7 +171,7 @@ class HardshipsController < ApplicationController
               #send rejection email to applicant
             end
             redirect_back(fallback_location: hardship_path(@hardship))
-            flash[:notice] = "That application has been officially rejected!"
+            flash[:notice] = "That application has been officially denied!"
           else
             redirect_back(fallback_location: hardship_path(@hardship))
             flash[:warning] = "Something went wrong.  Please try your request again later."
@@ -212,11 +219,15 @@ class HardshipsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def hardship_params
       params.require(:hardship).permit(
+        :user_id,
         :application_type,
+
+        :loan_preferred,
+
         :for_other,
         :for_other_email,
+
         :full_name,
-        :loan_preferred,
         :date,
         :position,
         :branch,
@@ -245,12 +256,14 @@ class HardshipsController < ApplicationController
         :intent_signature_date,
         :release_signature,
         :release_signature_date,
-        :status,
-        :final_decision,
+
+        :approved,
         :returned,
-        :user_id,
-        :approvals => [],
-        :rejections => []
+        :denied,
+        :closed,
+
+        :status,
+        :final_decision
       )
     end
 end

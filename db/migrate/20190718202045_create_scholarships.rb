@@ -1,6 +1,8 @@
 class CreateScholarships < ActiveRecord::Migration[5.2]
   def change
     create_table :scholarships do |t|
+      t.string :application_type, default: "scholarship"
+      t.boolean :loan_preferred, default: false
       t.string :full_name
       t.date :date
       t.string :position
@@ -23,11 +25,15 @@ class CreateScholarships < ActiveRecord::Migration[5.2]
       t.date :intent_signature_date
       t.string :release_signature
       t.date :release_signature_date
+
       t.string :status, default: "Application Started"
       t.string :final_decision, default: "Not Decided"
+
+      t.boolean :approved, default: false
       t.boolean :returned, default: false
-      t.text :approvals, default: [], array: true
-      t.text :rejections, default: [], array: true
+      t.boolean :denied, default: false
+      t.boolean :closed, default: false
+
       t.references :user, foreign_key: true
 
       t.timestamps

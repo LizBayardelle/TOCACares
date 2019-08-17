@@ -49,25 +49,8 @@
       <%= link_to "Answer Questions", questions_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
       <%= link_to "Manage Users", users_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
       <%= link_to 'Manage Testimonials', home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
+      <%= link_to 'Review Applications', home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
 
-
-      <div class="row">
-        <div class="col-md-4 py-2">
-          <%= link_to hardships_path, class: "btn btn-primary btn-lg btn-block" do %>
-          All Hardship<br> Applications
-          <% end %>
-        </div> <!-- col -->
-        <div class="col-md-4 py-2">
-          <%= link_to scholarships_path, class: "btn btn-primary btn-lg btn-block" do %>
-            All Scholarship<br> Applications
-          <% end %>
-        </div> <!-- col -->
-        <div class="col-md-4 py-2">
-          <%= link_to charities_path, class: "btn btn-primary btn-lg btn-block" do %>
-            All Charity<br> Applications
-          <% end %>
-        </div> <!-- col -->
-      </div> <!-- row -->
 
     <% end %>
     <!-- END ADMIN ONLY -->

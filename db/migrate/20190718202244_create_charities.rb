@@ -1,6 +1,9 @@
 class CreateCharities < ActiveRecord::Migration[5.2]
   def change
     create_table :charities do |t|
+      t.string :application_type, default: "charity"
+      t.boolean :loan_preferred, default: false
+      
       t.string :full_name
       t.date :date
       t.string :position
@@ -26,8 +29,12 @@ class CreateCharities < ActiveRecord::Migration[5.2]
       t.string :status, default: "Application Started"
       t.string :final_decision, default: "Not Decided"
       t.boolean :returned, default: false
-      t.text :approvals, default: [], array: true
-      t.text :rejections, default: [], array: true
+
+      t.boolean :approved, default: false
+      t.boolean :returned, default: false
+      t.boolean :denied, default: false
+      t.boolean :closed, default: false
+
       t.references :user, foreign_key: true
 
       t.timestamps

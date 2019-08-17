@@ -1,0 +1,28 @@
+
+<%= simple_form_for(@vote) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :application_type %>
+    <%= f.input :application_id %>
+    <%= f.input :accept %>
+    <%= f.input :modify %>
+    <%= f.input :modification %>
+    <%= f.input :suggest_loan %>
+    <%= f.input :describe_loan %>
+    <%= f.input :deny %>
+    <%= f.input :denial_fund_overuse %>
+    <%= f.input :denial_not_qualify %>
+    <%= f.input :denial_unreasonable_request %>
+    <%= f.input :denial_not_involved_charity %>
+    <%= f.input :denial_other %>
+    <%= f.input :denial_other_description %>
+    <%= f.input :superseded %>
+    <%= f.input :references %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
