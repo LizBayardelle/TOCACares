@@ -32,9 +32,7 @@
     <!-- IF COMMITTEE -->
     <% if @user.committee %>
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
-      <%= link_to home_pending_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
-        All Applications Needing Votes
-      <% end %>
+      <%= link_to "Applications Needing Votes", home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
     <% end %>
     <!-- END COMMITTEE ONLY -->
 
@@ -49,7 +47,7 @@
       <%= link_to "Answer Questions", questions_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
       <%= link_to "Manage Users", users_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
       <%= link_to 'Manage Testimonials', home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
-      <%= link_to 'Review Applications', home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
+      <%= link_to 'Manage Applications', home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
 
 
     <% end %>
@@ -62,7 +60,7 @@
         <h2 class="text-center toca-uppercase color-toca-red mt-5">My Scholarship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="black white-text">
+            <thead class="bg-toca-red white-text">
               <tr>
                 <th scope="col">Application</th>
                 <th scope="col">Status</th>
@@ -90,8 +88,10 @@
                       &nbsp;|&nbsp;
                       <%= link_to "Edit", edit_scholarship_path(scholarship) %>
                     <% end %>
-                    &nbsp;|&nbsp;
-                    <%= button_to "Withdraw", withdraw_scholarship_path(scholarship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <% unless scholarship.status == "Decision Reached" %>
+                      &nbsp;|&nbsp;
+                      <%= button_to "Withdraw", withdraw_scholarship_path(scholarship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %> <!-- hardships each -->
@@ -108,7 +108,7 @@
         <h2 class="text-center toca-uppercase color-toca-red mt-4">My Hardship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="black white-text">
+            <thead class="bg-toca-red white-text">
               <tr>
                 <th scope="col">Application</th>
                 <th scope="col">Status</th>
@@ -136,8 +136,10 @@
                       &nbsp;|&nbsp;
                       <%= link_to "Edit", edit_hardship_path(hardship) %>
                     <% end %>
-                    &nbsp;|&nbsp;
-                    <%= button_to "Withdraw", withdraw_hardship_path(hardship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <% unless hardship.status == "Decision Reached" %>
+                      &nbsp;|&nbsp;
+                      <%= button_to "Withdraw", withdraw_hardship_path(hardship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %> <!-- hardships each -->
@@ -154,7 +156,7 @@
         <h2 class="text-center toca-uppercase color-toca-red mt-4">My Charity Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="black white-text">
+            <thead class="bg-toca-red white-text">
               <tr>
                 <th scope="col">Application</th>
                 <th scope="col">Status</th>
@@ -182,8 +184,10 @@
                       &nbsp;|&nbsp;
                       <%= link_to "Edit", edit_charity_path(charity) %>
                     <% end %>
-                    &nbsp;|&nbsp;
-                    <%= button_to "Withdraw", withdraw_charity_path(charity), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <% unless charity.status == "Decision Reached" %>
+                      &nbsp;|&nbsp;
+                      <%= button_to "Withdraw", withdraw_charity_path(charity), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %> <!-- charities each -->

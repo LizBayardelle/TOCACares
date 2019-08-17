@@ -5,6 +5,8 @@ class ScholarshipsController < ApplicationController
   before_action :admin_or_committee_only, only: [:index]
   before_action :self_admin_or_committee_if_submitted, only: [:show]
   before_action :committee_only, only: [:approve_scholarship]
+  before_action :admin_only, only: [:close_scholarship]
+
 
   # GET /scholarships
   # GET /scholarships.json
@@ -99,6 +101,31 @@ class ScholarshipsController < ApplicationController
           flash[:warning] = "Something went wrong.  Please try your request again later."
       end
     end
+
+
+
+    def close_scholarship
+      @scholarship = Scholarship.find(params[:id])
+      @scholarship.update_attributes(closed: true)
+      if @scholarship.update_attributes(closed: true)
+          redirect_back(fallback_location: user_path(current_user))
+          flash[:notice] = "That application has been closed!"
+      else
+          redirect_to user_path(current_user)
+          flash[:warning] = "Something went wrong.  Please try your request again later."
+      end
+    end
+
+
+
+    def admin_only
+      unless current_user && current_user.admin
+        redirect_back(fallback_location: root_path)
+        flash[:warning] = "Sorry, you must be an admin to do that."
+      end
+    end
+
+
 
     def approve_scholarship
       @scholarship = Scholarship.find(params[:id])

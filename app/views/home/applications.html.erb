@@ -9,11 +9,11 @@
         <% if @open_applications.count >= 1 %>
           <div class="table-responsive">
             <table class="table table-striped">
-              <thead class="black white-text">
+              <thead class="bg-toca-red white-text">
                 <tr>
                   <th scope="col">Application</th>
                   <th scope="col">Amount</th>
-                  <th scope="col">Status</th>
+                  <th scope="col">Voting Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -23,13 +23,41 @@
                       <%= link_to hardship_path(application) do %>
                         <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
                       <% end %>
+                      <br><%= application.status %> (<%= application.final_decision %>)
+                      <% if current_user && current_user.admin && application.status == "Decision Reached" %>
+                        <% if application_type = "hardship" %>
+                          <br><%= link_to "Mark as Closed", close_hardship_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
+                        <% elsif application_type = "scholarship" %>
+                          <br><%= link_to "Mark as Closed", close_scholarship_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
+                        <% elsif application_type = "charity" %>
+                          <br><%= link_to "Mark as Closed", close_charity_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
+                        <% end %>
+                      <% end %>
                     </td>
                     <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
                     <td>
-                      <%= application.status %>
-                      <br>
-                      <%#= pluralize(application.approvals.count, "Approval") %><br>
-                      <%#= pluralize(application.rejections.count, "Rejection") %>
+                      <% if current_user && current_user.committee %>
+                        <% if application.status == "Decision Reached" %>
+                          <strong>Decision Reached</strong>
+                        <% elsif application.status == "Returned for Modifications" %>
+                          <strong>Returned for Modifications</strong>
+                        <% elsif application.status == "Withdrawn" %>
+                          <strong>Application Withdrawn</strong>
+                        <% elsif application.user_id == current_user.id %>
+                          <strong>Your Application</strong>
+                        <% elsif Vote.where(user_id: current_user.id, application_type: application.application_type, application_id: application.id).count == 0 %>
+                          <%= link_to "Needs Your Vote", hardship_path(application), class: "btn btn-secondary btn-sm mb-2" %>
+                        <% else %>
+                          <strong>Already Voted</strong>
+                        <% end %>
+                        <br>
+                      <% end %>
+                      <% votes_accept = Vote.where(accept: true, application_type: application.application_type, application_id: application.id) %>
+                      <% votes_modify = Vote.where(modify: true, application_type: application.application_type, application_id: application.id) %>
+                      <% votes_deny = Vote.where(deny: true, application_type: application.application_type, application_id: application.id) %>
+                      <%= pluralize(votes_accept.count, "Approval") %>
+                      <br><%= pluralize(votes_modify.count, "Request for Modification") %>
+                      <br><%= pluralize(votes_deny.count, "Rejection") %>
                     </td>
                   </tr>
                 <% end %> <!-- applications each -->
@@ -46,7 +74,7 @@
         <% if @closed_applications.count >= 1 %>
           <div class="table-responsive">
             <table class="table table-striped">
-              <thead class="black white-text">
+              <thead class="bg-toca-red white-text">
                 <tr>
                   <th scope="col">Application</th>
                   <th scope="col">Amount</th>

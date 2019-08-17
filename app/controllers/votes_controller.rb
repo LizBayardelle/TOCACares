@@ -1,7 +1,7 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:destroy, :own_vote_only]
   before_action :authenticate_user!
-  before_action :set_application, only: [:create, :second_vote]
+  before_action :set_application, only: [:second_vote]
   before_action :own_vote_only, only: [:destroy]
   before_action :committee_only, only: [:new, :create, :destroy]
 
@@ -40,7 +40,7 @@ class VotesController < ApplicationController
   def destroy
     @vote.destroy
     respond_to do |format|
-      format.html { redirect_to votes_url, notice: 'You have successfully deleted your vote and can now cast another one on this application.' }
+      format.html { redirect_to home_applications_url, notice: 'You have successfully deleted your vote and can now cast another one on this application.' }
       format.json { head :no_content }
     end
   end
@@ -75,31 +75,68 @@ class VotesController < ApplicationController
       redirect_back(fallback_location: home_pending_path)
       flash[:warning] = "Sorry, you cannot second a vote on your own application."
     else
-
-      @other_votes = Vote.where(app_type: @vote.app_type, app_id: @vote.app_id).where.not(id: @vote.id)
+      ## UPDATE VOTE STATUSES
+      @other_votes = Vote.where(application_type: @vote.application_type, application_id: @vote.application_id).where.not(id: @vote.id)
       @other_votes.update_all(superseded: true)
+      @vote.update_attributes(seconded: true)
 
-      # Send email to user about requested vote
-
-      if @vote.app_type == "hardship"
-        @application = Hardship.find_by(id: @vote.app_id)
-      elsif @vote.app_type == "scholarship"
-        @application = Scholarship.find_by(id: @vote.app_id)
-      elsif @vote.app_type == "charity"
-        @application = Charity.find_by(id: @vote.app_id)
+      ## SET APPLICATION
+      if @vote.application_type == "hardship"
+        @application = Hardship.find_by(id: @vote.application_id)
+      elsif @vote.application_type == "scholarship"
+        @application = Scholarship.find_by(id: @vote.application_id)
+      elsif @vote.application_type == "charity"
+        @application = Charity.find_by(id: @vote.application_id)
       end
 
-      @application.update_attributes(status: "Returned for Votes", final_decision: "Votes Requested", approvals: [], rejections: [])
-
-      if @vote.app_type == "hardship" && @application.for_other
-        #send applicant email to transfer ownership
-        #send email to submitting member
-      else
-        #send vote email to applicant
+      ## UPDATE APPLICATION STATUSES
+      if @vote.accept
+        @application.update_attributes(status: "Decision Reached", final_decision: "Approved", approved: true)
+        if @application.application_type == "hardship" && @application.for_other
+          # Transfer ownership
+          HardshipMailer.by_other_hardship_accepted_email(@hardship).deliver
+          #send email to submitting member
+        else
+          if @vote.application_type == "hardship"
+            HardshipMailer.hardship_accepted_email(@application).deliver
+          elsif @vote.application_type == "scholarship"
+            ScholarshipMailer.scholarship_accepted_email(@application).deliver
+          elsif @vote.application_type == "charity"
+            CharityMailer.charity_accepted_email(@application).deliver
+          end
+        end
+      elsif @vote.modify
+        @application.update_attributes(status: "Returned for Modifications", final_decision: "Modifications Requested", returned: true)
+        if @application.application_type == "hardship" && @application.for_other
+          # send submitting member transfere of ownership (& modification) notification email
+          # transfer ownership to recipient
+          # send email to submitting member
+        else
+          if @vote.application_type == "hardship"
+            #send modification email to applicant
+          elsif @vote.application_type == "scholarship"
+            #send modification email to applicant
+          elsif @vote.application_type == "charity"
+            #send modification email to applicant
+          end
+        end
+      elsif @vote.deny
+        @application.update_attributes(status: "Decision Reached", final_decision: "Rejected", denied: true)
+        if @application.application_type == "hardship" && @application.for_other
+          #send rejection email to submitting member
+        else
+          if @vote.application_type == "hardship"
+            HardshipMailer.hardship_denied_email(@application).deliver
+          elsif @vote.application_type == "scholarship"
+            ScholarshipMailer.scholarship_denied_email(@application).deliver
+          elsif @vote.application_type == "charity"
+            CharityMailer.charity_denied_email(@application).deliver
+          end
+        end
       end
 
-      redirect_to home_pending_path
-      flash[:notice] = "That vote has been successfully seconded. Thank you for serving on the deciding committee!"
+      redirect_to home_applications_path
+      flash[:notice] = "That vote has been successfully seconded and the application is being processed accordingly. Thank you for serving on the deciding committee!"
     end
   end
 
