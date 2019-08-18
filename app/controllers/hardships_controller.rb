@@ -21,7 +21,7 @@ class HardshipsController < ApplicationController
 
   def show
     @new_vote = Vote.new
-    @votes = Vote.where(application_type: "hardship", application_id: @hardship.id, superseded: false)
+    @votes = Vote.where(application_type: "hardship", application_id: @hardship.id, seconded: true)
     @votes_accept = Vote.where(accept: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_modify = Vote.where(modify: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
@@ -36,6 +36,7 @@ class HardshipsController < ApplicationController
 
 
   def edit
+    @votes = Vote.where(application_type: "hardship", application_id: @hardship.id, seconded: true)
   end
 
 
@@ -70,8 +71,8 @@ class HardshipsController < ApplicationController
     respond_to do |format|
       if @hardship.update(hardship_params)
         if @hardship.status == "Submitted to Committee"
-          @votes = Vote.where(application_type: @hardship.application_type, application_id: @vote.application_id)
-          @votes.destroy_all
+          @votes = Vote.where(application_type: @hardship.application_type, application_id: @hardship.id)
+          @votes.each(&:destroy)
           NewApplicationMailer.send_new_application_email(@hardship).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
@@ -87,15 +88,13 @@ class HardshipsController < ApplicationController
 
 
 
-
   def destroy
     @hardship.destroy
     respond_to do |format|
-      format.html { redirect_to hardships_url, notice: 'Your application has been successfully deleted.' }
+      format.html { redirect_to hardships_url, notice: 'That application has been successfully deleted.' }
       format.json { head :no_content }
     end
   end
-
 
 
 
@@ -176,59 +175,59 @@ class HardshipsController < ApplicationController
 
 
 
-    def set_hardship
-      @hardship = Hardship.find(params[:id])
-    end
+  def set_hardship
+    @hardship = Hardship.find(params[:id])
+  end
 
 
 
-    def hardship_params
-      params.require(:hardship).permit(
-        :user_id,
-        :application_type,
+  def hardship_params
+    params.require(:hardship).permit(
+      :user_id,
+      :application_type,
 
-        :loan_preferred,
+      :loan_preferred,
 
-        :for_other,
-        :for_other_email,
+      :for_other,
+      :for_other_email,
 
-        :full_name,
-        :date,
-        :position,
-        :branch,
-        :email_non_toca,
-        :mobile,
-        :address,
-        :city,
-        :state,
-        :zip,
-        :bank_name,
-        :bank_phone,
-        :bank_address,
-        :start_date,
-        :accident,
-        :catastrophe,
-        :counseling,
-        :family_emergency,
-        :health,
-        :memorial,
-        :other_hardship,
-        :other_hardship_description,
-        :requested_amount,
-        :hardship_description,
-        :self_fund,
-        :intent_signature,
-        :intent_signature_date,
-        :release_signature,
-        :release_signature_date,
+      :full_name,
+      :date,
+      :position,
+      :branch,
+      :email_non_toca,
+      :mobile,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :bank_name,
+      :bank_phone,
+      :bank_address,
+      :start_date,
+      :accident,
+      :catastrophe,
+      :counseling,
+      :family_emergency,
+      :health,
+      :memorial,
+      :other_hardship,
+      :other_hardship_description,
+      :requested_amount,
+      :hardship_description,
+      :self_fund,
+      :intent_signature,
+      :intent_signature_date,
+      :release_signature,
+      :release_signature_date,
 
-        :approved,
-        :returned,
-        :denied,
-        :closed,
+      :approved,
+      :returned,
+      :denied,
+      :closed,
 
-        :status,
-        :final_decision
-      )
-    end
+      :status,
+      :final_decision
+    )
+  end
 end

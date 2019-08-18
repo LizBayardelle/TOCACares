@@ -4,12 +4,11 @@ class CharitiesController < ApplicationController
   before_action :already_submitted, only: [:edit, :update]
   before_action :admin_or_committee_only, only: [:index]
   before_action :self_admin_or_committee_if_submitted, only: [:show]
-  before_action :committee_only, only: [:approve_charity]
   before_action :admin_only, only: [:close_charity]
 
 
-  # GET /charities
-  # GET /charities.json
+
+
   def index
     @charities = Charity.all
     @vote_needed = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided")
@@ -18,24 +17,30 @@ class CharitiesController < ApplicationController
     @rejected = Charity.where(status: "Decision Reached", final_decision: "Rejected")
   end
 
-  # GET /charities/1
-  # GET /charities/1.json
+
+
   def show
-    @new_modification = Modification.new
-    @modifications = Modification.where(app_type: "charity", app_id: @charity.id, superseded: false)
+    @new_vote = Vote.new
+    @votes = Vote.where(application_type: "charity", application_id: @charity.id, seconded: true)
+    @votes_accept = Vote.where(accept: true, application_type: "charity", application_id: @charity.id, superseded: false)
+    @votes_modify = Vote.where(modify: true, application_type: "charity", application_id: @charity.id, superseded: false)
+    @votes_deny = Vote.where(deny: true, application_type: "charity", application_id: @charity.id, superseded: false)
   end
 
-  # GET /charities/new
+
+
   def new
     @charity = Charity.new
   end
 
-  # GET /charities/1/edit
+
+
   def edit
+    @votes = Vote.where(application_type: "charity", application_id: @charity.id, seconded: true)
   end
 
-  # POST /charities
-  # POST /charities.json
+
+
   def create
     @charity = Charity.new(charity_params)
     @charity.user_id = current_user.id
@@ -58,12 +63,16 @@ class CharitiesController < ApplicationController
     end
   end
 
+
+
   def update
     @charity.status = params[:status]
 
     respond_to do |format|
       if @charity.update(charity_params)
         if @charity.status == "Submitted to Committee"
+          @votes = Vote.where(application_type: @charity.application_type, application_id: @charity.id)
+          @votes.each(&:destroy)
           NewApplicationMailer.send_new_application_email(@charity).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
@@ -77,13 +86,17 @@ class CharitiesController < ApplicationController
     end
   end
 
+
+
   def destroy
     @charity.destroy
     respond_to do |format|
-      format.html { redirect_to charities_url, notice: 'Charity was successfully destroyed.' }
+      format.html { redirect_to charities_url, notice: 'That application has been successfully deleted.' }
       format.json { head :no_content }
     end
   end
+
+
 
   def withdraw_charity
     @charity = Charity.find(params[:id])
@@ -94,70 +107,6 @@ class CharitiesController < ApplicationController
     else
         redirect_to user_path(current_user)
         flash[:warning] = "Something went wrong.  Please try your request again later."
-    end
-  end
-
-  def approve_charity
-    @charity = Charity.find(params[:id])
-    if current_user && @charity.user.id == current_user.id
-      redirect_back(fallback_location: charity_path(@charity))
-      flash[:warning] = "Sorry, you cannot vote on your own application!"
-    else
-      if @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" )
-        if @charity.approvals.include?(current_user.id.to_s) || @charity.rejections.include?(current_user.id.to_s)
-          redirect_back(fallback_location: charity_path(@charity))
-          flash[:warning] = "Sorry, you have already voted on that application!"
-        else
-          if @charity.approvals.count < 1
-            @charity.approvals << current_user.id
-            @charity.save
-            redirect_back(fallback_location: charity_path(@charity))
-            flash[:notice] = "You have successfully voted to approve this application."
-          elsif @charity.approvals.count >= 1
-            @charity.approvals << current_user.id
-            @charity.update_attributes(final_decision: "Approved")
-            @charity.save
-            CharityMailer.charity_accepted_email(@charity).deliver
-            redirect_back(fallback_location: charity_path(@charity))
-            flash[:notice] = "That application has been officially approved!"
-          else
-            redirect_back(fallback_location: charity_path(@charity))
-            flash[:warning] = "Something went wrong.  Please try your request again later."
-          end
-        end
-      end
-    end
-  end
-
-  def reject_charity
-    @charity = Charity.find(params[:id])
-    if current_user && @charity.user.id == current_user.id
-      redirect_back(fallback_location: charity_path(@charity))
-      flash[:warning] = "Sorry, you cannot vote on your own application!"
-    else
-      if @charity.status == "Submitted to Committee" && ( @charity.final_decision == "Not Decided" || @charity.final_decision == "Modifications Requested" )
-        if @charity.rejections.include?(current_user.id.to_s) || @charity.approvals.include?(current_user.id.to_s)
-          redirect_back(fallback_location: charity_path(@charity))
-          flash[:warning] = "Sorry, you have already voted on that application!"
-        else
-          if @charity.rejections.count < 1
-            @charity.rejections << current_user.id
-            @charity.save
-            redirect_back(fallback_location: charity_path(@charity))
-            flash[:notice] = "You have successfully voted to reject this application."
-          elsif @charity.rejections.count >= 1
-            @charity.rejections << current_user.id
-            @charity.update_attributes(final_decision: "Approved")
-            @charity.save
-            CharityMailer.charity_rejected_email(@charity).deliver
-            redirect_back(fallback_location: charity_path(@charity))
-            flash[:notice] = "That application has been officially rejected!"
-          else
-            redirect_back(fallback_location: charity_path(@charity))
-            flash[:warning] = "Something went wrong.  Please try your request again later."
-          end
-        end
-      end
     end
   end
 
@@ -186,13 +135,14 @@ class CharitiesController < ApplicationController
 
 
 
-
   def already_submitted
     if @charity.status == "Submitted to Committee" || @charity.status == "Final Decision Reached"
       redirect_back(fallback_location: user_path(current_user))
       flash[:warning] = "Sorry, you can't edit an application that's already been submitted."
     end
   end
+
+
 
   def committee_only
     unless current_user && current_user.committee
@@ -201,12 +151,16 @@ class CharitiesController < ApplicationController
     end
   end
 
+
+
   def admin_or_committee_only
     unless current_user && ( current_user.admin || current_user.committee )
       redirect_back(fallback_location: root_path)
       flash[:warning] = "Sorry, you must be an administrator to access that page."
     end
   end
+
+
 
   def self_admin_or_committee_if_submitted
     unless (@charity.user.id == current_user.id) || (current_user.admin) || (current_user.committee && ( @charity.status == "Submitted to Committee" || @charity.status == "Decision Reached" ))
@@ -215,50 +169,55 @@ class CharitiesController < ApplicationController
     end
   end
 
+
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_charity
-      @charity = Charity.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def charity_params
-      params.require(:charity).permit(
-        :user_id,
-        :application_type,
 
-        :loan_preferred,
 
-        :full_name,
-        :date,
-        :position,
-        :branch,
-        :start_date,
-        :email_non_toca,
-        :mobile,
-        :address,
-        :city,
-        :state,
-        :zip,
-        :institution_name,
-        :institution_contact,
-        :institution_phone,
-        :institution_address,
-        :requested_amount,
-        :self_fund,
-        :opportunity_description,
-        :intent_signature,
-        :intent_signature_date,
-        :release_signature,
-        :release_signature_date,
+  def set_charity
+    @charity = Charity.find(params[:id])
+  end
 
-        :approved,
-        :returned,
-        :denied,
-        :closed,
 
-        :status,
-        :final_decision
-      )
-    end
+
+  def charity_params
+    params.require(:charity).permit(
+      :user_id,
+      :application_type,
+
+      :loan_preferred,
+
+      :full_name,
+      :date,
+      :position,
+      :branch,
+      :start_date,
+      :email_non_toca,
+      :mobile,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :institution_name,
+      :institution_contact,
+      :institution_phone,
+      :institution_address,
+      :requested_amount,
+      :self_fund,
+      :opportunity_description,
+      :intent_signature,
+      :intent_signature_date,
+      :release_signature,
+      :release_signature_date,
+
+      :approved,
+      :returned,
+      :denied,
+      :closed,
+
+      :status,
+      :final_decision
+    )
+  end
 end

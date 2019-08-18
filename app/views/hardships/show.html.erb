@@ -9,10 +9,6 @@
       <% end %>
 
       <%= @hardship.status %>
-      <% if @hardship.returned %>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        Returned for Modification
-      <% end %>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= @hardship.final_decision %>
 
@@ -144,20 +140,29 @@
 
   <% if current_user && @hardship.user && @hardship.status == "Returned for Modifications" %>
     <section class="my-4 pb-5">
+
+
       <div class="bg-toca-red mb-3 px-5 py-3">
         <div class="container">
           <h2 class="color-white toca-uppercase">Requested Modifications</h2>
         </div> <!-- container -->
       </div> <!-- red stripe -->
 
+
+
       <div class="container">
-        <% @votes.each do |m| %>
-          <p><%= m.body %></p>
+        <% @votes.each do |v| %>
+          <p><strong><%= v.modification %></strong></p>
+          <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
         <% end %>
-        <div class="text-center">
-          <%= link_to "Modify My Application Now", edit_hardship_path(@hardship), class: "btn btn-md btn-secondary" %>
-        </div>
+        <% if current_user == @charity.user %>
+          <div class="text-center">
+            <%= link_to "Modify My Application Now", edit_hardship_path(@hardship), class: "btn btn-md btn-secondary" %>
+          </div>
+        <% end %>
       </div> <!-- container -->
+
+
     </section>
   <% end %> <!-- committee only for decisions -->
 
@@ -371,10 +376,20 @@
       $('.decision-checkbox').not(this).prop('checked', false);
       $('.detail-row').hide();
     });
+    $('#accept').change(function() {
+      if($(this).prop("checked")) {
+        $('.reject-checkbox').prop('checked', false);
+        $('.denial-text').val("");
+        $('#suggest_loan').prop('checked', false);
+        $('.modification-text').val("");
+      }
+    });
     $('#modify').change(function() {
       if($(this).prop("checked")) {
         $('.detail-row').hide();
         $('#modify-row').show();
+        $('.reject-checkbox').prop('checked', false);
+        $('.denial-text').val("");
       } else {
         $('#modify-row').hide();
       }
@@ -383,6 +398,8 @@
       if($(this).prop("checked")) {
         $('.detail-row').hide();
         $('#deny-row').show();
+        $('#suggest_loan').prop('checked', false);
+        $('.modification-text').val("");
       } else {
         $('#deny-row').hide();
       }

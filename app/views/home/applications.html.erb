@@ -20,16 +20,26 @@
                 <% @open_applications.each do |application| %>
                   <tr>
                     <td>
-                      <%= link_to hardship_path(application) do %>
-                        <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                      <% if application.application_type == "hardship" %>
+                        <%= link_to hardship_path(application) do %>
+                          <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                        <% end %>
+                      <% elsif application.application_type == "scholarship" %>
+                        <%= link_to scholarship_path(application) do %>
+                          <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                        <% end %>
+                      <% elsif application.application_type == "charity" %>
+                        <%= link_to charity_path(application) do %>
+                          <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                        <% end %>
                       <% end %>
-                      <br><%= application.status %> (<%= application.final_decision %>)
+                      <br><%= application.status %> <% if application.status == "Decision Reached" %>(<%= application.final_decision %>)<% end %>
                       <% if current_user && current_user.admin && application.status == "Decision Reached" %>
-                        <% if application_type = "hardship" %>
+                        <% if application.application_type == "hardship" %>
                           <br><%= link_to "Mark as Closed", close_hardship_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
-                        <% elsif application_type = "scholarship" %>
+                        <% elsif application.application_type == "scholarship" %>
                           <br><%= link_to "Mark as Closed", close_scholarship_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
-                        <% elsif application_type = "charity" %>
+                        <% elsif application.application_type == "charity" %>
                           <br><%= link_to "Mark as Closed", close_charity_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
                         <% end %>
                       <% end %>
@@ -46,7 +56,13 @@
                         <% elsif application.user_id == current_user.id %>
                           <strong>Your Application</strong>
                         <% elsif Vote.where(user_id: current_user.id, application_type: application.application_type, application_id: application.id).count == 0 %>
-                          <%= link_to "Needs Your Vote", hardship_path(application), class: "btn btn-secondary btn-sm mb-2" %>
+                          <% if application.application_type == "hardship" %>
+                            <%= link_to "Needs Your Vote", hardship_path(application), class: "btn btn-secondary btn-sm mb-2" %>
+                          <% elsif application.application_type == "scholarship" %>
+                              <%= link_to "Needs Your Vote", scholarship_path(application), class: "btn btn-secondary btn-sm mb-2" %>
+                          <% elsif application.application_type == "charity" %>
+                              <%= link_to "Needs Your Vote", charity_path(application), class: "btn btn-secondary btn-sm mb-2" %>
+                          <% end %>
                         <% else %>
                           <strong>Already Voted</strong>
                         <% end %>

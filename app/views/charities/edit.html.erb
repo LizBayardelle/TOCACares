@@ -5,23 +5,31 @@
 
       <h1 class="text-center mb-3">Complete Your Charity Application</h1>
 
+  </div> <!-- container -->
+  <section class="my-4">
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Requested Modifications</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
 
-      <section class="my-4 pb-5">
-        <div class="bg-toca-red mb-3 px-5 py-3">
-          <div class="container">
-            <h2 class="color-white toca-uppercase">Requested Modifications</h2>
-          </div> <!-- container -->
-        </div> <!-- red stripe -->
+    <div class="container">
+      <% @votes.each do |v| %>
+        <p><strong><%= v.modification %></strong></p>
+        <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
+      <% end %>
+    </div> <!-- container -->
+  </section>
 
-        <div class="container">
-          <% @modifications.each do |m| %>
-            <p><%= m.body %></p>
-          <% end %>
-      </section>
+  <div class="bg-toca-red mb-3 px-5 py-3">
+    <div class="container">
+      <h2 class="color-white toca-uppercase">Edit Application</h2>
+    </div> <!-- container -->
+  </div> <!-- red stripe -->
+
+  <div class="container">
 
       <%= render 'form', charity: @charity %>
-
-
 
     <% else %> <!-- if not modified... -->
 

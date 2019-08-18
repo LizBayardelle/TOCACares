@@ -5,18 +5,18 @@
 
     <p class="text-center">
       <%= @scholarship.status %>
-      <% if @scholarship.returned %>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        Returned for Modification
-      <% end %>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= @scholarship.final_decision %>
 
-      <br>
+      <% if current_user && ( current_user.committee || current_user.admin ) %>
+        <br>
 
-      <%= pluralize(@scholarship.approvals.count, "Approval") %>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <%= pluralize(@scholarship.rejections.count, "Rejection") %>
+        <%= pluralize(@votes_accept.count, "Approval") %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= pluralize(@votes_modify.count, "Request for Modification") %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= pluralize(@votes_deny.count, "Rejection") %>
+      <% end %>
     </p>
 
     <% if @scholarship.user == current_user && (@scholarship.status == "Application Started" || @scholarship.status == "Application in Progress" || @scholarship.status == "Returned for Modifications" )%>
@@ -98,7 +98,7 @@
       <% if @scholarship.loan_preferred %>
         <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
       <% end %>
-      
+
     </div> <!-- container -->
   </section> <!-- scholarship section -->
 
@@ -106,20 +106,29 @@
 
   <% if current_user && @scholarship.user && @scholarship.status == "Returned for Modifications" %>
     <section class="my-4 pb-5">
+
+
       <div class="bg-toca-red mb-3 px-5 py-3">
         <div class="container">
           <h2 class="color-white toca-uppercase">Requested Modifications</h2>
         </div> <!-- container -->
       </div> <!-- red stripe -->
 
+
+
       <div class="container">
-        <% @modifications.each do |m| %>
-          <p><%= m.body %></p>
+        <% @votes.each do |v| %>
+          <p><strong><%= v.modification %></strong></p>
+          <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
         <% end %>
-        <div class="text-center">
-          <%= link_to "Modify My Application Now", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary" %>
-        </div>
+        <% if current_user == @charity.user %>
+          <div class="text-center">
+            <%= link_to "Modify My Application Now", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary" %>
+          </div>
+        <% end %>
       </div> <!-- container -->
+
+
     </section>
   <% end %> <!-- committee only for decisions -->
 
@@ -131,46 +140,65 @@
     <section class="my4">
       <div class="bg-toca-red mb-3 px-5 py-3">
         <div class="container">
-          <h2 class="color-white toca-uppercase">Application Actions</h2>
+          <h2 class="color-white toca-uppercase">Application Decision</h2>
         </div> <!-- container -->
       </div> <!-- red stripe -->
 
-
-      <% if @modifications.count > 0 %>
-        <div class="container py-3">
-          <h3 class="toca-uppercase color-toca-red">Proposed Modifications</h3>
+      <div class="container py-3">
+        <% if @votes.count > 0 %>
+          <h3 class="toca-uppercase color-toca-red">Existing Votes</h3>
           <p class="color-dark-grey"><em>
-            Seconding a proposed modification will remove this application from consideration and send it back to the applicant for revision.
+            Seconding a proposed vote will remove this application from consideration and send it back to the applicant for revision.
           </em></p>
-            <% @modifications.each do |m| %>
-              <div>
-                <% if m.user_id == current_user.id %>
-                  <%= button_to "Your Own Modification", second_modification_path(m), class: "btn btn-sm mr-3 btn-light" %>
-                <% else %>
-                  <%= button_to "Second This Modification", second_modification_path(m), class: "btn btn-sm mr-3 btn-secondary" %>
-                <% end %>
-                <%= m.body %>
-              </div>
+          <table>
+            <% @votes.each do |vote| %>
+              <tr>
+                <td style="vertical-align: top">
+                  <% if vote.user_id == current_user.id %>
+                    <%= button_to "Delete My Vote", vote_path(vote), method: :delete, class: "btn btn-sm mr-3 btn-light", data: { confirm: "Are you sure you want to delete your vote?" } %>
+                  <% else %>
+                    <%= button_to "Second This Vote", second_vote_path(vote), class: "btn btn-sm mr-3 btn-secondary" %>
+                  <% end %>
+                </td>
+                <td style="vertical-align: top; padding: 10px">
+                  <% if vote.accept %>
+                    <strong>Approve As Is</strong>
+                  <% elsif vote.modify %>
+                    <strong>Request Modifications</strong>
+                    <br><%= vote.modification %>
+                    <% if vote.suggest_loan %>
+                      <br>Loan Suggested: <%= vote.describe_loan %>
+                    <% end %>
+                  <% elsif vote.deny %>
+                    <strong>Deny Application</strong>
+                    <% denial_reasons_array = [] %>
+                    <% if vote.denial_fund_overuse %>
+                      <% denial_reasons_array << "Overuse of Fund/Not Enough Time Between Applications" %>
+                    <% end %>
+                    <% if vote.denial_not_qualify %>
+                      <% denial_reasons_array << "Need Doesn't Qualify" %>
+                    <% end %>
+                    <% if vote.denial_unreasonable_request %>
+                      <% denial_reasons_array << "Unreasonable Request" %>
+                    <% end %>
+                    <% if vote.denial_other %>
+                      <% denial_reasons_array << "Other: " + vote.denial_other_description %>
+                    <% end %>
+                    <br><%= denial_reasons_array.join("<br>").html_safe %>
+                  <% end %>
+                <td>
+              </tr>
             <% end %>
-        </div> <!-- container -->
-      <% end %>
+          </table>
+        <% else %>
+          <p class="text-center">This application doesn't have any votes yet.</p>
+        <% end %>
 
-
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-sm-4">
-            <%= button_to "Approve Application", approve_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to approve this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
-          </div> <!-- col -->
-          <div class="col-sm-4">
-            <button type="button" class="btn btn-secondary btn-lg mx-2 my-2" data-toggle="modal" data-target="#newModificationModal">
-              Suggest Modification
-            </button>
-          </div> <!-- col -->
-          <div class="col-sm-4">
-            <%= button_to "Reject Application", reject_scholarship_path(@scholarship), method: :post, data: { confirm: "Are you sure you want to reject this application?"}, class: "btn btn-light btn-lg mx-2 my-2" %>
-          </div> <!-- col -->
-        </div> <!-- row -->
+        <button type="button" class="btn btn-secondary my-3 btn-lg btn-block" data-toggle="modal" data-target="#newVoteModal">
+          Vote on This Application
+        </button>
       </div> <!-- container -->
+
     </section>
   <% end %> <!-- committee only for decisions -->
 
@@ -184,7 +212,7 @@
 
 
 <!-- Central Modal Small -->
-<div class="modal fade" id="newModificationModal" tabindex="-1" role="dialog" aria-labelledby="newModificationModal"
+<div class="modal fade" id="newVoteModal" tabindex="-1" role="dialog" aria-labelledby="newModificationModal"
   aria-hidden="true">
 
   <!-- Change class .modal-sm to change the size of the modal -->
@@ -193,19 +221,19 @@
 
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100" id="myModalLabel">Suggest a Modification</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Vote on this Application</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= simple_form_for @new_modification, class: "text-center py-4 mb-5" do |form| %>
+      <%= simple_form_for @new_vote, class: "text-center py-4 mb-5" do |form| %>
         <div class="modal-body">
-          <% if @new_modification.errors.any? %>
+          <% if @new_vote.errors.any? %>
             <div id="error_explanation">
-              <h2><%= pluralize(@new_modification.errors.count, "error") %> prohibited this modification from being saved:</h2>
+              <h2><%= pluralize(@new_vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
 
               <ul>
-              <% @new_modification.errors.full_messages.each do |message| %>
+              <% @new_vote.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
               <% end %>
               </ul>
@@ -213,17 +241,87 @@
           <% end %>
 
           <div class="field">
-            <%= form.text_area :body, class: "form-control mb-4", placeholder: "What does the applicant need to change in their application?", required: true %>
-
-            <%= form.hidden_field :app_type, value: "scholarship" %>
-            <%= form.hidden_field :app_id, value: @scholarship.id %>
+            <%= form.hidden_field :application_type, value: "scholarship" %>
+            <%= form.hidden_field :application_id, value: @scholarship.id %>
           </div>
+
+          <div class="row">
+            <div class="field form-check text-left mb-4 col-sm-4">
+              <%= form.check_box :accept, class: "form-check-input decision-checkbox", id: "accept" %>
+              <%= form.label "Accept", class: "form-check-label", for: "accept" %>
+            </div>
+            <div class="field form-check text-left mb-4 col-sm-4">
+              <%= form.check_box :modify, class: "form-check-input decision-checkbox", id: "modify" %>
+              <%= form.label "Modify", class: "form-check-label", for: "modify" %>
+            </div>
+            <div class="field form-check text-left mb-4 col-sm-4">
+              <%= form.check_box :deny, class: "form-check-input decision-checkbox", id: "deny" %>
+              <%= form.label "Reject", class: "form-check-label", for: "deny" %>
+            </div>
+          </div> <!-- row -->
+
+
+          <div class="row detail-row" id="modify-row" style="display: none;">
+            <div class="container">
+
+              <hr>
+
+              <div class="field">
+                <%= form.text_area :modification, class: "form-control mb-4", placeholder: "Describe your proposed modification." %>
+              </div>
+              <div class="field form-check text-left mb-4">
+                <%= form.check_box :suggest_loan, class: "form-check-input", id: "suggest_loan" %>
+                <%= form.label "Recommend a loan in place of or as well as a grant", class: "form-check-label", for: "suggest_loan" %>
+              </div>
+              <div class="field" id="describe_loan_field" style="display: none;">
+                <%= form.text_area :describe_loan, class: "form-control mb-4", placeholder: "Describe the loan.  (e.g. Loan instead of grant, Grant of $300 with an additional $300 loan, etc.)" %>
+              </div>
+            </div> <!-- container -->
+          </div> <!-- modify row -->
+
+
+          <div class="row detail-row" id="deny-row" style="display: none;">
+            <div class="container">
+
+                <hr>
+
+                <p>Please select at least one reason for denying this application:</p>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_fund_overuse, class: "form-check-input", id: "denial_fund_overuse" %>
+                  <%= form.label "Overuse of Fund / Not Enough Time Between Applications", class: "form-check-label", for: "denial_fund_overuse" %>
+                </div>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_not_qualify, class: "form-check-input", id: "denial_not_qualify" %>
+                  <%= form.label "Need does not qualify", class: "form-check-label", for: "denial_not_qualify" %>
+                </div>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_unreasonable_request, class: "form-check-input", id: "denial_unreasonable_request" %>
+                  <%= form.label "Unreasonable request", class: "form-check-label", for: "denial_unreasonable_request" %>
+                </div>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_other, class: "form-check-input", id: "denial_other" %>
+                  <%= form.label "Other reason for denial (please describe)", class: "form-check-label", for: "denial_other" %>
+                </div>
+
+                <div class="field" id="denial_other_description_field" style="display: none;">
+                  <%= form.text_area :denial_other_description, class: "form-control mb-4", placeholder: "Describe the reason for denying this application." %>
+                </div>
+
+
+            </div> <!-- container -->
+          </div> <!-- modify row -->
+
+
 
 
       </div>
       <div class="modal-footer">
         <div class="actions">
-          <%= form.button :submit, "Submit Modification", class: "btn btn-primary" %>
+          <%= form.button :submit, "Cast My Vote", class: "btn btn-primary" %>
         </div>
       </div>
       <% end %>  <!-- end of form -->
@@ -231,3 +329,61 @@
   </div>
 </div>
 <!-- Central Modal Small -->
+
+
+
+
+
+
+
+
+<script>
+  $(document).ready(function() {
+    $('.decision-checkbox').on('change', function() {
+      $('.decision-checkbox').not(this).prop('checked', false);
+      $('.detail-row').hide();
+    });
+    $('#accept').change(function() {
+      if($(this).prop("checked")) {
+        $('.reject-checkbox').prop('checked', false);
+        $('.denial-text').val("");
+        $('#suggest_loan').prop('checked', false);
+        $('.modification-text').val("");
+      }
+    });
+    $('#modify').change(function() {
+      if($(this).prop("checked")) {
+        $('.detail-row').hide();
+        $('#modify-row').show();
+        $('.reject-checkbox').prop('checked', false);
+        $('.denial-text').val("");
+      } else {
+        $('#modify-row').hide();
+      }
+    });
+    $('#deny').change(function() {
+      if($(this).prop("checked")) {
+        $('.detail-row').hide();
+        $('#deny-row').show();
+        $('#suggest_loan').prop('checked', false);
+        $('.modification-text').val("");
+      } else {
+        $('#deny-row').hide();
+      }
+    });
+    $('#suggest_loan').change(function() {
+      if($(this).prop("checked")) {
+        $('#describe_loan_field').show();
+      } else {
+        $('#describe_loan_field').hide();
+      }
+    });
+    $('#denial_other').change(function() {
+      if($(this).prop("checked")) {
+        $('#denial_other_description_field').show();
+      } else {
+        $('#denial_other_description_field').hide();
+      }
+    });
+  });
+</script>
