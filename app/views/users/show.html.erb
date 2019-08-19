@@ -35,8 +35,8 @@
       <%= link_to home_applications_path, style: "display: inline-block", class: "btn btn-secondary my-3 btn-lg btn-block" do %>
         <% if @need_votes.count != 0 %>
           <div class="bg-toca-red notification-bubble"><%= @need_votes.count %></div>
-          Applications Needing Votes
         <% end %>
+        Applications Needing Votes
       <% end %>
     <% end %>
     <!-- END COMMITTEE ONLY -->
