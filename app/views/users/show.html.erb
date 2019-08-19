@@ -2,15 +2,15 @@
   <div class="container">
 
     <div class="row">
-      <p class="text-left col">
+      <div class="text-left col">
         <% if @user.admin && @user.committee %>
-          <span class="toca-uppercase color-toca-red">Admin & Committee Member</span><br>
+          <div class="toca-uppercase color-toca-red">Admin & Committee Member</div><br>
         <% elsif @user.admin %>
-          <span class="toca-uppercase color-toca-red">Admin</span><br>
+          <div class="toca-uppercase color-toca-red">Admin</div><br>
         <% elsif @user.committee %>
-          <span class="toca-uppercase color-toca-red">Committee Member</span><br>
+          <div class="toca-uppercase color-toca-red">Committee Member</div><br>
         <% end %>
-      </p>
+      </div>
       <p class="text-right col">
         <%= link_to('Edit My Information', edit_user_registration_path(current_user)) %>
         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -32,7 +32,12 @@
     <!-- IF COMMITTEE -->
     <% if @user.committee %>
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
-      <%= link_to "Applications Needing Votes", home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
+      <%= link_to home_applications_path, style: "display: inline-block", class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        <% if @need_votes.count != 0 %>
+          <div class="bg-toca-red notification-bubble"><%= @need_votes.count %></div>
+          Applications Needing Votes
+        <% end %>
+      <% end %>
     <% end %>
     <!-- END COMMITTEE ONLY -->
 
@@ -44,10 +49,30 @@
 
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Admin Actions</h2>
 
-      <%= link_to "Answer Questions", questions_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
-      <%= link_to "Manage Users", users_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
-      <%= link_to 'Manage Testimonials', home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
-      <%= link_to 'Manage Applications', home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" %>
+      <%= link_to questions_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        <% if @questions.count != 0 %>
+          <div class="bg-toca-red notification-bubble"><%= @questions.count %></div>
+        <% end %>
+        Answer Questions
+      <% end %>
+      <%= link_to users_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        <% if @committee_requests.count != 0 %>
+          <div class="bg-toca-red notification-bubble"><%= @committee_requests.count %></div>
+        <% end %>
+        Manage Users
+      <% end %>
+      <%= link_to home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        <% if @testimonials.count != 0 %>
+          <div class="bg-toca-red notification-bubble"><%= @testimonials.count %></div>
+        <% end %>
+        Manage Testimonials
+      <% end %>
+      <%= link_to home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+        <% if @open_applications.count != 0 %>
+          <div class="bg-toca-red notification-bubble"><%= @open_applications.count %></div>
+        <% end %>
+        Manage Applications
+      <% end %>
 
 
     <% end %>

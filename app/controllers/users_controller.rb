@@ -4,9 +4,26 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
     @scholarships = Scholarship.where(user_id: @user.id)
     @hardships = Hardship.where(user_id: @user.id)
     @charities = Charity.where(user_id: @user.id)
+
+    @scholarship_vote_needed = Scholarship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(id: current_user.id)
+    @hardship_vote_needed = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(id: current_user.id)
+    @charity_vote_needed = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(id: current_user.id)
+    @need_votes = [@scholarship_vote_needed, @hardship_vote_needed, @charity_vote_needed].flatten
+
+    @questions = Question.where(answered: false)
+
+    @committee_requests = User.where(committee_request: "Requested")
+
+    @testimonials = Testimonial.where(approved: false)
+
+    @open_hardships = Hardship.where(closed: false, status: "Decision Reached")
+    @open_scholarships = Scholarship.where(closed: false, status: "Decision Reached")
+    @open_charities = Charity.where(closed: false, status: "Decision Reached")
+    @open_applications = [@open_scholarships, @open_hardships, @open_charities].flatten
   end
 
   def index

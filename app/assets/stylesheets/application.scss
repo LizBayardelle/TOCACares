@@ -159,7 +159,18 @@ img { max-width: 100%; }
 .alert-success { color: $color-dark-grey; background-color: $transparent-green; border-color: $transparent-green;}
 .alert-warning, .alert-danger { color: $color-dark-grey; background-color: $transparent-red; border-color: $transparent-red;}
 
-
+.notification-bubble {
+  padding: 5px 10px 5px 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  color: white;
+  font-weight: 900;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  border: solid thin $color-toca-red;
+  border-radius: 50% !important;
+  margin-right: 10px;
+}
 
 
 
