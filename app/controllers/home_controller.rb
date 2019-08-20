@@ -31,9 +31,9 @@ class HomeController < ApplicationController
   end
 
   def applications
-    @hardships = Hardship.where(closed: false)
-    @scholarships = Scholarship.where(closed: false)
-    @charities = Charity.where(closed: false)
+    @hardships = Hardship.where(closed: false, status: "Submitted to Committee").or(Hardship.where(closed: false, status: "Decision Reached")).or(Hardship.where(closed: false, status: "Returned for Modifications"))
+    @scholarships = Scholarship.where(closed: false, status: "Submitted to Committee").or(Scholarship.where(closed: false, status: "Decision Reached")).or(Scholarship.where(closed: false, status: "Returned for Modifications"))
+    @charities = Charity.where(closed: false, status: "Submitted to Committee").or(Charity.where(closed: false, status: "Decision Reached")).or(Charity.where(closed: false, status: "Returned for Modifications"))
     @open_applications = [@scholarships, @hardships, @charities].flatten
 
     @closed_hardships = Hardship.where(closed: true)

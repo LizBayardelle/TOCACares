@@ -1,7 +1,7 @@
 <main class="mt-5">
   <div class="container">
 
-    <h1 class="text-center">Hardship Applications</h1>
+    <h1 class="text-center">Applications</h1>
 
     <section class="mt-5">
       <h2 class="toca-uppercase color-toca-red" id="open-heading"><%= pluralize(@open_applications.count, "Open Application") %></h2>
@@ -21,16 +21,28 @@
                   <tr>
                     <td>
                       <% if application.application_type == "hardship" %>
-                        <%= link_to hardship_path(application) do %>
-                          <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                        <% if application.status == "Returned for Modifications" %>
+                          <strong><%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)</strong>
+                        <% else %>
+                          <%= link_to hardship_path(application) do %>
+                            <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                          <% end %>
                         <% end %>
                       <% elsif application.application_type == "scholarship" %>
-                        <%= link_to scholarship_path(application) do %>
-                          <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                        <% if application.status == "Returned for Modifications" %>
+                          <strong><%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)</strong>
+                        <% else %>
+                          <%= link_to scholarship_path(application) do %>
+                            <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                          <% end %>
                         <% end %>
                       <% elsif application.application_type == "charity" %>
-                        <%= link_to charity_path(application) do %>
-                          <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                        <% if application.status == "Returned for Modifications" %>
+                          <strong><%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)</strong>
+                        <% else %>
+                          <%= link_to charity_path(application) do %>
+                            <%= application.application_type.capitalize %> <%= fixed_digit_number(application.id) %> (<%= application.date %>)
+                          <% end %>
                         <% end %>
                       <% end %>
                       <br><%= application.status %> <% if application.status == "Decision Reached" %>(<%= application.final_decision %>)<% end %>

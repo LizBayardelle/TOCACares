@@ -9,10 +9,25 @@ class UsersController < ApplicationController
     @hardships = Hardship.where(user_id: @user.id)
     @charities = Charity.where(user_id: @user.id)
 
-    @scholarship_vote_needed = Scholarship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(id: current_user.id)
-    @hardship_vote_needed = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(id: current_user.id)
-    @charity_vote_needed = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(id: current_user.id)
-    @need_votes = [@scholarship_vote_needed, @hardship_vote_needed, @charity_vote_needed].flatten
+    @need_votes = 0
+    @scholarship_vote_needed = Scholarship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(user_id: current_user.id)
+    @scholarship_vote_needed.each do |app|
+      unless Vote.where(application_type: "scholarship", application_id: app.id, user_id: current_user.id).count != 0
+        @need_votes += 1
+      end
+    end
+    @hardship_vote_needed = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(user_id: current_user.id)
+    @hardship_vote_needed.each do |app|
+      unless Vote.where(application_type: "hardship", application_id: app.id, user_id: current_user.id).count != 0
+        @need_votes += 1
+      end
+    end
+    @charity_vote_needed = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(user_id: current_user.id)
+    @charity_vote_needed.each do |app|
+      unless Vote.where(application_type: "charity", application_id: app.id, user_id: current_user.id).count != 0
+        @need_votes += 1
+      end
+    end
 
     @questions = Question.where(answered: false)
 
