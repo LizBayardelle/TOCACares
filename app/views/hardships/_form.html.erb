@@ -176,7 +176,11 @@
 
   <div class="row" id="for_other_email_field" style="display: none">
     <div class="field col-12">
-      <%= form.text_field :for_other_email, class: "form-control col-12 mb-4 mt-3", placeholder: "What is Your Non-TOCA Email Address?" %>
+      <%= form.text_field :for_other_email, class: "form-control col-12 mb-4 mt-3", placeholder: "Your Non-TOCA Email Address?" %>
+    </div>
+
+    <div class="field col-12">
+      <%= form.text_field :recipient_toca_email, class: "form-control col-12 mb-4 mt-3", placeholder: "TOCA Email Address of the Beneficiary?" %>
     </div>
   </div> <!-- row -->
 

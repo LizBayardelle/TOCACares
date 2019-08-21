@@ -4,7 +4,7 @@ class CharitiesController < ApplicationController
   before_action :already_submitted, only: [:edit, :update]
   before_action :admin_or_committee_only, only: [:index]
   before_action :self_admin_or_committee_if_submitted, only: [:show]
-  before_action :admin_only, only: [:close_charity]
+  before_action :admin_only, only: [:funding_completed_charity, :close_charity]
 
 
 
@@ -50,7 +50,7 @@ class CharitiesController < ApplicationController
     respond_to do |format|
       if @charity.save
         if @charity.status == "Submitted to Committee"
-          NewApplicationMailer.send_new_application_email(@charity).deliver
+          ApplicationChangeMailer.new_application_email(@charity).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
@@ -73,7 +73,7 @@ class CharitiesController < ApplicationController
         if @charity.status == "Submitted to Committee"
           @votes = Vote.where(application_type: @charity.application_type, application_id: @charity.id)
           @votes.each(&:destroy)
-          NewApplicationMailer.send_new_application_email(@charity).deliver
+          ApplicationChangeMailer.new_application_email(@charity).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
@@ -104,6 +104,21 @@ class CharitiesController < ApplicationController
     if @charity.update_attributes(status: "Withdrawn")
         redirect_back(fallback_location: user_path(current_user))
         flash[:notice] = "That application has been withdrawn!"
+    else
+        redirect_to user_path(current_user)
+        flash[:warning] = "Something went wrong.  Please try your request again later."
+    end
+  end
+
+
+
+  def funding_completed_charity
+    @charity = Charity.find(params[:id])
+    @charity.update_attributes(funding_status: "Funding Completed")
+    if @charity.update_attributes(funding_status: "Funding Completed")
+        ApplicationChangeMailer.funding_completed_email(@charity).deliver
+        redirect_back(fallback_location: home_applications_path)
+        flash[:notice] = "The funding status for that application has been updated!"
     else
         redirect_to user_path(current_user)
         flash[:warning] = "Something went wrong.  Please try your request again later."
@@ -217,6 +232,7 @@ class CharitiesController < ApplicationController
       :closed,
 
       :status,
+      :funding_status,
       :final_decision
     )
   end

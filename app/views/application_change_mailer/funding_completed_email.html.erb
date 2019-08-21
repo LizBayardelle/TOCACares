@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">Funding for Your TOCA Cares Application is Complete</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+    <p>
+      Dear <%= @application.full_name %>,
+    </p>
+    <p>
+      TOCA Cares is so glad it could assist you! This program was designed for the sole purpose of serving employees like you.
+    </p>
+    <p>
+      We hope you <%= link_to "submit an anonymous testimonial", home_testimonials_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> to TOCA Cares so employees and shareholders can see the impact that their contributions are having on the lives of fellow employees. We hope you will continue to make use of TOCA Cares, should you face another need or want to give back.
+    </p>
+    <p>
+      Thanks for being part of the TOCA family!
+    </p>
+    <p>
+      From,
+      <br>TOCA Cares
+    </p>
+    <p>
+      If you have any issues or questions, feel free to email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a>.
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>

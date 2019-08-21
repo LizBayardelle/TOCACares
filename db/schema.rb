@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_224337) do
+ActiveRecord::Schema.define(version: 2019_08_21_124157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_224337) do
     t.boolean "closed", default: false
     t.boolean "denied", default: false
     t.boolean "approved", default: false
+    t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_charities_on_user_id"
   end
 
@@ -104,6 +105,9 @@ ActiveRecord::Schema.define(version: 2019_08_16_224337) do
     t.boolean "closed", default: false
     t.boolean "denied", default: false
     t.boolean "approved", default: false
+    t.string "funding_status", default: "Not Applicable"
+    t.string "recipient_toca_email"
+    t.boolean "transfer_pending", default: false
     t.index ["user_id"], name: "index_hardships_on_user_id"
   end
 
@@ -151,6 +155,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_224337) do
     t.boolean "closed", default: false
     t.boolean "denied", default: false
     t.boolean "approved", default: false
+    t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_scholarships_on_user_id"
   end
 

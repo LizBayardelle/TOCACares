@@ -7,17 +7,16 @@
 
   <body>
     <hr style="border: 0; border-top: solid 2px #EB0029;" />
-    <h1 style="text-align: center">A New Application was Just Submitted on TOCA Cares</h1>
+    <h1 style="text-align: center">Create a TOCA Cares Account</h1>
     <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
     <p>
-      Dear Committee Member,
+      Dear Employee,
     </p>
     <p>
-      A new <%= @application.application_type %> application has been submitted and is awaiting your vote.  Sign in <%= link_to "here", new_user_session_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %>and you can <%= link_to "manage applications", home_pending_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> that need your consideration.
+      TOCA Cares is a community fund sustained by the tax-deductible contributions voluntarily made by TOCA employees and shareholders.  It's a way TOCA takes care of our own, and can help employees get out of an unexpected financial jam, keep learning or educating themselves, or even participate in charity work of their own.
     </p>
     <p>
-      From,
-      <br>TOCA Cares
+      You have been invited to <%= link_to "create an account", new_user_registration_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> using this email address to set up your account.  Please create your account as soon as you can, as there may be time-sensitive things waiting for you.
     </p>
     <p>
       If you have any issues, feel free to email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a>.

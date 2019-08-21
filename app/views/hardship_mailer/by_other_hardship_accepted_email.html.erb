@@ -10,14 +10,14 @@
     <h1 style="text-align: center">A TOCA Cares Hardship Application Submitted on Your Behalf Has Been Accepted</h1>
     <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
     <p>
-      Dear Employee,
+      Dear <%= @application.full_name %>,
     </p>
     <p>
       As you may or may not be aware, another employee has submitted a TOCA Cares hardship application on your behalf. We are delighted to inform you that the hardship application has been approved! TOCA Cares is about assisting valuable employees like you, so we hope you accept our humble offer to help through our completely confidential process.
     </p>
     <p>
-      You have been awarded a grant for <strong><%= number_to_currency(@hardship.requested_amount, unit: "$") %></strong> for the following hardship:
-      <br><em><%= @hardship.hardship_description %></em>
+      You have been awarded a grant for <strong><%= number_to_currency(@application.requested_amount, unit: "$") %></strong> for the following hardship:
+      <br><em><%= @application.hardship_description %></em>
     </p>
     <p>
       If you haven't already done so, you can <%= link_to "create a TOCA Cares account", new_user_registration_path, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> using your TOCA email address.

@@ -47,13 +47,25 @@
                       <% end %>
                       <br><%= application.status %> <% if application.status == "Decision Reached" %>(<%= application.final_decision %>)<% end %>
                       <% if current_user && current_user.admin && application.status == "Decision Reached" %>
-                        <% if application.application_type == "hardship" %>
-                          <br><%= link_to "Mark as Closed", close_hardship_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
-                        <% elsif application.application_type == "scholarship" %>
-                          <br><%= link_to "Mark as Closed", close_scholarship_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
-                        <% elsif application.application_type == "charity" %>
-                          <br><%= link_to "Mark as Closed", close_charity_path(application), method: :post, class: "btn btn-primary btn-sm mb-2" %>
+
+                        <% if application.final_decision == "Approved" && application.funding_status != "Funding Completed" %>
+                          <% if application.application_type == "hardship" %>
+                            <br><%= link_to "Mark Funding Completed", funding_completed_hardship_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically mark the funding for this application as complete?" } %>
+                          <% elsif application.application_type == "scholarship" %>
+                            <br><%= link_to "Mark Funding Completed", funding_completed_scholarship_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically mark the funding for this application as complete?" } %>
+                          <% elsif application.application_type == "charity" %>
+                            <br><%= link_to "Mark Funding Completed", funding_completed_charity_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically mark the funding for this application as complete?" } %>
+                          <% end %>
+                        <% else %>
+                          <% if application.application_type == "hardship" %>
+                            <br><%= link_to "Mark as Closed", close_hardship_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically close the application?" } %>
+                          <% elsif application.application_type == "scholarship" %>
+                            <br><%= link_to "Mark as Closed", close_scholarship_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically close the application?" } %>
+                          <% elsif application.application_type == "charity" %>
+                            <br><%= link_to "Mark as Closed", close_charity_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically close the application?" } %>
+                          <% end %>
                         <% end %>
+
                       <% end %>
                     </td>
                     <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>

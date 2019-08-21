@@ -93,9 +93,14 @@ class VotesController < ApplicationController
       if @vote.accept
         @application.update_attributes(status: "Decision Reached", final_decision: "Approved", approved: true)
         if @application.application_type == "hardship" && @application.for_other
-          # Transfer ownership
-          HardshipMailer.by_other_hardship_accepted_email(@hardship).deliver
-          #send email to submitting member
+          if User.where(email: @application.recipient_toca_email).count != 0
+            @application.user_id = User.where(email: @application.recipient_toca_email).first.id
+            @application.save
+            HardshipMailer.hardship_transferred_email(@application).deliver
+          else
+            AccountActionsMailer.create_an_account_email(@application.recipient_toca_email).deliver
+          end
+          HardshipMailer.for_other_hardship_accepted_email(@application).deliver
         else
           if @vote.application_type == "hardship"
             HardshipMailer.hardship_accepted_email(@application).deliver
@@ -108,9 +113,14 @@ class VotesController < ApplicationController
       elsif @vote.modify
         @application.update_attributes(status: "Returned for Modifications", final_decision: "Modifications Requested", returned: true)
         if @application.application_type == "hardship" && @application.for_other
-          # send submitting member transfere of ownership (& modification) notification email
-          # transfer ownership to recipient
-          # send email to submitting member
+          if User.where(email: @application.recipient_toca_email).count != 0
+            @application.user_id = User.where(email: @application.recipient_toca_email).first.id
+            @application.save
+            HardshipMailer.hardship_transferred_email(@application).deliver
+          else
+            AccountActionsMailer.create_an_account_email(@application.recipient_toca_email).deliver
+          end
+          # send for other modified and transferred emaile
         else
           if @vote.application_type == "hardship"
             #send modification email to applicant

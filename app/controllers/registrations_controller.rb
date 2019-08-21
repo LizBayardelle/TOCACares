@@ -37,6 +37,23 @@ class RegistrationsController < Devise::RegistrationsController
         @user.save
       end
     end
+
+    hardships = Hardship.where(transfer_pending: true)
+
+    hardships.each do |h|
+      if @user.email == h.recipient_toca_email
+        h.user_id = @user.id
+        h.transfer_pending = false
+        h.save
+        HardshipMailer.hardship_transferred_email(h).deliver
+        if h.accepted
+          HardshipMailer.by_other_hardship_accepted_email(h).deliver
+        end
+        if h.returned
+          # send by other modification email
+        end
+      end
+    end
   end
 
 

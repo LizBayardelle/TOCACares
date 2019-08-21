@@ -4,7 +4,7 @@ class HardshipsController < ApplicationController
   before_action :already_submitted, only: [:edit, :update]
   before_action :admin_or_committee_only, only: [:index]
   before_action :self_admin_or_committee_if_submitted, only: [:show]
-  before_action :admin_only, only: [:close_hardship]
+  before_action :admin_only, only: [:funding_completed_hardship, :close_hardship]
 
 
 
@@ -50,7 +50,7 @@ class HardshipsController < ApplicationController
     respond_to do |format|
       if @hardship.save
         if @hardship.status == "Submitted to Committee"
-          NewApplicationMailer.send_new_application_email(@hardship).deliver
+          ApplicationChangeMailer.new_application_email(@hardship).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
@@ -73,7 +73,7 @@ class HardshipsController < ApplicationController
         if @hardship.status == "Submitted to Committee"
           @votes = Vote.where(application_type: @hardship.application_type, application_id: @hardship.id)
           @votes.each(&:destroy)
-          NewApplicationMailer.send_new_application_email(@hardship).deliver
+          ApplicationChangeMailer.new_application_email(@hardship).deliver
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
@@ -107,6 +107,21 @@ class HardshipsController < ApplicationController
     else
         redirect_to user_path(current_user)
         flash[:warning] = "Something went wrong.  Please try your request again later."
+    end
+  end
+
+
+
+  def funding_completed_hardship
+    @hardship = Hardship.find(params[:id])
+    @hardship.update_attributes(funding_status: "Funding Completed")
+    if @hardship.update_attributes(funding_status: "Funding Completed")
+      ApplicationChangeMailer.funding_completed_email(@hardship).deliver
+      redirect_back(fallback_location: home_applications_path)
+      flash[:notice] = "The funding status for that application has been updated!"
+    else
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 
@@ -190,6 +205,8 @@ class HardshipsController < ApplicationController
 
       :for_other,
       :for_other_email,
+      :recipient_toca_email,
+      :transfer_pending,
 
       :full_name,
       :date,
@@ -227,6 +244,7 @@ class HardshipsController < ApplicationController
       :closed,
 
       :status,
+      :funding_status,
       :final_decision
     )
   end
