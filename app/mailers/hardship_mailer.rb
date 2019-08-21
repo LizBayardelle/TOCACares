@@ -48,4 +48,5 @@ class HardshipMailer < ApplicationMailer
       subject: 'The TOCA Cares Hardship Application You Submitted for a Coworker Has Been Accepted'
     )
   end
+  
 end
