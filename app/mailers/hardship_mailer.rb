@@ -32,6 +32,7 @@ class HardshipMailer < ApplicationMailer
       to: @application.recipient_toca_email,
       subject: 'Ownership of a Hardship Application has Been Transferred to your TOCA Cares Account'
     )
+  end
 
   def by_other_hardship_accepted_email(application)
     @application = application
@@ -48,5 +49,5 @@ class HardshipMailer < ApplicationMailer
       subject: 'The TOCA Cares Hardship Application You Submitted for a Coworker Has Been Accepted'
     )
   end
-  
+
 end
