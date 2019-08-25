@@ -21,7 +21,7 @@ class CharitiesController < ApplicationController
 
   def show
     @new_vote = Vote.new
-    @votes = Vote.where(application_type: "charity", application_id: @charity.id, seconded: true)
+    @votes = Vote.where(application_type: "charity", application_id: @charity.id)
     @votes_accept = Vote.where(accept: true, application_type: "charity", application_id: @charity.id, superseded: false)
     @votes_modify = Vote.where(modify: true, application_type: "charity", application_id: @charity.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "charity", application_id: @charity.id, superseded: false)

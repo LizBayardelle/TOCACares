@@ -1,9 +1,9 @@
 class VotesController < ApplicationController
-  before_action :set_vote, only: [:destroy, :own_vote_only]
+  before_action :set_vote, only: [:update, :destroy, :own_vote_only]
   before_action :authenticate_user!
   before_action :set_application, only: [:second_vote]
-  before_action :own_vote_only, only: [:destroy]
-  before_action :committee_only, only: [:new, :create, :destroy]
+  before_action :own_vote_only, only: [:update, :destroy]
+  before_action :committee_only, only: [:new, :create, :update, :destroy]
 
 
 
@@ -38,6 +38,18 @@ class VotesController < ApplicationController
           format.json { render json: @vote.errors, status: :unprocessable_entity }
         end
       end
+    end
+  end
+
+
+
+  def update
+      if @vote.update(vote_params)
+        redirect_back(fallback_location: home_applications_path)
+        flash[:notice] = "Your vote has been successfully changed."
+      else
+        redirect_back(fallback_location: home_applications_path)
+        flash[:warning] = "Uh oh!  Something went wrong.  Please try again later."
     end
   end
 

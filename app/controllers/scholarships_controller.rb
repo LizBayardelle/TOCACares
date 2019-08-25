@@ -21,7 +21,7 @@ class ScholarshipsController < ApplicationController
 
   def show
     @new_vote = Vote.new
-    @votes = Vote.where(application_type: "scholarship", application_id: @scholarship.id, seconded: false)
+    @votes = Vote.where(application_type: "scholarship", application_id: @scholarship.id)
     @votes_accept = Vote.where(accept: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
     @votes_modify = Vote.where(modify: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)

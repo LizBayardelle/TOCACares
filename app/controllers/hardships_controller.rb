@@ -21,7 +21,7 @@ class HardshipsController < ApplicationController
 
   def show
     @new_vote = Vote.new
-    @votes = Vote.where(application_type: "hardship", application_id: @hardship.id, seconded: true)
+    @votes = Vote.where(application_type: "hardship", application_id: @hardship.id)
     @votes_accept = Vote.where(accept: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_modify = Vote.where(modify: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
