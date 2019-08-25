@@ -50,9 +50,12 @@ class CharitiesController < ApplicationController
     respond_to do |format|
       if @charity.save
         if @charity.status == "Submitted to Committee"
+          Log.create(category: "User Action", action: "Charity Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
           ApplicationChangeMailer.new_application_email(@charity).deliver
+          Log.create(category: "Email", action: "New Charity Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
+          Log.create(category: "User Action", action: "Charity Application Created", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
         end
         format.json { render :show, status: :created, location: @charity }
@@ -73,12 +76,15 @@ class CharitiesController < ApplicationController
         if @charity.status == "Submitted to Committee"
           @votes = Vote.where(application_type: @charity.application_type, application_id: @charity.id)
           @votes.each(&:destroy)
+          Log.create(category: "User Action", action: "Charity Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
           ApplicationChangeMailer.new_application_email(@charity).deliver
+          Log.create(category: "Email", action: "New Charity Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
+          Log.create(category: "User Action", action: "Charity Application Updated", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
         end
-          format.json { render :show, status: :ok, location: @charity }
+        format.json { render :show, status: :ok, location: @charity }
       else
         format.html { render :edit }
         format.json { render json: @charity.errors, status: :unprocessable_entity }
@@ -91,6 +97,7 @@ class CharitiesController < ApplicationController
   def destroy
     @charity.destroy
     respond_to do |format|
+      Log.create(category: "User Action", action: "Charity Application Deleted", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
       format.html { redirect_to charities_url, notice: 'That application has been successfully deleted.' }
       format.json { head :no_content }
     end
@@ -102,11 +109,12 @@ class CharitiesController < ApplicationController
     @charity = Charity.find(params[:id])
     @charity.update_attributes(status: "Withdrawn")
     if @charity.update_attributes(status: "Withdrawn")
-        redirect_back(fallback_location: user_path(current_user))
-        flash[:notice] = "That application has been withdrawn!"
+      Log.create(category: "User Action", action: "Charity Application Withdrawn", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
+      redirect_back(fallback_location: user_path(current_user))
+      flash[:notice] = "That application has been withdrawn!"
     else
-        redirect_to user_path(current_user)
-        flash[:warning] = "Something went wrong.  Please try your request again later."
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 
@@ -116,9 +124,11 @@ class CharitiesController < ApplicationController
     @charity = Charity.find(params[:id])
     @charity.update_attributes(funding_status: "Funding Completed")
     if @charity.update_attributes(funding_status: "Funding Completed")
-        ApplicationChangeMailer.funding_completed_email(@charity).deliver
-        redirect_back(fallback_location: home_applications_path)
-        flash[:notice] = "The funding status for that application has been updated!"
+      Log.create(category: "Admin Action", action: "Charity Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true)
+      ApplicationChangeMailer.funding_completed_email(@charity).deliver
+      Log.create(category: "Email", action: "Charity Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+      redirect_back(fallback_location: home_applications_path)
+      flash[:notice] = "The funding status for that application has been updated!"
     else
         redirect_to user_path(current_user)
         flash[:warning] = "Something went wrong.  Please try your request again later."
@@ -131,11 +141,12 @@ class CharitiesController < ApplicationController
     @charity = Charity.find(params[:id])
     @charity.update_attributes(closed: true)
     if @charity.update_attributes(closed: true)
-        redirect_back(fallback_location: user_path(current_user))
-        flash[:notice] = "That application has been closed!"
+      Log.create(category: "Admin Action", action: "Charity Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true)
+      redirect_back(fallback_location: user_path(current_user))
+      flash[:notice] = "That application has been closed!"
     else
-        redirect_to user_path(current_user)
-        flash[:warning] = "Something went wrong.  Please try your request again later."
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 

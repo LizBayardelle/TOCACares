@@ -3,10 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :hardships
   has_many :charities
+  has_many :hardships
   has_many :scholarships
-  has_many :modifications
+  has_many :testimonials
+  has_many :logs
 
   def self.admin_users
     User.where(admin: true)

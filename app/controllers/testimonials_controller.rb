@@ -38,7 +38,9 @@ class TestimonialsController < ApplicationController
 
     respond_to do |format|
       if @testimonial.save
+        Log.create(category: "User Action", action: "New Testimonial Submitted", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: @testimonial.user_id)
         TestimonialMailer.send_testimonial_email(@testimonial).deliver
+        Log.create(category: "Automatic", action: "New Testimonial Email Sent to Admins", automatic: true, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: @testimonial.user_id)
         format.html { redirect_to root_path, notice: "Thank you for submitting a testimonial!  As soon as it's approved by administrators it could be featured on the TOCA Cares site." }
         format.json { render :show, status: :created, location: @testimonial }
       else
@@ -75,6 +77,7 @@ class TestimonialsController < ApplicationController
   def approve_testimonial
     @testimonial = Testimonial.find(params[:id])
     if @testimonial.update_attributes(approved: true)
+      Log.create(category: "Admin Action", action: "Preauthorization Created", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
       redirect_back(fallback_location: home_testimonials_path)
       flash[:notice] = "That testimonial has been approved.  You may now choose to feature it on the testimonials page."
     else
@@ -86,6 +89,7 @@ class TestimonialsController < ApplicationController
   def feature_testimonial
     @testimonial = Testimonial.find(params[:id])
     if @testimonial.update_attributes(featured: true)
+      Log.create(category: "Admin Action", action: "Testimonial Featured", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
       redirect_back(fallback_location: home_testimonials_path)
       flash[:notice] = "That testimonial has been featured."
     else
@@ -97,6 +101,7 @@ class TestimonialsController < ApplicationController
   def unfeature_testimonial
     @testimonial = Testimonial.find(params[:id])
     if @testimonial.update_attributes(featured: false)
+      Log.create(category: "Admin Action", action: "Testimonial Feature Removed", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
       redirect_back(fallback_location: home_testimonials_path)
       flash[:notice] = "That testimonial has been unfeatured."
     else

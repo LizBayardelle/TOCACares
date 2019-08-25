@@ -50,9 +50,12 @@ class ScholarshipsController < ApplicationController
     respond_to do |format|
       if @scholarship.save
         if @scholarship.status == "Submitted to Committee"
+          Log.create(category: "User Action", action: "Scholarship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
           ApplicationChangeMailer.new_application_email(@scholarship).deliver
+          Log.create(category: "Email", action: "New Scholarship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
+          Log.create(category: "User Action", action: "Scholarship Application Created", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
         end
         format.json { render :show, status: :created, location: @scholarship }
@@ -73,12 +76,15 @@ class ScholarshipsController < ApplicationController
         if @scholarship.status == "Submitted to Committee"
           @votes = Vote.where(application_type: @scholarship.application_type, application_id: @scholarship.id)
           @votes.each(&:destroy)
+          Log.create(category: "User Action", action: "Scholarship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @hardship.user.id)
           ApplicationChangeMailer.new_application_email(@scholarship).deliver
+          Log.create(category: "Email", action: "New Scholarship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
+          Log.create(category: "User Action", action: "Scholarship Application Updated", automatic: false, object: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
         end
-          format.json { render :show, status: :ok, location: @scholarship }
+        format.json { render :show, status: :ok, location: @scholarship }
       else
         format.html { render :edit }
         format.json { render json: @scholarship.errors, status: :unprocessable_entity }
@@ -91,6 +97,7 @@ class ScholarshipsController < ApplicationController
   def destroy
     @scholarship.destroy
     respond_to do |format|
+      Log.create(category: "User Action", action: "Scholarship Application Deleted", automatic: false, object: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
       format.html { redirect_to scholarships_url, notice: 'That application has been successfully deleted.' }
       format.json { head :no_content }
     end
@@ -103,6 +110,7 @@ class ScholarshipsController < ApplicationController
     @scholarship.update_attributes(status: "Withdrawn")
     if @scholarship.update_attributes(status: "Withdrawn")
         redirect_back(fallback_location: user_path(current_user))
+        Log.create(category: "User Action", action: "Scholarship Application Withdrawn", automatic: false, object: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
         flash[:notice] = "That application has been withdrawn!"
     else
         redirect_to user_path(current_user)
@@ -116,12 +124,14 @@ class ScholarshipsController < ApplicationController
     @scholarship = Scholarship.find(params[:id])
     @scholarship.update_attributes(funding_status: "Funding Completed")
     if @scholarship.update_attributes(funding_status: "Funding Completed")
-        ApplicationChangeMailer.funding_completed_email(@scholarship).deliver
-        redirect_back(fallback_location: home_applications_path)
-        flash[:notice] = "The funding status for that application has been updated!"
+      Log.create(category: "Admin Action", action: "Scholarship Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true)
+      ApplicationChangeMailer.funding_completed_email(@scholarship).deliver
+      Log.create(category: "Email", action: "Scholarship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+      redirect_back(fallback_location: home_applications_path)
+      flash[:notice] = "The funding status for that application has been updated!"
     else
-        redirect_to user_path(current_user)
-        flash[:warning] = "Something went wrong.  Please try your request again later."
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 
@@ -131,11 +141,12 @@ class ScholarshipsController < ApplicationController
     @scholarship = Scholarship.find(params[:id])
     @scholarship.update_attributes(closed: true)
     if @scholarship.update_attributes(closed: true)
-        redirect_back(fallback_location: user_path(current_user))
-        flash[:notice] = "That application has been closed!"
+      Log.create(category: "Admin Action", action: "Scholarship Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true)
+      redirect_back(fallback_location: user_path(current_user))
+      flash[:notice] = "That application has been closed!"
     else
-        redirect_to user_path(current_user)
-        flash[:warning] = "Something went wrong.  Please try your request again later."
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 

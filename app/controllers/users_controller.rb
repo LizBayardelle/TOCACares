@@ -70,6 +70,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.admin = true
     @user.save
+    Log.create(category: "Admin Action", action: "User Given Administrator Privileges", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user has been made a site administrator."
   end
@@ -78,6 +79,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.admin = false
     @user.save
+    Log.create(category: "Admin Action", action: "User Administrator Privileges Removed", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user's admin privileges have been revoked."
   end
@@ -87,6 +89,7 @@ class UsersController < ApplicationController
     @user.committee = true
     @user.committee_request = "Approved"
     @user.save
+    Log.create(category: "Admin Action", action: "User Made Committee Member", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user has been made a committee member."
   end
@@ -96,6 +99,7 @@ class UsersController < ApplicationController
     @user.committee = false
     @user.committee_request = "Removed"
     @user.save
+    Log.create(category: "Admin Action", action: "User Committee Privileges Removed", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user's committee privileges have been revoked."
   end
@@ -104,6 +108,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.committee_request = "Requested"
     @user.save
+    Log.create(category: "User Action", action: "User Request to Join Committee", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
     redirect_back(fallback_location: user_path(current_user))
     flash[:notice] = "Your request to become a committee member has been successfully sent."
   end
@@ -112,6 +117,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.committee_request = "Denied"
     @user.save
+    Log.create(category: "Admin Action", action: "User Committee Privileges Denied", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That committee request has been denied."
   end

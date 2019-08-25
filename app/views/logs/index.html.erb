@@ -1,0 +1,80 @@
+<main class="mt-3">
+  <div class="container-fluid">
+
+    <h1 class="text-center">Website Activity Log</h1>
+
+    <section>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead class="bg-toca-red">
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Category</th>
+              <th scope="col">Event</th>
+              <th scope="col">Triggered By</th>
+              <th scope="col">Event Object</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @logs.each do |log| %>
+              <tr>
+                <td>
+                  <em><%= log.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m/%d/%Y %k:%M PST") %></em>
+                </td>
+                <td>
+                  <strong><%= log.category %></strong>
+                </td>
+                <td>
+                  <%= log.action %>
+                </td>
+                <td>
+                  <% if log.automatic %>
+                    Automatic
+                  <% else %>
+                    <% if log.user_id == nil || log.user_id == "" %>
+                      <%= log.category %>
+                    <% else %>
+                      <%= User.find(log.user_id).first_name %> <%= User.find(log.user_id).last_name %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <td>
+                  <% if log.object == true %>
+                    <% if log.object_linkable %>
+                      <% if log.object_category == "testimonial" %>
+                        <%= link_to home_testimonials_path do %>
+                          <%= log.object_category.capitalize %> <%= log.object_id %>
+                        <% end %>
+                      <% elsif log.object_category == "question" %>
+                        <%= link_to questions_path do %>
+                          <%= log.object_category.capitalize %> <%= log.object_id %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to eval("#{log.object_category}_path(#{log.object_category.capitalize}.find(#{log.object_id}))") do %>
+                          <%= log.object_category.capitalize %> <%= log.object_id %>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <%= log.object_category.capitalize %> <%= log.object_id %>
+                    <% end %>
+                  <% else %>
+                    None
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to log, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fas fa-trash"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> <!-- responsive table -->
+
+    </section>
+
+  </div> <!-- fluid container -->

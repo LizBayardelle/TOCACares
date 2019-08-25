@@ -5,12 +5,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
+    Log.create(category: "User Action", action: "New User Account Created", automatic: false, object: true, object_linkable: false, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: @user.id)
     if @user.persisted?
     end
   end
 
   def update
     super
+    Log.create(category: "User Action", action: "User Updated Account Information", automatic: false, object: true, object_linkable: false, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: @user.id)
     # redirect_to user_path(resource)
   end
 
@@ -35,6 +37,7 @@ class RegistrationsController < Devise::RegistrationsController
         @user.admin = a.admin
         @user.committee = a.committee
         @user.save
+        Log.create(category: "Automatic", action: "New User Authorizations Automatically Applied", automatic: true, object: true, object_linkable: false, object_category: "user", object_id: @user.id, taken_by_user: false)
       end
     end
 
@@ -45,12 +48,16 @@ class RegistrationsController < Devise::RegistrationsController
         h.user_id = @user.id
         h.transfer_pending = false
         h.save
+        Log.create(category: "Automatic", action: "Hardship Applicaton Transferred from Submitting User to Beneficiary", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
         HardshipMailer.hardship_transferred_email(h).deliver
+        Log.create(category: "Automatic", action: "Hardship Application Transfer Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
         if h.accepted
           HardshipMailer.by_other_hardship_accepted_email(h).deliver
+          Log.create(category: "Automatic", action: "Hardship Application Accepted Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
         end
         if h.returned
           # send by other modification email
+          Log.create(category: "Automatic", action: "Hardship Application Request for Modifications Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
         end
       end
     end

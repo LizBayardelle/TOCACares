@@ -50,9 +50,12 @@ class HardshipsController < ApplicationController
     respond_to do |format|
       if @hardship.save
         if @hardship.status == "Submitted to Committee"
+          Log.create(category: "User Action", action: "Hardship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
           ApplicationChangeMailer.new_application_email(@hardship).deliver
+          Log.create(category: "Email", action: "New Hardship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
+          Log.create(category: "User Action", action: "Hardship Application Created", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
         end
         format.json { render :show, status: :created, location: @hardship }
@@ -73,12 +76,15 @@ class HardshipsController < ApplicationController
         if @hardship.status == "Submitted to Committee"
           @votes = Vote.where(application_type: @hardship.application_type, application_id: @hardship.id)
           @votes.each(&:destroy)
+          Log.create(category: "User Action", action: "Hardship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
           ApplicationChangeMailer.new_application_email(@hardship).deliver
+          Log.create(category: "Email", action: "New Hardship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
+          Log.create(category: "User Action", action: "Hardship Application Updated", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully saved.  It will not be reviewed until you submit it for consideration.' }
         end
-          format.json { render :show, status: :ok, location: @hardship }
+        format.json { render :show, status: :ok, location: @hardship }
       else
         format.html { render :edit }
         format.json { render json: @hardship.errors, status: :unprocessable_entity }
@@ -91,6 +97,7 @@ class HardshipsController < ApplicationController
   def destroy
     @hardship.destroy
     respond_to do |format|
+      Log.create(category: "User Action", action: "Hardship Application Deleted", automatic: false, object: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
       format.html { redirect_to hardships_url, notice: 'That application has been successfully deleted.' }
       format.json { head :no_content }
     end
@@ -102,11 +109,12 @@ class HardshipsController < ApplicationController
     @hardship = Hardship.find(params[:id])
     @hardship.update_attributes(status: "Withdrawn")
     if @hardship.update_attributes(status: "Withdrawn")
-        redirect_back(fallback_location: user_path(current_user))
-        flash[:notice] = "That application has been withdrawn!"
+      Log.create(category: "User Action", action: "Hardship Application Withdrawn", automatic: false, object: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
+      redirect_back(fallback_location: user_path(current_user))
+      flash[:notice] = "That application has been withdrawn!"
     else
-        redirect_to user_path(current_user)
-        flash[:warning] = "Something went wrong.  Please try your request again later."
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 
@@ -116,7 +124,9 @@ class HardshipsController < ApplicationController
     @hardship = Hardship.find(params[:id])
     @hardship.update_attributes(funding_status: "Funding Completed")
     if @hardship.update_attributes(funding_status: "Funding Completed")
+      Log.create(category: "Admin Action", action: "Hardship Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true)
       ApplicationChangeMailer.funding_completed_email(@hardship).deliver
+      Log.create(category: "Email", action: "Hardship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
       redirect_back(fallback_location: home_applications_path)
       flash[:notice] = "The funding status for that application has been updated!"
     else
@@ -131,11 +141,12 @@ class HardshipsController < ApplicationController
     @hardship = Hardship.find(params[:id])
     @hardship.update_attributes(closed: true)
     if @hardship.update_attributes(closed: true)
-        redirect_back(fallback_location: home_applications_path)
-        flash[:notice] = "That application has been closed!"
+      Log.create(category: "Admin Action", action: "Hardship Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true)
+      redirect_back(fallback_location: home_applications_path)
+      flash[:notice] = "That application has been closed!"
     else
-        redirect_to user_path(current_user)
-        flash[:warning] = "Something went wrong.  Please try your request again later."
+      redirect_to user_path(current_user)
+      flash[:warning] = "Something went wrong.  Please try your request again later."
     end
   end
 

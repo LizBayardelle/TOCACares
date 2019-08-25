@@ -47,7 +47,7 @@
     <!-- IF ADMIN -->
     <% if @user.admin %>
 
-      <h2 class="text-center toca-uppercase color-toca-red mt-5">Admin Actions</h2>
+      <h2 class="text-center toca-uppercase color-toca-red my-5">Admin Actions</h2>
 
       <%= link_to questions_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
         <% if @questions.count != 0 %>
@@ -72,6 +72,9 @@
           <div class="bg-toca-red notification-bubble"><%= @open_applications.count %></div>
         <% end %>
         Manage Applications
+      <% end %>
+      <%= link_to logs_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+      View Website Activity Log
       <% end %>
 
 

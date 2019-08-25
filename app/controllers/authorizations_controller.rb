@@ -43,6 +43,13 @@ class AuthorizationsController < ApplicationController
     respond_to do |format|
       if @authorization.save
         PreauthorizationMailer.send_preauthorization_email(@authorization).deliver
+        if @authorization.admin && @authorization.committee
+          Log.create(category: "Admin Action", action: "Admin and Committee Preauthorization Created (" + @authorization.email + ")", automatic: false, object: false, taken_by_user: true, user_id: current_user.id)
+        elsif @authorization.admin
+          Log.create(category: "Admin Action", action: "Admin Preauthorization Created (" + @authorization.email + ")", automatic: false, object: false, taken_by_user: true, user_id: current_user.id)
+        else
+          Log.create(category: "Admin Action", action: "Committee Preauthorization Created (" + @authorization.email + ")", automatic: false, object: false, taken_by_user: true, user_id: current_user.id)
+        end
         format.html { redirect_to users_path, notice: 'That email has been preauthorized and an email invite has been sent.' }
         format.json { render :show, status: :created, location: @authorization }
       else

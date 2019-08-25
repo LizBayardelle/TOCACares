@@ -212,6 +212,8 @@ img { max-width: 100%; }
 -------------------------------
 -----------------------------*/
 
+
+
 .form-check-input[type="checkbox"]:checked + label:before, label.btn input[type="checkbox"]:checked + label:before {
   border-right: 2px solid $color-toca-red;
   border-bottom: 2px solid $color-toca-red;
