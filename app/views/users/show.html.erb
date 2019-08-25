@@ -73,8 +73,11 @@
           <% end %>
           Manage Applications
         <% end %>
+        <%= link_to values_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
+          Set Fund Information
+        <% end %>
         <%= link_to logs_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
-        View Website Activity Log
+          View Website Activity Log
         <% end %>
 
       </section> <!-- admin only -->
@@ -85,7 +88,7 @@
 
     <% if @scholarships.count >= 1 %>
       <section class="my-5"> <!-- scholarship applications -->
-        <h2 class="text-center toca-uppercase color-toca-red mt-5">My Scholarship Applications</h2>
+        <h2 class="text-center toca-uppercase color-toca-red my-4">My Scholarship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead class="bg-toca-red white-text">
@@ -133,7 +136,7 @@
 
     <% if @hardships.count >= 1 %>
       <section class="my-5"> <!-- hardship applications -->
-        <h2 class="text-center toca-uppercase color-toca-red mt-4">My Hardship Applications</h2>
+        <h2 class="text-center toca-uppercase color-toca-red my-4">My Hardship Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead class="bg-toca-red white-text">
@@ -180,8 +183,8 @@
 
 
     <% if @charities.count >= 1 %>
-      <section class="mt-5"> <!-- charity applications -->
-        <h2 class="text-center toca-uppercase color-toca-red mt-4">My Charity Applications</h2>
+      <section class="my-5"> <!-- charity applications -->
+        <h2 class="text-center toca-uppercase color-toca-red my-4">My Charity Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead class="bg-toca-red white-text">

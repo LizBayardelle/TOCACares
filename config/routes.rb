@@ -51,4 +51,8 @@ Rails.application.routes.draw do
   post "questions/:id/mark_unanswered" => "questions#mark_unanswered", as: "mark_unanswered"
 
   resources :logs
+
+  resources :values
+  post "values/:id/select_value" => "values#select_value", as: "select_value"
+
 end

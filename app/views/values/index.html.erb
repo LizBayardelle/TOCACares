@@ -1,0 +1,59 @@
+<main class="mt-5">
+  <div class="container-fluid">
+
+    <section class="text-center">
+      <h1>Set Fund Information</h1>
+      <p>
+        This information is used throughout the site to give current information about the state&nbsp;of&nbsp;the&nbsp;fund.
+        <br>The data of whichever row is selected (shown by a <i class="fas fa-star color-toca-red"></i>) will&nbsp;be&nbsp;displayed.
+      </p>
+      <%= link_to 'Create New Values', new_value_path, class: "btn btn-primary" %>
+    </section>
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Selected</th>
+            <th>Year</th>
+            <th>Matching Ratio</th>
+            <th>Individual Contributions</th>
+            <th>Shareholder Match</th>
+            <th>Total Fund Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @values.each do |value| %>
+            <tr>
+              <td>
+                <% if value.selected %>
+                  <i class="fas fa-star color-toca-red"></i>
+                <% else %>
+                  <%= link_to select_value_path(value), method: :post, class: "link-cursor" do %>
+                    <i class="far fa-star color-toca-red"></i>
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= value.current_year %></td>
+              <td><%= value.matching_ratio %></td>
+              <td><%= value.individual_contributions %></td>
+              <td><%= value.shareholder_matching %></td>
+              <td><%= value.total_fund_value %></td>
+              <td>
+                <%= link_to edit_value_path(value) do %>
+                  <i class="far fa-edit color-toca-red"></i>
+                <% end %>
+                <%= link_to value, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <i class="fas fa-trash-alt color-toca-red"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div> <!-- responsive table -->
+
+  </div> <!-- container -->
+</main>

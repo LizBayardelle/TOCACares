@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_035255) do
+ActiveRecord::Schema.define(version: 2019_08_25_194202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,6 +202,17 @@ ActiveRecord::Schema.define(version: 2019_08_25_035255) do
     t.string "committee_request", default: "None"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "values", force: :cascade do |t|
+    t.string "current_year"
+    t.string "matching_ratio"
+    t.string "individual_contributions"
+    t.string "shareholder_matching"
+    t.string "total_fund_value"
+    t.boolean "selected", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "votes", force: :cascade do |t|

@@ -43,16 +43,61 @@
           Click the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
         </h3>
         <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions.pdf"), target: "_blank", class: "btn btn-primary btn-lg my-3" %>
+        <h3 class="text-center dark-grey-text w-responsive mx-auto">
+          Shareholders have agreed to make contributions which are a multiple of the amount contributed by emplyees.
+        </h3>
       </div> <!-- center for button -->
     </section> <!-- mission description -->
 
-    <section class="text-center">
+    <section class="text-center my-5 py-3" style="border: thin solid black">
       <h3 class="dark-grey-text w-responsive mx-auto mt-3 mb-5">
-        Shareholders have agreed to make contributions which are a multiple of the amount contributed by emplyees.
-        <br><br>
-        <strong>For 2019, shareholders are matching contributions at a 6:1 ratio.</strong>
+        <strong>For <%= @current_year %>, shareholders are matching contributions at&nbsp;a&nbsp;<%= @matching_ratio %>&nbsp;ratio.</strong>
       </h3>
-      <%= image_tag "matching.jpg", class: "width: 100%; max-width: 600px" %>
+
+
+      <div class="row mb-5 justify-content-center"> <!-- Horizontal Steppers -->
+        <div class="col-sm-3 text-center">
+          <p class="h1">
+            <i class="fas fa-hand-holding-usd color-toca-red"></i>
+          </p>
+          <p class="h3 color-toca-green"><%= @individual_contributions %></p>
+          <p class="h5">Current Individual Contributions</p>
+        </div> <!-- col -->
+
+
+        <div class="col-sm-1 text-center my-3">
+          <p class="h1">
+            <i class="fas fa-plus"></i>
+          </p>
+        </div> <!-- col -->
+
+
+        <div class="col-sm-3 text-center">
+          <p class="h1">
+            <i class="fas fa-hands-helping color-toca-red"></i>
+          </p>
+          <p class="h3 color-toca-green"><%= @shareholder_matching %></p>
+          <p class="h5">Shareholder Matching Contributions</p>
+        </div> <!-- col -->
+
+
+        <div class="col-sm-1 text-center my-3">
+          <p class="h1">
+            <i class="fas fa-equals"></i>
+          </p>
+        </div> <!-- col -->
+
+
+        <div class="col-sm-3 text-center">
+          <p class="h1">
+            <i class="fas fa-dollar-sign color-toca-red"></i>
+          </p>
+          <p class="h3 color-toca-green"><%= @total_fund_value %></p>
+          <p class="h5">Total Fund Value</p>
+        </div> <!-- col -->
+
+      </div> <!-- Fund Info Row -->
+
     </section> <!-- mission description -->
 
 

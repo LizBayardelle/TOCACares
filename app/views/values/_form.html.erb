@@ -1,0 +1,37 @@
+
+<%= simple_form_for(@value) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="field col-sm-6">
+        <%= f.label :current_year, "Current Year (e.g. 2019)" %>
+        <%= f.text_field :current_year, class: "form-control mb-4", placeholder: "Current Year (e.g. 2019)" %>
+      </div> <!-- field -->
+      <div class="field col-sm-6">
+        <%= f.label :matching_ratio, "Matching Ratio (e.g. 6:1)" %>
+        <%= f.text_field :matching_ratio, class: "form-control mb-4", placeholder: "Matching Ratio (e.g. 6:1)" %>
+      </div> <!-- field -->
+    </div> <!-- row -->
+    <div class="row">
+      <div class="field col-lg-6">
+        <%= f.label :individual_contributions, "Individual Contributions (e.g. $15,000)" %>
+        <%= f.text_field :individual_contributions, class: "form-control mb-4", placeholder: "Individual Contributions (e.g. $15,000)" %>
+      </div> <!-- field -->
+      <div class="field col-lg-6">
+        <%= f.label :shareholder_matching, "Shareholder Matching Contributions (e.g. $100,000)" %>
+        <%= f.text_field :shareholder_matching, class: "form-control mb-4", placeholder: "Shareholder Matching Contributions (e.g. $100,000)" %>
+      </div> <!-- field -->
+      <div class="field col-lg-12">
+        <%= f.label :total_fund_value, "Total Fund (e.g. $115,000)" %>
+        <%= f.text_field :total_fund_value, class: "form-control mb-4", placeholder: "Total Fund (e.g. $115,000)" %>
+      </div> <!-- field -->
+    </div> <!-- row -->
+  </div>
+
+
+  <div class="form-actions text-center">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>
