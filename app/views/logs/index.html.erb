@@ -6,6 +6,9 @@
     <section>
 
       <div class="table-responsive">
+
+        <%= paginate(@logs) %>
+        
         <table class="table table-hover table-sm">
           <thead class="bg-toca-red">
             <tr>
@@ -19,6 +22,7 @@
           </thead>
 
           <tbody>
+
             <% @logs.each do |log| %>
               <tr>
                 <td>
@@ -73,7 +77,11 @@
             <% end %>
           </tbody>
         </table>
+
+        <%= paginate(@logs) %>
+
       </div> <!-- responsive table -->
+
 
     </section>
 

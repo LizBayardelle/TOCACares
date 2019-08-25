@@ -30,6 +30,8 @@ gem 'font_awesome5_rails'
 gem 'friendly_id', '~> 5.2.0'
 gem 'acts-as-taggable-on', '~> 6.0' #must be this version for Rails5
 gem 'invisible_captcha'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
 
 gem 'figaro'
 gem 'high_voltage', '~> 3.1'
