@@ -91,13 +91,13 @@
   <div class="row">
     <div class="field col-md-6 text-left">
       <%= form.label "Amount Requested", class: "mb-0" %><br>
-      <small>The amount you need from TOCA Cares.</small>
+      <small>The amount you need from TOCA Cares. (Numbers only. No $ or punctuation.)</small>
       <%= form.number_field :requested_amount, step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
     </div>
 
     <div class="field col-md-6 text-left">
       <%= form.label "Amount You Can Cover", class: "mb-0" %><br>
-      <small>Not included in the amount requested.</small>
+      <small>Not included in the amount requested. (Numbers only. No $ or punctuation.)</small>
       <%= form.number_field :self_fund, step: 0.01, class: "form-control mb-4", placeholder: "Requested Amount", required: true %>
     </div>
   </div> <!-- prices row -->

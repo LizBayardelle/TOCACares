@@ -19,6 +19,8 @@
         <li class="nav-item"><%= link_to page_path(:info), class: "nav-link" do %>Info<% end %></li>
         <% if current_user %>
           <li class="nav-item"><%= link_to user_path(current_user), class: "nav-link" do %>My Account<% end %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to new_user_session_path, class: "nav-link" do %>Sign In<% end %></li>
         <% end %>
       </ul>
     </div>

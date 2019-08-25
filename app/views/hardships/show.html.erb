@@ -141,14 +141,11 @@
   <% if current_user && @hardship.user && @hardship.status == "Returned for Modifications" %>
     <section class="my-4 pb-5">
 
-
       <div class="bg-toca-red mb-3 px-5 py-3">
         <div class="container">
           <h2 class="color-white toca-uppercase">Requested Modifications</h2>
         </div> <!-- container -->
       </div> <!-- red stripe -->
-
-
 
       <div class="container">
         <% @votes.each do |v| %>
@@ -161,7 +158,6 @@
           </div>
         <% end %>
       </div> <!-- container -->
-
 
     </section>
   <% end %> <!-- committee only for decisions -->

@@ -13,7 +13,7 @@ class TestimonialsController < ApplicationController
     @featured_charity = Testimonial.where(category: "Charity", approved: true, featured: true).limit(1)
     @other_hardships = Testimonial.where(category: "Hardship", approved: true, featured: true).all[1..-1]
     @other_scholarships = Testimonial.where(category: "Scholarship", approved: true, featured: true).all[1..-1]
-    @other_charitys = Testimonial.where(category: "Charity", approved: true, featured: true).all[1..-1]
+    @other_charities = Testimonial.where(category: "Charity", approved: true, featured: true).all[1..-1]
   end
 
   # GET /testimonials/1

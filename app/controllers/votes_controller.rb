@@ -24,14 +24,19 @@ class VotesController < ApplicationController
     @vote = Vote.new(vote_params)
     @vote.user_id = current_user.id
 
-    respond_to do |format|
-      if @vote.save
-        Log.create(category: "Committee Action", action: "Committee Member Voted on an Application", automatic: false, object: true, object_linkable: true, object_category: @vote.application_type, object_id: @vote.application_id, taken_by_user: true, user_id: current_user.id)
-        format.html { redirect_to home_applications_path, notice: 'Your vote was successfully cast.  If seconded by another committee member, the application status will be updated.' }
-        format.json { render :show, status: :created, location: @vote }
-      else
-        format.html { render :new }
-        format.json { render json: @vote.errors, status: :unprocessable_entity }
+    if Vote.where(user_id: current_user.id, application_type: @vote.application_type, application_id: @vote.application_id).count != 0
+      redirect_back(fallback_location: home_applications_path)
+      flash[:warning] = "Sorry, you can only vote once per application.  If you changed your mind, you can change your existing vote as long as it hasn't been seconded yet."
+    else
+      respond_to do |format|
+        if @vote.save
+          Log.create(category: "Committee Action", action: "Committee Member Voted on an Application", automatic: false, object: true, object_linkable: true, object_category: @vote.application_type, object_id: @vote.application_id, taken_by_user: true, user_id: current_user.id)
+          format.html { redirect_to home_applications_path, notice: 'Your vote was successfully cast.  If seconded by another committee member, the application status will be updated.' }
+          format.json { render :show, status: :created, location: @vote }
+        else
+          format.html { render :new }
+          format.json { render json: @vote.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

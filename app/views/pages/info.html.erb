@@ -94,7 +94,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q24H">TOCA Cares will sponsor my education and charitable endeavors?</h5>
           <p class="color-dark-grey mb-0" id ="Q24P">
-            Correct! If you have not used the fund towards any hardship expenses, TOCA Cares will sponsor a charity of your choice that you’re personally involved in or contribute towards you furthering your education. See the <%= link_to "apply", page_path(:apply) %> page for more information.
+            Correct! TOCA Cares will sponsor a charity of your choice that you’re personally involved in or contribute towards you furthering your education. See the <%= link_to "apply", page_path(:apply) %> page for more information.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -168,7 +168,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q11H">Are there situations that don’t qualify to receive money from the fund?</h5>
           <p class="color-dark-grey mb-0" id ="Q11P">
-            Most logical unexpected hardship applications will receive funding. Situations that <em>don’t</em> qualify include funding for vacations, repeated incidents (such as the 5th broken phone), luxury items, new pets, or other forseeable expenses.
+            Most logical unexpected hardship applications will receive funding. Situations that <em>don’t</em> qualify include funding for vacations, repeated incidents (such as the 3th broken phone), luxury items, new pets, or other forseeable expenses.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -263,7 +263,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q17H">How often do I donate to the fund?</h5>
           <p class="color-dark-grey mb-0" id ="Q17P">
-            You can choose whatever amount you wish out of your monthly paycheck.
+            You can choose whatever amount you wish out of your monthly paycheck or simply donate via check.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -279,7 +279,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q18H">Can I apply for the fund on another employee’s behalf?</h5>
           <p class="color-dark-grey mb-0" id ="Q18P">
-            Yes! If you know one of your coworkers are struggling, you can fill out the application on their behalf.  After the initial application, communications will be between that employee and the Decision Committee.
+            Yes! If you know one of your coworkers is struggling, you can fill out the application on their behalf.  After the initial application, communications will be between that employee and the Decision Committee.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -296,28 +296,6 @@
           <h5 class="font-weight-bold mb-3" id="Q19H">Who makes the decision on my application?</h5>
           <p class="color-dark-grey mb-0" id ="Q19P">
             A committee of fellow employees will decide on all applications.  Their membership is secret and they are bound to keep information confidential from other employees not on the committee.
-          </p>
-        </div> <!-- Grid column -->
-      </div> <!--Grid row-->
-
-
-
-
-      <div class="row mb-3"> <!-- individual question -->
-        <div class="col-1">
-          <p class="h1 color-toca-red"><%= n %><% n += 1 %></p>
-        </div> <!-- Grid column -->
-
-        <div class="col-xl-10 col-md-11 col-10">
-          <h5 class="font-weight-bold mb-3" id="Q20H">Can I apply to be on the Decision Committee?</h5>
-          <p class="color-dark-grey mb-0" id ="Q20P">
-            Yes! Just
-            <% if current_user %>
-              click the "click here to request to serve as a deciding committee member" link at the bottom of your <%= link_to "my account", user_path(current_user) %> page.
-            <% else %>
-              <%= link_to "create an account", new_user_registration_path %> or <%= link_to "log in", new_user_session_path %> and then click the "click here to request to serve as a deciding committee member" link at the bottom of your "my account" page.
-            <% end %>
-            The decision will be made by the Co-Chairman of the Board.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
