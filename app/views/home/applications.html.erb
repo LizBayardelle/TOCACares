@@ -46,6 +46,7 @@
                         <% end %>
                       <% end %>
                       <br><%= application.status %> <% if application.status == "Decision Reached" %>(<%= application.final_decision %>)<% end %>
+                      <% if application.funding_status == "Funding Completed" %><br><em>Funding Completed</em><% end %>
                       <% if current_user && current_user.admin && application.status == "Decision Reached" %>
 
                         <% if application.final_decision == "Approved" && application.funding_status != "Funding Completed" %>
@@ -141,6 +142,7 @@
                       <% else %>
                         Not Decided
                       <% end %>)
+                      <% if application.funding_status == "Funding Completed" %><br><em>Funding Completed</em><% end %>
                     </td>
                   </tr>
                 <% end %> <!-- applications each -->
