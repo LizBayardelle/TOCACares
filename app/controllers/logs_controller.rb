@@ -3,7 +3,7 @@ class LogsController < ApplicationController
 
 
   def index
-    @logs = Log.order(created_at: :desc).page(params[:page]).per(50)
+    @logs = Log.order(created_at: :desc).page(params[:page]).per(25)
   end
 
 

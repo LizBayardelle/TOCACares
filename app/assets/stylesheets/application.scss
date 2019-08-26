@@ -207,6 +207,41 @@ img { max-width: 100%; }
 
 /*-----------------------------
 -------------------------------
+-----------PAGINATION----------
+-------------------------------
+-------------------------------
+-----------------------------*/
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination li {
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.pagination li:hover {
+  background-color: $color-light-grey;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.pagination li.active {
+  background-color: $color-toca-red;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.pagination li.active a {
+  color: white !important;
+}
+
+
+
+
+
+
+/*-----------------------------
+-------------------------------
 ----------MDB Overrides--------
 -------------------------------
 -------------------------------
