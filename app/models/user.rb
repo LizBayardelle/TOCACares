@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :testimonials
   has_many :logs
 
+  validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@tocafootball\.com\z/, message: "Please use your TOCA email address to register." }
+
   def self.admin_users
     User.where(admin: true)
   end

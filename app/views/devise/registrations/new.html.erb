@@ -30,7 +30,7 @@
                           label: false,
                           input_html: { autocomplete: "first_name",
                             id: "defaultRegisterFormFirstName",
-                            class: "form-control mb-4",
+                            class: "form-control mt-4",
                             placeholder: 'First Name'} %>
                 </div> <!-- col -->
                 <div class="col">
@@ -40,35 +40,35 @@
                         label: false,
                         input_html: { autocomplete: "last_name",
                           id: "defaultRegisterFormLastName",
-                          class: "form-control mb-4",
+                          class: "form-control mt-4",
                           placeholder: 'Last Name'} %>
                 </div> <!-- col -->
               </div> <!-- form row -->
 
               <div class="form-row">
-                <div class="col">
+                <div class="col-lg-6">
                   <%= f.input :email,
                               required: true,
                               autofocus: true,
                               label: false,
                               input_html: { autocomplete: "email",
                                 id: "defaultRegisterFormEmail",
-                                class: "form-control mb-4",
+                                class: "form-control mt-4",
                                 placeholder: 'Email Address'} %>
-                </div> <!-- col -->
-                <div class="col">
+                </div> <!-- col-lg-6 -->
+                <div class="col-lg-6">
                   <%= f.input :phone,
                         required: true,
                         autofocus: true,
                         label: false,
                         input_html: { autocomplete: "phone",
                           id: "defaultRegisterFormPhone",
-                          class: "form-control mb-4",
+                          class: "form-control mt-4",
                           placeholder: 'Phone Number'} %>
-                </div> <!-- col -->
+                </div> <!-- col-lg-6 -->
               </div> <!-- form row -->
 
-              <div class="form-row">
+              <div class="form-row mt-4">
                 <div class="col">
                   <%= f.input :password,
                             required: true,
@@ -131,7 +131,7 @@
             </div> <!-- form-inputs -->
 
             <div class="form-actions">
-              <%= f.button :submit, "Sign up", class: "btn btn-primary mb-4 btn-block" %>
+              <%= f.button :submit, "Sign up", class: "btn btn-primary my-4 btn-block" %>
             </div>
 
             <!-- Information below button -->
