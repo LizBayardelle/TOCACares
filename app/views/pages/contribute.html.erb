@@ -37,19 +37,51 @@
       </section> <!-- mission description -->
     </div> <!-- row -->
 
-    <section>
-      <div class="text-center mt-4">
-        <h3 class="text-center dark-grey-text w-responsive mx-auto">
-          Click the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
-        </h3>
-        <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions.pdf"), target: "_blank", class: "btn btn-primary btn-lg my-3" %>
-        <h3 class="text-center dark-grey-text w-responsive mx-auto">
-          Shareholders have agreed to make contributions which are a multiple of the amount contributed by emplyees.
-        </h3>
-      </div> <!-- center for button -->
+
+
+    <section class="text-center mt-4">
+      <h3 class="text-center dark-grey-text w-responsive mx-auto">
+        You can contribute to the fund by check or via an automatic payroll deduction.
+      </h3>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <section class="text-center mt-3 mb-5 py-3 h-100" style="border: thin solid black">
+            <h3 class="toca-uppercase"><strong>Payroll Deduction</strong></h3>
+            <h4 class="text-center dark-grey-text w-responsive mx-auto">
+              Click the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
+            </h4>
+            <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions.pdf"), target: "_blank", class: "btn btn-primary btn-lg my-3" %>
+          </section>
+        </div> <!-- col -->
+
+        <div class="col-sm-6">
+          <section class="text-center mt-3 mb-5 py-3 h-100" style="border: thin solid black">
+            <h3 class="toca-uppercase"><strong>Contribute by Check</strong></h3>
+            <h4 class="text-center dark-grey-text w-responsive mx-auto">
+              To contribute by check, please make checks payable to <strong>ProvisionBridge</strong> and write <strong>TOCA&nbsp;Cares&nbsp;Fund&nbsp;#246175</strong> in the memo or on an enclosed note.
+            </h4>
+            <h4 class="text-center dark-grey-text w-responsive mx-auto">
+              You can give the check to Alan Adams or mail it to the address below:
+              <br>
+              <br>ProvisionBridge
+              <br>PO Box 157
+              <br>Tallulah Falls, GA  30573
+            </h4>
+          </section>
+        </div> <!-- col -->
+      </div> <!-- row -->
     </section> <!-- mission description -->
 
+
+    <div style="height: 50px; width: 100%"></div>
+
+
     <section class="text-center my-5 py-3" style="border: thin solid black">
+      <h3 class="text-center w-responsive mx-auto my-5">
+        Shareholders have agreed to make contributions which are a multiple of the amount contributed by emplyees.
+      </h3>
+
       <h3 class="dark-grey-text w-responsive mx-auto mt-3 mb-5">
         <strong>For <%= @current_year %>, shareholders are matching contributions at&nbsp;a&nbsp;<%= @matching_ratio %>&nbsp;ratio.</strong>
       </h3>
