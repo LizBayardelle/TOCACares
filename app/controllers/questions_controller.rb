@@ -25,8 +25,9 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         Log.create!(category: "User Action", action: "New Question Submitted", automatic: false, object: true, object_linkable: true, object_category: "question", object_id: @question.id, taken_by_user: false)
-        # New Question Email to Admins
-        Log.create!(category: "Email", action: "New Question Email Sent to Admins", automatic: true, object: true, object_linkable: true, object_category: "question", object_id: @question.id, taken_by_user: false)
+        if NewQuestionMailer.new_question_email(@question).deliver
+          Log.create!(category: "Email", action: "New Question Email Sent to Admins", automatic: true, object: true, object_linkable: true, object_category: "question", object_id: @question.id, taken_by_user: false)
+        end
         format.html { redirect_back(fallback_location: root_path) }
         format.html {  }
       else

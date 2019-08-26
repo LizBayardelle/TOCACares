@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">A New Question was Just Submitted on TOCA Cares</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+    <p>
+      As an admin, you have the power to answer submitted questions and mark them as answered on the website.
+      <br>Here's what was just submitted:
+    </p>
+    <p>
+      <strong>From:</strong> <%= @question.name %> (<%= mail_to @question.email %>)
+    </p>
+    <p>
+      <strong>Subject:</strong> <%= @question.subject %>
+    </p>
+    <p>
+      <strong>Question: </strong> <%= @question.body %>
+    </p>
+    <p>
+      Feel free to answer this new question by email and, once the issue is resolved, don't forget to sign into your TOCA Cares account and visit the <%= link_to "manage questions", questions_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> page to mark it as "answered".
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>
