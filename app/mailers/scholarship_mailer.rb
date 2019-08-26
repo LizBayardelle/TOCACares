@@ -9,6 +9,15 @@ class ScholarshipMailer < ApplicationMailer
     )
   end
 
+  def approved_charity_to_helping_hands_email(application)
+    @application = application
+    mail(
+      to: "lizbayardelle@gmail.com",
+      # to: "missy@hhmin.org",
+      subject: 'New TOCA Cares Scholarship Funding'
+    )
+  end
+
   def scholarship_denied_email(application)
     @application = application
     mail(

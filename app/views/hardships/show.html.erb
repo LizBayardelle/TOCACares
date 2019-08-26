@@ -116,13 +116,10 @@
           <% category_array << "Memorial (Expenses Associated with Loss)" %>
         <% end %>
         <% if @hardship.other_hardship %>
-          <% category_array << "Other Hardship" %>
+          <% category_array << "Other Hardship" + @application.other_hardship_description %>
         <% end %>
 
         <strong>Hardship Categories: </strong><%= category_array.join(', ') %>
-        <% if @hardship.other_hardship %>
-          <br><strong>Other Hardship Description:</strong> <%= @hardship.other_hardship_description %>
-        <% end %>
       </p>
 
       <p>

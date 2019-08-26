@@ -121,7 +121,7 @@
           <p><strong><%= v.modification %></strong></p>
           <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
         <% end %>
-        <% if current_user == @charity.user %>
+        <% if current_user == @scholarship.user %>
           <div class="text-center">
             <%= link_to "Modify My Application Now", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary" %>
           </div>

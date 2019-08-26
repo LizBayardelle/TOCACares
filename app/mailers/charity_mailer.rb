@@ -9,6 +9,14 @@ class CharityMailer < ApplicationMailer
     )
   end
 
+  def approved_charity_to_helping_hands_email(application)
+    @application = application
+    mail(
+      to: "missy@hhmin.org",
+      subject: 'New TOCA Cares Charity Funding'
+    )
+  end
+
   def charity_denied_email(application)
     @application = application
     mail(
@@ -24,4 +32,5 @@ class CharityMailer < ApplicationMailer
       subject: 'Modifications Have Been Requested for Your TOCA Cares Charity Application'
     )
   end
+
 end

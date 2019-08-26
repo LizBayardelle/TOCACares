@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">A New Hardship Application Has Been Approved on TOCA Cares</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+    <p>
+      Hi Missy,
+    </p>
+    <p>
+      A new hardship application just got approved on TOCA Cares.  Here's the information:
+    </p>
+
+    <div style="border: 2px solid #CDDC29; margin: 20px 30px 20px 30px; padding: 15px">
+      <p>
+        <strong>Applicant: </strong>
+        <br><%= @application.full_name %> (<%= mail_to @application.email_non_toca %>)
+        <br><%= @application.mobile %>
+        <br><%= @application.address %>
+        <br><%= @application.city %>, <%= @application.state %> &nbsp;<%= @application.zip %>
+      </p>
+      <p><strong>Bank Name: </strong><%= @application.bank_name %>
+        <br><strong>Bank Phone Number: </strong><%= @application.bank_phone %>
+        <br><strong>Bank Address: </strong><%= @application.bank_address %></p>
+
+      <% category_array = [] %>
+
+      <% if @application.accident %>
+        <% category_array << "Accident" %>
+      <% end %>
+      <% if @application.catastrophe %>
+        <% category_array << "Catastrophic Event" %>
+      <% end %>
+      <% if @application.counseling %>
+        <% category_array << "Counseling" %>
+      <% end %>
+      <% if @application.family_emergency %>
+        <% category_array << "Family Emergency" %>
+      <% end %>
+      <% if @application.health %>
+        <% category_array << "Health/Medical" %>
+      <% end %>
+      <% if @application.memorial %>
+        <% category_array << "Memorial (Expenses Associated with Loss)" %>
+      <% end %>
+      <% if @application.other_hardship %>
+        <% category_array << "Other Hardship: " + @application.other_hardship_description %>
+      <% end %>
+
+      <p><strong>Hardship Category: </strong><%= category_array.join(', ') %></p>
+
+
+      <p><strong>Amount Approved: </strong><%= number_to_currency(@application.requested_amount, unit: "$") %></p>
+      <p><strong>Amount Applicant Can Pay: </strong><%= number_to_currency(@application.self_fund, unit: "$") %></p>
+      <% if @application.loan_preferred %><p><strong>Loan Preferred: </strong>Yes</p><% end %>
+      <p><strong>Description of Opportunity: </strong><%= @application.hardship_description %></p>
+    </div> <!-- box -->
+
+    <p>
+      Let us know if you need anything more from our end to successfully process this and let us know when the funding has been completed so we can mark the application as closed.  Thank you for your help!
+    </p>
+    <p>
+      Thanks,
+      <br>TOCA Cares
+    </p>
+    <p>
+      If you have any issues, feel free to email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a>.
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>
