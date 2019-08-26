@@ -92,12 +92,16 @@
                         <% end %>
                         <br>
                       <% end %>
-                      <% votes_accept = Vote.where(accept: true, application_type: application.application_type, application_id: application.id) %>
-                      <% votes_modify = Vote.where(modify: true, application_type: application.application_type, application_id: application.id) %>
-                      <% votes_deny = Vote.where(deny: true, application_type: application.application_type, application_id: application.id) %>
-                      <%= pluralize(votes_accept.count, "Approval") %>
-                      <br><%= pluralize(votes_modify.count, "Request for Modification") %>
-                      <br><%= pluralize(votes_deny.count, "Rejection") %>
+
+                      <% unless application.status == "Decision Reached" || application.status == "Returned for Modifications" || application.status == "Withdrawn" %>
+                        <% votes_accept = Vote.where(accept: true, application_type: application.application_type, application_id: application.id) %>
+                        <% votes_modify = Vote.where(modify: true, application_type: application.application_type, application_id: application.id) %>
+                        <% votes_deny = Vote.where(deny: true, application_type: application.application_type, application_id: application.id) %>
+
+                        <%= pluralize(votes_accept.count, "Approval") %>
+                        <br><%= pluralize(votes_modify.count, "Request for Modification") %>
+                        <br><%= pluralize(votes_deny.count, "Rejection") %>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %> <!-- applications each -->
@@ -132,12 +136,11 @@
                     <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
                     <td>
                       <%= application.status %>
-                      <br>
-                      <% if application.final_decision %>
+                      (<% if application.final_decision %>
                         <%= application.final_decision %>
                       <% else %>
-                        Not Yet Decided
-                      <% end %>
+                        Not Decided
+                      <% end %>)
                     </td>
                   </tr>
                 <% end %> <!-- applications each -->
