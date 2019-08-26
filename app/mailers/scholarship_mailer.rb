@@ -17,9 +17,8 @@ class ScholarshipMailer < ApplicationMailer
     )
   end
 
-  def scholarship_modification_request_email(application, modification)
+  def scholarship_modification_request_email(application)
     @application = application
-    @modification = modification
     mail(
       to: @application.email_non_toca,
       subject: 'Modifications Have Been Requested for Your TOCA Cares Scholarship Application'

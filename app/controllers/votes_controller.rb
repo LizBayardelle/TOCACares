@@ -118,23 +118,23 @@ class VotesController < ApplicationController
             @application.user_id = User.where(email: @application.recipient_toca_email).first.id
             @application.save
             HardshipMailer.hardship_transferred_email(@application).deliver
-            Log.create(category: "Email", action: "Hardship Transfer Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Hardship Transfer Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           else
             AccountActionsMailer.create_an_account_email(@application.recipient_toca_email).deliver
-            Log.create(category: "Email", action: "Create an Account Invitation Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Create an Account Invitation Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
           HardshipMailer.for_other_hardship_accepted_email(@application).deliver
-          Log.create(category: "Email", action: "For Other Hardship Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+          Log.create(category: "Email", action: "For Other Hardship Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
         else
           if @vote.application_type == "hardship"
             HardshipMailer.hardship_accepted_email(@application).deliver
-            Log.create(category: "Email", action: "Hardship Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Hardship Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           elsif @vote.application_type == "scholarship"
             ScholarshipMailer.scholarship_accepted_email(@application).deliver
-            Log.create(category: "Email", action: "Scholarship Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Scholarship Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           elsif @vote.application_type == "charity"
             CharityMailer.charity_accepted_email(@application).deliver
-            Log.create(category: "Email", action: "Charity Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Charity Application Accepted Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
         end
       elsif @vote.modify
@@ -144,23 +144,23 @@ class VotesController < ApplicationController
           if User.where(email: @application.recipient_toca_email).count != 0
             @application.user_id = User.where(email: @application.recipient_toca_email).first.id
             @application.save
-            Log.create(category: "Automatic", action: "Hardship Application Transferred from Submitter to Beneficiary", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Automatic", action: "Hardship Application Transferred from Submitter to Beneficiary", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
             HardshipMailer.hardship_transferred_email(@application).deliver
-            Log.create(category: "Email", action: "Hardship Transferred Email Sent to Submitter", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Hardship Transferred Email Sent to Submitter", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           else
             AccountActionsMailer.create_an_account_email(@application.recipient_toca_email).deliver
-            Log.create(category: "Email", action: "Create an Account Invitation Email Sent to Hardship Beneficiary", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Create an Account Invitation Email Sent to Hardship Beneficiary", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
         else
           if @vote.application_type == "hardship"
-            #send modification email to applicant
-            Log.create(category: "Email", action: "Hardship Application Needs Modifications Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            HardshipMailer.hardship_modification_request_email(@application).deliver
+            Log.create(category: "Email", action: "Hardship Application Needs Modifications Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           elsif @vote.application_type == "scholarship"
-            #send modification email to applicant
-            Log.create(category: "Email", action: "Scholarship Application Needs Modifications Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            ScholarshipMailer.scholarship_modification_request_email(@application).deliver
+            Log.create(category: "Email", action: "Scholarship Application Needs Modifications Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           elsif @vote.application_type == "charity"
-            #send modification email to applicant
-            Log.create(category: "Email", action: "Charity Application Needs Modifications Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            CharityMailer.charity_modification_request_email(@application).deliver
+            Log.create(category: "Email", action: "Charity Application Needs Modifications Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
         end
       elsif @vote.deny
@@ -168,17 +168,17 @@ class VotesController < ApplicationController
         Log.create(category: "Committee Action", action: "An Application Was Denied", automatic: false, object: true, object_linkable: true, object_category: @vote.application_type, object_id: @vote.application_id, taken_by_user: false)
         if @application.application_type == "hardship" && @application.for_other
           #send rejection email to submitting member
-          Log.create(category: "Email", action: "Hardship Application (Submitted for Other) Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+          Log.create(category: "Email", action: "Hardship Application (Submitted for Other) Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
         else
           if @vote.application_type == "hardship"
             HardshipMailer.hardship_denied_email(@application).deliver
-            Log.create(category: "Email", action: "Hardship Application Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Hardship Application Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           elsif @vote.application_type == "scholarship"
             ScholarshipMailer.scholarship_denied_email(@application).deliver
-            Log.create(category: "Email", action: "Scholarship Application Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Scholarship Application Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           elsif @vote.application_type == "charity"
             CharityMailer.charity_denied_email(@application).deliver
-            Log.create(category: "Email", action: "Charity Application Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.application_id, taken_by_user: false)
+            Log.create(category: "Email", action: "Charity Application Denied Email Sent", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
         end
       end
@@ -219,7 +219,8 @@ class VotesController < ApplicationController
         :denial_other,
         :denial_other_description,
 
-        :superseded
+        :superseded,
+        :seconded
       )
     end
 end

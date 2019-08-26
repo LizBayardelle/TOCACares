@@ -18,6 +18,28 @@
     <p>
       The Decision Committee thoroughly reviewed your application and has determined, based on the TOCA Cares Corporate Assistance guidelines, that your situation does not meet one or more of the qualifications for aid. Because this is a community fund, the Decision Committee is tasked with the difficult responsibility of making sure the fund is only used in authorized situations. Additionally, since contributors to the fund receive tax benefits, the Decision Committee must follow specific legal regulations, which can hinder what qualifies and what does not. There are a number of reasons your situation may not be eligible. Remember that you must be personally involved in the charity to get sponsorship.
     </p>
+    <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
+    <p>
+      Your specific appliation was denied because:
+      <ul>
+        <% if vote.denial_fund_overuse %>
+          <li>You seem to be overusing the fund.</li>
+        <% end %>
+        <% if vote.denial_not_qualify %>
+          <li>The situation described didn't fit our definition of a hardship.</li>
+        <% end %>
+        <% if vote.denial_unreasonable_request %>
+          <li>The request didn't seem reasonable.</li>
+        <% end %>
+        <% if vote.denial_not_involved_charity %>
+          <li>You didn't seem personally involved enough in the charity.</li>
+        <% end %>
+        <% if vote.denial_other %>
+          <li><%= vote.denial_other_description %></li>
+        <% end %>
+      </ul>
+    </p>
+
     <p>
       For clarity on your decision, feel free to refer to the TOCA Cares website to learn more about what type of charitable involvement TOCA Cares will sponsor. We appreciate your application, and we encourage you to apply again in the future. You are a valued part of the TOCA family.
     </p>

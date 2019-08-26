@@ -17,9 +17,8 @@ class CharityMailer < ApplicationMailer
     )
   end
 
-  def charity_modification_request_email(application, modification)
+  def charity_modification_request_email(application)
     @application = application
-    @modification = modification
     mail(
       to: @application.email_non_toca,
       subject: 'Modifications Have Been Requested for Your TOCA Cares Charity Application'

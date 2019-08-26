@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">Your TOCA Cares Hardship Application Needs Modifications</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+    <p>
+      Dear <%= @application.full_name %>,
+    </p>
+    <p>
+      Thank you for your application. After careful consideration, it has been decided that one or more details of your application need adjustment. We recognize your genuine need and we request you reapply with the suggested changes in mind. See below for details from the Decision Committee on what revisions need to be made to your application:
+    </p>
+    <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
+    <p>
+      Here are the modifications requested:
+      <ul>
+          <li><%= vote.modification %></li>
+        <% if vote.suggest_loan %>
+          <li>Loan Suggested: <%= vote.describe_loan %></li>
+        <% end %>
+      </ul>
+    </p>
+    <p>
+      We hope you take advantage of this opportunity, and we look forward to assisting a valuable employee like you.
+    </p>
+    <p>
+      We understand this decision may be frustrating.  However, we are confident that you can overcome this without the help of the fund. We take all applications seriously, and we encourage you to apply again for other hardships in the future. You are a valued part of the TOCA family.
+    </p>
+    <p>
+      Sincerely,
+      <br>TOCA Cares
+    </p>
+    <p>
+      If you have any issues, feel free to email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a>.
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>
