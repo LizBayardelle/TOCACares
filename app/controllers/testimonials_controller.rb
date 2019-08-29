@@ -39,8 +39,9 @@ class TestimonialsController < ApplicationController
     respond_to do |format|
       if @testimonial.save
         Log.create(category: "User Action", action: "New Testimonial Submitted", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: @testimonial.user_id)
-        TestimonialMailer.send_testimonial_email(@testimonial).deliver
-        Log.create(category: "Automatic", action: "New Testimonial Email Sent to Admins", automatic: true, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: @testimonial.user_id)
+        if TestimonialMailer.send_testimonial_email(@testimonial).deliver
+          Log.create(category: "Automatic", action: "New Testimonial Email Sent to Admins", automatic: true, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: @testimonial.user_id)
+        end
         format.html { redirect_to root_path, notice: "Thank you for submitting a testimonial!  As soon as it's approved by administrators it could be featured on the TOCA Cares site." }
         format.json { render :show, status: :created, location: @testimonial }
       else

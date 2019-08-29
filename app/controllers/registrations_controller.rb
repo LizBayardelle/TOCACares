@@ -29,7 +29,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_authorizations
     authorizations = Authorization.all
-
     authorizations.each do |a|
       if @user.email == a.email
         a.account_created = true
@@ -41,27 +40,62 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    hardships = Hardship.where(transfer_pending: true)
 
+    hardships = Hardship.where(transfer_pending: true)
     hardships.each do |h|
       if @user.email == h.recipient_toca_email
+
+        # transfer application
         h.user_id = @user.id
         h.transfer_pending = false
-        h.save
-        Log.create(category: "Automatic", action: "Hardship Applicaton Transferred from Submitting User to Beneficiary", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
-        HardshipMailer.hardship_transferred_email(h).deliver
-        Log.create(category: "Automatic", action: "Hardship Application Transfer Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
+        if h.save
+          Log.create(category: "Automatic", action: "Hardship Applicaton Transferred from Submitting User to Beneficiary", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
+        end
+
+        # Hardship transfer email to beneficiary
+        if HardshipMailer.hardship_transferred_email(h).deliver
+          Log.create(category: "Email", action: "Hardship Transfer Email Sent", automatic: true, object: true, object_linkable: true, object_category: h.application_type, object_id: h.id, taken_by_user: false)
+        end
+
+
+        # IF ACCEPTED
         if h.accepted
-          HardshipMailer.by_other_hardship_accepted_email(h).deliver
-          Log.create(category: "Automatic", action: "Hardship Application Accepted Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
-        end
+            # notification email to beneficiary
+            if HardshipMailer.by_other_hardship_accepted_email(h).deliver
+              Log.create(category: "Automatic", action: "Hardship Application Accepted Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
+            end
+
+            # hardship accepted email to helping hands
+            if HardshipMailer.approved_hardship_to_helping_hands_email(h).deliver
+              Log.create(category: "Email", action: "Accepted Hardship Application Sent to Helping Hands", automatic: true, object: true, object_linkable: true, object_category: h.application_type, object_id: h.id, taken_by_user: false)
+            end
+
+            # hardship accepted email to beneficiary
+            if HardshipMailer.by_other_hardship_accepted_email(h).deliver
+              Log.create(category: "Automatic", action: "Hardship Application Accepted Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
+            end
+        end # IF ACCEPTED
+
+
+        # IF MODIFIED
         if h.returned
-          # send by other modification email
-          Log.create(category: "Automatic", action: "Hardship Application Request for Modifications Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
-        end
-      end
-    end
-  end
+
+            # hardship modified email to beneficiary
+            if HardshipMailer.by_other_hardship_modified_email(h).deliver
+              Log.create(category: "Automatic", action: "Hardship Application Request for Modifications Email sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: h.id, taken_by_user: false)
+            end
+
+            # notification to submitter (not beneficiary)
+            if AccountActionsMailer.for_other_hardship_modified_email(h).deliver
+              Log.create(category: "Email", action: "For Other Hardship Application Modified Email Sent to Submitting User", automatic: true, object: true, object_linkable: true, object_category: h.application_type, object_id: h.id, taken_by_user: false)
+            end
+
+        end # IF MODIFIED
+
+
+      end # IF USER EMAIL = RECIPIENT EMAIL
+    end # HARDSHIPS EACH
+  end # UPDATE AUTHORIZATIONS METHOD
 
 
   def sign_up_params

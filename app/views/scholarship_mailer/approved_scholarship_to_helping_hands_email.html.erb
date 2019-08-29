@@ -7,13 +7,13 @@
 
   <body>
     <hr style="border: 0; border-top: solid 2px #EB0029;" />
-    <h1 style="text-align: center">A New Charity Application Has Been Approved on TOCA Cares</h1>
+    <h1 style="text-align: center">A New Scholarship Application Has Been Approved on TOCA Cares</h1>
     <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
     <p>
       Hi Missy,
     </p>
     <p>
-      A new charity application was just approved on TOCA Cares.  Here's the information:
+      A new scholarship application just got approved on TOCA Cares.  Here's the information:
     </p>
 
     <div style="border: 2px solid #CDDC29; margin: 20px 30px 20px 30px; padding: 15px">
@@ -24,14 +24,14 @@
         <br><%= @application.address %>
         <br><%= @application.city %>, <%= @application.state %> &nbsp;<%= @application.zip %>
       </p>
-      <p><strong>Name of Charity: </strong><%= @application.institution_name %></p>
+      <p><strong>Name of Institution: </strong><%= @application.institution_name %></p>
       <p><strong>Contact Person: </strong><%= @application.institution_contact %></p>
       <p><strong>Phone Number: </strong><%= @application.institution_phone %></p>
-      <p><strong>Charity Address: </strong><%= @application.institution_address %></p>
+      <p><strong>Institution Address: </strong><%= @application.institution_address %></p>
       <p><strong>Amount Approved: </strong><%= number_to_currency(@application.requested_amount, unit: "$") %></p>
       <p><strong>Amount Applicant Can Pay: </strong><%= number_to_currency(@application.self_fund, unit: "$") %></p>
       <% if @application.loan_preferred %><p><strong>Loan Preferred: </strong>Yes</p><% end %>
-      <p><strong>Description of Opportunity: </strong><%= @application.opportunity_description %></p>
+      <p><strong>Description of Scholarship: </strong><%= @application.scholarship_description %></p>
     </div> <!-- box -->
 
     <p>

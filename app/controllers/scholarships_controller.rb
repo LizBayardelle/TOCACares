@@ -51,8 +51,9 @@ class ScholarshipsController < ApplicationController
       if @scholarship.save
         if @scholarship.status == "Submitted to Committee"
           Log.create(category: "User Action", action: "Scholarship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
-          ApplicationChangeMailer.new_application_email(@scholarship).deliver
-          Log.create(category: "Email", action: "New Scholarship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+          if ApplicationChangeMailer.new_application_email(@scholarship).deliver
+            Log.create(category: "Email", action: "New Scholarship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+          end
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           Log.create(category: "User Action", action: "Scholarship Application Created", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
@@ -77,8 +78,9 @@ class ScholarshipsController < ApplicationController
           @votes = Vote.where(application_type: @scholarship.application_type, application_id: @scholarship.id)
           @votes.each(&:destroy)
           Log.create(category: "User Action", action: "Scholarship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @hardship.user.id)
-          ApplicationChangeMailer.new_application_email(@scholarship).deliver
-          Log.create(category: "Email", action: "New Scholarship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+          if ApplicationChangeMailer.new_application_email(@scholarship).deliver
+            Log.create(category: "Email", action: "New Scholarship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+          end
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           Log.create(category: "User Action", action: "Scholarship Application Updated", automatic: false, object: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
@@ -125,8 +127,9 @@ class ScholarshipsController < ApplicationController
     @scholarship.update_attributes(funding_status: "Funding Completed")
     if @scholarship.update_attributes(funding_status: "Funding Completed")
       Log.create(category: "Admin Action", action: "Scholarship Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true)
-      ApplicationChangeMailer.funding_completed_email(@scholarship).deliver
-      Log.create(category: "Email", action: "Scholarship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+      if ApplicationChangeMailer.funding_completed_email(@scholarship).deliver
+        Log.create(category: "Email", action: "Scholarship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
+      end
       redirect_back(fallback_location: home_applications_path)
       flash[:notice] = "The funding status for that application has been updated!"
     else
@@ -225,13 +228,17 @@ class ScholarshipsController < ApplicationController
       :city,
       :state,
       :zip,
+
       :institution_name,
       :institution_contact,
       :institution_phone,
       :institution_address,
+
       :requested_amount,
       :self_fund,
+
       :scholarship_description,
+
       :intent_signature,
       :intent_signature_date,
       :release_signature,

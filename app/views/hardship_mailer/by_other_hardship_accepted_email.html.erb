@@ -20,8 +20,8 @@
       <br><em><%= @application.hardship_description %></em>
     </p>
     <p>
-      If you haven't already done so, you can <%= link_to "create a TOCA Cares account", new_user_registration_path, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> using your TOCA email address.
-      Once you have created your account, you can <%= link_to "view your application here", hardship_path(@application), style: "color: #EB0029; font-weight: 700; text-decoration: none" %>.
+      If you haven't already done so, you can <%= link_to "create a TOCA Cares account", new_user_registration_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> using your TOCA email address.
+      Once you have created your account, you can <%= link_to "view your application here", hardship_url(@application), style: "color: #EB0029; font-weight: 700; text-decoration: none" %>.
       Should you feel the need to alter the application or contact someone at TOCA Cares, please <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">click here</a>.
     </p>
     <p>

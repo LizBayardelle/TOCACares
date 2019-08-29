@@ -16,11 +16,11 @@
       As you may or may not be aware, another employee has submitted a TOCA Cares hardship application on your behalf.
     </p>
     <p>
-      Ownership of this application has now been added to your account.  The employee who submitted this application on your behalf will be notified as to the eventual outcome, but from now on you are the only one who will be able to view it and all communications regarding this application will go to you alone (using the email address <%= mail_to @application.email_non_toca, style: "color: #EB0029; font-weight: 700; text-decoration: none" %>).
+      Ownership of this application has now been added to your account.  The employee who submitted this application on your behalf will be notified as to the eventual outcome, but from now on you are the only one who will be able to view it and all communications regarding this application will go to you alone (using the email address <%= mail_to @application.email_non_toca, @application.email_non_toca, style: "color: #EB0029; font-weight: 700; text-decoration: none" %>).
       You can now view this application <%= link_to "here", hardship_url(@application), style: "color: #EB0029; font-weight: 700; text-decoration: none" %>.
     </p>
     <p>
-      <strong>Important Note:</strong>  If <%= mail_to @application.email_non_toca, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> is not your correct non-TOCA email please email an admin at email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a> immediately to make sure you haven't missed any important communications.
+      <strong>Important Note:</strong>  If <%= mail_to @application.email_non_toca, @application.email_non_toca, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> is not your correct non-TOCA email please email an admin at email us at <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">admin@tocacares.com</a> immediately to make sure you haven't missed any important communications.
     </p>
     <p>
       Sincerely,

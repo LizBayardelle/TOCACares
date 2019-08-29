@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  toca_email: MyString
+  application_type: MyString
+  application_id: 1
+  open: false
+
+two:
+  toca_email: MyString
+  application_type: MyString
+  application_id: 1
+  open: false

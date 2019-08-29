@@ -51,8 +51,9 @@ class HardshipsController < ApplicationController
       if @hardship.save
         if @hardship.status == "Submitted to Committee"
           Log.create(category: "User Action", action: "Hardship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
-          ApplicationChangeMailer.new_application_email(@hardship).deliver
-          Log.create(category: "Email", action: "New Hardship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
+          if ApplicationChangeMailer.new_application_email(@hardship).deliver
+            Log.create(category: "Email", action: "New Hardship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
+          end
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           Log.create(category: "User Action", action: "Hardship Application Created", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
@@ -77,8 +78,9 @@ class HardshipsController < ApplicationController
           @votes = Vote.where(application_type: @hardship.application_type, application_id: @hardship.id)
           @votes.each(&:destroy)
           Log.create(category: "User Action", action: "Hardship Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
-          ApplicationChangeMailer.new_application_email(@hardship).deliver
-          Log.create(category: "Email", action: "New Hardship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
+          if ApplicationChangeMailer.new_application_email(@hardship).deliver
+            Log.create(category: "Email", action: "New Hardship Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
+          end
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           Log.create(category: "User Action", action: "Hardship Application Updated", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
@@ -125,8 +127,9 @@ class HardshipsController < ApplicationController
     @hardship.update_attributes(funding_status: "Funding Completed")
     if @hardship.update_attributes(funding_status: "Funding Completed")
       Log.create(category: "Admin Action", action: "Hardship Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true)
-      ApplicationChangeMailer.funding_completed_email(@hardship).deliver
-      Log.create(category: "Email", action: "Hardship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
+      if ApplicationChangeMailer.funding_completed_email(@hardship).deliver
+        Log.create(category: "Email", action: "Hardship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
+      end
       redirect_back(fallback_location: home_applications_path)
       flash[:notice] = "The funding status for that application has been updated!"
     else

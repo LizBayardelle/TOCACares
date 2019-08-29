@@ -51,8 +51,9 @@ class CharitiesController < ApplicationController
       if @charity.save
         if @charity.status == "Submitted to Committee"
           Log.create(category: "User Action", action: "Charity Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
-          ApplicationChangeMailer.new_application_email(@charity).deliver
-          Log.create(category: "Email", action: "New Charity Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+          if ApplicationChangeMailer.new_application_email(@charity).deliver
+            Log.create(category: "Email", action: "New Charity Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+          end
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           Log.create(category: "User Action", action: "Charity Application Created", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
@@ -77,8 +78,9 @@ class CharitiesController < ApplicationController
           @votes = Vote.where(application_type: @charity.application_type, application_id: @charity.id)
           @votes.each(&:destroy)
           Log.create(category: "User Action", action: "Charity Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
-          ApplicationChangeMailer.new_application_email(@charity).deliver
-          Log.create(category: "Email", action: "New Charity Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+          if ApplicationChangeMailer.new_application_email(@charity).deliver
+            Log.create(category: "Email", action: "New Charity Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+          end
           format.html { redirect_to user_path(current_user), notice: 'Your application has been successfully submitted.  You will receive an email when the committee reaches a decision.' }
         else
           Log.create(category: "User Action", action: "Charity Application Updated", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
@@ -125,8 +127,9 @@ class CharitiesController < ApplicationController
     @charity.update_attributes(funding_status: "Funding Completed")
     if @charity.update_attributes(funding_status: "Funding Completed")
       Log.create(category: "Admin Action", action: "Charity Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true)
-      ApplicationChangeMailer.funding_completed_email(@charity).deliver
-      Log.create(category: "Email", action: "Charity Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+      if ApplicationChangeMailer.funding_completed_email(@charity).deliver
+        Log.create(category: "Email", action: "Charity Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
+      end
       redirect_back(fallback_location: home_applications_path)
       flash[:notice] = "The funding status for that application has been updated!"
     else

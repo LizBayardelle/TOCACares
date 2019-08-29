@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">A TOCA Cares Hardship Application Submitted on Your Behalf Needs Modifications</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+    <p>
+      Dear <%= @application.full_name %>,
+    </p>
+    <p>
+      As you may or may not be aware, another employee has submitted a TOCA Cares hardship application on your behalf. We are delighted to be working with you, as TOCA Cares is about assisting valuable employees like you. After reviewing the application, it has been decided that we think you can help us with adjusting one or more details of the application. We recognize your genuine need, and we request you resubmit the application with the suggested changes in mind.
+    </p>
+    <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
+    <p>
+      Here are the details from the Decision Committee on what revisions need to be made to your application:
+      <ul>
+          <li><%= vote.modification %></li>
+        <% if vote.suggest_loan %>
+          <li>Loan Suggested: <%= vote.describe_loan %></li>
+        <% end %>
+      </ul>
+    </p>
+    <p>
+      We hope you take advantage of this opportunity, and we look forward to assisting a valuable employee like you.
+      To modify your application <%= link_to "click here", hardship_url(@application), style: "color: #EB0029; font-weight: 700; text-decoration: none" %>. If you feel there has been a mistake, or you have a need to contact someone at TOCA Cares, please <a href="mailto:admin@tocacares.com" style="color: #EB0029; font-weight: 700; text-decoration: none">click here</a>. TOCA is glad you’re part of the family, and we hope you accept our humble offer to help through our completely confidential process.
+    </p>
+    <p>
+      Sincerely,
+      <br>TOCA Cares
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>

@@ -1,0 +1,2 @@
+class Pretransfer < ApplicationRecord
+end

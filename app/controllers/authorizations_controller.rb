@@ -35,7 +35,15 @@ class AuthorizationsController < ApplicationController
         p.admin = @authorization.admin
         p.committee = @authorization.committee
         p.save
-        PreauthorizationMailer.send_preauthorization_email(p).deliver
+        if PreauthorizationMailer.send_preauthorization_email(p).deliver
+          if @authorization.admin && @authorization.committee
+            Log.create(category: "Email", action: "Admin and Committee Preauthorization Email Resent (" + @authorization.email + ")", automatic: true, object: false, taken_by_user: false)
+          elsif @authorization.admin
+            Log.create(category: "Email", action: "Admin Preauthorization Email Resent (" + @authorization.email + ")", automatic: true, object: false, taken_by_user: false)
+          else
+            Log.create(category: "Email", action: "Committee Preauthorization Email Resent (" + @authorization.email + ")", automatic: true, object: false, taken_by_user: false)
+          end
+        end
         redirect_to users_path, notice: "That user was already preauthorized, but the info has been updated and an invitation email has been resent." and return
       end
     end

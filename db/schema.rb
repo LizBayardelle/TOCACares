@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_194202) do
+ActiveRecord::Schema.define(version: 2019_08_29_045531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,15 @@ ActiveRecord::Schema.define(version: 2019_08_25_194202) do
     t.datetime "updated_at", null: false
     t.boolean "object_linkable", default: false
     t.integer "user_id"
+  end
+
+  create_table "pretransfers", force: :cascade do |t|
+    t.string "toca_email"
+    t.string "application_type"
+    t.integer "application_id"
+    t.boolean "open", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", force: :cascade do |t|

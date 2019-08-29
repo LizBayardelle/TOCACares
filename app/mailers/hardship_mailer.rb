@@ -9,14 +9,6 @@ class HardshipMailer < ApplicationMailer
     )
   end
 
-  def approved_hardship_to_helping_hands_email(application)
-    @application = application
-    mail(
-      to: "missy@hhmin.org",
-      subject: 'New TOCA Cares Hardship Funding'
-    )
-  end
-
   def hardship_denied_email(application)
     @application = application
     mail(
@@ -33,6 +25,20 @@ class HardshipMailer < ApplicationMailer
     )
   end
 
+
+
+#HELPING HANDS
+  def approved_hardship_to_helping_hands_email(application)
+    @application = application
+    mail(
+      to: "missy@hhmin.org",
+      subject: 'New TOCA Cares Hardship Funding'
+    )
+  end
+
+
+
+# BY OTHER NOTIFICATIONS
   def hardship_transferred_email(application)
     @application = application
     mail(
@@ -49,11 +55,38 @@ class HardshipMailer < ApplicationMailer
     )
   end
 
+  def by_other_hardship_modified_email(application)
+    @application = application
+    mail(
+      to: @application.email_non_toca,
+      subject: 'A TOCA Cares Hardship Application Submitted on Your Behalf Needs Modifications'
+    )
+  end
+
+
+
+#FOR OTHER NOTIFICATIONS
   def for_other_hardship_accepted_email(application)
     @application = application
     mail(
       to: @application.for_other_email,
       subject: 'The TOCA Cares Hardship Application You Submitted for a Coworker Has Been Accepted'
+    )
+  end
+
+  def for_other_hardship_modified_email(application)
+    @application = application
+    mail(
+      to: @application.for_other_email,
+      subject: 'The TOCA Cares Hardship Application You Submitted for a Coworker Has Been Modified'
+    )
+  end
+
+  def for_other_hardship_denied_email(application)
+    @application = application
+    mail(
+      to: @application.for_other_email,
+      subject: 'The TOCA Cares Hardship Application You Submitted for a Coworker Has Been Denied'
     )
   end
 

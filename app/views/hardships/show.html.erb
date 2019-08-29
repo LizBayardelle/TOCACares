@@ -5,14 +5,14 @@
 
     <p class="text-center">
       <% if @hardship.for_other %>
-        <strong>This application was submitted by another TOCA employee on behalf of the applicant.</strong>
+        <strong>This application was submitted by another TOCA employee on behalf of the applicant.</strong><br>
       <% end %>
 
       <%= @hardship.status %>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= @hardship.final_decision %>
 
-      <% if current_user && ( current_user.committee || current_user.admin ) %>
+      <% if current_user && ( current_user.committee || current_user.admin ) && Vote.where(application_type: "hardship", application_id: @hardship.id, seconded: true).count == 0 %>
         <br>
 
         <%= pluralize(@votes_accept.count, "Approval") %>
