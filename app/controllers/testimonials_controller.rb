@@ -103,7 +103,7 @@ class TestimonialsController < ApplicationController
     @testimonial = Testimonial.find(params[:id])
     if Testimonial.where(featured: true, category: @testimonial.category).count < 2
       redirect_back(fallback_location: home_testimonials_path)
-      flash[:warning] = "If you unfeature that testimonial you won't have anything to display for #{pluralize(2, @testimonial.category}.  Please select another one to feature before you unfeature this one."
+      flash[:warning] = "If you unfeature that testimonial you won't have anything to display for #{pluralize(2, @testimonial.category)}.  Please select another one to feature before you unfeature this one."
     else
       if @testimonial.update_attributes(featured: false)
         Log.create(category: "Admin Action", action: "Testimonial Feature Removed", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
