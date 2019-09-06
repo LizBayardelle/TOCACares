@@ -116,32 +116,34 @@
 
                 <hr>
 
-                <% @other_scholarships.each do |testimonial| %>
-                  <div class="single-news mb-3"> <!-- Small news -->
-                    <div class="d-flex justify-content-between">
-                      <div class="col-11 text-truncate pl-0 mb-1">
-                        <strong><a class="color-toca-red"><%= testimonial.title %></a></strong>
-                      </div> <!-- title -->
-                      <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-green fas fa-angle-double-down"></i></a>
-                      <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-green fas fa-angle-double-right"></i></a>
-                    </div> <!-- d-flex -->
-                    <div id="<%= testimonial.id %>-body" style="display:none"><p class="color-light-dark" style="line-height: 1.3; font-size: 14px"><em><%= testimonial.body %></em></p></div>
-                  </div>   <!-- Small news -->
+                <% if @other_scholarships && @other_scholarships.count != 0  %>
+                  <% @other_scholarships.each do |testimonial| %>
+                    <div class="single-news mb-3"> <!-- Small news -->
+                      <div class="d-flex justify-content-between">
+                        <div class="col-11 text-truncate pl-0 mb-1">
+                          <strong><a class="color-toca-red"><%= testimonial.title %></a></strong>
+                        </div> <!-- title -->
+                        <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-green fas fa-angle-double-down"></i></a>
+                        <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-green fas fa-angle-double-right"></i></a>
+                      </div> <!-- d-flex -->
+                      <div id="<%= testimonial.id %>-body" style="display:none"><p class="color-light-dark" style="line-height: 1.3; font-size: 14px"><em><%= testimonial.body %></em></p></div>
+                    </div>   <!-- Small news -->
 
-                  <script>
-                    $(document).ready(function() {
-                      $('#<%= testimonial.id %>-arrow-right').click(function() {
-                        $('#<%= testimonial.id %>-arrow-right').toggle();
-                        $('#<%= testimonial.id %>-arrow-down').toggle();
-                        $('#<%= testimonial.id %>-body').toggle();
+                    <script>
+                      $(document).ready(function() {
+                        $('#<%= testimonial.id %>-arrow-right').click(function() {
+                          $('#<%= testimonial.id %>-arrow-right').toggle();
+                          $('#<%= testimonial.id %>-arrow-down').toggle();
+                          $('#<%= testimonial.id %>-body').toggle();
+                        });
+                        $('#<%= testimonial.id %>-arrow-down').click(function() {
+                          $('#<%= testimonial.id %>-arrow-right').toggle();
+                          $('#<%= testimonial.id %>-arrow-down').toggle();
+                          $('#<%= testimonial.id %>-body').toggle();
+                        });
                       });
-                      $('#<%= testimonial.id %>-arrow-down').click(function() {
-                        $('#<%= testimonial.id %>-arrow-right').toggle();
-                        $('#<%= testimonial.id %>-arrow-down').toggle();
-                        $('#<%= testimonial.id %>-body').toggle();
-                      });
-                    });
-                  </script>
+                    </script>
+                  <% end %>
                 <% end %>
 
               </div> <!-- col -->
