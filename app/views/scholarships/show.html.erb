@@ -104,7 +104,7 @@
 
 
 
-  <% if current_user && @scholarship.user && @scholarship.status == "Returned for Modifications" %>
+  <% if current_user && ( ( current_user == @scholarship.user && @scholarship.status == "Returned for Modifications") || (current_user.committee && @scholarship.final_decision == "Modifications Requested") ) %>
     <section class="my-4 pb-5">
 
 

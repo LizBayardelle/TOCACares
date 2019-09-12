@@ -129,7 +129,14 @@
             <% @members.each do |user| %>
               <tr>
                 <td><%= user.id %></td>
-                <td><%= user.last_name %>, <%= user.first_name %></td>
+                <td>
+                  <%= user.last_name %>, <%= user.first_name %><br>
+                  <% if user.authorized_by_admin %>
+                    <%= link_to "Revoke Authorization", unauthorize_user_path(user), method: :post, confirm: "Are you sure you want to revoke this user's account?" %>
+                  <% else %>
+                    <%= link_to "Authorize", authorize_user_path(user), method: :post, confirm: "Are you sure you want to authorize this user?" %>
+                  <% end %>
+                </td>
                 <td><%= user.email %></td>
                 <td>
                   <%= link_to "Make Admin", make_admin_path(user), method: :post, confirm: "Are you sure you want to make this user an admin?" %><br>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   resources :users, only: [:show, :index]
+  post "users/:id/authorize_user" => "users#authorize_user", as: "authorize_user"
+  post "users/:id/unauthorize_user" => "users#unauthorize_user", as: "unauthorize_user"
   post "users/:id/make_admin" => "users#make_admin", as: "make_admin"
   post "users/:id/make_committee" => "users#make_committee", as: "make_committee"
   post "users/:id/remove_admin" => "users#remove_admin", as: "remove_admin"

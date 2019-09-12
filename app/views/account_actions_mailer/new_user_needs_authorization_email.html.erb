@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">New TOCA Cares Account Needs Authorization</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+    <p>
+      Dear TOCA Cares Admin,
+    </p>
+    <p>
+      <%= @user.first_name %> <%= @user.last_name %> has registered for an account on TOCA Cares and needs to be authorized by an admin before they can use their account.
+    </p>
+    <p>
+      Please visit the <%= link_to "user management area", users_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> to authorize their account as soon as you can, as there may be time-sensitive issues and they cannot create applications until their account is approved.
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>

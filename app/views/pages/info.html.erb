@@ -8,6 +8,12 @@
         <%= image_tag "silhouette-woman-kicking.jpg", class: "img-fluid px-5", alt: "Woman kicking soccer ball.", style: "width: 100%; max-width: 600px" %>
       </div> <!-- Image Grid column -->
 
+      <div class="text-center">
+        <p style="max-width: 900px; margin: auto"><em>
+          Our lawyers would kill us if we didn’t say that TOCA Cares is new and we will learn as we go along.  Probably some changes will be made, until we get all the kinks worked out.  Also, its a program  run by your fellow employees, doing their best, but there may be some inconsistent results and human mistakes. As far as we know, this hasn’t been done before, so we’re going to refine and improve it as we go. We're excited to see what TOCA Cares can do!
+        </em></p>
+      </div>
+
     </section>
 
     <section class="my-5 faq"> <!-- Features Section 1 -->
@@ -50,7 +56,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q3H">How do I donate to the fund? </h5>
           <p class="color-dark-grey mb-0" id ="Q3P">
-            You can donate <%= link_to "here", page_path(:contribute) %>.  Any TOCA employees who want to contribute can select any amount they want to donate directly from their paycheck.  (You can updated your donation info any time by going to the <%= link_to "contribute", page_path(:contribute) %> section of the TOCA Cares website.)  All contributions go straight to the community fund and are completely tax-deductible.
+            You can donate <%= link_to "here", page_path(:contribute) %>.  Any TOCA employees who want to contribute can select any amount they want to donate directly from their paycheck.  (You can update your donation info any time by going to the <%= link_to "contribute", page_path(:contribute) %> section of the TOCA Cares website).  All contributions go straight to the community fund and are completely tax-deductible.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -216,7 +222,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q14H">How fast is money available from the fund?</h5>
           <p class="color-dark-grey mb-0" id ="Q14P">
-            This depends on how fast you need the money. Typically, your bill can be paid within 3-4 days. It also depends on how fast you work with our partner organization, Helping Hands.
+            This depends on how fast you need the money. Typically, once approved, your bill can be paid within 3-4 days. It also depends on how fast you work with our partner organization, Helping Hands.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -311,7 +317,7 @@
         <div class="col-xl-10 col-md-11 col-10">
           <h5 class="font-weight-bold mb-3" id="Q21H">Are my donations to the fund tax deductible?</h5>
           <p class="color-dark-grey mb-0" id ="Q21P">
-            Yes! Just make sure you itemize your deductions.
+            Yes! Just make sure you itemize your deductions.  Yearly contributions over $250 will receive a tax reciept in January.
           </p>
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
@@ -332,12 +338,62 @@
         </div> <!-- Grid column -->
       </div> <!--Grid row-->
 
+    </section> <!-- Questions Section -->
 
 
 
+    <hr>
 
 
-    </section> <!-- Features Section 1 -->
+    <section class="container mt-5">
+      <div class="text-center">
+        <h2>Still Have a Question? Ask an admin!</h2>
+        <p>
+          We want all TOCA employees to get the most out of TOCA Cares.  If you have any questions, don't hesitate to ask.  An admin will reach out shortly with answers.
+        </p>
+      </div>
+
+      <div> <!-- form -->
+        <%= simple_form_for @new_question, class: "text-center py-4 mb-5" do |form| %>
+            <% if @new_question.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@new_question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+                <ul>
+                <% @new_question.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="row">
+              <div class="field col">
+                <%= form.invisible_captcha :subtitle %>
+                <%= form.text_field :name, class: "form-control mb-4", placeholder: "Your Name", required: true %>
+              </div>
+
+              <div class="field col">
+                <%= form.text_field :email, class: "form-control mb-4", placeholder: "Your Email", required: true %>
+              </div>
+            </div> <!-- row -->
+
+            <div class="field">
+              <%= form.text_field :subject, class: "form-control mb-4", placeholder: "Subject", required: true %>
+            </div>
+
+            <div class="field">
+              <%= form.text_area :body, class: "form-control mb-4", placeholder: "What's your question?", required: true %>
+            </div>
+
+            <div class="actions text-center mb-5">
+              <%= form.button :submit, "Submit", class: "btn btn-primary" %>
+            </div>
+        <% end %>  <!-- end of form -->
+      </div> <!-- form -->
+
+    </section>
+
 
   </div> <!-- container -->
 </main>

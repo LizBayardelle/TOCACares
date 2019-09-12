@@ -116,7 +116,7 @@
           <% category_array << "Memorial (Expenses Associated with Loss)" %>
         <% end %>
         <% if @hardship.other_hardship %>
-          <% category_array << "Other Hardship" + @application.other_hardship_description %>
+          <% category_array << "Other Hardship: " + @hardship.other_hardship_description %>
         <% end %>
 
         <strong>Hardship Categories: </strong><%= category_array.join(', ') %>
@@ -135,7 +135,7 @@
 
 
 
-  <% if current_user && @hardship.user && @hardship.status == "Returned for Modifications" %>
+  <% if current_user && ( ( current_user == @hardship.user && @hardship.status == "Returned for Modifications") || (current_user.committee && @hardship.final_decision == "Modifications Requested") ) %>
     <section class="my-4 pb-5">
 
       <div class="bg-toca-red mb-3 px-5 py-3">
@@ -149,7 +149,7 @@
           <p><strong><%= v.modification %></strong></p>
           <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
         <% end %>
-        <% if current_user == @charity.user %>
+        <% if current_user == @hardship.user %>
           <div class="text-center">
             <%= link_to "Modify My Application Now", edit_hardship_path(@hardship), class: "btn btn-md btn-secondary" %>
           </div>

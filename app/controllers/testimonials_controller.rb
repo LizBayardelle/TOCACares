@@ -2,6 +2,7 @@ class TestimonialsController < ApplicationController
   before_action :set_testimonial, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :admin_only, only: [:approve_testimonial]
+  before_action :only_approved_users, except: [:index]
 
 
   # GET /testimonials
@@ -122,6 +123,16 @@ class TestimonialsController < ApplicationController
       flash[:warning] = "Sorry, you must be an admin to do that."
     end
   end
+
+
+
+  def only_approved_users
+    unless current_user && current_user.authorized_by_admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you have to wait for your account to be authorized by an administrator to do that.  If it's been more than 24 hours since you registered, feel free to email an admin to check on the status of your application."
+    end
+  end
+
 
 
   private

@@ -4,6 +4,7 @@ class VotesController < ApplicationController
   before_action :set_application, only: [:second_vote]
   before_action :own_vote_only, only: [:update, :destroy]
   before_action :committee_only, only: [:new, :create, :update, :destroy]
+  before_action :only_approved_users
 
 
 
@@ -284,6 +285,15 @@ class VotesController < ApplicationController
       flash[:notice] = "That vote has been successfully seconded and the application is being processed accordingly. Thank you for serving on the deciding committee!" # if current user isn't vote owner or applicatnt
     end # End if current user isn't vote owner or applicatnt
   end # Second vote method
+
+
+
+  def only_approved_users
+    unless current_user && current_user.authorized_by_admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you have to wait for your account to be authorized by an administrator to do that.  If it's been more than 24 hours since you registered, feel free to email an admin to check on the status of your application."
+    end
+  end
 
 
 

@@ -5,7 +5,7 @@ class CharitiesController < ApplicationController
   before_action :admin_or_committee_only, only: [:index]
   before_action :self_admin_or_committee_if_submitted, only: [:show]
   before_action :admin_only, only: [:funding_completed_charity, :close_charity]
-
+  before_action :only_approved_users
 
 
 
@@ -197,6 +197,16 @@ class CharitiesController < ApplicationController
       flash[:warning] = "Sorry, you cannot view that application at this time.  If you believe you have gotten this message in error, please contact the system administrator at admin@tocacares.com."
     end
   end
+
+
+
+  def only_approved_users
+    unless current_user && current_user.authorized_by_admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you have to wait for your account to be authorized by an administrator to do that.  If it's been more than 24 hours since you registered, feel free to email an admin to check on the status of your application."
+    end
+  end
+
 
 
 

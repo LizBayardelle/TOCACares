@@ -146,13 +146,13 @@
     </div>
 
     <div> <!-- form -->
-      <%= simple_form_for @question, class: "text-center py-4 mb-5" do |form| %>
-          <% if @question.errors.any? %>
+      <%= simple_form_for @new_question, class: "text-center py-4 mb-5" do |form| %>
+          <% if @new_question.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(@new_question.errors.count, "error") %> prohibited this question from being saved:</h2>
 
               <ul>
-              <% @question.errors.full_messages.each do |message| %>
+              <% @new_question.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
               <% end %>
               </ul>

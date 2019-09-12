@@ -8,5 +8,6 @@ class ApplicationController < ActionController::Base
     @individual_contributions = @current_value.individual_contributions
     @shareholder_matching = @current_value.shareholder_matching
     @total_fund_value = @current_value.total_fund_value
+    @new_question = Question.new
   end
 end

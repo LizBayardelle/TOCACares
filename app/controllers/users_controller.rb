@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :only_self, only: [:show]
-  before_action :admin_only, only: [:index, :make_admin, :make_committee, :remove_admin, :remove_committee, :deny_committee]
+  before_action :admin_only, only: [:index, :authorize_user, :unauthorize_user, :make_admin, :make_committee, :remove_admin, :remove_committee, :deny_committee]
+  before_action :only_approved_users
 
   def show
     @user = User.find(params[:id])
@@ -66,11 +67,33 @@ class UsersController < ApplicationController
     end
   end
 
+  def authorize_user
+    @user = User.find(params[:id])
+    @user.authorized_by_admin = true
+    if @user.save!
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Account Authorized", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
+    redirect_back(fallback_location: users_path)
+    flash[:notice] = "That user's account has been authorized."
+  end
+
+
+  def unauthorize_user
+    @user = User.find(params[:id])
+    @user.authorized_by_admin = false
+    if @user.save!
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Account Revoked", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
+    redirect_back(fallback_location: users_path)
+    flash[:notice] = "That user's account has been revoked."
+  end
+
   def make_admin
     @user = User.find(params[:id])
     @user.admin = true
-    @user.save
-    Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Given Administrator Privileges", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    if @user.save!
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Given Administrator Privileges", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user has been made a site administrator."
   end
@@ -78,8 +101,9 @@ class UsersController < ApplicationController
   def remove_admin
     @user = User.find(params[:id])
     @user.admin = false
-    @user.save
-    Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Administrator Privileges Removed", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    if @user.save
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Administrator Privileges Removed", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user's admin privileges have been revoked."
   end
@@ -88,8 +112,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.committee = true
     @user.committee_request = "Approved"
-    @user.save
-    Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Made Committee Member", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    if @user.save
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Made Committee Member", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user has been made a committee member."
   end
@@ -98,8 +123,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.committee = false
     @user.committee_request = "Removed"
-    @user.save
-    Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Committee Privileges Removed", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    if @user.save
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Committee Privileges Removed", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That user's committee privileges have been revoked."
   end
@@ -107,8 +133,9 @@ class UsersController < ApplicationController
   def committee_request
     @user = User.find(params[:id])
     @user.committee_request = "Requested"
-    @user.save
-    Log.create(category: "User Action", action: @user.first_name + @user.last_name + " Request to Join Committee", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    if @user.save
+      Log.create(category: "User Action", action: @user.first_name + @user.last_name + " Request to Join Committee", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
     redirect_back(fallback_location: user_path(current_user))
     flash[:notice] = "Your request to become a committee member has been successfully sent."
   end
@@ -116,10 +143,18 @@ class UsersController < ApplicationController
   def deny_committee
     @user = User.find(params[:id])
     @user.committee_request = "Denied"
-    @user.save
-    Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Committee Privileges Denied", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    if @user.save
+      Log.create(category: "Admin Action", action: @user.first_name + @user.last_name + " Committee Privileges Denied", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: current_user.id)
+    end
     redirect_back(fallback_location: users_path)
     flash[:notice] = "That committee request has been denied."
+  end
+
+  def only_approved_users
+    unless current_user && current_user.authorized_by_admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you have to wait for your account to be authorized by an administrator to do that.  If it's been more than 24 hours since you registered, feel free to email an admin to check on the status of your application."
+    end
   end
 
 end

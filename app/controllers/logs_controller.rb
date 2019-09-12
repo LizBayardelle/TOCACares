@@ -1,6 +1,7 @@
 class LogsController < ApplicationController
   before_action :set_log, only: [:show, :destroy]
-
+  before_action :only_approved_users, only: [:index]
+  before_action :admin_only, only: [:index]
 
   def index
     @logs = Log.order(created_at: :desc).page(params[:page]).per(25)
@@ -34,6 +35,25 @@ class LogsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+  def only_approved_users
+    unless current_user && current_user.authorized_by_admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you have to wait for your account to be authorized by an administrator to do that.  If it's been more than 24 hours since you registered, feel free to email an admin to check on the status of your application."
+    end
+  end
+
+
+
+  def admin_only
+    unless current_user && current_user.admin
+      redirect_back(fallback_location: root_path)
+      flash[:warning] = "Sorry, you must be an admin to do that."
+    end
+  end
+
 
 
   private
