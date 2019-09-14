@@ -51,7 +51,10 @@
             <h4 class="text-center dark-grey-text w-responsive mx-auto">
               Click the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
             </h4>
-            <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions-Form.pdf"), download: "Insperity Payroll Deductions Form.pdf", class: "btn btn-primary btn-lg my-3" %>
+            <div style="width: 100%; padding: 0 15px;">
+              <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions-Form.pdf"), download: "Insperity Payroll Deductions Form.pdf", class: "btn btn-primary btn-block my-3" %>
+              <%= link_to "Contribute from My Paycheck (TOCA&nbsp;Impact&nbsp;Employee)".html_safe, asset_path("Payroll Deduction Form.docx"), download: "Payroll Deduction Form.docx", class: "btn btn-primary btn-block my-3" %>
+            </div>
             <h4 class="text-center dark-grey-text w-responsive mx-auto">
               Please email your completed form to <%= mail_to "aadams@tocafootball.com", "aadams@tocafootball.com", target: "_blank", class: "color-toca-red" %>.
             </h4>
