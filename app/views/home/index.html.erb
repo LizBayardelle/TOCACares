@@ -58,7 +58,7 @@
                <div class="card">
                    <div class="view overlay"> <!-- image -->
                        <%= image_tag "hardship.jpg", class: "card-img-top", alt: "Young man trying to fix a broken down car." %>
-                       <%= link_to new_hardship_path, target: "_blank" do %>
+                       <%= link_to page_path('apply') do %>
                            <div class="mask rgba-white-slight"></div>
                        <% end %>
                    </div>
@@ -73,6 +73,8 @@
                          Unexpected financial challenges can cause good people to go tilt.
                          <br><br>
                          TOCA Cares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
+                         <br><br>
+                         <%= image_tag "Hardship.png", class: "ball-mini" %>
                        </p>
                   </div>
                </div> <!-- card -->
@@ -82,7 +84,7 @@
              <div class="card">
                <div class="view overlay"> <!-- image -->
                  <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
-                 <%= link_to new_scholarship_path, target: "_blank" do %>
+                 <%= link_to page_path('apply') do %>
                    <div class="mask rgba-white-slight"></div>
                  <% end %>
                </div>
@@ -98,6 +100,8 @@
                    We can always grow and improve.  TOCA Cares will pay up to 80% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
                    <br><br>
                    Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
+                   <br><br>
+                   <%= image_tag "Scholarship.png", class: "ball-mini" %>
                  </p>
                </div>
              </div> <!-- card -->
@@ -109,7 +113,7 @@
                <div class="card">
                    <div class="view overlay"> <!-- image -->
                        <%= image_tag "charity.jpg", class: "card-img-top", alt: "Young man building a house for charity." %>
-                       <%= link_to new_charity_path, target: "_blank" do %>
+                       <%= link_to page_path('apply') do %>
                            <div class="mask rgba-white-slight"></div>
                          <% end %>
                    </div>
@@ -124,6 +128,8 @@
                          Our team is going to positively impact each community we touch.  TOCA Cares wants to support your involvement in local charities.
                          <br><br>
                          If you have an idea of how to work with tax-deductible charities, TOCA Cares will pay 80% of your costs to participate (membership fee, out of pocket costs of being a Big Brother or Big Sister, etc.), or, in some cases, make direct contributions to the charity.
+                         <br><br>
+                         <%= image_tag "Charity.png", class: "ball-mini" %>
                        </p>
                    </div>
                </div> <!-- card -->

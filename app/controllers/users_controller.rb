@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :only_self, only: [:show]
   before_action :admin_only, only: [:index, :authorize_user, :unauthorize_user, :make_admin, :make_committee, :remove_admin, :remove_committee, :deny_committee]
-  before_action :only_approved_users
+  before_action :only_approved_users, except: [:show]
 
   def show
     @user = User.find(params[:id])
