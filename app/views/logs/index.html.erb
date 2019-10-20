@@ -55,7 +55,7 @@
                           <%= log.object_category.capitalize %> <%= log.object_id %>
                         <% end %>
                       <% else %>
-                        <%= link_to eval("#{log.object_category}_path(#{log.object_category.capitalize}.find(#{log.object_id}))") do %>
+                        <%= link_to eval("#{log.object_category.downcase}_path(#{log.object_category.capitalize}.find(#{log.object_id}))") do %>
                           <%= log.object_category.capitalize %> <%= log.object_id %>
                         <% end %>
                       <% end %>
