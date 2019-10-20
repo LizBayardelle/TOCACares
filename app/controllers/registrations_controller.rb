@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
-    Log.create(category: "User Action", action: "New User Account Created", automatic: false, object: true, object_linkable: false, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: @user.id)
+    Log.create(category: "User Action", action: "New User Account Created", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: @user.id)
     if AccountActionsMailer.new_user_needs_authorization_email(@user).deliver
       Log.create(category: "Email", action: "New User Needs Authorization Email Sent", automatic: true, object: true, object_linkable: true, object_category: "User", object_id: @user.id, taken_by_user: false)
     end
