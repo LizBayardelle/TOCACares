@@ -1,0 +1,23 @@
+<main class="mt-5">
+  <div class="container">
+
+    <h1 class="text-center">Send a Message</h1>
+
+    <section class="team-section magazine-section text-center">
+      <% if current_user.admin || current_user.committee %>
+        <p class="dark-color-dark-grey w-responsive mx-auto">
+          If you need to ask a question about this application, you can send the user a message.  They will get an email notification and will be able to respond from their account.
+        </p>
+      <% else %>
+      <p class="dark-color-dark-grey w-responsive mx-auto">
+        If you need to ask a question about your application, you can send the committee a message here.  You will get an email notification when they respond.
+      </p>
+      <% end %>
+    </section>
+
+    <hr>
+
+    <%= render 'form', message: @message %>
+
+  </div> <!-- container -->
+</main>

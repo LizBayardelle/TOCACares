@@ -161,6 +161,50 @@
 
 
 
+
+  <!-- messages section -->
+  <section class="my-4">
+
+    <div class="bg-toca-red mb-3 px-5 py-3">
+      <div class="container">
+        <h2 class="color-white toca-uppercase">Messages</h2>
+      </div> <!-- container -->
+    </div> <!-- red stripe -->
+
+
+    <!-- MESSAGES -->
+    <div class="container py-3">
+
+      <!-- NEW MESSAGES -->
+      <h3 class="toca-uppercase color-toca-red mb-0">Send a New Message</h3>
+      <% if current_user && ( current_user.admin || current_user.committee ) %>
+        <p>If you have a question about this application, you can send the applicant a message here.</p>
+      <% else %>
+        <p>If you have a question about your application, you can message an admin here.</p>
+      <% end %>
+      <%= link_to "Send a Message", new_message_path(ref_application_type: @scholarship.application_type, ref_application_id: @scholarship.id, user_id: @scholarship.user.id), class: "btn btn-secondary mt-3 mb-4 btn-lg btn-block" %>
+
+      <!-- EXISTING MESSAGES  -->
+      <% if @messages.count > 0 %>
+        <h3 class="toca-uppercase color-toca-red mb-0">Existing Messages</h3>
+        <p class="mb-2"><small>Click a message to see the conversation thread.</small></p>
+        <ul>
+          <% @messages.each do |message| %>
+            <li>
+              <%= link_to message.subject, message_path(message.id) %>
+              <% if !message.user.admin && !message.user.committee %> (From Applicant<% if message.issue_closed %>, Issue Closed by Admin<% end %>)<% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div> <!-- container -->
+
+  </section> <!-- messages -->
+
+
+
+
+
   <% if current_user && current_user.committee && @hardship.status == "Submitted to Committee" && ( @hardship.final_decision == "Not Decided" || @hardship.final_decision == "Modifications Requested" ) %>
     <section class="my4">
       <div class="bg-toca-red mb-3 px-5 py-3">

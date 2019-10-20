@@ -26,6 +26,7 @@ class HardshipsController < ApplicationController
     @votes_accept = Vote.where(accept: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_modify = Vote.where(modify: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
+    @messages = Message.where(ref_application_type: "hardship", ref_application_id: @hardship.id)
   end
 
 

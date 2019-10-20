@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from_user_id: 1
+  user: one
+  subject: MyString
+  message: MyText
+  read: false
+  ref_application_type: MyString
+  ref_application_id: 1
+  issue_closed: false
+
+two:
+  from_user_id: 1
+  user: two
+  subject: MyString
+  message: MyText
+  read: false
+  ref_application_type: MyString
+  ref_application_id: 1
+  issue_closed: false

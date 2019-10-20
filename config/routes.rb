@@ -57,4 +57,9 @@ Rails.application.routes.draw do
   resources :values
   post "values/:id/select_value" => "values#select_value", as: "select_value"
 
+  resources :messages
+  post "messages/:id/close_issue" => "messages#close_issue", as: "close_issue"
+
+  resources :responses
+
 end

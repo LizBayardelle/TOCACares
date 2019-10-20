@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_185430) do
+ActiveRecord::Schema.define(version: 2019_10_20_000559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,20 @@ ActiveRecord::Schema.define(version: 2019_09_12_185430) do
     t.integer "user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "from_user_id"
+    t.bigint "user_id"
+    t.string "subject"
+    t.text "message"
+    t.boolean "read", default: false
+    t.string "ref_application_type"
+    t.integer "ref_application_id"
+    t.boolean "issue_closed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "pretransfers", force: :cascade do |t|
     t.string "toca_email"
     t.string "application_type"
@@ -142,6 +156,16 @@ ActiveRecord::Schema.define(version: 2019_09_12_185430) do
     t.boolean "answered", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "message_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_responses_on_message_id"
+    t.index ["user_id"], name: "index_responses_on_user_id"
   end
 
   create_table "scholarships", force: :cascade do |t|
@@ -250,6 +274,9 @@ ActiveRecord::Schema.define(version: 2019_09_12_185430) do
 
   add_foreign_key "charities", "users"
   add_foreign_key "hardships", "users"
+  add_foreign_key "messages", "users"
+  add_foreign_key "responses", "messages"
+  add_foreign_key "responses", "users"
   add_foreign_key "scholarships", "users"
   add_foreign_key "testimonials", "users"
   add_foreign_key "votes", "users"

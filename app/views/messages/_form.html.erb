@@ -1,0 +1,31 @@
+
+<%= simple_form_for(@message) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.hidden_field :from_user_id, value: current_user.id %>
+    <%= f.hidden_field :ref_application_type, value: params[:ref_application_type] %>
+    <%= f.hidden_field :ref_application_id, value: params[:ref_application_id] %>
+    <%= f.hidden_field :user_id, value: params[:user_id] %>
+
+
+    <div class="form-group md-form col-12"
+      <p><strong>New Message Regarding: </strong><%= params[:ref_application_type].capitalize + " Application #" + params[:ref_application_id] %></p>
+    </div> <!-- form group -->
+
+    <div class="form-group md-form col-12"
+      <%= f.label "Subject" %>
+      <%= f.text_field :subject, class: "form-control" %>
+    </div> <!-- form group -->
+    <div class="form-group md-form col-12"
+      <%= f.label "Message" %>
+      <%= f.text_area :message, class: "form-control" %>
+    </div> <!-- form group -->
+
+  </div>
+
+  <div class="form-actions text-center mb-5">
+    <%= f.submit "Send Message", class: "btn btn-primary" %>
+  </div>
+<% end %>

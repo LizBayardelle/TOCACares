@@ -31,6 +31,7 @@
 
     <!-- IF COMMITTEE -->
     <% if @user.committee %>
+
       <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
       <%= link_to home_applications_path, style: "display: inline-block", class: "btn btn-secondary my-3 btn-lg btn-block" do %>
         <% if @need_votes != 0 %>
@@ -38,6 +39,14 @@
         <% end %>
         Applications Needing Votes
       <% end %>
+
+      <%= link_to messages_path, style: "display: inline-block", class: "btn btn-secondary my-0 btn-lg btn-block" do %>
+        <% if @open_message_threads.count != 0 %>
+          <div class="bg-toca-red notification-bubble"><%= @open_message_threads.count %></div>
+        <% end %>
+        Open Message Threads
+      <% end %>
+
     <% end %>
     <!-- END COMMITTEE ONLY -->
 
@@ -49,33 +58,45 @@
       <section class="my-5">
         <h2 class="text-center toca-uppercase color-toca-red">Admin Actions</h2>
 
+        <%= link_to messages_path, style: "display: inline-block", class: "btn btn-secondary my-0 btn-lg btn-block" do %>
+          <% if @open_message_threads.count != 0 %>
+            <div class="bg-toca-red notification-bubble"><%= @open_message_threads.count %></div>
+          <% end %>
+          Open Message Threads
+        <% end %>
+
         <%= link_to questions_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
           <% if @questions.count != 0 %>
             <div class="bg-toca-red notification-bubble"><%= @questions.count %></div>
           <% end %>
           Answer Questions
         <% end %>
+
         <%= link_to users_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
           <% if @committee_requests.count != 0 %>
             <div class="bg-toca-red notification-bubble"><%= @committee_requests.count %></div>
           <% end %>
           Manage Users
         <% end %>
+
         <%= link_to home_testimonials_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
           <% if @testimonials.count != 0 %>
             <div class="bg-toca-red notification-bubble"><%= @testimonials.count %></div>
           <% end %>
           Manage Testimonials
         <% end %>
+
         <%= link_to home_applications_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
           <% if @open_applications.count != 0 %>
             <div class="bg-toca-red notification-bubble"><%= @open_applications.count %></div>
           <% end %>
           Manage Applications
         <% end %>
+
         <%= link_to values_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
           Set Fund Information
         <% end %>
+
         <%= link_to logs_path, class: "btn btn-secondary my-3 btn-lg btn-block" do %>
           View Website Activity Log
         <% end %>

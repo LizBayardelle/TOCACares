@@ -40,6 +40,8 @@ class UsersController < ApplicationController
     @open_scholarships = Scholarship.where(closed: false, status: "Decision Reached")
     @open_charities = Charity.where(closed: false, status: "Decision Reached")
     @open_applications = [@open_scholarships, @open_hardships, @open_charities].flatten
+
+    @open_message_threads = Message.where(issue_closed: false)
   end
 
   def index

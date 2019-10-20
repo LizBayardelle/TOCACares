@@ -1,0 +1,46 @@
+<main class="my-5">
+  <div class="container">
+
+    <h2 class="text-center my-3">Open Messages</h2>
+
+    <% if @messages.count != 0 %>
+      <% @messages.each do |message| %>
+        <h4 class="mb-0"><%= link_to message.subject, message_path(message) %></h4>
+        <p>
+          <em>Regarding <%= message.ref_application_type.capitalize %> Application #<%= message.ref_application_id %></em>
+          <br>
+          Original Message Sent by
+          <strong>
+            <% if message.user.admin %>
+              Admin
+            <% elsif message.user.committee %>
+              Committee Member
+            <% else %>
+              Applicant
+            <% end %>
+          </strong>
+          <br>
+          <strong><%= pluralize(Response.where(message_id: message.id).count, "Response") %></strong> in Thread
+        </p>
+      <% end %>
+    <% else %>
+      <p>There are currently no open message threads.</p>
+    <% end %>
+
+    <hr>
+
+    <h2 class="text-center mb-3 mt-5">Closed Messages</h2>
+
+    <% if @closed_messages.count != 0 %>
+      <% @closed_messages.each do |message| %>
+        <h4 class="mb-0"><%= link_to message.subject, message_path(message) %></h4>
+        <p>
+          <em>Regarding <%= message.ref_application_type.capitalize %> Application #<%= message.ref_application_id %></em>
+        </p>
+      <% end %>
+    <% else %>
+      <p>There are currently no closed message threads.</p>
+    <% end %>
+
+  </div> <!-- container -->
+</main>

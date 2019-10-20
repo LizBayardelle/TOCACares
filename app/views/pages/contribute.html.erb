@@ -41,41 +41,54 @@
 
     <section class="text-center mt-4">
       <h3 class="text-center dark-grey-text w-responsive mx-auto">
-        You can contribute to the fund by check or via an automatic payroll deduction.
+        You can contribute to the fund by check, credit card, or via an automatic payroll deduction.
       </h3>
 
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-lg-4 col-sm-6 mb-3">
           <section class="text-center mt-3 mb-5 py-3 h-100" style="border: thin solid black">
             <h3 class="toca-uppercase"><strong>Payroll Deduction</strong></h3>
-            <h4 class="text-center dark-grey-text w-responsive mx-auto">
+            <h5 class="text-center dark-grey-text w-responsive mx-auto">
               Click the red button below to authorize an automatic payment (which is a charitable gift) from your paycheck to TOCA Cares.
-            </h4>
+            </h5>
             <div style="width: 100%; padding: 0 15px;">
               <%= link_to "Contribute from My Paycheck", asset_path("Insperity-Payroll-Deductions-Form.pdf"), download: "Insperity Payroll Deductions Form.pdf", class: "btn btn-primary btn-block my-3" %>
               <%= link_to "Contribute from My Paycheck (TOCA&nbsp;Impact&nbsp;Employee)".html_safe, asset_path("Payroll Deduction Form.docx"), download: "Payroll Deduction Form.docx", class: "btn btn-primary btn-block my-3" %>
             </div>
-            <h4 class="text-center dark-grey-text w-responsive mx-auto">
+            <h5 class="text-center dark-grey-text w-responsive mx-auto">
               Please email your completed form to <%= mail_to "aadams@tocafootball.com", "aadams@tocafootball.com", target: "_blank", class: "color-toca-red" %>.
-            </h4>
+            </h5>
           </section>
         </div> <!-- col -->
 
-        <div class="col-sm-6">
+        <div class="col-lg-4 col-sm-6 mb-3">
           <section class="text-center mt-3 mb-5 py-3 h-100" style="border: thin solid black">
             <h3 class="toca-uppercase"><strong>Contribute by Check</strong></h3>
-            <h4 class="text-center dark-grey-text w-responsive mx-auto">
-              To contribute by check, please make checks payable to <strong>ProvisionBridge</strong> and write <strong>TOCA&nbsp;Cares&nbsp;Fund&nbsp;#246175</strong> in the memo or on an enclosed note.
-            </h4>
-            <h4 class="text-center dark-grey-text w-responsive mx-auto">
+            <h5 class="text-center dark-grey-text w-responsive mx-auto">
+              To contribute by check, please make checks payable to <strong>ProvisionBridge</strong> and write <strong>TOCA&nbsp;Cares Fund&nbsp;#246175</strong> in the memo or on an enclosed note.
+            </h5>
+            <h5 class="text-center dark-grey-text w-responsive mx-auto">
               You can give the check to Alan Adams or mail it to the address below:
               <br>
               <br>ProvisionBridge
               <br>PO Box 157
               <br>Tallulah Falls, GA  30573
-            </h4>
+            </h5>
           </section>
         </div> <!-- col -->
+
+        <div class="col-lg-4 mb-3">
+          <section class="text-center mt-3 mb-5 py-3 h-100" style="border: thin solid black">
+            <h3 class="toca-uppercase"><strong>Credit Card</strong></h3>
+            <h5 class="text-center dark-grey-text w-responsive mx-auto">
+              To contribute by credit card, you can either visit the <a href="https://www.provisionbridge.org/" target="_blank">ProvisionBridge</a> website or this <a href="http://bit.ly/TOCACares" target="_blank">quick link</a> which will take you directly to the fund donation page to make credit card contributions.
+            </h5>
+            <h5 class="text-center dark-grey-text w-responsive mx-auto">
+              Please note that there is an additional fee of 3% for all credit card transactions.
+            </h5>
+          </section>
+        </div> <!-- col -->
+
       </div> <!-- row -->
     </section> <!-- mission description -->
 

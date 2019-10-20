@@ -26,6 +26,7 @@ class ScholarshipsController < ApplicationController
     @votes_accept = Vote.where(accept: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
     @votes_modify = Vote.where(modify: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
+    @messages = Message.where(ref_application_type: "scholarship", ref_application_id: @scholarship.id)
   end
 
 

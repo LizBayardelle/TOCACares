@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+    <h1 style="text-align: center">A New Message Response Needs Your Attention</h1>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-bottom: 25px" />
+
+    <% @message = Message.find(@response.message_id) %>
+
+    <p>
+      Hello,
+    </p>
+
+    <p>
+      A new response on a message thread regarding <strong><%= @message.ref_application_type.capitalize %> Application #<%= @message.ref_application_id %></strong> has been posted on TOCA Cares:
+    </p>
+    <p>
+      The original message <% if User.find(@message.user_id).admin || User.find(@message.user_id).committee %>(from TOCA Cares)<% else %>(from the applicant)<% end %> was:<br>
+      <em>
+        <%= @message.message %>
+      </em>
+    </p>
+    <p>
+      <% if User.find(@response.user_id).admin || User.find(@response.user_id).committee %>
+        The most recent response (from TOCA Cares) was:
+      <% else %>
+        The most recent response (from the Applicant) was:
+      <% end %>
+      <br><em><%= @response.body %></em>
+    </p>
+    <p>
+      You can <%= link_to "click here", message_url(@message), style: "color: #EB0029; font-weight: 700; text-decoration: none" %> to view and respond to this message.
+    </p>
+    <p>
+      Thanks,
+      <br>TOCA Cares
+    </p>
+    <hr style="border: 0; border-top: solid 2px #EB0029; margin-top: 25px" />
+    <img src="https://tocacares.s3-us-west-1.amazonaws.com/TOCA_CARES_LOGO_FNL.png" style="width: 300px; display: block; margin-right: auto; margin-left: auto">
+    <hr style="border: 0; border-top: solid 2px #EB0029;" />
+  </body>
+
+</html>

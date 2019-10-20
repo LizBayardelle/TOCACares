@@ -1,0 +1,82 @@
+<main class="my-5 container">
+
+  <header class="text-center">
+    <h1 class="h3">Message Thread Regarding<br><%= @message.ref_application_type.capitalize %> Application #<%= @message.ref_application_id %></h1>
+    <p class="mb-2">Re:  <%= @message.subject %></p>
+    <% if @message.issue_closed %>
+      <p class="color-toca-red">CLOSED</p>
+    <% else %>
+      <% if current_user.admin || current_user.committee %>
+        <%= link_to "Mark Message Closed", close_issue_path, method: :post, class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </header>
+
+
+
+  <hr>
+
+
+
+  <section class="my-4">
+    <h2 class="h4 color-toca-red toca-uppercase">Original Message</h2>
+    <p>
+      <strong>
+        <% if User.find(@message.user_id).admin || User.find(@message.user_id).committee %>
+          TOCA Cares:
+        <% else %>
+          Applicant:
+        <% end %>
+      </strong>
+      <%= @message.message %>
+    </p>
+  </section>
+
+
+
+  <hr>
+
+
+
+  <section class="my-4">
+    <% if Response.where(message_id: @message.id).count != 0 %>
+      <h2 class="h4 color-toca-red toca-uppercase">Responses</h2>
+      <% Response.where(message_id: @message.id).each do |response| %>
+        <p class="mb-1">
+          <strong>
+            <% if User.find(response.user_id).admin || User.find(response.user_id).committee %>
+              TOCA Cares:
+            <% else %>
+              Applicant:
+            <% end %>
+          </strong>
+          <%= response.body %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <% unless @message.issue_closed %>
+      <div class="mt-4">
+        <%= render partial: "responses/form", locals: { response: @new_response, message_id: @message.id } %>
+      </div>
+    <% end %>
+  </section>
+
+
+  <% if @message.issue_closed %>
+    <hr>
+    <section class="text-center pb-5">
+      <% if @message.ref_application_type == "hardship" %>
+        <%= link_to "Back to Application", hardship_path(@message.ref_application_id), class: "btn btn-light" %>
+      <% elsif @message.ref_application_type == "charity" %>
+        <%= link_to "Back to Application", charity_path(@message.ref_application_id), class: "btn btn-light" %>
+      <% elsif @message.ref_application_type == "scholarship" %>
+        <%= link_to "Back to Application", scholarship_path(@message.ref_application_id), class: "btn btn-light" %>
+      <% end %>
+      <% if current_user.admin || current_user.committee %>
+        <%= link_to "Back to Open Messages Page", messages_path, class: "btn btn-light" %>
+      <% end %>
+    </section>
+  <% end %>
+
+</main>

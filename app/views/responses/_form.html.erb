@@ -1,0 +1,26 @@
+
+<%= simple_form_for(response) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :message_id, value: @message.id %>
+
+    <div class="form-group text-left col-12">
+      <%= f.label "Add a New Response" %>
+      <%= f.text_area :body, class: "form-control" %>
+    </div> <!-- form group -->
+  </div> <!-- form inputs -->
+
+  <div class="form-actions text-center">
+    <% if @message.ref_application_type == "hardship" %>
+      <%= link_to "Back to Application", hardship_path(@message.ref_application_id), class: "btn btn-light" %>
+    <% elsif @message.ref_application_type == "charity" %>
+      <%= link_to "Back to Application", charity_path(@message.ref_application_id), class: "btn btn-light" %>
+    <% elsif @message.ref_application_type == "scholarship" %>
+      <%= link_to "Back to Application", scholarship_path(@message.ref_application_id), class: "btn btn-light" %>
+    <% end %>
+    <%= f.submit "Send Response", class: "btn btn-primary" %>
+  </div>
+<% end %>
