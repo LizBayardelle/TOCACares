@@ -1,8 +1,14 @@
 class HomeController < ApplicationController
   before_action :admin_only, only: [:testimonials]
   before_action :only_approved_users, only: [:applications]
+  before_action :authenticate_user!, only: [:messages]
 
   def index
+  end
+
+  def messages
+    @my_messages = Message.where(user_id: current_user.id).order("created_at DESC")
+    @to_me_messages = Message.where(from_user_id: current_user.id).order("created_at DESC")
   end
 
   def testimonials

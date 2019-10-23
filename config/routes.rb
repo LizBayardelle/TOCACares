@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'home/pending'
   get 'home/testimonials'
   get 'home/applications'
+  get 'home/messages'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 

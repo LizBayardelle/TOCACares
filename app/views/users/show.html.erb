@@ -107,6 +107,18 @@
 
 
 
+
+    <h2 class="text-center toca-uppercase color-toca-red mt-5">My Messages</h2>
+    <%= link_to home_messages_path, style: "display: inline-block", class: "btn btn-secondary my-0 btn-lg btn-block" do %>
+      <% if @my_total_messages.count != 0 %>
+        <div class="bg-toca-red notification-bubble"><%= @my_total_messages.count %></div>
+      <% end %>
+      View My Open Message Threads
+    <% end %>
+
+
+
+
     <% if @scholarships.count >= 1 %>
       <section class="my-5"> <!-- scholarship applications -->
         <h2 class="text-center toca-uppercase color-toca-red my-4">My Scholarship Applications</h2>
