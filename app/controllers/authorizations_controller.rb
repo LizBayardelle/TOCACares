@@ -25,6 +25,7 @@ class AuthorizationsController < ApplicationController
       if @authorization.email == u.email
         u.admin = @authorization.admin
         u.committee = @authorization.committee
+        u.authorized_by_admin = true
         u.save
         redirect_to users_path, notice: "That user already had an account, but their permissions have been updated." and return
       end
