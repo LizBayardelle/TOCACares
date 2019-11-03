@@ -17,9 +17,13 @@
 
     <div class="py-4 color-black">
       <span style="font-weight: 700">
-        <%= link_to "Create a New Account", new_user_registration_path %>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <%= link_to "Login to My Account", new_user_session_path %>
+        <% if current_user %>
+          <%= link_to "My TOCA Cares Account", user_path(current_user) %>
+        <% else %>
+          <%= link_to "Create a New Account", new_user_registration_path %>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <%= link_to "Login to My Account", new_user_session_path %>
+        <% end %>
         &nbsp;&nbsp;|&nbsp;&nbsp;
         <a href="https://tocafootball.com/" target="_blank">TOCA&nbsp;Football</a>
       </span>

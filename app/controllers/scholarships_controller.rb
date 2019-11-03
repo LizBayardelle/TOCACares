@@ -27,6 +27,7 @@ class ScholarshipsController < ApplicationController
     @votes_modify = Vote.where(modify: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "scholarship", application_id: @scholarship.id, superseded: false)
     @messages = Message.where(ref_application_type: "scholarship", ref_application_id: @scholarship.id)
+    @seconded_vote = Vote.where(application_type: "scholarship", application_id: @scholarship.id, seconded: true).first
   end
 
 
@@ -111,8 +112,7 @@ class ScholarshipsController < ApplicationController
 
   def withdraw_scholarship
     @scholarship = Scholarship.find(params[:id])
-    @scholarship.update_attributes(status: "Withdrawn")
-    if @scholarship.update_attributes(status: "Withdrawn")
+    if @scholarship.update_attributes(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
         redirect_back(fallback_location: user_path(current_user))
         Log.create(category: "User Action", action: "Scholarship Application Withdrawn", automatic: false, object: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
         flash[:notice] = "That application has been withdrawn!"

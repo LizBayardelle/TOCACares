@@ -8,7 +8,7 @@
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= @scholarship.final_decision %>
 
-      <% if current_user && ( current_user.committee || current_user.admin ) %>
+      <% if current_user && ( current_user.committee || current_user.admin ) && @scholarship.status != "Decision Reached" %>
         <br>
 
         <%= pluralize(@votes_accept.count, "Approval") %>
@@ -88,21 +88,30 @@
         <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
       <% end %>
 
+
+      <h3 class="color-toca-red toca-uppercase">Funding Details</h3>
       <p><strong>Requested Amount:</strong>
         <%= number_to_currency(@scholarship.requested_amount, unit: "$") %>
-      </p>
-
-      <p><strong>Amount Applicant Can Self-Fund:</strong>
+        <br>
+        <strong>Amount Applicant Can Self-Fund:</strong>
         <%= number_to_currency(@scholarship.self_fund, unit: "$") %>
+        <% if @scholarship.loan_preferred %>
+          <br><em>This applicant would prefer to receive a loan instead of a grant.</em>
+        <% end %>
       </p>
 
-      <p>
-        <%= @scholarship.scholarship_description %>
-      </p>
 
-      <% if @scholarship.loan_preferred %>
-        <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
+      <h3 class="color-toca-red toca-uppercase">Scholarship Description</h3>
+      <p><%= @scholarship.scholarship_description %></p>
+
+
+
+      <% if @seconded_vote && @seconded_vote.modifications_accepted_by_applicant %>
+      <h3 class="color-toca-red toca-uppercase">Modifications (Agreed to by Applicant):</h3>
+        <p><strong><%= @seconded_vote.modification %></strong></p>
+        <% if @seconded_vote.suggest_loan %><p><strong>Loan Suggested:  </strong><%= @seconded_vote.describe_loan %><% end %>
       <% end %>
+
 
     </div> <!-- container -->
   </section> <!-- scholarship section -->
@@ -133,9 +142,10 @@
           <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
         <% end %>
         <% if current_user == @scholarship.user %>
-          <div class="text-center">
-            <%= link_to "Modify My Application Now", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary" %>
-          </div>
+        <div class="text-center">
+          <%= link_to "Accept Proposed Modifications", accept_modifications_path(@seconded_vote.id), method: :post, class: "btn btn-md btn-secondary", style: "display: inline-block" %>
+          <%= link_to "Change My Application", edit_scholarship_path(@scholarship), class: "btn btn-md btn-secondary", style: "display: inline-block" %>
+        </div>
         <% end %>
       </div> <!-- container -->
 
@@ -206,7 +216,7 @@
         <% if @votes.count > 0 %>
           <h3 class="toca-uppercase color-toca-red">Existing Votes</h3>
           <p class="color-dark-grey"><em>
-            Seconding a proposed vote will remove this application from consideration and send it back to the applicant for revision.
+            Seconding a proposed vote will remove this application from consideration and either approve, deny, or send it back to the applicant for revision.
           </em></p>
           <table>
             <% @votes.each do |vote| %>

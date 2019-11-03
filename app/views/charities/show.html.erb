@@ -8,7 +8,7 @@
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= @charity.final_decision %>
 
-      <% if current_user && ( current_user.committee || current_user.admin ) %>
+      <% if current_user && ( current_user.committee || current_user.admin ) && @charity.status != "Decision Reached" %>
         <br>
 
         <%= pluralize(@votes_accept.count, "Approval") %>
@@ -79,28 +79,41 @@
 
     <div class="container">
 
-      <% unless current_user && current_user.committee && current_user != @charity.user %>
+      <% unless current_user && current_user.committee %>
         <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
       <% end %>
 
+
+      <h3 class="color-toca-red toca-uppercase">Funding Details</h3>
       <p><strong>Requested Amount:</strong>
         <%= number_to_currency(@charity.requested_amount, unit: "$") %>
-      </p>
-
-      <p><strong>Amount Applicant Can Self-Fund:</strong>
+        <br>
+        <strong>Amount Applicant Can Self-Fund:</strong>
         <%= number_to_currency(@charity.self_fund, unit: "$") %>
+        <% if @charity.loan_preferred %>
+          <br><em>This applicant would prefer to receive a loan instead of a grant.</em>
+        <% end %>
       </p>
 
-      <p>
-        <%= @charity.opportunity_description %>
-      </p>
 
-      <% if @charity.loan_preferred %>
-        <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
+      <h3 class="color-toca-red toca-uppercase">Scholarship Description</h3>
+      <p><%= @charity.opportunity_description %></p>
+
+
+
+      <% if @seconded_vote && @seconded_vote.modifications_accepted_by_applicant %>
+      <h3 class="color-toca-red toca-uppercase">Modifications (Agreed to by Applicant):</h3>
+        <p><strong><%= @seconded_vote.modification %></strong></p>
+        <% if @seconded_vote.suggest_loan %><p><strong>Loan Suggested:  </strong><%= @seconded_vote.describe_loan %><% end %>
       <% end %>
 
     </div> <!-- container -->
   </section> <!-- charity section -->
+
+
+
+
+
 
 
 
@@ -121,9 +134,10 @@
           <% if v.suggest_loan %><p><strong>Loan Suggested:  </strong><%= v.describe_loan %><% end %>
         <% end %>
         <% if current_user == @charity.user %>
-          <div class="text-center">
-            <%= link_to "Modify My Application Now", edit_charity_path(@charity), class: "btn btn-md btn-secondary" %>
-          </div>
+        <div class="text-center">
+          <%= link_to "Accept Proposed Modifications", accept_modifications_path(@seconded_vote.id), method: :post, class: "btn btn-md btn-secondary", style: "display: inline-block" %>
+          <%= link_to "Change My Application", edit_charity_path(@charity), class: "btn btn-md btn-secondary", style: "display: inline-block" %>
+        </div>
         <% end %>
       </div> <!-- container -->
 

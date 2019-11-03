@@ -27,6 +27,7 @@ class HardshipsController < ApplicationController
     @votes_modify = Vote.where(modify: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @votes_deny = Vote.where(deny: true, application_type: "hardship", application_id: @hardship.id, superseded: false)
     @messages = Message.where(ref_application_type: "hardship", ref_application_id: @hardship.id)
+    @seconded_vote = Vote.where(application_type: "hardship", application_id: @hardship.id, seconded: true).first
   end
 
 
@@ -111,8 +112,7 @@ class HardshipsController < ApplicationController
 
   def withdraw_hardship
     @hardship = Hardship.find(params[:id])
-    @hardship.update_attributes(status: "Withdrawn")
-    if @hardship.update_attributes(status: "Withdrawn")
+    if @hardship.update_attributes(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
       Log.create(category: "User Action", action: "Hardship Application Withdrawn", automatic: false, object: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
       redirect_back(fallback_location: user_path(current_user))
       flash[:notice] = "That application has been withdrawn!"

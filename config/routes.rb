@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   post "scholarships/:id/approve_scholarship" => "scholarships#approve_scholarship", as: "approve_scholarship"
   post "scholarships/:id/reject_scholarship" => "scholarships#reject_scholarship", as: "reject_scholarship"
   post "scholarships/:id/close_scholarship" => "scholarships#close_scholarship", as: "close_scholarship"
-  post "scholarships/:funding_completedose_scholarship" => "scholarships#funding_completed_cholarship", as: "funding_completed_scholarship"
+  post "scholarships/:id/funding_completed_scholarship" => "scholarships#funding_completed_scholarship", as: "funding_completed_scholarship"
 
   resources :charities
   post "charities/:id/withdraw_charity" => "charities#withdraw_charity", as: "withdraw_charity"
@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   resources :votes
   post "votes/:id/second_vote" => "votes#second_vote", as: "second_vote"
+  post "votes/:id/approve_application" => "votes#approve_application", as: "approve_application"
+  post "votes/:id/accept_modifications" => "votes#accept_modifications", as: "accept_modifications"
 
   resources :testimonials
   post "testimonials/:id/approve_testimonial" => "testimonials#approve_testimonial", as: "approve_testimonial"

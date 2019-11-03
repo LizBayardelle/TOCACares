@@ -49,7 +49,7 @@
                       <% if application.funding_status == "Funding Completed" %><br><em>Funding Completed</em><% end %>
                       <% if current_user && current_user.admin && application.status == "Decision Reached" %>
 
-                        <% if application.final_decision == "Approved" && application.funding_status != "Funding Completed" %>
+                        <% if ( application.final_decision == "Approved" || application.final_decision == "Approved with Modifications" ) && application.funding_status != "Funding Completed" %>
                           <% if application.application_type == "hardship" %>
                             <br><%= link_to "Mark Funding Completed", funding_completed_hardship_path(application), method: :post, class: "btn btn-primary btn-sm my-2", data: { confirm: "Are you sure you want to offically mark the funding for this application as complete?" } %>
                           <% elsif application.application_type == "scholarship" %>

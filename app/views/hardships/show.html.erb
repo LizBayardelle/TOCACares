@@ -12,7 +12,7 @@
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <%= @hardship.final_decision %>
 
-      <% if current_user && ( current_user.committee || current_user.admin ) && Vote.where(application_type: "hardship", application_id: @hardship.id, seconded: true).count == 0 %>
+      <% if current_user && ( current_user.committee || current_user.admin )  && @hardship.status != "Decision Reached" %>
         <br>
 
         <%= pluralize(@votes_accept.count, "Approval") %>
@@ -86,14 +86,21 @@
         <p class="text-center"><em>This section is visible to the deciding committee members.</em></p>
       <% end %>
 
+
+      <h3 class="color-toca-red toca-uppercase">Funding Details</h3>
       <p><strong>Requested Amount:</strong>
         <%= number_to_currency(@hardship.requested_amount, unit: "$") %>
-      </p>
-
-      <p><strong>Amount Applicant Can Self-Fund:</strong>
+        <br>
+        <strong>Amount Applicant Can Self-Fund:</strong>
         <%= number_to_currency(@hardship.self_fund, unit: "$") %>
+        <% if @hardship.loan_preferred %>
+          <br><em>This applicant would prefer to receive a loan instead of a grant.</em>
+        <% end %>
       </p>
 
+
+
+      <h3 class="color-toca-red toca-uppercase">Hardship Description</h3>
       <p>
         <% category_array = [] %>
 
@@ -126,9 +133,16 @@
         <%= @hardship.hardship_description %>
       </p>
 
-      <% if @hardship.loan_preferred %>
-        <p class="bold">This applicant would prefer to receive a loan instead of a grant.</p>
+
+
+
+
+      <% if @seconded_vote && @seconded_vote.modifications_accepted_by_applicant %>
+        <h3 class="color-toca-red toca-uppercase">Modifications (Agreed to by Applicant):</h3>
+        <p><strong><%= @seconded_vote.modification %></strong></p>
+        <% if @seconded_vote.suggest_loan %><p><strong>Loan Suggested:  </strong><%= @seconded_vote.describe_loan %><% end %>
       <% end %>
+
 
     </div> <!-- container -->
   </section> <!-- hardship section -->
@@ -151,7 +165,8 @@
         <% end %>
         <% if current_user == @hardship.user %>
           <div class="text-center">
-            <%= link_to "Modify My Application Now", edit_hardship_path(@hardship), class: "btn btn-md btn-secondary" %>
+            <%= link_to "Accept Proposed Modifications", accept_modifications_path(@seconded_vote.id), method: :post, class: "btn btn-md btn-secondary", style: "display: inline-block" %>
+            <%= link_to "Change My Application", edit_hardship_path(@hardship), class: "btn btn-md btn-secondary" %>
           </div>
         <% end %>
       </div> <!-- container -->

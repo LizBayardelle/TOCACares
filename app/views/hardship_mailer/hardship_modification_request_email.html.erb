@@ -13,7 +13,7 @@
       Dear <%= @application.full_name %>,
     </p>
     <p>
-      Thank you for your application. After careful consideration, it has been decided that one or more details of your application need adjustment. We recognize your genuine need and we request you reapply with the suggested changes in mind. See below for details from the Decision Committee on what revisions need to be made to your application:
+      Thank you for your application. After careful consideration, it has been decided that one or more details of your application need adjustment. We recognize your genuine need and we request you see below for details from the Decision Committee on what modifications have been suggested for your application:
     </p>
     <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
     <p>
@@ -26,7 +26,15 @@
       </ul>
     </p>
     <p>
-      We hope you take advantage of this opportunity, and we look forward to assisting a valuable employee like you.
+      At this point you should log in to <%= link_to "view your application", hardship_url(@application.id), style: "color: #EB0029; font-weight: 700; text-decoration: none" %> on TOCA Cares and take one of the following actions:
+      <ul>
+        <li>Accept the terms and modifications suggested for your application.  This will move your application status to "approved" and you will be contacted by our partnering organization, Helping Hands, who will reach out to you and request additional information about your financial situation to verify you receive the appropriate amount from TOCA Cares.</li>
+        <li>If you have questions, you can message a TOCA Cares administrator directly from your application to get answers.</li>
+        <li>If you don't want to agree to the modifications, you can edit your application as you see fit and reapply.</li>
+      </ul>
+    </p>
+    <p>
+      We hope you take advantage of this opportunity and we look forward to assisting a valuable employee like you.
     </p>
     <p>
       Sincerely,

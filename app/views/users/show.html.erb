@@ -148,11 +148,11 @@
                   </td>
                   <td>
                     <%= link_to "View", scholarship_path(scholarship) %>
-                    <% if scholarship.status != "Submitted to Committee" && scholarship.status != "Decision Reached" %>
+                    <% unless scholarship.status == "Submitted to Committee" || scholarship.status == "Decision Reached" || scholarship.status == "Withdrawn" %>
                       &nbsp;|&nbsp;
                       <%= link_to "Edit", edit_scholarship_path(scholarship) %>
                     <% end %>
-                    <% unless scholarship.status == "Decision Reached" %>
+                    <% unless scholarship.status == "Decision Reached" || scholarship.status == "Withdrawn" %>
                       &nbsp;|&nbsp;
                       <%= button_to "Withdraw", withdraw_scholarship_path(scholarship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
                     <% end %>
@@ -196,11 +196,11 @@
                   </td>
                   <td>
                     <%= link_to "View", hardship_path(hardship) %>
-                    <% if hardship.status != "Submitted to Committee" && hardship.status != "Decision Reached" %>
+                    <% unless hardship.status == "Submitted to Committee" || hardship.status == "Decision Reached" || hardship.status == "Withdrawn" %>
                       &nbsp;|&nbsp;
                       <%= link_to "Edit", edit_hardship_path(hardship) %>
                     <% end %>
-                    <% unless hardship.status == "Decision Reached" %>
+                    <% unless hardship.status == "Decision Reached" || hardship.status == "Withdrawn" %>
                       &nbsp;|&nbsp;
                       <%= button_to "Withdraw", withdraw_hardship_path(hardship), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
                     <% end %>
@@ -244,11 +244,11 @@
                   </td>
                   <td>
                     <%= link_to "View", charity_path(charity) %>
-                    <% if charity.status != "Submitted to Committee" && charity.status != "Decision Reached" %>
+                    <% unless charity.status == "Submitted to Committee" || charity.status == "Decision Reached" || charity.status == "Withdrawn" %>
                       &nbsp;|&nbsp;
                       <%= link_to "Edit", edit_charity_path(charity) %>
                     <% end %>
-                    <% unless charity.status == "Decision Reached" %>
+                    <% unless charity.status == "Decision Reached" || charity.status == "Withdrawn" %>
                       &nbsp;|&nbsp;
                       <%= button_to "Withdraw", withdraw_charity_path(charity), method: :post, data: { confirm: "Are you sure you want to withdraw your application?"}, class: "not-button" %>
                     <% end %>

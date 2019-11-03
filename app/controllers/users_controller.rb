@@ -10,8 +10,8 @@ class UsersController < ApplicationController
     @hardships = Hardship.where(user_id: @user.id)
     @charities = Charity.where(user_id: @user.id)
 
-    @my_sent_messages = Message.where(user_id: current_user.id).order("created_at DESC")
-    @to_me_messages = Message.where(from_user_id: current_user.id).order("created_at DESC")
+    @my_sent_messages = Message.where(user_id: current_user.id, issue_closed: false).order("created_at DESC")
+    @to_me_messages = Message.where(from_user_id: current_user.id, issue_closed: false).order("created_at DESC")
     @my_total_messages = [@my_sent_messages, @to_me_messages].flatten
 
     @need_votes = 0
