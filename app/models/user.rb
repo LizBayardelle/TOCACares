@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :logs
   has_many :messages
   has_many :responses
+  has_many :app_forms
 
   # validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@tocafootball\.com\z/, message: "Please use your TOCA email address to register." }
 

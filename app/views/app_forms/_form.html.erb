@@ -1,0 +1,128 @@
+
+<%= simple_form_for(@app_form) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+
+    <section id="application-type-section">
+      <h2 class="toca-uppercase">I want to apply for a...</h2>
+      <%= f.hidden_field :application_type %>
+      <div class="row">
+
+        <div class="col-4">
+          <div class="select-box application-type-box text-center" id="hardship">
+            <h5 class="toca-uppercase">Hardship</h5>
+            <%= image_tag "Hardship.png", class: "ball-mini", alt: "Soccer ball that needs help with a hardship." %>
+          </div> <!-- select box -->
+        </div> <!-- col -->
+
+        <div class="col-4">
+          <div class="select-box application-type-box text-center" id="scholarship">
+            <h5 class="toca-uppercase">Scholarship</h5>
+            <%= image_tag "Scholarship.png", class: "ball-mini", alt: "Soccer ball in a graduation cap." %>
+          </div> <!-- select box -->
+        </div> <!-- col -->
+
+        <div class="col-4">
+          <div class="select-box application-type-box text-center" id="charity">
+            <h5 class="toca-uppercase">Charity</h5>
+            <%= image_tag "Charity.png", class: "ball-mini", alt: "Soccer ball ready to do some charity work." %>
+          </div> <!-- select box -->
+        </div> <!-- col -->
+
+      </div> <!-- row -->
+    </section>
+
+    <hr>
+
+    <%= f.input :full %>
+    <%= f.input :date %>
+    <%= f.input :position %>
+    <%= f.input :branch %>
+    <%= f.input :start_date %>
+    <%= f.input :email_non_toca %>
+    <%= f.input :mobile %>
+    <%= f.input :address %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip %>
+    <%= f.input :for_other %>
+    <%= f.input :for_other_email %>
+    <%= f.input :recipient_toca_email %>
+    <%= f.input :transfer_pending %>
+    <%= f.input :bank_name %>
+    <%= f.input :bank_phone %>
+    <%= f.input :bank_address %>
+    <%= f.input :institution_name %>
+    <%= f.input :institution_contact %>
+    <%= f.input :institution_phone %>
+    <%= f.input :institution_address %>
+    <%= f.input :requested_amount %>
+    <%= f.input :self_fund %>
+    <%= f.input :loan_preferred %>
+    <%= f.input :loan_preferred_description %>
+    <%= f.input :description %>
+    <%= f.input :accident %>
+    <%= f.input :catastrophe %>
+    <%= f.input :counseling %>
+    <%= f.input :family_emergency %>
+    <%= f.input :health %>
+    <%= f.input :memorial %>
+    <%= f.input :other_hardship %>
+    <%= f.input :other_hardship_description %>
+    <%= f.input :intent_signature %>
+    <%= f.input :intent_signature_date %>
+    <%= f.input :release_signature %>
+    <%= f.input :release_signature_date %>
+    <%= f.input :approved %>
+    <%= f.input :denied %>
+    <%= f.input :returned %>
+    <%= f.input :closed %>
+    <%= f.association :application_status %>
+    <%= f.association :final_decision %>
+    <%= f.association :funding_status %>
+    <%= f.association :user %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+     $('#hardship').click(function() {
+       $('.application-type-box').removeClass('active');
+       $(this).addClass('active');
+       $('#app_form_application_type').val('Hardship');
+       $('.charity-field').addClass('hidden');
+       $('.scholarship-field').addClass('hidden');
+       $('.hardship-field').removeClass('hidden');
+     });
+     $('#scholarship').click(function() {
+       $('.application-type-box').removeClass('active');
+       $(this).addClass('active');
+       $('#app_form_application_type').val('Scholarship');
+       $('.hardship-field').addeClass('hidden');
+       $('.scholarship-field').addClass('hidden');
+       $('.charity-field').removeClass('hidden');
+     });
+     $('#charity').click(function() {
+       $('.application-type-box').removeClass('active');
+       $(this).addClass('active');
+       $('#app_form_application_type').val('Charity');
+       $('.hardship-field').addClass('hidden');
+       $('.charity-field').addClass('hidden');
+       $('.scholarship-field').removeClass('hidden');
+     });
+   });
+</script>

@@ -47,109 +47,138 @@
   </div> <!-- container -->
 
 
-  <hr>
 
-  <section class="text-center">
-    <div class="container-fluid px-5">
 
-       <div class="row mt-5 mb-3 wow fadeIn">
 
-           <div class="col-md-4 mb-4">
-               <div class="card">
-                   <div class="view overlay"> <!-- image -->
-                       <%= image_tag "hardship.jpg", class: "card-img-top", alt: "Young man trying to fix a broken down car." %>
-                       <%= link_to page_path('apply') do %>
-                           <div class="mask rgba-white-slight"></div>
-                       <% end %>
-                   </div>
-                   <div class="card-body h-100">
-                       <!--Title-->
-                       <h4 class="card-title toca-uppercase">Hardship</h4>
-                       <h5 class="card-quote color-toca-red">
-                         I get by with a little help from my friends.
-                         <br><em><small>―Paul McCartney/John Lennon</small></em>
-                       </h5>
-                       <p class="card-text">
-                         Unexpected financial challenges can cause good people to go tilt.
-                         <br><br>
-                         TOCA Cares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
-                         <br><br>
-                         <%= link_to page_path('apply') do %>
-                          <%= image_tag "Hardship.png", class: "ball-mini" %>
-                        <% end %>
-                       </p>
-                  </div>
-               </div> <!-- card -->
-           </div> <!--Grid column-->
 
-           <div class="col-md-4 mb-4">
-             <div class="card">
-               <div class="view overlay"> <!-- image -->
-                 <%= image_tag "scholarship.jpg", class: "card-img-top", alt: "Woman graduating from college." %>
+
+  <section class="view jarallax three-callout-jarallax">
+    <img class="jarallax-img" src="https://tocacares.s3-us-west-1.amazonaws.com/grass.jpg" alt="grassy soccer field">
+    <div class="mask rgba-black-light">
+      <div class="container-fluid flex-center px-5">
+
+
+       <div class="row my-3 wow fadeIn">
+
+
+
+
+         <div class="col-12 col-xl-4 my-3">
+           <div class="bg-white z-depth-4 w-100">
+             <div class="row text-center">
+
+               <div class="col-12 col-sm-4 col-xl-12">
+                 <%= image_tag "hardship.jpg", class: "image-cover three-callout-image w-100", alt: "Young man trying to fix a broken down car." %>
                  <%= link_to page_path('apply') do %>
-                   <div class="mask rgba-white-slight"></div>
+                     <div class="mask rgba-white-slight"></div>
                  <% end %>
-               </div>
-               <div class="card-body h-100">
-                 <!--Title-->
-                 <h4 class="card-title toca-uppercase">Scholarship</h4>
-                 <!--Text-->
+               </div> <!-- image col -->
+
+               <div class="col-12 col-sm-8 col-xl-12 my-auto card-text">
+                 <h3 class="toca-uppercase pt-2">Hardship</h3>
+
+                 <h5 class="card-quote color-toca-red">
+                   I get by with a little help from my friends.
+                   <br><em><small>―Paul McCartney/John Lennon</small></em>
+                 </h5>
+
+                 <p class="pb-2 px-3 text-center">
+                   Unexpected financial challenges can cause good people to go tilt.
+                 </p>
+                 <p class="pb-4 px-3 text-center">
+                   TOCA Cares wants to provide a limited but immediate financial safety net when you face an auto repair, health care, or other unexpected challenge that you cannot afford to meet.
+                 </p>
+
+               </div> <!-- image col -->
+             </div> <!-- inner row -->
+           </div> <!-- bg white -->
+         </div> <!-- col for white box -->
+
+
+
+
+
+         <div class="col-12 col-xl-4 my-3">
+           <div class="bg-white z-depth-4 w-100">
+             <div class="row text-center">
+
+               <div class="col-12 col-sm-4 col-xl-12">
+                 <%= image_tag "scholarship.jpg", class: "image-cover three-callout-image w-100", alt: "Woman graduating from college." %>
+                 <%= link_to page_path('apply') do %>
+                     <div class="mask rgba-white-slight"></div>
+                 <% end %>
+               </div> <!-- image col -->
+
+               <div class="col-12 col-sm-8 col-xl-12 my-auto card-text">
+                 <h3 class="toca-uppercase pt-2">Scholarship</h3>
+
                  <h5 class="card-quote color-toca-red">
                    Knowledge is a weapon. I&nbsp;intend to be formidably&nbsp;armed.
                    <br><em><small>―Terry Goodkind</small></em>
                  </h5>
-                 <p class="card-text">
+
+                 <p class="pb-2 px-3 text-center">
                    We can always grow and improve.  TOCA Cares will pay up to 80% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
-                   <br><br>
-                   Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
-                   <br><br>
-                   <%= link_to page_path('apply') do %>
-                    <%= image_tag "Scholarship.png", class: "ball-mini" %>
-                  <% end %>
                  </p>
-               </div>
-             </div> <!-- card -->
-           </div> <!--Grid column-->
-           <!--Grid column-->
+                 <p class="pb-4 px-3 text-center">
+                   Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
+                 </p>
 
-           <!--Grid column-->
-           <div class="col-md-4 mb-4">
-               <div class="card">
-                   <div class="view overlay"> <!-- image -->
-                       <%= image_tag "charity.jpg", class: "card-img-top", alt: "Young man building a house for charity." %>
-                       <%= link_to page_path('apply') do %>
-                           <div class="mask rgba-white-slight"></div>
-                         <% end %>
-                   </div>
-                   <div class="card-body">
-                       <!--Title-->
-                       <h4 class="card-title toca-uppercase">Charity</h4>
-                       <h5 class="card-quote color-toca-red">
-                         Service to others is the rent you pay for your room here on earth.
-                         <br><em><small>―Mohammed Ali</small></em>
-                       </h5>
-                       <p class="card-text">
-                         Our team is going to positively impact each community we touch.  TOCA Cares wants to support your involvement in local charities.
-                         <br><br>
-                         If you have an idea of how to work with tax-deductible charities, TOCA Cares will pay 80% of your costs to participate (membership fee, out of pocket costs of being a Big Brother or Big Sister, etc.), or, in some cases, make direct contributions to the charity.
-                         <br><br>
-                         <%= link_to page_path('apply') do %>
-                          <%= image_tag "Charity.png", class: "ball-mini" %>
-                        <% end %>
-                       </p>
-                   </div>
-               </div> <!-- card -->
-           </div> <!--Grid column-->
-
-        </div> <!-- row -->
-    </div> <!-- container -->
-  </section>
+               </div> <!-- image col -->
+             </div> <!-- inner row -->
+           </div> <!-- bg white -->
+         </div> <!-- col for white box -->
 
 
-  <hr>
 
 
-  <section class="container">
+        <div class="col-12 col-xl-4 my-3">
+          <div class="bg-white z-depth-4 w-100">
+            <div class="row text-center">
+
+              <div class="col-12 col-sm-4 col-xl-12">
+                <%= image_tag "charity.jpg", class: "image-cover three-callout-image w-100", alt: "Young man building a house for charity." %>
+                <%= link_to page_path('apply') do %>
+                    <div class="mask rgba-white-slight"></div>
+                <% end %>
+              </div> <!-- image col -->
+
+              <div class="col-12 col-sm-8 col-xl-12 my-auto card-text">
+                <h3 class="toca-uppercase pt-2">Charity</h3>
+
+                <h5 class="card-quote color-toca-red">
+                  Service to others is the rent you pay for your room here on earth.
+                  <br><em><small>―Mohammed Ali</small></em>
+                </h5>
+
+                <p class="pb-2 px-3 text-center">
+                  Our team is going to positively impact each community we touch.  TOCA Cares wants to support your involvement in local charities.
+                </p>
+                <p class="pb-4 px-3 text-center">
+                  If you have an idea of how to work with tax-deductible charities, TOCA Cares will pay 80% of your costs to participate (membership fee, out of pocket costs of being a Big Brother or Big Sister, etc.), or, in some cases, make direct contributions to the charity.
+                </p>
+
+              </div> <!-- image col -->
+            </div> <!-- inner row -->
+          </div> <!-- bg white -->
+        </div> <!-- col for white box -->
+
+
+
+
+
+       </div> <!-- row for 3 boxes -->
+
+      </div> <!-- container -->
+    </div> <!-- mask -->
+  </section> <!-- jarallax -->
+
+
+
+
+
+
+  <section class="container pt-5">
     <div class="text-center">
       <h2>Have a Question? Ask an admin!</h2>
       <p>
@@ -209,5 +238,10 @@
      $('.card-img-top').matchHeight();
      $('.card-quote').matchHeight();
      $('.card-text').matchHeight();
+      objectFitImages();
+      jarallax(document.querySelectorAll('.jarallax'));
+      jarallax(document.querySelectorAll('.jarallax-keep-img'), {
+        keepImg: true,
+      });
    });
 </script>

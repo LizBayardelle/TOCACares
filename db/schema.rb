@@ -10,10 +10,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_041844) do
+ActiveRecord::Schema.define(version: 2019_11_11_163012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "app_forms", force: :cascade do |t|
+    t.string "application_type"
+    t.string "full"
+    t.date "date"
+    t.string "position"
+    t.string "branch"
+    t.date "start_date"
+    t.string "email_non_toca"
+    t.string "mobile"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.boolean "for_other", default: false
+    t.string "for_other_email"
+    t.string "recipient_toca_email"
+    t.boolean "transfer_pending", default: false
+    t.string "bank_name"
+    t.string "bank_phone"
+    t.string "bank_address"
+    t.string "institution_name"
+    t.string "institution_contact"
+    t.string "institution_phone"
+    t.string "institution_address"
+    t.decimal "requested_amount"
+    t.decimal "self_fund"
+    t.boolean "loan_preferred", default: false
+    t.string "loan_preferred_description"
+    t.text "description"
+    t.boolean "accident", default: false
+    t.boolean "catastrophe", default: false
+    t.boolean "counseling", default: false
+    t.boolean "family_emergency", default: false
+    t.boolean "health", default: false
+    t.boolean "memorial", default: false
+    t.boolean "other_hardship", default: false
+    t.string "other_hardship_description"
+    t.string "intent_signature"
+    t.date "intent_signature_date"
+    t.string "release_signature"
+    t.date "release_signature_date"
+    t.boolean "approved", default: false
+    t.boolean "denied", default: false
+    t.boolean "returned", default: false
+    t.boolean "closed", default: false
+    t.bigint "application_status_id"
+    t.bigint "final_decision_id"
+    t.bigint "funding_status_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_status_id"], name: "index_app_forms_on_application_status_id"
+    t.index ["final_decision_id"], name: "index_app_forms_on_final_decision_id"
+    t.index ["funding_status_id"], name: "index_app_forms_on_funding_status_id"
+    t.index ["user_id"], name: "index_app_forms_on_user_id"
+  end
+
+  create_table "application_statuses", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "authorizations", force: :cascade do |t|
     t.string "email"
@@ -60,6 +123,18 @@ ActiveRecord::Schema.define(version: 2019_11_01_041844) do
     t.boolean "approved", default: false
     t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_charities_on_user_id"
+  end
+
+  create_table "final_decisions", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "funding_statuses", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hardships", force: :cascade do |t|
@@ -273,6 +348,10 @@ ActiveRecord::Schema.define(version: 2019_11_01_041844) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "app_forms", "application_statuses"
+  add_foreign_key "app_forms", "final_decisions"
+  add_foreign_key "app_forms", "funding_statuses"
+  add_foreign_key "app_forms", "users"
   add_foreign_key "charities", "users"
   add_foreign_key "hardships", "users"
   add_foreign_key "messages", "users"

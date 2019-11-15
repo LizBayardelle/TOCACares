@@ -1,0 +1,121 @@
+<p id="notice"><%= notice %></p>
+
+<h1>App Forms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Application type</th>
+      <th>Full</th>
+      <th>Date</th>
+      <th>Position</th>
+      <th>Branch</th>
+      <th>Start date</th>
+      <th>Email non toca</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>For other</th>
+      <th>For other email</th>
+      <th>Recipient toca email</th>
+      <th>Transfer pending</th>
+      <th>Bank name</th>
+      <th>Bank phone</th>
+      <th>Bank address</th>
+      <th>Institution name</th>
+      <th>Institution contact</th>
+      <th>Institution phone</th>
+      <th>Institution address</th>
+      <th>Requested amount</th>
+      <th>Self fund</th>
+      <th>Loan preferred</th>
+      <th>Loan preferred description</th>
+      <th>Description</th>
+      <th>Accident</th>
+      <th>Catastrophe</th>
+      <th>Counseling</th>
+      <th>Family emergency</th>
+      <th>Health</th>
+      <th>Memorial</th>
+      <th>Other hardship</th>
+      <th>Other hardship description</th>
+      <th>Intent signature</th>
+      <th>Intent signature date</th>
+      <th>Release signature</th>
+      <th>Release signature date</th>
+      <th>Approved</th>
+      <th>Denied</th>
+      <th>Returned</th>
+      <th>Closed</th>
+      <th>Application status</th>
+      <th>Final decision</th>
+      <th>Funding status</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @app_forms.each do |app_form| %>
+      <tr>
+        <td><%= app_form.application_type %></td>
+        <td><%= app_form.full %></td>
+        <td><%= app_form.date %></td>
+        <td><%= app_form.position %></td>
+        <td><%= app_form.branch %></td>
+        <td><%= app_form.start_date %></td>
+        <td><%= app_form.email_non_toca %></td>
+        <td><%= app_form.mobile %></td>
+        <td><%= app_form.address %></td>
+        <td><%= app_form.city %></td>
+        <td><%= app_form.state %></td>
+        <td><%= app_form.zip %></td>
+        <td><%= app_form.for_other %></td>
+        <td><%= app_form.for_other_email %></td>
+        <td><%= app_form.recipient_toca_email %></td>
+        <td><%= app_form.transfer_pending %></td>
+        <td><%= app_form.bank_name %></td>
+        <td><%= app_form.bank_phone %></td>
+        <td><%= app_form.bank_address %></td>
+        <td><%= app_form.institution_name %></td>
+        <td><%= app_form.institution_contact %></td>
+        <td><%= app_form.institution_phone %></td>
+        <td><%= app_form.institution_address %></td>
+        <td><%= app_form.requested_amount %></td>
+        <td><%= app_form.self_fund %></td>
+        <td><%= app_form.loan_preferred %></td>
+        <td><%= app_form.loan_preferred_description %></td>
+        <td><%= app_form.description %></td>
+        <td><%= app_form.accident %></td>
+        <td><%= app_form.catastrophe %></td>
+        <td><%= app_form.counseling %></td>
+        <td><%= app_form.family_emergency %></td>
+        <td><%= app_form.health %></td>
+        <td><%= app_form.memorial %></td>
+        <td><%= app_form.other_hardship %></td>
+        <td><%= app_form.other_hardship_description %></td>
+        <td><%= app_form.intent_signature %></td>
+        <td><%= app_form.intent_signature_date %></td>
+        <td><%= app_form.release_signature %></td>
+        <td><%= app_form.release_signature_date %></td>
+        <td><%= app_form.approved %></td>
+        <td><%= app_form.denied %></td>
+        <td><%= app_form.returned %></td>
+        <td><%= app_form.closed %></td>
+        <td><%= app_form.application_status %></td>
+        <td><%= app_form.final_decision %></td>
+        <td><%= app_form.funding_status %></td>
+        <td><%= app_form.user %></td>
+        <td><%= link_to 'Show', app_form %></td>
+        <td><%= link_to 'Edit', edit_app_form_path(app_form) %></td>
+        <td><%= link_to 'Destroy', app_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New App Form', new_app_form_path %>
