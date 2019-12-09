@@ -5,88 +5,396 @@
 
   <div class="form-inputs">
 
-    <section id="application-type-section">
-      <h2 class="toca-uppercase">I want to apply for a...</h2>
-      <%= f.hidden_field :application_type %>
+
+    <% if @app_form.new_record? %>
+
+      <section id="application-type-section">
+
+        <h2 class="toca-uppercase text-center mb-3">I want to apply for a...</h2>
+        <%= f.hidden_field :application_type %>
+        <div class="row mb-5">
+
+          <div class="col-12 col-sm-4 text-center">
+            <div class="select-box application-type-box" id="hardship">
+              <h5 class="toca-uppercase">Hardship</h5>
+              <%= image_tag "Hardship.png", class: "ball-mini pb-2", alt: "Soccer ball that needs help with a hardship." %>
+            </div> <!-- select box -->
+          </div> <!-- col -->
+
+          <div class="col-12 col-sm-4 text-center">
+            <div class="select-box application-type-box" id="scholarship">
+              <h5 class="toca-uppercase">Scholarship</h5>
+              <%= image_tag "Scholarship.png", class: "ball-mini pb-2", alt: "Soccer ball in a graduation cap." %>
+            </div> <!-- select box -->
+          </div> <!-- col -->
+
+          <div class="col-12 col-sm-4 text-center">
+            <div class="select-box application-type-box" id="charity">
+              <h5 class="toca-uppercase">Charity</h5>
+              <%= image_tag "Charity.png", class: "ball-mini pb-2", alt: "Soccer ball ready to do some charity work." %>
+            </div> <!-- select box -->
+          </div> <!-- col -->
+
+        </div> <!-- row -->
+
+      </section>
+    <% end %>
+
+
+
+
+
+
+
+    <section id="my-info-section" class="z-depth-1 p-5 my-5 info-section">
+      <h2 class="toca-uppercase text-center">My Information</h2>
+      <p class="text-center"><small>This information is anonymous and will not be visible to the deciding committee.</small></p>
       <div class="row">
 
-        <div class="col-4">
-          <div class="select-box application-type-box text-center" id="hardship">
-            <h5 class="toca-uppercase">Hardship</h5>
-            <%= image_tag "Hardship.png", class: "ball-mini", alt: "Soccer ball that needs help with a hardship." %>
-          </div> <!-- select box -->
+        <div class="col-12">
+          <div class="md-form">
+            <%= f.text_field :full_name, class: "form-control", required: true, id: "full_name" %>
+            <label for="full_name">Full Name</label>
+          </div> <!-- md-form -->
         </div> <!-- col -->
 
-        <div class="col-4">
-          <div class="select-box application-type-box text-center" id="scholarship">
-            <h5 class="toca-uppercase">Scholarship</h5>
-            <%= image_tag "Scholarship.png", class: "ball-mini", alt: "Soccer ball in a graduation cap." %>
-          </div> <!-- select box -->
+        <div class="col-sm-6">
+          <div class="md-form">
+            <%= f.text_field :date, placeholder: "Select Application Date", class: "form-control datepicker", id: "date", required: true %>
+            <label for="date">Application Date</label>
+          </div> <!-- md-form -->
         </div> <!-- col -->
 
-        <div class="col-4">
-          <div class="select-box application-type-box text-center" id="charity">
-            <h5 class="toca-uppercase">Charity</h5>
-            <%= image_tag "Charity.png", class: "ball-mini", alt: "Soccer ball ready to do some charity work." %>
-          </div> <!-- select box -->
+        <div class="col-sm-6">
+          <div class="md-form">
+            <%= f.text_field :start_date, placeholder: "Select Start Date", class: "form-control datepicker", id: "start_date", required: true %>
+            <label for="start_date">Date You Started at TOCA</label>
+          </div> <!-- md-form -->
         </div> <!-- col -->
 
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :position, class: "form-control", id: "position", required: true %>
+            <label for="position">Position</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :branch, class: "form-control", id: "branch", required: true %>
+            <label for="branch">TOCA Branch</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :email_non_toca, class: "form-control mb-4", id: "non-toca-email", required: true %>
+            <label for="non-toca-email">Email (Non-TOCA)</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :mobile, class: "form-control mb-4", id: "mobile", required: true %>
+            <label for="mobile">Mobile Phone</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-lg-6">
+          <div class="md-form">
+            <%= f.text_field :address, class: "form-control mb-4", id: "address", required: true %>
+            <label for="address">Your Street Address</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-5 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :city, class: "form-control mb-4", id: "city", required: true %>
+            <label for="city">City</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-3 col-lg-1">
+          <div class="md-form">
+            <%= f.text_field :state, class: "form-control mb-4", id: "state", required: true %>
+            <label for="state">State</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-4 col-lg-2">
+          <div class="md-form">
+            <%= f.text_field :zip, class: "form-control mb-4", id: "zip", required: true %>
+            <label for="zip">Zip Code</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
       </div> <!-- row -->
-    </section>
 
-    <hr>
+    </section> <!-- my info section -->
 
-    <%= f.input :full %>
-    <%= f.input :date %>
-    <%= f.input :position %>
-    <%= f.input :branch %>
-    <%= f.input :start_date %>
-    <%= f.input :email_non_toca %>
-    <%= f.input :mobile %>
-    <%= f.input :address %>
-    <%= f.input :city %>
-    <%= f.input :state %>
-    <%= f.input :zip %>
-    <%= f.input :for_other %>
-    <%= f.input :for_other_email %>
-    <%= f.input :recipient_toca_email %>
-    <%= f.input :transfer_pending %>
-    <%= f.input :bank_name %>
-    <%= f.input :bank_phone %>
-    <%= f.input :bank_address %>
-    <%= f.input :institution_name %>
-    <%= f.input :institution_contact %>
-    <%= f.input :institution_phone %>
-    <%= f.input :institution_address %>
-    <%= f.input :requested_amount %>
-    <%= f.input :self_fund %>
-    <%= f.input :loan_preferred %>
-    <%= f.input :loan_preferred_description %>
-    <%= f.input :description %>
-    <%= f.input :accident %>
-    <%= f.input :catastrophe %>
-    <%= f.input :counseling %>
-    <%= f.input :family_emergency %>
-    <%= f.input :health %>
-    <%= f.input :memorial %>
-    <%= f.input :other_hardship %>
-    <%= f.input :other_hardship_description %>
-    <%= f.input :intent_signature %>
-    <%= f.input :intent_signature_date %>
-    <%= f.input :release_signature %>
-    <%= f.input :release_signature_date %>
-    <%= f.input :approved %>
-    <%= f.input :denied %>
-    <%= f.input :returned %>
-    <%= f.input :closed %>
-    <%= f.association :application_status %>
-    <%= f.association :final_decision %>
-    <%= f.association :funding_status %>
-    <%= f.association :user %>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+
+
+
+
+
+
+
+    <section id="for-other-hardship" class="z-depth-1 p-5 my-5 hardship-only">
+      <h2 class="toca-uppercase text-center">Information for Recipient</h2>
+      <p class="text-center"><small>Fill out this section if you are applying on the behalf of another TOCA employee.</small></p>
+
+      <div class="row">
+        <div class="field form-check text-left for_other">
+          <%= f.check_box :for_other, class: "form-check-input", id: "for_other" %>
+          <%= f.label "This hardship is for someone OTHER THAN myself.", class: "form-check-label", for: "for_other" %>
+        </div>
+      </div>
+
+      <div class="for-other-content hidden">
+        <div class="row mt-4">
+
+          <div class="col-12 col-sm-6">
+            <div class="md-form">
+              <%= f.text_field :for_other_email, class: "form-control mb-4", id: "for-other-email" %>
+              <label for="for-other-email">Your Non-TOCA Email Address</label>
+            </div> <!-- md-form -->
+          </div> <!-- col -->
+          <div class="col-12 col-sm-6">
+            <div class="md-form">
+              <%= f.text_field :recipient_toca_email, class: "form-control mb-4", id: "recipient-toca-email" %>
+              <label for="recipient-toca-email">Recipient's TOCA Email</label>
+            </div> <!-- md-form -->
+          </div> <!-- col -->
+
+        </div> <!-- row -->
+      </div> <!-- for-other-content -->
+
+    </section> <!-- for other hardship -->
+
+
+
+
+
+
+
+
+    <section id="financial-information" class="z-depth-1 p-5 my-5 info-section">
+      <h2 class="toca-uppercase text-center">Financial Information</h2>
+
+      <div class="hardship-only row">
+
+        <div class="col-12 col-sm-4">
+          <div class="md-form">
+            <%= f.text_field :bank_name, class: "form-control mb-4", id: "bank-name" %>
+            <label for="bank-name">Bank Name</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 col-sm-4">
+          <div class="md-form">
+            <%= f.text_field :bank_phone, class: "form-control mb-4", id: "bank-phone" %>
+            <label for="bank-phone">Bank Phone</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 col-sm-4">
+          <div class="md-form">
+            <%= f.text_field :bank_address, class: "form-control mb-4", id: "bank-address" %>
+            <label for="bank-address">Bank Address</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+      </div> <!-- hardship only row -->
+
+      <div class="row non-hardship">
+
+        <div class="col-12 col-sm-4 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :institution_name, class: "form-control mb-4", id: "institution-name" %>
+            <label for="institution-name">Institution Name</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 col-sm-4 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :institution_contact, class: "form-control mb-4", id: "institution-contact" %>
+            <label for="institution-contact">Institution Contact Person</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 col-sm-4 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :institution_phone, class: "form-control mb-4", id: "institution-phone" %>
+            <label for="institution-phone">Institution Phone</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 col-lg-3">
+          <div class="md-form">
+            <%= f.text_field :institution_address, class: "form-control mb-4", id: "institution-address" %>
+            <label for="institution-address">Institution Address</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+      </div> <!-- non-hardship row -->
+
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <div class="md-form">
+            <%= f.number_field :requested_amount, step: 0.01, class: "form-control mb-4", placeholder: "Numbers only (no $ or punctuation)", required: true %>
+            <label for="requested-amount">Amount Requested (From TOCA Cares)</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 col-sm-6">
+          <div class="md-form">
+            <%= f.number_field :self_fund, step: 0.01, class: "form-control mb-4", placeholder: "Numbers only (no $ or punctuation)", required: true %>
+            <label for="self-fund">Amount You Can Cover (Not Including Request)</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+        <div class="col-12 form-check text-left mb-4 loan-check">
+          <%= f.check_box :loan_preferred, class: "form-check-input", id: "loan_preferred" %>
+          <%= f.label "I would prefer to receive a loan than get a grant.", class: "form-check-label", for: "loan_preferred" %>
+        </div>
+        <div class="col-12 loan-stuff">
+          <%= f.text_area :loan_preferred_description, class: "form-control mb-4", placeholder: "Please describe your proposed loan vs. grant allocation." %>
+        </div>
+      </div> <!-- row -->
+
+
+    </section> <!-- financial-information -->
+
+
+
+
+
+
+
+
+
+
+    <section id="request-information" class="z-depth-1 p-5 my-5 info-section">
+      <h2 class="toca-uppercase text-center">Request Information</h2>
+
+      <div class="row">
+        <div class="col-12">
+          <%= f.text_area :description, class: "form-control mb-4", placeholder: "Please describe your situation." %>
+        </div> <!-- col -->
+      </div> <!-- non-hardship row -->
+
+      <div class="row hardship-only">
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="field form-check text-left">
+            <%= f.check_box :accident, class: "form-check-input", id: "accident" %>
+            <%= f.label :accident, class: "form-check-label", for: "accident" %>
+          </div>
+        </div> <!-- column -->
+
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="field form-check text-left">
+            <%= f.check_box :catastrophe, class: "form-check-input", id: "catastrophe" %>
+            <%= f.label :catastrophe, class: "form-check-label", for: "catastrophe" %>
+          </div>
+        </div> <!-- column -->
+
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="field form-check text-left">
+            <%= f.check_box :counseling, class: "form-check-input", id: "counseling" %>
+            <%= f.label :counseling, class: "form-check-label", for: "counseling" %>
+          </div>
+        </div> <!-- column -->
+
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="field form-check text-left">
+            <%= f.check_box :family_emergency, class: "form-check-input", id: "family_emergency" %>
+            <%= f.label "Family Emergency", class: "form-check-label", for: "family_emergency" %>
+          </div>
+        </div> <!-- column -->
+
+        <div class="col-12 col-sm-6">
+          <div class="field form-check text-left">
+            <%= f.check_box :health, class: "form-check-input", id: "health" %>
+            <%= f.label :health, class: "form-check-label", for: "health" %>
+          </div>
+        </div> <!-- column -->
+
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="field form-check text-left">
+            <%= f.check_box :memorial, class: "form-check-input", id: "memorial" %>
+            <%= f.label :memorial, class: "form-check-label", for: "memorial" %>
+          </div>
+        </div> <!-- column -->
+
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="field form-check text-left">
+            <%= f.check_box :other_hardship, class: "form-check-input", id: "other_hardship" %>
+            <%= f.label :other_hardship, class: "form-check-label", for: "other_hardship" %>
+          </div>
+          <div class="field col-9 d-none d-sm-block">
+            <%= f.text_field :other_hardship_description, class: "form-control mb-4", style: "margin-left: 40px", placeholder: "Other Description" %>
+          </div>
+        </div> <!-- col -->
+
+      </div> <!-- hardship only row -->
+    </section> <!-- request-information -->
+
+
+
+
+
+
+
+
+
+
+    <section id="signatures" class="z-depth-1 p-5 my-5 info-section">
+      <h2 class="toca-uppercase text-center">Signatures</h2>
+      <h5 class="mb-0 toca-uppercase">Statement of Intent</h5>
+      <small>
+        I agree that all of the information provided in this application is truthful and reflects a genuine financial hardship. In no way am I attempting to take advantage of TOCA Cares, nor my fellow employees, as this is a community fund. If it appears that I have, serious actions will be taken, jeopardizing my job at TOCA and future access to the community fund.
+      </small>
+
+      <div class="row">
+        <div class="col-12 col-sm-8">
+          <div class="md-form">
+            <%= f.text_field :intent_signature, class: "form-control mb-4", id: "intent-signature", required: true %>
+            <label for="intent-signature">Type Your Name to Represent Your Signature</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-4">
+          <div class="md-form">
+            <%= f.text_field :intent_signature_date, class: "form-control datepicker", id: "intent_signature_date" %>
+            <label for="intent_signature_date">Date</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+      </div> <!-- row -->
+
+      <h5 class="mb-0 toca-uppercase">Release Agreement</h5>
+      <small>
+        I agree to the release of confidential information from TOCA Cares to the Associate Emergency Fund Committee and to allow verification by Helping Hands Ministries, Inc., of information pertinent to this request, including a credit bureau report, prior to receipt of any funds.
+      </small>
+
+      <div class="row">
+        <div class="col-12 col-sm-8">
+          <div class="md-form">
+            <%= f.text_field :release_signature, class: "form-control mb-4", id: "release-signature", required: true %>
+            <label for="release-signature">Type Your Name to Represent Your Signature</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+
+        <div class="col-12 col-sm-4">
+          <div class="md-form">
+            <%= f.text_field :release_signature_date, class: "form-control datepicker", id: "release_signature_date" %>
+            <label for="release_signature_date">Date</label>
+          </div> <!-- md-form -->
+        </div> <!-- col -->
+      </div> <!-- row -->
+
+    </section> <!-- signatures -->
+
+
+
+  </div> <!-- form inputs -->
+
+
+
+  <div class="form-actions text-center pb-5 info-section">
+    <%= button_tag "Save for Later", type: 'submit', name: "application_status_id", value: 2, class: "btn btn-light" %>
+    <%= button_tag "Submit for Consideration", type: 'submit', name: "application_status_id", value: 3, class: "btn btn-primary" %>
   </div>
 <% end %>
 
@@ -98,31 +406,115 @@
 
 
 
+
+
 <script type="text/javascript">
   $(document).ready(function() {
-     $('#hardship').click(function() {
+
+    $('.datepicker').pickadate();
+
+    $('.info-section').hide();
+    $('.hardship-only').hide();
+    <% if @app_form.application_type == "Hardship" %>
+      $('.info-section').show();
+      $('.hardship-only').show();
+      $('.non-hardship').hide();
+    <% elsif @app_form.application_type == "Scholarship" %>
+      $('.info-section').show();
+      $('.non-hardship').show();
+    <% elsif @app_form.application_type == "Charity" %>
+      $('.info-section').show();
+      $('.non-hardship').show();
+    <% end %>
+
+    var clearHardshipFields = function() {
+      $("#for-other-email").val("");
+      $("#recipient-toca-email").val("");
+      $('#for_other').prop('checked', false);
+      $(".for-other-content").hide();
+      $("#bank_name").val("");
+      $("#bank_phone").val("");
+      $("#bank_address").val("");
+      $("#accident").prop('checked', false);
+      $("#catastrophe").prop('checked', false);
+      $("#counseling").prop('checked', false);
+      $("#family_emergency").prop('checked', false);
+      $("#health").prop('checked', false);
+      $("#memorial").prop('checked', false);
+      $("#other_hardship").prop('checked', false);
+      $("#app_form_other_hardship_description").val("");
+    };
+
+    var clearNonHardshipFields = function() {
+      $("#institution_contact").val("");
+      $("#institution_name").val("");
+      $("#institution_phone").val("");
+      $("#institution_address").val("");
+    };
+
+    $('#hardship').click(function() {
        $('.application-type-box').removeClass('active');
        $(this).addClass('active');
        $('#app_form_application_type').val('Hardship');
        $('.charity-field').addClass('hidden');
        $('.scholarship-field').addClass('hidden');
        $('.hardship-field').removeClass('hidden');
-     });
-     $('#scholarship').click(function() {
-       $('.application-type-box').removeClass('active');
-       $(this).addClass('active');
-       $('#app_form_application_type').val('Scholarship');
-       $('.hardship-field').addeClass('hidden');
-       $('.scholarship-field').addClass('hidden');
-       $('.charity-field').removeClass('hidden');
-     });
-     $('#charity').click(function() {
+       $('.info-section').show();
+       $('.hardship-only').show();
+       $('.non-hardship').hide();
+       clearNonHardshipFields();
+    });
+    $('#scholarship').click(function() {
+      $('.application-type-box').removeClass('active');
+      $(this).addClass('active');
+      $('#app_form_application_type').val('Scholarship');
+      $('.hardship-field').addClass('hidden');
+      $('.charity-field').addClass('hidden');
+      $('.scholarship-field').removeClass('hidden');
+      $('.non-hardship').show();
+      $('.hardship-only').hide();
+      clearHardshipFields();
+      $('.info-section').show();
+    });
+    $('#charity').click(function() {
        $('.application-type-box').removeClass('active');
        $(this).addClass('active');
        $('#app_form_application_type').val('Charity');
        $('.hardship-field').addClass('hidden');
-       $('.charity-field').addClass('hidden');
-       $('.scholarship-field').removeClass('hidden');
-     });
+       $('.charity-field').removeClass('hidden');
+       $('.scholarship-field').addClass('hidden');
+       $('.non-hardship').show();
+       $('.hardship-only').hide();
+       clearHardshipFields();
+       $('.info-section').show();
+    });
+
+    $(".for-other-content").hide();
+    var forOtherStuff = function() {
+      if( $("#for_other").is(':checked')) {
+          $(".for-other-content").show();
+      } else {
+          $(".for-other-content").hide();
+          $("#for-other-email").val("");
+          $("#recipient-toca-email").val("");
+      }
+    };
+    forOtherStuff();
+    $(".for_other").click(function() { forOtherStuff(); });
+
+    $(".loan-stuff").hide();
+    var loanStuff = function() {
+      if( $("#loan_preferred").is(':checked')) {
+          $(".loan-stuff").show();
+      } else {
+          $(".loan-stuff").hide();
+          $("#app_form_loan_preferred_description").val("");
+      }
+    };
+    loanStuff();
+    $("#loan_preferred").click(function() { loanStuff(); });
+
+
+
    });
 </script>

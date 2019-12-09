@@ -7,7 +7,7 @@
       <% @messages.each do |message| %>
         <h4 class="mb-0"><%= link_to message.subject, message_path(message) %></h4>
         <p>
-          <em>Regarding <%= link_to message_path(message) do %><%= message.ref_application_type.capitalize %> Application #<%= message.ref_application_id %><% end %></em>
+          <em>Regarding <%= link_to message_path(message) do %>Application #<%= message.ref_application_id %><% end %></em>
           <br>
           Original Message Sent by
           <strong>
@@ -33,9 +33,15 @@
 
     <% if @closed_messages.count != 0 %>
       <% @closed_messages.each do |message| %>
-        <h4 class="mb-0"><%= link_to message.subject, message_path(message) %></h4>
+        <h4 class="mb-0"><%= link_to message_path(message) do %>
+          <% if message.subject != "" && message.subject != nil %>
+            <%= message.subject %>
+          <% else %>
+            Message
+          <% end %>
+        <% end %></h4>
         <p>
-          <em>Regarding <%= message.ref_application_type.capitalize %> Application #<%= message.ref_application_id %></em>
+          <em>Regarding Application #<%= message.ref_application_id %></em>
         </p>
       <% end %>
     <% else %>

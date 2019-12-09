@@ -1,7 +1,7 @@
 <main class="my-5 container">
 
   <header class="text-center">
-    <h1 class="h3">Message Thread Regarding<br><%= @message.ref_application_type.capitalize %> Application #<%= @message.ref_application_id %></h1>
+    <h1 class="h3">Message Thread Regarding<br> Application #<%= fixed_digit_number(@message.ref_application_id) %></h1>
     <p class="mb-2">Re:  <%= @message.subject %></p>
     <% if @message.issue_closed %>
       <p class="color-toca-red">CLOSED</p>
@@ -10,6 +10,7 @@
         <%= link_to "Mark Message Closed", close_issue_path, method: :post, class: "btn btn-primary" %>
       <% end %>
     <% end %>
+    <%= link_to "Back to Application", app_form_path(AppForm.find(@message.ref_application_id)), class: "btn btn-primary" %>
   </header>
 
 

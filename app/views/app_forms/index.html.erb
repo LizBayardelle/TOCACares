@@ -1,121 +1,256 @@
-<p id="notice"><%= notice %></p>
+<main class="my-5 container-fluid px-5">
 
-<h1>App Forms</h1>
+  <header class="text-center pb-5">
+    <h1>All Applications</h1>
+  </header>
 
-<table>
-  <thead>
-    <tr>
-      <th>Application type</th>
-      <th>Full</th>
-      <th>Date</th>
-      <th>Position</th>
-      <th>Branch</th>
-      <th>Start date</th>
-      <th>Email non toca</th>
-      <th>Mobile</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>For other</th>
-      <th>For other email</th>
-      <th>Recipient toca email</th>
-      <th>Transfer pending</th>
-      <th>Bank name</th>
-      <th>Bank phone</th>
-      <th>Bank address</th>
-      <th>Institution name</th>
-      <th>Institution contact</th>
-      <th>Institution phone</th>
-      <th>Institution address</th>
-      <th>Requested amount</th>
-      <th>Self fund</th>
-      <th>Loan preferred</th>
-      <th>Loan preferred description</th>
-      <th>Description</th>
-      <th>Accident</th>
-      <th>Catastrophe</th>
-      <th>Counseling</th>
-      <th>Family emergency</th>
-      <th>Health</th>
-      <th>Memorial</th>
-      <th>Other hardship</th>
-      <th>Other hardship description</th>
-      <th>Intent signature</th>
-      <th>Intent signature date</th>
-      <th>Release signature</th>
-      <th>Release signature date</th>
-      <th>Approved</th>
-      <th>Denied</th>
-      <th>Returned</th>
-      <th>Closed</th>
-      <th>Application status</th>
-      <th>Final decision</th>
-      <th>Funding status</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @app_forms.each do |app_form| %>
-      <tr>
-        <td><%= app_form.application_type %></td>
-        <td><%= app_form.full %></td>
-        <td><%= app_form.date %></td>
-        <td><%= app_form.position %></td>
-        <td><%= app_form.branch %></td>
-        <td><%= app_form.start_date %></td>
-        <td><%= app_form.email_non_toca %></td>
-        <td><%= app_form.mobile %></td>
-        <td><%= app_form.address %></td>
-        <td><%= app_form.city %></td>
-        <td><%= app_form.state %></td>
-        <td><%= app_form.zip %></td>
-        <td><%= app_form.for_other %></td>
-        <td><%= app_form.for_other_email %></td>
-        <td><%= app_form.recipient_toca_email %></td>
-        <td><%= app_form.transfer_pending %></td>
-        <td><%= app_form.bank_name %></td>
-        <td><%= app_form.bank_phone %></td>
-        <td><%= app_form.bank_address %></td>
-        <td><%= app_form.institution_name %></td>
-        <td><%= app_form.institution_contact %></td>
-        <td><%= app_form.institution_phone %></td>
-        <td><%= app_form.institution_address %></td>
-        <td><%= app_form.requested_amount %></td>
-        <td><%= app_form.self_fund %></td>
-        <td><%= app_form.loan_preferred %></td>
-        <td><%= app_form.loan_preferred_description %></td>
-        <td><%= app_form.description %></td>
-        <td><%= app_form.accident %></td>
-        <td><%= app_form.catastrophe %></td>
-        <td><%= app_form.counseling %></td>
-        <td><%= app_form.family_emergency %></td>
-        <td><%= app_form.health %></td>
-        <td><%= app_form.memorial %></td>
-        <td><%= app_form.other_hardship %></td>
-        <td><%= app_form.other_hardship_description %></td>
-        <td><%= app_form.intent_signature %></td>
-        <td><%= app_form.intent_signature_date %></td>
-        <td><%= app_form.release_signature %></td>
-        <td><%= app_form.release_signature_date %></td>
-        <td><%= app_form.approved %></td>
-        <td><%= app_form.denied %></td>
-        <td><%= app_form.returned %></td>
-        <td><%= app_form.closed %></td>
-        <td><%= app_form.application_status %></td>
-        <td><%= app_form.final_decision %></td>
-        <td><%= app_form.funding_status %></td>
-        <td><%= app_form.user %></td>
-        <td><%= link_to 'Show', app_form %></td>
-        <td><%= link_to 'Edit', edit_app_form_path(app_form) %></td>
-        <td><%= link_to 'Destroy', app_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+  <section id="application-sorter">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs md-tabs nav-justified bg-toca-red" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active color-white" data-toggle="tab" href="#open-apps" role="tab">
+          Open Applications (<%= @all_open.count %>)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link color-white" data-toggle="tab" href="#closed-apps" role="tab">
+          Closed Applications (<%= @all_closed.count %>)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link color-white" data-toggle="tab" href="#apps-by-user" role="tab">
+          Applications by User (<%= @app_forms.count %>)</a>
+      </li>
+    </ul>
+    <!-- Nav tabs -->
 
-<%= link_to 'New App Form', new_app_form_path %>
+    <!-- Tab panels -->
+    <div class="tab-content">
+
+
+
+
+      <!-- Panel 1 -->
+      <div class="tab-pane fade in show active" id="open-apps" role="tabpanel">
+
+        <!-- Nav tabs -->
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="nav md-pills pills-primary flex-column" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#all-apps" role="tab">
+                  All Open Apps (<%= @open.count %>)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#active-apps" role="tab">
+                  Active and Undecided (<%= @active.count %>)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#returned-for-modifications" role="tab">
+                  Returned for Modifications (<%= @returned_for_modifications.count %>)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#abandoned-apps" role="tab">
+                  Inactive for 30+ Days (<%= @abandoned.count %>)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#dedided-apps" role="tab">
+                  Decision Reached (<%= @decided.count %>)
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-9">
+            <!-- Tab panels -->
+            <div class="tab-content vertical">
+
+              <!-- Panel 0 -->
+              <div class="tab-pane fade in show active" id="all-apps" role="tabpanel">
+                <% @open.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 0 -->
+
+              <!-- Panel 1 -->
+              <div class="tab-pane fade" id="active-apps" role="tabpanel">
+                <% @active.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 1 -->
+
+              <!-- Panel 2 -->
+              <div class="tab-pane fade" id="returned-for-modifications" role="tabpanel">
+                <% @returned_for_modifications.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 2 -->
+
+              <!-- Panel 3 -->
+              <div class="tab-pane fade" id="abandoned-apps" role="tabpanel">
+                <% @abandoned.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 3 -->
+
+              <!-- Panel 4 -->
+              <div class="tab-pane fade" id="decided-apps" role="tabpanel">
+                <% @decided.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 4 -->
+
+            </div>
+          </div>
+        </div>
+        <!-- Nav tabs -->
+
+      </div> <!-- Panel 1 -->
+
+
+
+
+
+      <!-- Panel 2 -->
+      <div class="tab-pane fade" id="closed-apps" role="tabpanel">
+
+        <!-- Nav tabs -->
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="nav md-pills pills-primary flex-column" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#funded-and-closed" role="tab">
+                  Funded (<%= @funded_and_closed.count %>)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#declined-and-closed" role="tab">
+                  Declined (<%= @declined_and_closed.count %>)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#abandoned-and-closed" role="tab">
+                  Abandoned (<%= @abandoned_and_closed.count %>)
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-9">
+            <!-- Tab panels -->
+            <div class="tab-content vertical">
+
+              <!-- Panel 1 -->
+              <div class="tab-pane fade in show active" id="funded-and-closed" role="tabpanel">
+                <% @funded_and_closed.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 1 -->
+
+              <!-- Panel 2 -->
+              <div class="tab-pane fade" id="declined-and-closed" role="tabpanel">
+                <% @declined_and_closed.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 2 -->
+
+              <!-- Panel 3 -->
+              <div class="tab-pane fade" id="abandoned-and-closed" role="tabpanel">
+                <% @abandoned_and_closed.each do |app| %>
+                  <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                <% end %>
+              </div>
+              <!-- Panel 3 -->
+
+            </div>
+          </div>
+        </div>
+        <!-- Nav tabs -->
+
+
+      </div> <!-- Panel 2 -->
+
+
+
+      <!-- Panel 3 -->
+      <div class="tab-pane fade" id="apps-by-user" role="tabpanel">
+
+        <!-- Nav tabs -->
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="nav md-pills pills-primary flex-column" role="tablist">
+
+              <% @users_with_apps = [] %>
+              <% AppForm.all.order("created_at DESC").each do |app| %>
+                <% unless @users_with_apps.include? User.find(app.user_id) %>
+                  <% @users_with_apps << User.find(app.user_id) %>
+                <% end %>
+              <% end %>
+
+              <% @users_with_apps.each do |user| %>
+
+                <% apps = [] %>
+                <% AppForm.all.order("created_at DESC").each do |app| %>
+                  <% if app.user_id == user.id %>
+                    <% apps << AppForm.find(app.id) %>
+                  <% end %>
+                <% end %>
+
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#<% user.id %>-panel" role="tab">
+                    Member #<%= fixed_digit_number(user.id) %> (<%= apps.count %>)
+                  </a>
+                </li>
+              <% end %>
+
+            </ul>
+          </div>
+          <div class="col-md-9">
+            <!-- Tab panels -->
+            <div class="tab-content vertical">
+
+              <% @users_with_apps.each do |user| %>
+                <% apps = [] %>
+                <% AppForm.all.order("created_at DESC").each do |app| %>
+                  <% if app.user_id == user.id %>
+                    <% apps << AppForm.find(app.id) %>
+                  <% end %>
+                <% end %>
+
+                <!-- Panel 1 -->
+                <div class="tab-pane fade" id="<% user.id %>-panel" role="tabpanel">
+                  <% apps.each do |app| %>
+                    <%= render partial: "app_forms/app_line", locals: {application: app} %>
+                  <% end %>
+                </div>
+                <!-- Panel 1 -->
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+        <!-- Nav tabs -->
+
+      </div> <!-- Panel 3 -->
+
+
+
+    </div> <!-- Tab panels -->
+  </section> <!-- application-sorter -->
+
+
+
+
+  <section>
+  </section> <!--  -->
+
+</main>

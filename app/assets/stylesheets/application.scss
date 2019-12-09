@@ -55,7 +55,8 @@ $transparent-green: rgba(205, 220, 41, .7);
 .bg-white { background-color: white !important; }
 .bg-transparent-white { background-color: $transparent-white; }
 
-
+.hr-red { border-top: 1px solid $color-toca-red; }
+.pills-primary .nav-link.active { background-color: $color-toca-green; color: black !important; }
 
 
 
@@ -99,9 +100,9 @@ h5 a {
 }
 
 /* LARGE SCREEN FONTS */
-@media (min-width: 1140px) {
+@media (min-width: 1500px) {
   h1 { font-size: 3.5em; }
-  p, li { font-size: 1.5rem; font-weight: 300 !important; line-height: 1.3; }
+  p, li { font-size: 1.2rem; font-weight: 300 !important; line-height: 1.3; }
   .card .card-body .card-text { font-size: 1.2rem; font-weight: 300 }
 }
 
@@ -141,7 +142,7 @@ html { scroll-behavior: smooth; }
 
 img { max-width: 100%; }
 
-.startHidden { display: none; }
+.hidden, .startHidden { display: none; }
 
 .alert { margin-bottom: 0px; }
 .alert-success { color: $color-dark-grey; background-color: $transparent-green; border-color: $transparent-green;}
@@ -177,8 +178,6 @@ img { max-width: 100%; }
 
 
 
-
-
 /*-----------------------------
 -------------------------------
 -------------INDEX-------------
@@ -186,16 +185,16 @@ img { max-width: 100%; }
 -------------------------------
 -----------------------------*/
 
-.three-callout-jarallax { height: 1700px; }
+.three-callout-jarallax { height: 2200px; }
 .three-callout-image { height: 250px }
 
-@media (min-width: 540px) {
-  .three-callout-jarallax { height: 1200px; }
+@media (min-width: 567px) {
+  .three-callout-jarallax { height: 1300px; }
   .three-callout-image { height: 325px }
 }
 
-@media (min-width: 1140px) {
-  .three-callout-jarallax { height: 1200px; }
+@media (min-width: 1200px) {
+  .three-callout-jarallax { height: 1100px; }
   .three-callout-image { height: 325px }
 }
 

@@ -13,7 +13,7 @@
       Dear <%= @application.full_name %>,
     </p>
 
-    <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
+    <% vote = Vote.where(application_type: "AppForm", application_id: @application.id, seconded: true).first %>
     <% if @application.final_decision == "Approved with Modifications" %>
       <p>
         We are delighted to inform you that your application to TOCA Cares has been approved with the following modifications:

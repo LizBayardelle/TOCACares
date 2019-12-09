@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :app_forms
   get 'home/index'
   root 'home#index'
   get 'home/pending'
@@ -8,6 +7,11 @@ Rails.application.routes.draw do
   get 'home/messages'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
+
+  resources :app_forms
+  post "app_forms/:id/withdraw_app_form" => "app_forms#withdraw_app_form", as: "withdraw_app_form"
+  post "app_forms/:id/close_application" => "app_forms#close_application", as: "close_application"
+  post "app_forms/:id/funding_completed" => "app_forms#funding_completed", as: "funding_completed"
 
   resources :users, only: [:show, :index]
   post "users/:id/authorize_user" => "users#authorize_user", as: "authorize_user"

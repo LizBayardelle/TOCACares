@@ -1,0 +1,70 @@
+<div class="my-3 py-2 px-4 z-depth-1">
+  <h5 class="mt-2 mb-0 pb-0 h5">
+    <%= link_to application do %>
+      <%= application.application_type %> #<%= fixed_digit_number(application.id) %>
+      <% if application.closed %> (CLOSED)<% end %>
+      <% if application.application_status_id == 3 %>
+        <% unless application.user_id == current_user.id %>
+          <% if current_user.committee %>
+            <% if Vote.where(application_id: application.id, user_id: current_user.id).count == 0 %>
+              <span class="badge badge-primary bg-toca-red">Needs Your Vote</span>
+            <% else %>
+              <% vote = Vote.where(application_id: application.id, user_id: current_user.id).last %>
+              <span class="badge badge-primary bg-toca-green color-black">
+                You Voted to
+                <% if vote.accept %>Accept
+                <% elsif vote.deny %>Deny
+                <% elsif vote.modify %>Modify
+                <% end %>
+              </span>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </h5>
+
+
+
+  <p class="mb-0">
+
+    Member: <strong>
+      #<%= fixed_digit_number(application.user_id) %>
+    </strong><br>
+
+    Application Date: <strong>
+      <%= application.date.strftime("%m/%d/%Y") %>
+    </strong><br>
+
+    Application Status: <strong>
+      <%= ApplicationStatus.find(application.application_status_id).status %>
+      <% if application.application_status_id == 5 %>
+        (<%= FinalDecision.find(application.final_decision_id).status %>)
+      <% end %>
+    </strong><br>
+
+    <% if application.final_decision_id == 4 || application.final_decision_id == 5 %>
+      Funding Status: <strong>
+        <%= FundingStatus.find(application.funding_status_id).status %>
+      </strong><br>
+    <% end %>
+
+  </p>
+
+
+
+  <div class="text-center my-3">
+    <% if application.application_status_id == 5 %>
+
+      <% if ( application.final_decision_id == 4 || application.final_decision_id == 5 ) && application.funding_status_id != 3 %>
+        <%= link_to "Mark Funding Completed", funding_completed_path(application), method: :post, class: "btn btn-secondary" %>
+      <% end %>
+
+      <% if application.closed == false %>
+        <%= link_to "Close Application", close_application_path(application), method: :post, class: "btn btn-primary" %>
+      <% end %>
+
+    <% end %>
+  </div>
+
+</div>

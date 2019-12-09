@@ -20,7 +20,7 @@ class MessagingMailer < ApplicationMailer
   def new_response_email(response)
     @response = response
     @message = Message.find(@response.message_id)
-    @application = eval("#{@message.ref_application_type.capitalize}").find(@message.ref_application_id)
+    @application = AppForm.find(@message.ref_application_id)
 
     if @response.user_id == @application.user.id
       mail(

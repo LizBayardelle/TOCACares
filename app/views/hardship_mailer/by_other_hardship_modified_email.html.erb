@@ -15,7 +15,7 @@
     <p>
       As you may or may not be aware, another employee has submitted a TOCA Cares hardship application on your behalf. We are delighted to be working with you, as TOCA Cares is about assisting valuable employees like you. After reviewing the application, it has been decided that we think you can help us with adjusting one or more details of the application. We recognize your genuine need, and we request you resubmit the application with the suggested changes in mind.
     </p>
-    <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
+    <% vote = Vote.where(application_type: "AppForm", application_id: @application.id, seconded: true).first %>
     <p>
       Here are the details from the Decision Committee on what revisions need to be made to your application:
       <ul>

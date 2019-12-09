@@ -1,0 +1,172 @@
+<div class="modal fade" id="editVoteModal-<%= vote.id %>" tabindex="-1" role="dialog" aria-labelledby="newModificationModal"
+  aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Vote on this Application</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= simple_form_for vote, class: "text-center py-4 mb-5" do |form| %>
+        <div class="modal-body">
+          <% if vote.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
+
+              <ul>
+              <% vote.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= form.hidden_field :application_type, value: "AppForm" %>
+            <%= form.hidden_field :application_id, value: @app_form.id %>
+          </div>
+
+          <div class="row">
+            <div class="field form-check text-left mb-4 col-sm-4">
+              <%= form.check_box :accept, class: "form-check-input decision-checkbox-#{ vote.id }", id: "accept-#{ vote.id }" %>
+              <%= form.label "Accept", class: "form-check-label", for: "accept-#{ vote.id }" %>
+            </div>
+            <div class="field form-check text-left mb-4 col-sm-4">
+              <%= form.check_box :modify, class: "form-check-input decision-checkbox-#{ vote.id }", id: "modify-#{ vote.id }" %>
+              <%= form.label "Modify", class: "form-check-label", for: "modify-#{ vote.id }" %>
+            </div>
+            <div class="field form-check text-left mb-4 col-sm-4">
+              <%= form.check_box :deny, class: "form-check-input decision-checkbox-#{ vote.id }", id: "deny-#{ vote.id }" %>
+              <%= form.label "Reject", class: "form-check-label", for: "deny-#{ vote.id }" %>
+            </div>
+          </div> <!-- row -->
+
+
+          <div class="row detail-row-<%= vote.id %>" id="modify-row-<%= vote.id %>" style="display: none;">
+            <div class="container">
+
+              <hr>
+
+              <div class="field">
+                <%= form.text_area :modification, class: "form-control mb-4 modification-text-#{ vote.id }", placeholder: "Describe your proposed modification." %>
+              </div>
+              <div class="field form-check text-left mb-4">
+                <%= form.check_box :suggest_loan, class: "form-check-input", id: "suggest_loan-#{ vote.id }" %>
+                <%= form.label "Recommend a loan in place of or as well as a grant", class: "form-check-label", for: "suggest_loan-#{ vote.id }" %>
+              </div>
+              <div class="field" id="describe_loan_field-<%= vote.id %>" style="display: none;">
+                <%= form.text_area :describe_loan, class: "form-control mb-4 modification-text-#{ vote.id }", placeholder: "Describe the loan.  (e.g. Loan instead of grant, Grant of $300 with an additional $300 loan, etc.)" %>
+              </div>
+            </div> <!-- container -->
+          </div> <!-- modify row -->
+
+
+          <div class="row detail-row-<%= vote.id %>" id="deny-row-<%= vote.id %>" style="display: none;">
+            <div class="container">
+
+                <hr>
+
+                <p>Please select at least one reason for denying this application:</p>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_fund_overuse, class: "form-check-input", id: "denial_fund_overuse-#{ vote.id }" %>
+                  <%= form.label "Overuse of Fund / Not Enough Time Between Applications", class: "form-check-label", for: "denial_fund_overuse-#{ vote.id }" %>
+                </div>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_not_qualify, class: "form-check-input", id: "denial_not_qualify-#{ vote.id }" %>
+                  <%= form.label "Need does not qualify", class: "form-check-label", for: "denial_not_qualify-#{ vote.id }" %>
+                </div>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_unreasonable_request, class: "form-check-input", id: "denial_unreasonable_request-#{ vote.id }" %>
+                  <%= form.label "Unreasonable request", class: "form-check-label", for: "denial_unreasonable_request-#{ vote.id }" %>
+                </div>
+
+                <div class="field form-check text-left mb-4">
+                  <%= form.check_box :denial_other, class: "form-check-input", id: "denial_other-#{ vote.id }" %>
+                  <%= form.label "Other reason for denial (please describe)", class: "form-check-label", for: "denial_other-#{ vote.id }" %>
+                </div>
+
+                <div class="field" id="denial_other_description_field-<%= vote.id %>" style="display: none;">
+                  <%= form.text_area :denial_other_description, class: "form-control mb-4", placeholder: "Describe the reason for denying this application." %>
+                </div>
+
+
+            </div> <!-- container -->
+          </div> <!-- modify row -->
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <div class="actions">
+          <%= form.button :submit, "Cast My Vote", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>  <!-- end of form -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+  $(document).ready(function() {
+    $('.decision-checkbox-<%= vote.id %>').on('change', function() {
+      $('.decision-checkbox-<%= vote.id %>').not(this).prop('checked', false);
+      $('.detail-row-<%= vote.id %>').hide();
+    });
+    $('#accept-<%= vote.id %>').change(function() {
+      if($(this).prop("checked")) {
+        $('.reject-checkbox-<%= vote.id %>').prop('checked', false);
+        $('.denial-text-<%= vote.id %>').val("");
+        $('#suggest_loan-<%= vote.id %>').prop('checked', false);
+        $('.modification-text-<%= vote.id %>').val("");
+      }
+    });
+    $('#modify-<%= vote.id %>').change(function() {
+      if($(this).prop("checked")) {
+        $('.detail-row-<%= vote.id %>').hide();
+        $('#modify-row-<%= vote.id %>').show();
+        $('.reject-checkbox-<%= vote.id %>').prop('checked', false);
+        $('.denial-text-<%= vote.id %>').val("");
+      } else {
+        $('#modify-row-<%= vote.id %>').hide();
+      }
+    });
+    $('#deny-<%= vote.id %>').change(function() {
+      if($(this).prop("checked")) {
+        $('.detail-row-<%= vote.id %>').hide();
+        $('#deny-row-<%= vote.id %>').show();
+        $('#suggest_loan-<%= vote.id %>').prop('checked', false);
+        $('.modification-text-<%= vote.id %>').val("");
+      } else {
+        $('#deny-row-<%= vote.id %>').hide();
+      }
+    });
+    $('#suggest_loan-<%= vote.id %>').change(function() {
+      if($(this).prop("checked")) {
+        $('#describe_loan_field-<%= vote.id %>').show();
+      } else {
+        $('#describe_loan_field-<%= vote.id %>').hide();
+      }
+    });
+    $('#denial_other-<%= vote.id %>').change(function() {
+      if($(this).prop("checked")) {
+        $('#denial_other_description_field-<%= vote.id %>').show();
+      } else {
+        $('#denial_other_description_field-<%= vote.id %>').hide();
+      }
+    });
+  });
+</script>

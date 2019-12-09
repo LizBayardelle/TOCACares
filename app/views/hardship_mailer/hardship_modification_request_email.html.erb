@@ -15,7 +15,7 @@
     <p>
       Thank you for your application. After careful consideration, it has been decided that one or more details of your application need adjustment. We recognize your genuine need and we request you see below for details from the Decision Committee on what modifications have been suggested for your application:
     </p>
-    <% vote = Vote.where(application_type: @application.application_type, application_id: @application.id, seconded: true).first %>
+    <% vote = Vote.where(application_type: "AppForm", application_id: @application.id, seconded: true).first %>
     <p>
       Here are the modifications requested:
       <ul>

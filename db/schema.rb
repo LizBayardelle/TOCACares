@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_11_163012) do
+ActiveRecord::Schema.define(version: 2019_11_24_165555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "app_forms", force: :cascade do |t|
     t.string "application_type"
-    t.string "full"
+    t.string "full_name"
     t.date "date"
     t.string "position"
     t.string "branch"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_11_11_163012) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "submitted", default: false
     t.index ["application_status_id"], name: "index_app_forms_on_application_status_id"
     t.index ["final_decision_id"], name: "index_app_forms_on_final_decision_id"
     t.index ["funding_status_id"], name: "index_app_forms_on_funding_status_id"

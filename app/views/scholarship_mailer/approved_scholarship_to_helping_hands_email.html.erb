@@ -31,7 +31,7 @@
       <p><strong>Amount Approved: </strong><%= number_to_currency(@application.requested_amount, unit: "$") %></p>
       <p><strong>Amount Applicant Can Pay: </strong><%= number_to_currency(@application.self_fund, unit: "$") %></p>
       <% if @application.loan_preferred %><p><strong>Loan Preferred: </strong>Yes</p><% end %>
-      <p><strong>Description of Scholarship: </strong><%= @application.scholarship_description %></p>
+      <p><strong>Description of Scholarship: </strong><%= @application.description %></p>
     </div> <!-- box -->
 
     <p>

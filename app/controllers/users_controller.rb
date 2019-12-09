@@ -6,46 +6,27 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @scholarships = Scholarship.where(user_id: @user.id)
-    @hardships = Hardship.where(user_id: @user.id)
-    @charities = Charity.where(user_id: @user.id)
+    @applications = AppForm.where(user_id: @user.id).order("created_at DESC")
 
     @my_sent_messages = Message.where(user_id: current_user.id, issue_closed: false).order("created_at DESC")
     @to_me_messages = Message.where(from_user_id: current_user.id, issue_closed: false).order("created_at DESC")
     @my_total_messages = [@my_sent_messages, @to_me_messages].flatten
 
     @need_votes = 0
-    @scholarship_vote_needed = Scholarship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(user_id: current_user.id)
-    @scholarship_vote_needed.each do |app|
-      unless Vote.where(application_type: "scholarship", application_id: app.id, user_id: current_user.id).count != 0
-        @need_votes += 1
-      end
-    end
-    @hardship_vote_needed = Hardship.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(user_id: current_user.id)
-    @hardship_vote_needed.each do |app|
-      unless Vote.where(application_type: "hardship", application_id: app.id, user_id: current_user.id).count != 0
-        @need_votes += 1
-      end
-    end
-    @charity_vote_needed = Charity.where(status: "Submitted to Committee", final_decision: "Not Decided").where.not(user_id: current_user.id)
-    @charity_vote_needed.each do |app|
-      unless Vote.where(application_type: "charity", application_id: app.id, user_id: current_user.id).count != 0
+    @vote_needed = AppForm.where(application_status_id: 3, final_decision_id: 1, submitted: true).where.not(user_id: current_user.id)
+    @vote_needed.each do |app|
+      unless Vote.where(application_type: "AppForm", application_id: app.id, user_id: current_user.id).count != 0
         @need_votes += 1
       end
     end
 
     @questions = Question.where(answered: false)
-
     @committee_requests = User.where(committee_request: "Requested")
-
     @testimonials = Testimonial.where(approved: false)
-
-    @open_hardships = Hardship.where(closed: false, status: "Decision Reached")
-    @open_scholarships = Scholarship.where(closed: false, status: "Decision Reached")
-    @open_charities = Charity.where(closed: false, status: "Decision Reached")
-    @open_applications = [@open_scholarships, @open_hardships, @open_charities].flatten
-
     @open_message_threads = Message.where(issue_closed: false)
+
+    @open_applications = AppForm.where(closed: false, application_status_id: 5)
+
   end
 
   def index

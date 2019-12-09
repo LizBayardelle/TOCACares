@@ -1,6 +1,11 @@
-<h1>Editing App Form</h1>
+<main class="mt-5">
+  <div class="container">
 
-<%= render 'form', app_form: @app_form %>
+    <h1 class="text-center">Edit My <%= @app_form.application_type %> Application</h1>
 
-<%= link_to 'Show', @app_form %> |
-<%= link_to 'Back', app_forms_path %>
+    <hr class="hr-red mt-4 mb-5">
+
+    <%= render 'form', app_form: @app_form %>
+
+  </div> <!-- container -->
+</main>

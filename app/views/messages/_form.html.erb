@@ -11,16 +11,16 @@
 
 
     <div class="form-group md-form col-12"
-      <p><strong>New Message Regarding: </strong><%= params[:ref_application_type].capitalize + " Application #" + params[:ref_application_id] %></p>
+      <p><strong>New Message Regarding: </strong><%= " Application #" + params[:ref_application_id] %></p>
     </div> <!-- form group -->
 
     <div class="form-group md-form col-12"
       <%= f.label "Subject" %>
-      <%= f.text_field :subject, class: "form-control" %>
+      <%= f.text_field :subject, class: "form-control", required: true %>
     </div> <!-- form group -->
     <div class="form-group md-form col-12"
       <%= f.label "Message" %>
-      <%= f.text_area :message, class: "form-control" %>
+      <%= f.text_area :message, class: "form-control", required: true %>
     </div> <!-- form group -->
 
   </div>
