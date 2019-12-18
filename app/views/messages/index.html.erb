@@ -41,7 +41,7 @@
           <% end %>
         <% end %></h4>
         <p>
-          <em>Regarding Application #<%= message.ref_application_id %></em>
+          <em>Regarding <%= link_to message_path(message) do %>Application #<%= message.ref_application_id %><% end %></em>
         </p>
       <% end %>
     <% else %>
