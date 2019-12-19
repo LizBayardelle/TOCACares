@@ -278,8 +278,11 @@
 
                   <h3 class="toca-uppercase color-toca-red">Returned with Changes</h3>
                   <p class="color-dark-grey">
-                    This application has been returned to the applicant with suggested modifications.
+                    This application has been returned to the applicant with the following suggested modifications:
                   </p>
+                  <p><strong>
+                    <%= @seconded_vote.modification %>
+                  </strong></p>
                   <p class="color-dark-grey">
                     The applicant can accept the modifications or edit the application and resubmit it for committee consideration again.
                   </p>
