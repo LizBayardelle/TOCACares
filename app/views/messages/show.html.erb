@@ -23,8 +23,10 @@
     <h2 class="h4 color-toca-red toca-uppercase">Original Message</h2>
     <p>
       <strong>
-        <% if User.find(@message.user_id).admin || User.find(@message.user_id).committee %>
-          TOCA Cares:
+        <% if @message.user.committee %>
+          TOCA Cares Committee Member:
+        <% elsif @message.user.admin %>
+          TOCA Cares Admin:
         <% else %>
           Applicant:
         <% end %>
@@ -45,8 +47,10 @@
       <% Response.where(message_id: @message.id).each do |response| %>
         <p class="mb-1">
           <strong>
-            <% if User.find(response.user_id).admin || User.find(response.user_id).committee %>
-              TOCA Cares:
+            <% if User.find(response.user_id).committee %>
+              TOCA Cares Committee Member:
+            <% elsif User.find(response.user_id).admin %>
+              TOCA Cares Admin:
             <% else %>
               Applicant:
             <% end %>
@@ -67,16 +71,7 @@
   <% if @message.issue_closed %>
     <hr>
     <section class="text-center pb-5">
-      <% if @message.ref_application_type == "hardship" %>
-        <%= link_to "Back to Application", hardship_path(@message.ref_application_id), class: "btn btn-light" %>
-      <% elsif @message.ref_application_type == "charity" %>
-        <%= link_to "Back to Application", charity_path(@message.ref_application_id), class: "btn btn-light" %>
-      <% elsif @message.ref_application_type == "scholarship" %>
-        <%= link_to "Back to Application", scholarship_path(@message.ref_application_id), class: "btn btn-light" %>
-      <% end %>
-      <% if current_user.admin || current_user.committee %>
-        <%= link_to "Back to Open Messages Page", messages_path, class: "btn btn-light" %>
-      <% end %>
+      <%= link_to "Back to Application", app_form_path(AppForm.find(@message.ref_application_id)), class: "btn btn-primary" %>
     </section>
   <% end %>
 
