@@ -307,49 +307,45 @@
                   <p class="color-dark-grey">
                     Seconding a proposed vote will remove this application from consideration and send it back to the applicant for revision.
                   </p>
-                  <table>
-                    <% @votes.each do |vote| %>
-                      <tr>
-                        <td style="vertical-align: top">
-                          <% if vote.user_id == current_user.id %>
-                            <button type="button" class="btn btn-sm mr-3 btn-light" data-toggle="modal" data-target="#editVoteModal-<%= vote.id %>">
-                              Change My Vote
-                            </button>
-                            <%= render partial: "app_forms/vote_modal", locals: { vote: vote } %>
-                          <% else %>
-                            <%= button_to "Second This Vote", second_vote_path(vote), class: "btn btn-sm mr-3 btn-secondary" %>
+                  <% @votes.each do |vote| %>
+                    <div class="col-12 col-xl-3">
+                        <% if vote.user_id == current_user.id %>
+                          <button type="button" class="btn btn-sm mr-3 btn-light" data-toggle="modal" data-target="#editVoteModal-<%= vote.id %>">
+                            Change My Vote
+                          </button>
+                          <%= render partial: "app_forms/vote_modal", locals: { vote: vote } %>
+                        <% else %>
+                          <%= button_to "Second This Vote", second_vote_path(vote), class: "btn btn-sm mr-3 btn-secondary" %>
+                        <% end %>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <% if vote.accept %>
+                          <strong>Approve As Is</strong>
+                        <% elsif vote.modify %>
+                          <strong>Request Modifications</strong>
+                          <br><%= vote.modification %>
+                          <% if vote.suggest_loan %>
+                            <br>Loan Suggested: <%= vote.describe_loan %>
                           <% end %>
-                        </td>
-                        <td style="vertical-align: top; padding: 10px">
-                          <% if vote.accept %>
-                            <strong>Approve As Is</strong>
-                          <% elsif vote.modify %>
-                            <strong>Request Modifications</strong>
-                            <br><%= vote.modification %>
-                            <% if vote.suggest_loan %>
-                              <br>Loan Suggested: <%= vote.describe_loan %>
-                            <% end %>
-                          <% elsif vote.deny %>
-                            <strong>Deny Application</strong>
-                            <% denial_reasons_array = [] %>
-                            <% if vote.denial_fund_overuse %>
-                              <% denial_reasons_array << "Overuse of Fund/Not Enough Time Between Applications" %>
-                            <% end %>
-                            <% if vote.denial_not_qualify %>
-                              <% denial_reasons_array << "Need Doesn't Qualify" %>
-                            <% end %>
-                            <% if vote.denial_unreasonable_request %>
-                              <% denial_reasons_array << "Unreasonable Request" %>
-                            <% end %>
-                            <% if vote.denial_other %>
-                              <% denial_reasons_array << "Other: " + vote.denial_other_description %>
-                            <% end %>
-                            <br><%= denial_reasons_array.join("<br>").html_safe %>
+                        <% elsif vote.deny %>
+                          <strong>Deny Application</strong>
+                          <% denial_reasons_array = [] %>
+                          <% if vote.denial_fund_overuse %>
+                            <% denial_reasons_array << "Overuse of Fund/Not Enough Time Between Applications" %>
                           <% end %>
-                        <td>
-                      </tr>
-                    <% end %>
-                  </table>
+                          <% if vote.denial_not_qualify %>
+                            <% denial_reasons_array << "Need Doesn't Qualify" %>
+                          <% end %>
+                          <% if vote.denial_unreasonable_request %>
+                            <% denial_reasons_array << "Unreasonable Request" %>
+                          <% end %>
+                          <% if vote.denial_other %>
+                            <% denial_reasons_array << "Other: " + vote.denial_other_description %>
+                          <% end %>
+                          <br><%= denial_reasons_array.join("<br>").html_safe %>
+                        <% end %>
+                    <div>
+                  <% end %>
                 <% else %>
                   <p class="text-center">This application doesn't have any votes yet.</p>
                 <% end %>
