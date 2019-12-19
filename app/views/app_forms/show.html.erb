@@ -95,8 +95,8 @@
             <div class="row">
               <div class="col-12 text-center">
                 <p>
-                  Submitted by <strong><%= @app_form.full_name %></strong> on <strong><%= @app_form.date.strftime("%m/%d/%Y") %></strong><br>
-                  <strong><%= @app_form.position %></strong> at <strong><%= @app_form.branch %></strong> (since <strong><%= @app_form.start_date.strftime("%m/%d/%Y") %></strong>)
+                  Submitted by <strong><%= @app_form.full_name %></strong><% if @app_form.date %> on <strong><%= @app_form.date.strftime("%m/%d/%Y") %><% end %></strong><br>
+                  <strong><%= @app_form.position %></strong> at <strong><%= @app_form.branch %></strong><% if @app_form.start_date %> (since <strong><%= @app_form.start_date.strftime("%m/%d/%Y") %><% end %></strong>)
                 </p>
               </div> <!-- col -->
               <div class="col-12 col-sm-6">
