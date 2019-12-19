@@ -10,6 +10,7 @@
         <table class="table table-hover table-sm">
           <thead class="bg-toca-red">
             <tr>
+              <th scope="col">#</th>
               <th scope="col">Date</th>
               <th scope="col">Category</th>
               <th scope="col">Event</th>
@@ -25,6 +26,7 @@
               <% if log.created_at >= Date.parse("December 19 2019") %>
 
               <tr>
+                <td><%= log.id %></td>
                 <td>
                   <em><%= log.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m/%d/%Y %k:%M PST") %></em>
                 </td>
