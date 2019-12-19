@@ -219,6 +219,7 @@
             <div class="tab-content vertical">
 
               <% @users_with_apps.each do |user| %>
+
                 <% apps = [] %>
                 <% AppForm.all.order("created_at DESC").each do |app| %>
                   <% if app.user_id == user.id %>
@@ -235,9 +236,9 @@
                 <!-- Panel 1 -->
               <% end %>
 
-            </div>
-          </div>
-        </div>
+            </div> <!-- tab content -->
+          </div> <!-- col -->
+        </div> <!-- row -->
         <!-- Nav tabs -->
 
       </div> <!-- Panel 3 -->

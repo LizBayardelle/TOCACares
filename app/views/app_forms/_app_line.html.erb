@@ -33,7 +33,11 @@
     </strong><br>
 
     Application Date: <strong>
-      <%= application.date.strftime("%m/%d/%Y") %>
+      <% if application.date %>
+        <%= application.date.strftime("%m/%d/%Y") %>
+      <% else %>
+        <%= application.created_at.strftime("%m/%d/%Y") %>
+      <% end %>
     </strong><br>
 
     Application Status: <strong>
