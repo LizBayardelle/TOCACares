@@ -4,7 +4,7 @@ class LogsController < ApplicationController
   before_action :admin_only, only: [:index]
 
   def index
-    @logs = Log.order(created_at: :desc).page(params[:page]).per(25)
+    @logs = Log.where(archived: false).order(created_at: :desc).page(params[:page]).per(25)
   end
 
 
@@ -73,7 +73,8 @@ class LogsController < ApplicationController
       :object_category,
       :object_id,
       :taken_by_user,
-      :user_id
+      :user_id,
+      :archived
     )
   end
 

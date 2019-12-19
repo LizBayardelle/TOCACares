@@ -283,6 +283,7 @@
                   <p><strong>
                     <%= @seconded_vote.modification %>
                   </strong></p>
+                  <% if @seconded_vote.suggest_loan %><p><strong>Loan Suggested:  </strong><%= @seconded_vote.describe_loan %><% end %>
                   <p class="color-dark-grey">
                     The applicant can accept the modifications or edit the application and resubmit it for committee consideration again.
                   </p>
