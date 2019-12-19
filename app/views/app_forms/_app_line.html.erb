@@ -32,6 +32,10 @@
       #<%= fixed_digit_number(application.user_id) %>
     </strong><br>
 
+    Amount Requested: <strong>
+      <%= number_to_currency(application.user_id, unit: "$") %>
+    </strong><br>
+
     Application Date: <strong>
       <% if application.date %>
         <%= application.date.strftime("%m/%d/%Y") %>
