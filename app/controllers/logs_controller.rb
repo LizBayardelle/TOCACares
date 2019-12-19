@@ -4,7 +4,8 @@ class LogsController < ApplicationController
   before_action :admin_only, only: [:index]
 
   def index
-    @logs = Log.order(created_at: :desc).page(params[:page]).per(25)
+    date = Date.parse("December 19 2019")
+    @logs = Log.where("created_at >= ?", date).order(created_at: :desc).page(params[:page]).per(25)
   end
 
 
