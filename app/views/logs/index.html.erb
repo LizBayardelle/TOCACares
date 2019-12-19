@@ -22,6 +22,8 @@
           <tbody>
 
             <% @logs.each do |log| %>
+              <% if log.created_at >= Date.parse("December 19 2019") %>
+
               <tr>
                 <td>
                   <em><%= log.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m/%d/%Y %k:%M PST") %></em>
@@ -78,7 +80,9 @@
                   <% end %>
                 </td>
               </tr>
-            <% end %>
+
+              <% end %> <!-- temporary if %>
+            <% end %> <!-- logs each -->
           </tbody>
         </table>
 
