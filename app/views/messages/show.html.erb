@@ -8,6 +8,7 @@
     <% else %>
       <% if current_user.admin || current_user.committee %>
         <%= link_to "Mark Message Closed", close_issue_path, method: :post, class: "btn btn-primary" %>
+        <%= link_to "Messages Homepage", messages_path,  class: "btn btn-primary" %>
       <% end %>
     <% end %>
     <%= link_to "Back to Application", app_form_path(AppForm.find(@message.ref_application_id)), class: "btn btn-primary" %>
@@ -23,9 +24,9 @@
     <h2 class="h4 color-toca-red toca-uppercase">Original Message</h2>
     <p>
       <strong>
-        <% if @message.user.committee %>
+        <% if User.find(@message.from_user_id).committee %>
           TOCA Cares Committee Member:
-        <% elsif @message.user.admin %>
+        <% elsif User.find(@message.from_user_id).admin %>
           TOCA Cares Admin:
         <% else %>
           Applicant:
