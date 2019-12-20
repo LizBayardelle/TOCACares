@@ -101,7 +101,7 @@
               <!-- Panel 3 -->
 
               <!-- Panel 4 -->
-              <div class="tab-pane fade" id="decided-apps" role="tabpanel">
+              <div class="tab-pane fade" id="dedided-apps" role="tabpanel">
                 <% @decided.each do |app| %>
                   <%= render partial: "app_forms/app_line", locals: {application: app} %>
                 <% end %>
@@ -206,7 +206,7 @@
                 <% end %>
 
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#<% user.id %>-panel" role="tab">
+                  <a class="nav-link" id="<%= user.id %>-panel-tab" data-toggle="tab" href="#<%= user.id %>-panel" role="tab" aria-controls="<%= user.id %>-panel">
                     Member #<%= fixed_digit_number(user.id) %> (<%= apps.count %>)
                   </a>
                 </li>
@@ -228,7 +228,7 @@
                 <% end %>
 
                 <!-- Panel 1 -->
-                <div class="tab-pane fade" id="<% user.id %>-panel" role="tabpanel">
+                <div class="tab-pane fade" id="<%= user.id %>-panel" role="tabpanel" aria-labelledby="<%= user.id %>-panel-tab">
                   <% apps.each do |app| %>
                     <%= render partial: "app_forms/app_line", locals: {application: app} %>
                   <% end %>

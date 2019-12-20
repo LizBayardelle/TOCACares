@@ -146,10 +146,10 @@
         <div class="bg-white p-3">
           <div class="row">
             <div class="col-12 col-sm-6">
-              <p>Requested Amount: <strong><%= number_to_currency(@app_form.requested_amount, unit: "$") %></strong></p>
+              <p class="mb-0">Requested Amount: <strong><%= number_to_currency(@app_form.requested_amount, unit: "$") %></strong></p>
             </div> <!-- col -->
             <div class="col-12 col-sm-6">
-              <p>Can Self-Fund: <strong><%= number_to_currency(@app_form.self_fund, unit: "$") %></strong></p>
+              <p class="mb-0">Can Self-Fund: <strong><%= number_to_currency(@app_form.self_fund, unit: "$") %></strong></p>
             </div> <!-- col -->
             <div class="col-12">
               <% if @app_form.loan_preferred %>
@@ -160,8 +160,8 @@
             <hr class="text-center w-50">
             <div class="col-12">
               <% if @app_form.application_type == "Hardship" %>
-                Bank Name: <strong><%= @app_form.bank_name %></strong>
-                Phone: <strong><%= @app_form.bank_phone %></strong>
+                Bank Name: <strong><%= @app_form.bank_name %></strong><br>
+                Phone: <strong><%= @app_form.bank_phone %></strong><br>
                 Address: <strong><%= @app_form.bank_address %></strong>
               <% else %>
                 <strong><%= @app_form.institution_name %></strong><br>
