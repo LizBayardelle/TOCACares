@@ -154,7 +154,7 @@
             <div class="col-12">
               <% if @app_form.loan_preferred %>
                 <p>This applicant would prefer a loan.</p>
-                <% if @app_form.loan_preferred_description != "" %><p>Loan Description: <strong><%= @app_form.loan_preferred_description %></strong></p><% end %>
+                <% if @app_form.loan_preferred_description %><p>Loan Description: <strong><%= @app_form.loan_preferred_description %></strong></p><% end %>
               <% end %>
             </div> <!-- col -->
             <hr class="text-center w-50">
