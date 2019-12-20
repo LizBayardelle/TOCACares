@@ -31,8 +31,7 @@ class HardshipMailer < ApplicationMailer
   def approved_hardship_to_helping_hands_email(application)
     @application = application
     mail(
-      to: "lizbayardelle@gmail.com",
-      # to: "missy@hhmin.org",
+      to: "missy@hhmin.org",
       subject: 'New TOCA Cares Hardship Funding'
     )
   end
