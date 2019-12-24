@@ -89,10 +89,10 @@ class VotesController < ApplicationController
     @application = AppForm.find(@vote.application_id)
 
     if current_user && @vote.user.id == current_user.id
-      redirect_back(fallback_location: home_pending_path)
+      redirect_back(fallback_location: app_forms_path)
       flash[:warning] = "Sorry, you cannot second a vote you submitted!"
     elsif current_user.id == @application.user_id
-      redirect_back(fallback_location: home_pending_path)
+      redirect_back(fallback_location: app_forms_path)
       flash[:warning] = "Sorry, you cannot second a vote on your own application."
     else
       ## UPDATE VOTE STATUSES

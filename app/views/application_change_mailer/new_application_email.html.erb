@@ -13,7 +13,7 @@
       Dear Committee Member,
     </p>
     <p>
-      A new <%= @application.application_type %> application has been submitted and is awaiting your vote.  Sign in <%= link_to "here", new_user_session_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> and you can <%= link_to "manage applications", home_pending_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> that need your consideration.
+      A new <%= @application.application_type.downcase %> application has been submitted and is awaiting your vote.  Sign in <%= link_to "here", new_user_session_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> and you can <%= link_to "manage applications", app_forms_url, style: "color: #EB0029; font-weight: 700; text-decoration: none" %> that need your consideration.
     </p>
     <p>
       From,
