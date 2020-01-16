@@ -2,6 +2,7 @@
 
   <header class="text-center">
     <h1 class="text-center">All Applications</h1>
+    <p><%= link_to "Back to My Account Page", user_path(current_user) %></p>
   </header>
 
   <section>
@@ -10,7 +11,7 @@
         <thead class="bg-toca-red white-text">
           <tr>
             <th scope="col">Date Created</th>
-            <th scope="col">Type</th>
+            <th scope="col">Application</th>
             <th scope="col">Applicant</th>
             <th scope="col">Amount</th>
             <th scope="col">Status</th>
@@ -20,7 +21,7 @@
           <% @app_forms.each do |application| %>
             <tr>
               <td><%= application.created_at.strftime("%m/%d/%Y") %></td>
-              <td><%= link_to application.application_type, app_form_path(application) %></td>
+              <td><%= link_to application.application_type + " #" + application.id.to_s, app_form_path(application) %></td>
               <td><%= application.user.full_name %></td>
               <td><%= number_to_currency(application.requested_amount, unit: "$") %></td>
               <td><%= ApplicationStatus.find(application.application_status_id).status %></td>
