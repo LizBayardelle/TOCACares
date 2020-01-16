@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'home/testimonials'
   get 'home/applications'
   get 'home/messages'
+  get 'home/all_applications'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 

@@ -1,9 +1,13 @@
 class HomeController < ApplicationController
-  before_action :admin_only, only: [:testimonials]
+  before_action :admin_only, only: [:testimonials, :all_applications]
   before_action :only_approved_users, only: [:applications]
   before_action :authenticate_user!, only: [:messages]
 
   def index
+  end
+
+  def all_applications
+    @app_forms = AppForm.order("created_at DESC")
   end
 
   def messages
