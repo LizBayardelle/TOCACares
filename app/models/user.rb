@@ -3,14 +3,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :charities
-  has_many :hardships
-  has_many :scholarships
-  has_many :testimonials
-  has_many :logs
-  has_many :messages
-  has_many :responses
-  has_many :app_forms
+  has_many :charities, dependent: :destroy
+  has_many :hardships, dependent: :destroy
+  has_many :scholarships, dependent: :destroy
+  has_many :testimonials, dependent: :destroy
+  has_many :logs, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :responses, dependent: :destroy
+  has_many :app_forms, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   # validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@tocafootball\.com\z/, message: "Please use your TOCA email address to register." }
 
