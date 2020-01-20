@@ -141,7 +141,7 @@
                 <td>
                   <%= link_to "Make Admin", make_admin_path(user), method: :post, confirm: "Are you sure you want to make this user an admin?" %><br>
                   <%= link_to "Add to Committee", make_committee_path(user), method: :post, confirm: "Are you sure you want to make this user a committee member?" %><br>
-                  <%= link_to "Delete User", registration_path(user), data: { confirm: "Are you sure you want to delete this user? This action cannot be undone and will delete all actions that have been taken by this user." }, method: :delete %>
+                  <%= link_to "Destroy", admin_destroy_user_path(user), method: :delete, data: { confirm: "You sure you want to delete that user? This will permanently delete their account and any records they may have created." } %>
                 </td>
               </tr>
             <% end %>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'home/all_applications'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
 
   resources :app_forms
   post "app_forms/:id/withdraw_app_form" => "app_forms#withdraw_app_form", as: "withdraw_app_form"

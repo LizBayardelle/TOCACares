@@ -13,6 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+
   def update
     super
     Log.create(category: "User Action", action: "User Updated Account Information", automatic: false, object: true, object_linkable: false, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: @user.id)

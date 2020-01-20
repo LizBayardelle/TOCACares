@@ -39,6 +39,18 @@ class UsersController < ApplicationController
     @committee_authorizations = Authorization.where(account_created: false, committee: true)
   end
 
+  def destroy
+    user = User.find(params[:id])
+    if current_user != user
+      if user.destroy
+        flash[:success] = "That user has been successfully deleted."
+      else
+        flash[:error] = "Sorry, there has been an error.  Please try your request again later."
+      end
+    end
+    redirect_to users_path
+  end
+
   def only_self
     @user = User.find(params[:id])
     unless current_user && @user.id == current_user.id
