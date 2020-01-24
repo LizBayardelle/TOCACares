@@ -86,6 +86,16 @@ class AppFormsController < ApplicationController
 
   def update
     @app_form.application_status_id = params[:application_status_id]
+
+    @app_form.returned = false
+    @app_form.approved = false
+    @app_form.denied = false
+
+    @votes = Vote.where(application_type: @app_form.application_type, application_id: @app_form.id)
+    @votes.each(&:destroy)
+
+    @app_form.final_decision_id = 1
+
     if @app_form.application_status_id == 3
       @app_form.submitted = true
     end
@@ -93,8 +103,6 @@ class AppFormsController < ApplicationController
     respond_to do |format|
       if @app_form.update(app_form_params)
         if @app_form.application_status_id == 3
-          @votes = Vote.where(application_type: @app_form.application_type, application_id: @app_form.id)
-          @votes.each(&:destroy)
           Log.create(category: "User Action", action: "Application Submitted", automatic: false, object: true, object_linkable: true, object_category: "AppForm", object_id: @app_form.id, taken_by_user: true, user_id: @app_form.user.id)
           if ApplicationChangeMailer.new_application_email(@app_form).deliver
             Log.create(category: "Email", action: "New Application Email Sent to Committee", automatic: true, object: true, object_linkable: true, object_category: "AppForm", object_id: @app_form.id, taken_by_user: false)
