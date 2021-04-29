@@ -1,5 +1,6 @@
 class AppFormsController < ApplicationController
   before_action :set_app_form, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
   after_action :empty_string_to_nil, only: [:update, :create]
   before_action :admin_or_committee_only, only: [:index]
 

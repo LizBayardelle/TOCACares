@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_19_185001) do
+ActiveRecord::Schema.define(version: 2020_02_24_184803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
   end
 
   create_table "charities", force: :cascade do |t|
+    t.string "application_type", default: "charity"
+    t.boolean "loan_preferred", default: false
     t.string "full_name"
     t.date "date"
     t.string "position"
@@ -114,14 +116,12 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.string "status", default: "Application Started"
     t.string "final_decision", default: "Not Decided"
     t.boolean "returned", default: false
+    t.boolean "approved", default: false
+    t.boolean "denied", default: false
+    t.boolean "closed", default: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "application_type", default: "charity"
-    t.boolean "loan_preferred", default: false
-    t.boolean "closed", default: false
-    t.boolean "denied", default: false
-    t.boolean "approved", default: false
     t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_charities_on_user_id"
   end
@@ -139,6 +139,10 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
   end
 
   create_table "hardships", force: :cascade do |t|
+    t.string "application_type", default: "hardship"
+    t.boolean "loan_preferred", default: false
+    t.boolean "for_other", default: false
+    t.string "for_other_email"
     t.string "full_name"
     t.date "date"
     t.string "position"
@@ -170,17 +174,13 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.date "release_signature_date"
     t.string "status", default: "Application Started"
     t.string "final_decision", default: "Not Decided"
+    t.boolean "approved", default: false
+    t.boolean "returned", default: false
+    t.boolean "denied", default: false
+    t.boolean "closed", default: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "returned", default: false
-    t.string "application_type", default: "hardship"
-    t.boolean "loan_preferred", default: false
-    t.boolean "for_other", default: false
-    t.string "for_other_email"
-    t.boolean "closed", default: false
-    t.boolean "denied", default: false
-    t.boolean "approved", default: false
     t.string "funding_status", default: "Not Applicable"
     t.string "recipient_toca_email"
     t.boolean "transfer_pending", default: false
@@ -192,13 +192,13 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.string "action"
     t.boolean "automatic", default: false
     t.boolean "object", default: false
+    t.boolean "object_linkable", default: false
     t.string "object_category"
     t.integer "object_id"
     t.boolean "taken_by_user", default: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "object_linkable", default: false
-    t.integer "user_id"
     t.boolean "archived", default: false
   end
 
@@ -246,6 +246,8 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
   end
 
   create_table "scholarships", force: :cascade do |t|
+    t.string "application_type", default: "scholarship"
+    t.boolean "loan_preferred", default: false
     t.string "full_name"
     t.date "date"
     t.string "position"
@@ -270,15 +272,13 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.date "release_signature_date"
     t.string "status", default: "Application Started"
     t.string "final_decision", default: "Not Decided"
+    t.boolean "approved", default: false
     t.boolean "returned", default: false
+    t.boolean "denied", default: false
+    t.boolean "closed", default: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "application_type", default: "scholarship"
-    t.boolean "loan_preferred", default: false
-    t.boolean "closed", default: false
-    t.boolean "denied", default: false
-    t.boolean "approved", default: false
     t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_scholarships_on_user_id"
   end
@@ -326,6 +326,18 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "variations", force: :cascade do |t|
+    t.bigint "app_form_id"
+    t.bigint "original_app_form_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["app_form_id", "original_app_form_id"], name: "index_variations_on_app_form_id_and_original_app_form_id", unique: true
+    t.index ["app_form_id"], name: "index_variations_on_app_form_id"
+    t.index ["original_app_form_id"], name: "index_variations_on_original_app_form_id"
+    t.index ["user_id"], name: "index_variations_on_user_id"
+  end
+
   create_table "votes", force: :cascade do |t|
     t.string "application_type"
     t.integer "application_id"
@@ -333,7 +345,7 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.boolean "modify", default: false
     t.text "modification"
     t.boolean "suggest_loan", default: false
-    t.text "describe_loan"
+    t.text "describe_loan", default: "f"
     t.boolean "deny", default: false
     t.boolean "denial_fund_overuse", default: false
     t.boolean "denial_not_qualify", default: false
@@ -342,10 +354,10 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
     t.boolean "denial_other", default: false
     t.text "denial_other_description"
     t.boolean "superseded", default: false
+    t.boolean "seconded", default: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "seconded", default: false
     t.boolean "modifications_accepted_by_applicant", default: false
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
@@ -361,5 +373,6 @@ ActiveRecord::Schema.define(version: 2019_12_19_185001) do
   add_foreign_key "responses", "users"
   add_foreign_key "scholarships", "users"
   add_foreign_key "testimonials", "users"
+  add_foreign_key "variations", "users"
   add_foreign_key "votes", "users"
 end

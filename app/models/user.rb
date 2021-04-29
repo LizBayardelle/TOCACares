@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :responses, dependent: :destroy
   has_many :app_forms, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :variations
 
   # validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@tocafootball\.com\z/, message: "Please use your TOCA email address to register." }
 

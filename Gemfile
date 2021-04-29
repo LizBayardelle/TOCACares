@@ -14,6 +14,7 @@ gem 'devise'
 gem 'sprockets-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'gon'
+gem 'sendgrid-ruby'
 
 gem 'mini_magick'
 gem 'aws-sdk' , '~> 3'
