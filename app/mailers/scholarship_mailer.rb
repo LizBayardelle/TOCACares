@@ -1,5 +1,5 @@
 class ScholarshipMailer < ApplicationMailer
-  default :from => "admin@tocacares.com"
+  default :from => "support@tocacares.com"
 
   def scholarship_accepted_email(application)
     @application = application

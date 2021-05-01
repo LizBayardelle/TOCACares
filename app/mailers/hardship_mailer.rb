@@ -1,5 +1,5 @@
 class HardshipMailer < ApplicationMailer
-  default :from => "admin@tocacares.com"
+  default :from => "support@tocacares.com"
 
   def hardship_accepted_email(application)
     @application = application

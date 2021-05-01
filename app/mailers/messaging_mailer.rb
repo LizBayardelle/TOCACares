@@ -1,6 +1,6 @@
 class MessagingMailer < ApplicationMailer
 
-  default :from => "admin@tocacares.com"
+  default :from => "support@tocacares.com"
 
   def new_message_email(message)
     @message = message

@@ -1,5 +1,5 @@
 class CharityMailer < ApplicationMailer
-  default :from => "admin@tocacares.com"
+  default :from => "support@tocacares.com"
 
   def charity_accepted_email(application)
     @application = application

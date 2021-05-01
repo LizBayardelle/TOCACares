@@ -195,7 +195,7 @@ class CharitiesController < ApplicationController
   def self_admin_or_committee_if_submitted
     unless (@charity.user.id == current_user.id) || (current_user.admin) || (current_user.committee && ( @charity.status == "Submitted to Committee" || @charity.status == "Decision Reached" ))
       redirect_back(fallback_location: root_path)
-      flash[:warning] = "Sorry, you cannot view that application at this time.  If you believe you have gotten this message in error, please contact the system administrator at admin@tocacares.com."
+      flash[:warning] = "Sorry, you cannot view that application at this time.  If you believe you have gotten this message in error, please contact the system administrator at support@tocacares.com."
     end
   end
 

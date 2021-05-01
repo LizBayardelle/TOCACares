@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'admin@tocacares.com'
+  default from: 'support@tocacares.com'
   layout 'mailer'
 end

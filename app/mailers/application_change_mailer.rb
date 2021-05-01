@@ -1,5 +1,5 @@
 class ApplicationChangeMailer < ApplicationMailer
-  default :from => "admin@tocacares.com"
+  default :from => "support@tocacares.com"
 
   def new_application_email(application)
     @application = application
