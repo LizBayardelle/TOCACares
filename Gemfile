@@ -20,7 +20,7 @@ gem 'mini_magick'
 gem 'aws-sdk' , '~> 3'
 gem 'aws-sdk-s3', require: false
 
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap', '~> 4.3.1'
 gem 'bootsnap'
 gem 'magnific-popup-rails', '~> 1.1.0'
 gem 'simple_form'
