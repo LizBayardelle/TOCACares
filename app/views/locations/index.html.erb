@@ -1,0 +1,28 @@
+<main class="mt-5">
+  <div class="container">
+
+    <header class="text-center">
+      <h1>Locations</h1>
+      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#locationModal">
+        Add New Location
+      </button>
+      <%= render partial: "locations/modal", locals: { location: Location.new } %>
+    </header>
+
+    <section>
+      <% @locations.each do |location| %>
+        <h3 style="display: inline-block"><%= location.name %></h3>
+        <p class="pl-2" style="display: inline-block">
+          <% if location.active == false %>(INACTIVE)<% end %>
+          <span style="display: inline-block" data-toggle="modal" data-target="#locationModal<%= location.id %>">
+            ✐
+          </span>
+          <%= link_to '✖️', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </p>
+        <br>
+        <%= render partial: "locations/modal", locals: { location: Location.find(location.id) } %>
+      <% end %>
+    </section>
+
+  </div> <!-- container -->
+</main>

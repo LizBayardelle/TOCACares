@@ -63,7 +63,7 @@
         <div class="row">
 
 
-          <div class="col-12">
+          <div class="col-12 col-sm-6 col-lg-4">
             <%= link_to app_forms_path, class: "btn btn-secondary my-3 btn-lg btn-block", style: "height: 67px" do %>
             <% if @open_applications.count != 0 %>
             <div class="bg-toca-red notification-bubble"><%= @open_applications.count %></div>
@@ -84,6 +84,12 @@
                 <div class="bg-toca-red notification-bubble"><%= @open_message_threads.count %></div>
               <% end %>
               Open Messages
+            <% end %>
+          </div> <!-- col -->
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <%= link_to locations_path, class: "btn btn-secondary my-3 btn-lg btn-block", style: "height: 67px" do %>
+              Center Locations Manager
             <% end %>
           </div> <!-- col -->
 

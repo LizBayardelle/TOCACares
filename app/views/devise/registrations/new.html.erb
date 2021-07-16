@@ -99,37 +99,11 @@
                 <small class="form-text text-muted mb-1">
                   Please select your TOCA location:
                 </small>
-                <%= f.input :location, label: false, input_html: {class: 'browser-default custom-select'}, collection: [
-                  ['TOCA Corporate', 'TOCA Corporate'],
-                  ['Orange County', 'Orange County'],
-                  ['Torrance', 'Torrance'],
-                  ['TOCA United Kingdom', 'TOCA United Kingdom'],
-                  ['Redmond', 'Redmond'],
-                  ['Lynnwood', 'Lynnwood'],
-                  ['Carrollton', 'Carrollton'],
-                  ['West Cobb', 'West Cobb'],
-                  ['Marietta', 'Marietta'],
-                  ['Perimeter', 'Perimeter'],
-                  ['TOCA Academy', 'TOCA Academy'],
-                  ['Goals Training Facility', 'Goals Training Facility'],
-                  ['Pasadena Soccer Academy', 'Pasadena Soccer Academy'],
-                  ['Futbol Dojo', 'Futbol Dojo'],
-                  ['Colorado Springs', 'Colorado Springs'],
-                  ['Parisi Colorado', 'Parisi Colorado'],
-                  ['Colorado Rapids', 'Colorado Rapids'],
-                  ['Urban Soccer Center', 'Urban Soccer Center'],
-                  ['High Octane Soccer Dallas', 'High Octane Soccer Dallas'],
-                  ['High Octane Soccer Allen', 'High Octane Soccer Allen'],
-                  ['Omaha', 'Omaha'],
-                  ['Triple C Soccer', 'Triple C Soccer'],
-                  ['JC Sports', 'JC Sports'],
-                  ['Street Soccer', 'Street Soccer'],
-                  ['TOCA Sogility', 'TOCA Sogility'],
-                  ['Tower Hill Sports', 'Tower Hill Sports'],
-                  ['TOCA Naperville (Naperville, Illinois)', 'TOCA Naperville (Naperville, Illinois)'],
-                  ['TOCA Nashville (Franklin, Tennessee)', 'TOCA Nashville (Franklin, Tennessee)'],
-                  ['D-Bat and TOCA Mansfield (Mansfield, Texas)', 'D-Bat and TOCA Mansfield (Mansfield, Texas)']
-                ] %>
+                <div class="input select optional user_location field_without_errors"><select class="select optional browser-default custom-select" name="user[location]" id="user_location"><option value=""></option>
+                  <% @locations.each do |l| %>
+                    <option selected="selected" value="<%= l.name %>"><%= l.name %></option>
+                  <% end %>
+                </div>
               </div>
 
             </div> <!-- form-inputs -->

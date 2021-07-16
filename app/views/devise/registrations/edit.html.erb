@@ -45,98 +45,76 @@
                           id: "defaultRegisterFormLastName",
                           class: "form-control mb-4",
                           placeholder: 'Last Name'} %>
-                </div> <!-- col -->
-              </div> <!-- form row -->
+                  </div> <!-- col -->
+                </div> <!-- form row -->
 
-              <div class="form-row">
-                <div class="col">
-                  <%= f.input :email,
-                              required: true,
-                              label: false,
-                              input_html: { autocomplete: "email",
-                                id: "defaultRegisterFormEmail",
-                                class: "form-control mb-4",
-                                placeholder: 'Email Address'} %>
-                </div> <!-- col -->
-                <div class="col">
-                  <%= f.input :phone,
-                        required: true,
-                        label: false,
-                        input_html: { autocomplete: "phone",
-                          id: "defaultRegisterFormPhone",
-                          class: "form-control mb-4",
-                          placeholder: 'Phone Number'} %>
-                </div> <!-- col -->
-              </div> <!-- form row -->
+                <div class="form-row">
+                  <div class="col">
+                    <%= f.input :email,
+                                required: true,
+                                label: false,
+                                input_html: { autocomplete: "email",
+                                  id: "defaultRegisterFormEmail",
+                                  class: "form-control mb-4",
+                                  placeholder: 'Email Address'} %>
+                  </div> <!-- col -->
+                  <div class="col">
+                    <%= f.input :phone,
+                          required: true,
+                          label: false,
+                          input_html: { autocomplete: "phone",
+                            id: "defaultRegisterFormPhone",
+                            class: "form-control mb-4",
+                            placeholder: 'Phone Number'} %>
+                  </div> <!-- col -->
+                </div> <!-- form row -->
 
-              <%= f.input :current_password,
-                        required: true,
-                        label: false,
-                        input_html: { autocomplete: "new-password",
-                          id: "defaultRegisterCurrentPassword",
-                          class: "form-control",
-                          placeholder: 'Current Password'} %>
-              <small class="form-text text-muted mb-3">
-                  Needed to Confirm Changes
-              </small>
+                <%= f.input :current_password,
+                          required: true,
+                          label: false,
+                          input_html: { autocomplete: "new-password",
+                            id: "defaultRegisterCurrentPassword",
+                            class: "form-control",
+                            placeholder: 'Current Password'} %>
+                <small class="form-text text-muted mb-3">
+                    Needed to Confirm Changes
+                </small>
 
-              <div class="form-row">
-                <div class="col">
-                  <%= f.input :password,
-                            required: false,
-                            label: false,
-                            input_html: { autocomplete: "new-password",
-                              id: "defaultRegisterNewPassword",
-                              class: "form-control",
-                              placeholder: 'Password'} %>
-                </div> <!-- col -->
-                <div class="col">
-                  <%= f.input :password_confirmation,
+                <div class="form-row">
+                  <div class="col">
+                    <%= f.input :password,
                               required: false,
                               label: false,
                               input_html: { autocomplete: "new-password",
-                                id: "defaultRegisterConfirmNewPassword",
+                                id: "defaultRegisterNewPassword",
                                 class: "form-control",
-                                placeholder: 'Password Confirmation' } %>
-                </div> <!-- col -->
-              </div> <!-- form row -->
-              <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-3">
-                  Leave Blank to Keep Current Password
-              </small>
-
-
-              <div class="form-group text-left">
-                <small class="form-text text-muted mb-1">
-                  Please select your TOCA location:
+                                placeholder: 'Password'} %>
+                  </div> <!-- col -->
+                  <div class="col">
+                    <%= f.input :password_confirmation,
+                                required: false,
+                                label: false,
+                                input_html: { autocomplete: "new-password",
+                                  id: "defaultRegisterConfirmNewPassword",
+                                  class: "form-control",
+                                  placeholder: 'Password Confirmation' } %>
+                  </div> <!-- col -->
+                </div> <!-- form row -->
+                <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-3">
+                    Leave Blank to Keep Current Password
                 </small>
-                <%= f.input :location, label: false, input_html: {class: 'browser-default custom-select'}, collection: [
-                  ['TOCA Corporate', 'TOCA Corporate'],
-                  ['Orange County', 'Orange County'],
-                  ['Torrance', 'Torrance'],
-                  ['Redmond', 'Redmond'],
-                  ['Lynnwood', 'Lynnwood'],
-                  ['Carrollton', 'Carrollton'],
-                  ['West Cobb', 'West Cobb'],
-                  ['Marietta', 'Marietta'],
-                  ['Perimeter', 'Perimeter'],
-                  ['TOCA Academy', 'TOCA Academy'],
-                  ['Goals Training Facility', 'Goals Training Facility'],
-                  ['Pasadena Soccer Academy', 'Pasadena Soccer Academy'],
-                  ['Futbol Dojo', 'Futbol Dojo'],
-                  ['Colorado Springs', 'Colorado Springs'],
-                  ['Parisi Colorado', 'Parisi Colorado'],
-                  ['Colorado Rapids', 'Colorado Rapids'],
-                  ['Urban Soccer Center', 'Urban Soccer Center'],
-                  ['High Octane Soccer Dallas', 'High Octane Soccer Dallas'],
-                  ['High Octane Soccer Allen', 'High Octane Soccer Allen'],
-                  ['Omaha', 'Omaha'],
-                  ['Triple C Soccer', 'Triple C Soccer'],
-                  ['JC Sports', 'JC Sports'],
-                  ['Street Soccer', 'Street Soccer'],
-                  ['TOCA Sogility', 'TOCA Sogility'],
-                  ['Tower Hill Sports', 'Tower Hill Sports']
-                ] %>
-              </div> <!-- form-group -->
+
+
+                <div class="form-group text-left">
+                  <small class="form-text text-muted mb-1">
+                    Please select your TOCA location:
+                  </small>
+                  <div class="input select optional user_location field_without_errors"><select class="select optional browser-default custom-select" name="user[location]" id="user_location"><option value=""></option>
+                    <% @locations.each do |l| %>
+                      <option selected="selected" value="<%= l.name %>"><%= l.name %></option>
+                    <% end %>
+                  </div>
+                </div>
 
               </div> <!-- form-inputs -->
 

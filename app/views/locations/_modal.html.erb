@@ -1,0 +1,44 @@
+<div class="modal fade" id="locationModal<%= location.id %>" tabindex="-1" role="dialog" aria-labelledby="locationModal<%= location.id %>Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="locationModal<%= location.id %>Label">
+          <% if !location.id %>
+            Create a New Location
+          <% else %>
+            Edit <%= location.name %>
+          <% end %>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <%= simple_form_for(location) do |f| %>
+        <div class="modal-body">
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+          <div class="form-inputs">
+            <div class="form-group">
+              <%= f.label "Location Name" %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+            <div class="field form-check text-left">
+              <%= f.check_box :active, class: "form-check-input", id: "active#{location.id}" %>
+              <%= f.label :active, class: "form-check-label", for: "active#{location.id}" %>
+            </div>
+          </div>
+        </div> <!-- modal-body -->
+
+        <div class="form-actions modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= f.button :submit, class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

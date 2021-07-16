@@ -3,6 +3,16 @@ class RegistrationsController < Devise::RegistrationsController
   invisible_captcha only: [:create], honeypot: :subtitle
   after_action :update_authorizations, only: [:create]
 
+  def new
+    @locations = Location.where(active: true).order("name ASC")
+    super
+  end
+
+  def edit
+    @locations = Location.where(active: true).order("name ASC")
+    super
+  end
+
   def create
     super
     Log.create(category: "User Action", action: "New User Account Created", automatic: false, object: true, object_linkable: true, object_category: "user", object_id: @user.id, taken_by_user: true, user_id: @user.id)

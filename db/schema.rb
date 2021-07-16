@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_184803) do
+ActiveRecord::Schema.define(version: 2021_07_15_210615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,13 @@ ActiveRecord::Schema.define(version: 2020_02_24_184803) do
     t.string "recipient_toca_email"
     t.boolean "transfer_pending", default: false
     t.index ["user_id"], name: "index_hardships_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "logs", force: :cascade do |t|
