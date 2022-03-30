@@ -1246,7 +1246,8 @@ GEM
       method_source (~> 1.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    puma (3.12.6)
+    puma (4.3.12)
+      nio4r (~> 2.0)
     puma_worker_killer (0.3.1)
       get_process_mem (~> 0.2)
       puma (>= 2.7)
@@ -1379,7 +1380,7 @@ DEPENDENCIES
   mini_magick
   pg (~> 0.20.0)
   pry-rails
-  puma (~> 3.11)
+  puma (~> 4.3)
   puma_worker_killer
   rack-tracker
   rails (~> 5.2.0)
