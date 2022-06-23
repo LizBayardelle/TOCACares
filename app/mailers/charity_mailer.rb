@@ -12,7 +12,7 @@ class CharityMailer < ApplicationMailer
   def approved_charity_to_helping_hands_email(application)
     @application = application
     mail(
-      to: "missy@hhmin.org",
+      to: "Kendall@HHCharitable.org",
       subject: 'New TOCA Cares Charity Funding'
     )
   end
