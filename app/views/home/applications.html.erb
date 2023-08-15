@@ -4,7 +4,7 @@
     <h1 class="text-center">Applications</h1>
 
     <section class="mt-5">
-      <h2 class="toca-uppercase color-toca-red" id="open-heading"><%= pluralize(@open_applications.count, "Open Application") %></h2>
+      <h2 class="toca-uppercase color-toca-navy" id="open-heading"><%= pluralize(@open_applications.count, "Open Application") %></h2>
       <div id="open" class="hidden">
         <% if @open_applications.count >= 1 %>
           <div class="table-responsive">
@@ -114,7 +114,7 @@
     </section> <!-- undecided applications -->
 
     <section class="mb-5">
-      <h2 class="toca-uppercase color-toca-red" id="closed-heading"><%= pluralize(@closed_applications.count, "Closed Application") %></h2>
+      <h2 class="toca-uppercase color-toca-navy" id="closed-heading"><%= pluralize(@closed_applications.count, "Closed Application") %></h2>
       <div id="closed" class="hidden">
         <% if @closed_applications.count >= 1 %>
           <div class="table-responsive">

@@ -7,7 +7,7 @@
     </div> <!-- center -->
 
     <section class="mt-5">
-      <h2 class="toca-uppercase color-toca-red link-cursor" id="pending-heading"><%= pluralize(@pending_testimonials.count, "Testimonial") %> Awaiting Approval</h2>
+      <h2 class="toca-uppercase color-toca-navy link-cursor" id="pending-heading"><%= pluralize(@pending_testimonials.count, "Testimonial") %> Awaiting Approval</h2>
       <div id="pending">
         <% if @pending_testimonials.count >= 1 %>
           <% @pending_testimonials.each do |testimonial| %>
@@ -26,7 +26,7 @@
     </section> <!-- undecided testimonials -->
 
     <section class="mt-4">
-      <h2 class="toca-uppercase color-toca-red link-cursor" id="approved-heading"><%= pluralize(@approved_testimonials.count, "Approved Testimonial") %></h2>
+      <h2 class="toca-uppercase color-toca-navy link-cursor" id="approved-heading"><%= pluralize(@approved_testimonials.count, "Approved Testimonial") %></h2>
       <div id="approved">
         <% if @approved_testimonials.count >= 1 %>
 

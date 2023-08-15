@@ -4,11 +4,11 @@
     <div class="row">
       <div class="text-left col">
         <% if @user.admin && @user.committee %>
-          <div class="toca-uppercase color-toca-red">Admin & Committee Member</div><br>
+          <div class="toca-uppercase color-toca-navy">Admin & Committee Member</div><br>
         <% elsif @user.admin %>
-          <div class="toca-uppercase color-toca-red">Admin</div><br>
+          <div class="toca-uppercase color-toca-navy">Admin</div><br>
         <% elsif @user.committee %>
-          <div class="toca-uppercase color-toca-red">Committee Member</div><br>
+          <div class="toca-uppercase color-toca-navy">Committee Member</div><br>
         <% end %>
       </div>
       <p class="text-right col">
@@ -32,7 +32,7 @@
     <!-- IF COMMITTEE -->
     <% if @user.committee %>
 
-      <h2 class="text-center toca-uppercase color-toca-red mt-5">Committee Member Actions</h2>
+      <h2 class="text-center toca-uppercase color-toca-navy mt-5">Committee Member Actions</h2>
       <%= link_to app_forms_path, style: "display: inline-block", class: "btn btn-secondary my-3 btn-lg btn-block" do %>
         <% if @need_votes != 0 %>
           <div class="bg-toca-red notification-bubble"><%= @need_votes %></div>
@@ -57,7 +57,7 @@
     <!-- IF ADMIN -->
     <% if @user.admin %>
       <section class="my-5">
-        <h2 class="text-center toca-uppercase color-toca-red">Admin Actions</h2>
+        <h2 class="text-center toca-uppercase color-toca-navy">Admin Actions</h2>
 
 
         <div class="row">
@@ -144,7 +144,7 @@
 
 
   <div class="my-5">
-    <h2 class="text-center toca-uppercase color-toca-red mt-5">My Messages</h2>
+    <h2 class="text-center toca-uppercase color-toca-navy mt-5">My Messages</h2>
     <%= link_to home_messages_path, style: "display: inline-block", class: "btn btn-secondary my-0 btn-lg btn-block" do %>
       <% if @my_total_messages.count != 0 %>
         <div class="bg-toca-red notification-bubble"><%= @my_total_messages.count %></div>
@@ -161,7 +161,7 @@
 
       <% if @applications.count >= 1 %>
         <section class="my-5"> <!-- application applications -->
-          <h2 class="text-center toca-uppercase color-toca-red my-4">My Applications</h2>
+          <h2 class="text-center toca-uppercase color-toca-navy my-4">My Applications</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead class="bg-toca-red white-text">
@@ -182,7 +182,7 @@
                     <td>
                       <% if application.final_decision %>
                         <% if application.final_decision_id == 3 %>
-                          <span class="toca-uppercase color-toca-red"><%= link_to app_form_path(application) do %><%= application.final_decision.status %><% end %>
+                          <span class="toca-uppercase color-toca-navy"><%= link_to app_form_path(application) do %><%= application.final_decision.status %><% end %>
                         <% else %>
                           <%= application.final_decision.status %>
                         <% end %>

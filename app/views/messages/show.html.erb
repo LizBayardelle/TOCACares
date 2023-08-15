@@ -4,7 +4,7 @@
     <h1 class="h3">Message Thread Regarding<br> Application #<%= fixed_digit_number(@message.ref_application_id) %></h1>
     <p class="mb-2">Re:  <%= @message.subject %></p>
     <% if @message.issue_closed %>
-      <p class="color-toca-red">CLOSED</p>
+      <p class="color-toca-navy">CLOSED</p>
     <% else %>
       <% if current_user.admin || current_user.committee %>
         <%= link_to "Mark Message Closed", close_issue_path, method: :post, class: "btn btn-primary" %>
@@ -21,7 +21,7 @@
 
 
   <section class="my-4">
-    <h2 class="h4 color-toca-red toca-uppercase">Original Message</h2>
+    <h2 class="h4 color-toca-navy toca-uppercase">Original Message</h2>
     <p>
       <strong>
         <% if User.find(@message.from_user_id).committee %>
@@ -44,7 +44,7 @@
 
   <section class="my-4">
     <% if Response.where(message_id: @message.id).count != 0 %>
-      <h2 class="h4 color-toca-red toca-uppercase">Responses</h2>
+      <h2 class="h4 color-toca-navy toca-uppercase">Responses</h2>
       <% Response.where(message_id: @message.id).each do |response| %>
         <p class="mb-1">
           <strong>

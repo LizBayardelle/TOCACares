@@ -4,7 +4,7 @@
     <h1 class="text-center">Scholarship Applications</h1>
 
     <section class="mt-5">
-      <h2 class="toca-uppercase color-toca-red" id="submitted-heading"><%= pluralize(@undecided.count, "Undecided Application") %></h2>
+      <h2 class="toca-uppercase color-toca-navy" id="submitted-heading"><%= pluralize(@undecided.count, "Undecided Application") %></h2>
       <div id="undecided" class="hidden">
         <% if @undecided.count >= 1 %>
           <div class="table-responsive">
@@ -41,7 +41,7 @@
     </section> <!-- undecided applications -->
 
     <section class="mt-5">
-      <h2 class="toca-uppercase color-toca-red" id="approved-heading"><%= pluralize(@approved.count, "Approved Application") %></h2>
+      <h2 class="toca-uppercase color-toca-navy" id="approved-heading"><%= pluralize(@approved.count, "Approved Application") %></h2>
       <div id="approved" class="hidden">
         <% if @approved.count >= 1 %>
           <div class="table-responsive">
@@ -81,7 +81,7 @@
     </section> <!-- approved applications -->
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red" id="rejected-heading"><%= pluralize(@rejected.count, "Rejected Application") %></h2>
+      <h2 class="toca-uppercase color-toca-navy" id="rejected-heading"><%= pluralize(@rejected.count, "Rejected Application") %></h2>
       <div id="rejected" class="hidden">
         <% if @rejected.count >= 1 %>
           <div class="table-responsive">

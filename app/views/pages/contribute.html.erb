@@ -6,7 +6,7 @@
     <section>
       <div class="text-center mt-4">
         <h3 class="text-center dark-grey-text w-responsive mx-auto">
-          None of this cool stuff can happen if we don't have contributions from employees and shareholders.
+          None of this cool stuff can happen if we don't have contributions from teammates and shareholders.
         </h3>
       </div> <!-- center for button -->
     </section> <!-- mission description -->
@@ -56,7 +56,7 @@
               <%= link_to "Contribute from My Paycheck (TOCA&nbsp;Impact&nbsp;Employee)".html_safe, asset_path("Payroll Deduction Form.docx"), download: "Payroll Deduction Form.docx", class: "btn btn-primary btn-block my-3" %>
             </div>
             <h5 class="text-center dark-grey-text w-responsive mx-auto">
-              Please email your completed form to <%= mail_to "aadams@tocafootball.com", "aadams@tocafootball.com", target: "_blank", class: "color-toca-red" %>.
+              Please email your completed form to <%= mail_to "aadams@tocafootball.com", "aadams@tocafootball.com", target: "_blank", class: "color-toca-navy" %>.
             </h5>
           </section>
         </div> <!-- col -->
@@ -104,7 +104,7 @@
 
     <section class="text-center my-5 py-3" style="border: thin solid black">
       <h3 class="text-center w-responsive mx-auto my-5">
-        Shareholders have agreed to make contributions which are a multiple of the amount contributed by employees.
+        Shareholders have agreed to make contributions which are a multiple of the amount contributed by teammates.
       </h3>
 
       <h3 class="dark-grey-text w-responsive mx-auto mt-3 mb-5">
@@ -115,9 +115,9 @@
       <div class="row mb-5 justify-content-center"> <!-- Horizontal Steppers -->
         <div class="col-sm-3 text-center">
           <p class="h1">
-            <i class="fas fa-hand-holding-usd color-toca-red"></i>
+            <i class="fas fa-hand-holding-usd color-toca-navy"></i>
           </p>
-          <p class="h3 color-toca-green"><%= @individual_contributions %></p>
+          <p class="h3 color-toca-yellow"><%= @individual_contributions %></p>
           <p class="h5">Current Individual Contributions</p>
         </div> <!-- col -->
 
@@ -131,9 +131,9 @@
 
         <div class="col-sm-3 text-center">
           <p class="h1">
-            <i class="fas fa-hands-helping color-toca-red"></i>
+            <i class="fas fa-hands-helping color-toca-navy"></i>
           </p>
-          <p class="h3 color-toca-green"><%= @shareholder_matching %></p>
+          <p class="h3 color-toca-yellow"><%= @shareholder_matching %></p>
           <p class="h5">Shareholder Matching Contributions</p>
         </div> <!-- col -->
 
@@ -147,9 +147,9 @@
 
         <div class="col-sm-3 text-center">
           <p class="h1">
-            <i class="fas fa-dollar-sign color-toca-red"></i>
+            <i class="fas fa-dollar-sign color-toca-navy"></i>
           </p>
-          <p class="h3 color-toca-green"><%= @total_fund_value %></p>
+          <p class="h3 color-toca-yellow"><%= @total_fund_value %></p>
           <p class="h5">Total Fund Value</p>
         </div> <!-- col -->
 

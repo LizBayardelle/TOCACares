@@ -5,7 +5,7 @@
       <h1>Set Fund Information</h1>
       <p>
         This information is used throughout the site to give current information about the state&nbsp;of&nbsp;the&nbsp;fund.
-        <br>The data of whichever row is selected (shown by a <i class="fas fa-star color-toca-red"></i>) will&nbsp;be&nbsp;displayed.
+        <br>The data of whichever row is selected (shown by a <i class="fas fa-star color-toca-navy"></i>) will&nbsp;be&nbsp;displayed.
       </p>
       <%= link_to 'Create New Values', new_value_path, class: "btn btn-primary" %>
     </section>
@@ -29,10 +29,10 @@
             <tr>
               <td>
                 <% if value.selected %>
-                  <i class="fas fa-star color-toca-red"></i>
+                  <i class="fas fa-star color-toca-navy"></i>
                 <% else %>
                   <%= link_to select_value_path(value), method: :post, class: "link-cursor" do %>
-                    <i class="far fa-star color-toca-red"></i>
+                    <i class="far fa-star color-toca-navy"></i>
                   <% end %>
                 <% end %>
               </td>
@@ -43,10 +43,10 @@
               <td><%= value.total_fund_value %></td>
               <td>
                 <%= link_to edit_value_path(value) do %>
-                  <i class="far fa-edit color-toca-red"></i>
+                  <i class="far fa-edit color-toca-navy"></i>
                 <% end %>
                 <%= link_to value, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                  <i class="fas fa-trash-alt color-toca-red"></i>
+                  <i class="fas fa-trash-alt color-toca-navy"></i>
                 <% end %>
               </td>
             </tr>

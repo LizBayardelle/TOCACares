@@ -1,5 +1,5 @@
 <div class="text-right pt-3 pr-5">
-  <%= link_to 'Preauthorize Members', new_authorization_path, class: "color-toca-red bold" %>
+  <%= link_to 'Preauthorize Members', new_authorization_path, class: "color-toca-navy bold" %>
 </div>
 
 <main>
@@ -10,7 +10,7 @@
     </div>
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@committee_requests.count, "Committee Request") %></h2>
+      <h2 class="toca-uppercase color-toca-navy"><%= pluralize(@committee_requests.count, "Committee Request") %></h2>
       <ul class="list-group">
         <% @committee_requests.each do |user| %>
           <li class="list-group-item"><%= user.last_name %>, <%= user.first_name %>
@@ -20,7 +20,7 @@
     </section> <!-- contributor requests -->
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@admin.count, "Admin") %></h2>
+      <h2 class="toca-uppercase color-toca-navy"><%= pluralize(@admin.count, "Admin") %></h2>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead class="bg-toca-red white-text">
@@ -67,7 +67,7 @@
 
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@committee.count, "Committee Member") %></h2>
+      <h2 class="toca-uppercase color-toca-navy"><%= pluralize(@committee.count, "Committee Member") %></h2>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead class="bg-toca-red white-text">
@@ -114,7 +114,7 @@
 
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@members.count, "Member") %></h2>
+      <h2 class="toca-uppercase color-toca-navy"><%= pluralize(@members.count, "Member") %></h2>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead class="bg-toca-red white-text">

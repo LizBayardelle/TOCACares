@@ -84,7 +84,7 @@
       <% end %>
 
 
-      <h3 class="color-toca-red toca-uppercase">Funding Details</h3>
+      <h3 class="color-toca-navy toca-uppercase">Funding Details</h3>
       <p><strong>Requested Amount:</strong>
         <%= number_to_currency(@charity.requested_amount, unit: "$") %>
         <br>
@@ -96,13 +96,13 @@
       </p>
 
 
-      <h3 class="color-toca-red toca-uppercase">Scholarship Description</h3>
+      <h3 class="color-toca-navy toca-uppercase">Scholarship Description</h3>
       <p><%= @charity.opportunity_description %></p>
 
 
 
       <% if @seconded_vote && @seconded_vote.modifications_accepted_by_applicant %>
-      <h3 class="color-toca-red toca-uppercase">Modifications (Agreed to by Applicant):</h3>
+      <h3 class="color-toca-navy toca-uppercase">Modifications (Agreed to by Applicant):</h3>
         <p><strong><%= @seconded_vote.modification %></strong></p>
         <% if @seconded_vote.suggest_loan %><p><strong>Loan Suggested:  </strong><%= @seconded_vote.describe_loan %><% end %>
       <% end %>
@@ -160,7 +160,7 @@
     <div class="container py-3">
 
       <!-- NEW MESSAGES -->
-      <h3 class="toca-uppercase color-toca-red mb-0">Send a New Message</h3>
+      <h3 class="toca-uppercase color-toca-navy mb-0">Send a New Message</h3>
       <% if current_user && ( current_user.admin || current_user.committee ) %>
         <p>If you have a question about this application, you can send the applicant a message here.</p>
       <% else %>
@@ -170,7 +170,7 @@
 
       <!-- EXISTING MESSAGES  -->
       <% if @messages.count > 0 %>
-        <h3 class="toca-uppercase color-toca-red mb-0">Existing Messages</h3>
+        <h3 class="toca-uppercase color-toca-navy mb-0">Existing Messages</h3>
         <p class="mb-2"><small>Click a message to see the conversation thread.</small></p>
         <ul>
           <% @messages.each do |message| %>
@@ -196,7 +196,7 @@
 
       <div class="container py-3">
         <% if @votes.count > 0 %>
-          <h3 class="toca-uppercase color-toca-red">Existing Votes</h3>
+          <h3 class="toca-uppercase color-toca-navy">Existing Votes</h3>
           <p class="color-dark-grey"><em>
             Seconding a proposed vote will remove this application from consideration and send it back to the applicant for revision.
           </em></p>

@@ -1,31 +1,32 @@
 <main>
 
-  <div class="card card-image" style="background-image: url(<%= image_url('https://tocacares.s3-us-west-1.amazonaws.com/TOCA+Cares+Header-min.png') %>) ;background-repeat: no-repeat; background-size: cover;">
-    <div class="text-white text-center rgba-black-light py-5 px-4">
-      <div>
-        <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "mb-2" %>
-        <div class="row justify-content-center">
-          <div class="container">
-            <div class="bg-transparent-white py-3 px-4 my-4 d-none d-sm-block">
-              <h2 class="bold">
-                The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
-                <br><em><small>―Phil Jackson</small></em>
-              </h2>
-            </div>
-            <p class="h1 thin mb-5">
-              Explore how it works and feel the love.
-            </p>
-          </div> <!-- container -->
-        </div> <!-- row -->
+  <section class="view jarallax">
+    <img class="jarallax-img" src="https://tocacares.s3.us-west-1.amazonaws.com/TOCA+Cares+Hands.jpg" alt="team of hands on a soccer ball">
+    <div class="mask rgba-black-light">
+      <div class="container py-5 text-center justify-content-center">
+
+        <p class="display-3 thin mb-5 color-white">
+          <%= image_tag "TOCA_CARES_LOGO_FNL7.png", class: "mb-2 mt-5 mx-auto" %>
+          Explore how it works and feel&nbsp;the&nbsp;love.
+        </p>
         <%= link_to page_path(:info), class: "btn btn-light btn-lg mx-3", style: "display:inline-block" do %>Learn More<% end %>
         <% if current_user %>
           <%= link_to page_path(:apply), class: "btn btn-secondary btn-lg mx-3", style: "display:inline-block" do %>Get Started<% end %>
         <% else %>
           <%= link_to new_user_registration_path, class: "btn btn-secondary btn-lg mx-3", style: "display:inline-block" do %>Get Started<% end %>
         <% end %>
-      </div>
-    </div>
-  </div>
+        <p class="bold color-white h4 py-4">
+          The strength of the team is each member. <br class="d-none d-md-block">The strength of each member is&nbsp;the&nbsp;team.
+          <br><em><small>―Phil Jackson</small></em>
+        </p>
+
+
+      </div> <!-- container -->
+    </div> <!-- mask -->
+  </section>
+
+
+
 
   <div class="bg-toca-red d-sm-none my-0 py-2">
     <div class="py-3 px-4 my-4 color-white text-center">
@@ -36,24 +37,27 @@
     </div>
   </div>
 
-  <div class="container my-5">
 
-    <p class="h2 text-center thin mb-4">
-      We, the employees and shareholders of TOCA, have established
-      <%= image_tag "TOCA_CARES_LOGO_FNL5.png", style: "display: inline-block; height: 25px" %>
-      to help&nbsp;each&nbsp;other.
-    </p>
-    <p class="h4 text-left thin">
-      Our collective contributions will:
-    </p>
 
-    <ul class="text-left h4 thin">
-      <li class="mb-1"><strong>Support</strong> each other in times of financial stress</li>
-      <li class="mb-1">Encourage each other to further our <strong>education</strong></li>
-      <li>Reach out to our local community through involvement with and giving to <strong>charity</strong></li>
-    </ul>
-  </div> <!-- container -->
+  <section class="z-depth-3-y z-100">
+    <div class="container py-5">
 
+      <p class="h2 text-center thin mb-4">
+        We, the teammates and shareholders of TOCA, have established
+        <%= image_tag "TOCA_CARES_LOGO_FNL5.png", style: "display: inline-block; height: 25px" %>
+        to help&nbsp;each&nbsp;other.
+      </p>
+      <p class="h4 text-left thin">
+        Our collective contributions will:
+      </p>
+
+      <ul class="text-left h4 thin">
+        <li class="mb-1"><strong>Support</strong> each other in times of financial stress</li>
+        <li class="mb-1">Encourage each other to further our <strong>education</strong></li>
+        <li>Reach out to our local community through involvement with and giving to <strong>charity</strong></li>
+      </ul>
+    </div> <!-- container -->
+  </section>
 
 
 
@@ -85,7 +89,7 @@
                <div class="col-12 col-sm-8 col-xl-12 my-auto card-text">
                  <h3 class="toca-uppercase pt-2">Hardship</h3>
 
-                 <h5 class="card-quote color-toca-red">
+                 <h5 class="card-quote color-toca-navy">
                    I get by with a little help from my friends.
                    <br><em><small>―Paul McCartney/John Lennon</small></em>
                  </h5>
@@ -120,16 +124,16 @@
                <div class="col-12 col-sm-8 col-xl-12 my-auto card-text">
                  <h3 class="toca-uppercase pt-2">Scholarship</h3>
 
-                 <h5 class="card-quote color-toca-red">
+                 <h5 class="card-quote color-toca-navy">
                    Knowledge is a weapon. I&nbsp;intend to be formidably&nbsp;armed.
                    <br><em><small>―Terry Goodkind</small></em>
                  </h5>
 
                  <p class="pb-2 px-3 text-center">
-                   We can always grow and improve.  TOCA Cares will pay up to 80% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
+                  We can always grow and improve. TOCA Cares will pay up to 75% of the cost of classes (including college) up to a maximum contribution per year based upon your years of service to the company.
                  </p>
                  <p class="pb-4 px-3 text-center">
-                   Whether this is a class learning to code, cook, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills.
+                  Whether this is a class on marketing, coaching, or completing your degree, TOCA Cares wants to support you expanding your mind and honing your skills to become more productive in your role at TOCA.
                  </p>
 
                </div> <!-- image col -->
@@ -154,7 +158,7 @@
               <div class="col-12 col-sm-8 col-xl-12 my-auto card-text">
                 <h3 class="toca-uppercase pt-2">Charity</h3>
 
-                <h5 class="card-quote color-toca-red">
+                <h5 class="card-quote color-toca-navy">
                   Service to others is the rent you pay for your room here on earth.
                   <br><em><small>―Mohammed Ali</small></em>
                 </h5>
@@ -190,7 +194,7 @@
     <div class="text-center">
       <h2>Have a Question? Ask an admin!</h2>
       <p>
-        We want all TOCA employees to get the most out of TOCA Cares.  If you have any questions, don't hesitate to ask.  An admin will reach out shortly with answers.
+        We want all TOCA Teammates to get the most out of TOCA Cares.  If you have any questions, don't hesitate to ask.  An admin will reach out shortly with answers.
       </p>
     </div>
 

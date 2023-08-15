@@ -7,7 +7,7 @@
 
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@unanswered.count, "Unanswered Question") %></h2>
+      <h2 class="toca-uppercase color-toca-navy"><%= pluralize(@unanswered.count, "Unanswered Question") %></h2>
       <% if @unanswered.count >= 1 %>
         <div class="table-responsive">
           <table class="table table-striped">
@@ -62,7 +62,7 @@
 
 
     <section class="my-5">
-      <h2 class="toca-uppercase color-toca-red"><%= pluralize(@answered.count, "Answered Question") %></h2>
+      <h2 class="toca-uppercase color-toca-navy"><%= pluralize(@answered.count, "Answered Question") %></h2>
       <% if @answered.count >= 1 %>
         <div class="table-responsive">
           <table class="table table-striped">

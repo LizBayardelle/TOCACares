@@ -13,10 +13,10 @@
       Dear <%= @application.full_name %>,
     </p>
     <p>
-      As you may or may not be aware, another employee has submitted a TOCA Cares hardship application on your behalf.
+      As you may or may not be aware, another teammate has submitted a TOCA Cares hardship application on your behalf.
     </p>
     <p>
-      Ownership of this application has now been added to your account.  The employee who submitted this application on your behalf will be notified as to the eventual outcome, but from now on you are the only one who will be able to view it and all communications regarding this application will go to you alone (using the email address <%= mail_to @application.email_non_toca, @application.email_non_toca, style: "color: #EB0029; font-weight: 700; text-decoration: none" %>).
+      Ownership of this application has now been added to your account.  The teammate who submitted this application on your behalf will be notified as to the eventual outcome, but from now on you are the only one who will be able to view it and all communications regarding this application will go to you alone (using the email address <%= mail_to @application.email_non_toca, @application.email_non_toca, style: "color: #EB0029; font-weight: 700; text-decoration: none" %>).
       You can now view this application <%= link_to "here", hardship_url(@application), style: "color: #EB0029; font-weight: 700; text-decoration: none" %>.
     </p>
     <p>

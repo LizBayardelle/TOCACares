@@ -41,9 +41,9 @@
               <% @featured_hardship.each do |testimonial| %>
                 <h6 class="font-weight-bold color-black toca-uppercase mt-3"><%= testimonial.category %>:  <%= testimonial.title %></h6>
                 <p class="dark-grey-text">
-                  <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                  <i class="fas fa-quote-left pr-2 color-toca-navy"></i>
                   <%= testimonial.body %>
-                  <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                  <i class="fas fa-quote-right pl-2 color-toca-navy"></i>
                 </p>
               <% end %>
 
@@ -54,10 +54,10 @@
                   <div class="single-news mb-3"> <!-- Small news -->
                     <div class="d-flex justify-content-between">
                       <div class="col-11 text-truncate pl-0 mb-1">
-                        <strong><a class="color-toca-red"><%= testimonial.title %></a></strong>
+                        <strong><a class="color-toca-navy"><%= testimonial.title %></a></strong>
                       </div> <!-- title -->
-                      <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-green fas fa-angle-double-down"></i></a>
-                      <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-green fas fa-angle-double-right"></i></a>
+                      <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-yellow fas fa-angle-double-down"></i></a>
+                      <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-yellow fas fa-angle-double-right"></i></a>
                     </div> <!-- d-flex -->
                     <div id="<%= testimonial.id %>-body" style="display:none"><p class="color-light-dark" style="line-height: 1.3; font-size: 14px"><em><%= testimonial.body %></em></p></div>
                   </div>   <!-- Small news -->
@@ -100,18 +100,18 @@
                 <% if @featured_scholarship.count < 2 %>
                   <h6 class="font-weight-bold color-black toca-uppercase mt-3">Scholarship</h6>
                   <p class="dark-grey-text">
-                    <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                    <i class="fas fa-quote-left pr-2 color-toca-navy"></i>
                     Knowledge is a weapon. I&nbsp;intend to be formidably&nbsp;armed.
-                    <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                    <i class="fas fa-quote-right pl-2 color-toca-navy"></i>
                     <br><em><small>―Terry Goodkind</small></em>
                   </p>
                 <% else %>
                   <% @featured_scholarship.each do |testimonial| %>
                     <h6 class="font-weight-bold color-black toca-uppercase mt-3"><%= testimonial.category %>:  <%= testimonial.title %></h6>
                     <p class="dark-grey-text">
-                      <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                      <i class="fas fa-quote-left pr-2 color-toca-navy"></i>
                       <%= testimonial.body %>
-                      <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                      <i class="fas fa-quote-right pl-2 color-toca-navy"></i>
                     </p>
                   <% end %>
                 <% end %>
@@ -123,10 +123,10 @@
                     <div class="single-news mb-3"> <!-- Small news -->
                       <div class="d-flex justify-content-between">
                         <div class="col-11 text-truncate pl-0 mb-1">
-                          <strong><a class="color-toca-red"><%= testimonial.title %></a></strong>
+                          <strong><a class="color-toca-navy"><%= testimonial.title %></a></strong>
                         </div> <!-- title -->
-                        <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-green fas fa-angle-double-down"></i></a>
-                        <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-green fas fa-angle-double-right"></i></a>
+                        <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-yellow fas fa-angle-double-down"></i></a>
+                        <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-yellow fas fa-angle-double-right"></i></a>
                       </div> <!-- d-flex -->
                       <div id="<%= testimonial.id %>-body" style="display:none"><p class="color-light-dark" style="line-height: 1.3; font-size: 14px"><em><%= testimonial.body %></em></p></div>
                     </div>   <!-- Small news -->
@@ -170,9 +170,9 @@
                 <% @featured_charity.each do |testimonial| %>
                   <h6 class="font-weight-bold color-black toca-uppercase mt-3"><%= testimonial.category %>:  <%= testimonial.title %></h6>
                   <p class="dark-grey-text">
-                    <i class="fas fa-quote-left pr-2 color-toca-red"></i>
+                    <i class="fas fa-quote-left pr-2 color-toca-navy"></i>
                     <%= testimonial.body %>
-                    <i class="fas fa-quote-right pl-2 color-toca-red"></i>
+                    <i class="fas fa-quote-right pl-2 color-toca-navy"></i>
                   </p>
                 <% end %>
 
@@ -183,10 +183,10 @@
                     <div class="single-news mb-3"> <!-- Small news -->
                       <div class="d-flex justify-content-between">
                         <div class="col-11 text-truncate pl-0 mb-1">
-                          <strong><a class="color-toca-red"><%= testimonial.title %></a></strong>
+                          <strong><a class="color-toca-navy"><%= testimonial.title %></a></strong>
                         </div> <!-- title -->
-                        <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-green fas fa-angle-double-down"></i></a>
-                        <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-green fas fa-angle-double-right"></i></a>
+                        <a id="<%= testimonial.id %>-arrow-down" style="display:none"><i class="color-toca-yellow fas fa-angle-double-down"></i></a>
+                        <a id="<%= testimonial.id %>-arrow-right"><i class="color-toca-yellow fas fa-angle-double-right"></i></a>
                       </div> <!-- d-flex -->
                       <div id="<%= testimonial.id %>-body" style="display:none"><p class="color-light-dark" style="line-height: 1.3; font-size: 14px"><em><%= testimonial.body %></em></p></div>
                     </div>   <!-- Small news -->
