@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_210615) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_07_15_210615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,8 +63,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.bigint "final_decision_id"
     t.bigint "funding_status_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "submitted", default: false
     t.index ["application_status_id"], name: "index_app_forms_on_application_status_id"
     t.index ["final_decision_id"], name: "index_app_forms_on_final_decision_id"
@@ -75,8 +74,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
 
   create_table "application_statuses", force: :cascade do |t|
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "authorizations", force: :cascade do |t|
@@ -84,8 +83,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.boolean "admin", default: false
     t.boolean "committee", default: false
     t.boolean "account_created", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "charities", force: :cascade do |t|
@@ -120,22 +119,22 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.boolean "denied", default: false
     t.boolean "closed", default: false
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_charities_on_user_id"
   end
 
   create_table "final_decisions", force: :cascade do |t|
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "funding_statuses", force: :cascade do |t|
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "hardships", force: :cascade do |t|
@@ -179,8 +178,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.boolean "denied", default: false
     t.boolean "closed", default: false
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "funding_status", default: "Not Applicable"
     t.string "recipient_toca_email"
     t.boolean "transfer_pending", default: false
@@ -190,8 +189,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "logs", force: :cascade do |t|
@@ -204,8 +203,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.integer "object_id"
     t.boolean "taken_by_user", default: false
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "archived", default: false
   end
 
@@ -218,8 +217,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.string "ref_application_type"
     t.integer "ref_application_id"
     t.boolean "issue_closed", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -228,8 +227,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.string "application_type"
     t.integer "application_id"
     t.boolean "open", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -238,16 +237,16 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.string "subject"
     t.text "body"
     t.boolean "answered", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "responses", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "message_id"
     t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["message_id"], name: "index_responses_on_message_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
   end
@@ -284,8 +283,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.boolean "denied", default: false
     t.boolean "closed", default: false
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "funding_status", default: "Not Applicable"
     t.index ["user_id"], name: "index_scholarships_on_user_id"
   end
@@ -297,8 +296,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.boolean "featured", default: false
     t.boolean "approved", default: false
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_testimonials_on_user_id"
   end
 
@@ -306,10 +305,10 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "admin", default: false
     t.boolean "committee", default: false
     t.string "first_name"
@@ -329,15 +328,15 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.string "shareholder_matching"
     t.string "total_fund_value"
     t.boolean "selected", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "variations", force: :cascade do |t|
     t.bigint "app_form_id"
     t.bigint "original_app_form_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["app_form_id", "original_app_form_id"], name: "index_variations_on_app_form_id_and_original_app_form_id", unique: true
     t.index ["app_form_id"], name: "index_variations_on_app_form_id"
@@ -363,8 +362,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_210615) do
     t.boolean "superseded", default: false
     t.boolean "seconded", default: false
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "modifications_accepted_by_applicant", default: false
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
