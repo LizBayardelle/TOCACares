@@ -138,7 +138,7 @@ class AppFormsController < ApplicationController
 
   def withdraw_app_form
     @app_form = AppForm.find(params[:id])
-    if @app_form.update_attributes(application_status_id: 6, final_decision_id: 6)
+    if @app_form.update(application_status_id: 6, final_decision_id: 6)
         redirect_back(fallback_location: user_path(current_user))
         Log.create(category: "User Action", action: "Application Withdrawn", automatic: false, object: true, object_category: "app_form", object_id: @app_form.id, taken_by_user: true, user_id: @app_form.user.id)
         flash[:notice] = "That application has been withdrawn!"
@@ -153,8 +153,8 @@ class AppFormsController < ApplicationController
 
   def funding_completed
     @app_form = AppForm.find(params[:id])
-    @app_form.update_attributes(funding_status_id: 3)
-    if @app_form.update_attributes(funding_status_id: 3)
+    @app_form.update(funding_status_id: 3)
+    if @app_form.update(funding_status_id: 3)
       Log.create(category: "Admin Action", action: "Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "AppForm", object_id: @app_form.id, taken_by_user: true)
       if ApplicationChangeMailer.funding_completed_email(@app_form).deliver
         Log.create(category: "Email", action: "Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "AppForm", object_id: @app_form.id, taken_by_user: false)
@@ -171,8 +171,8 @@ class AppFormsController < ApplicationController
 
   def close_application
     @app_form = AppForm.find(params[:id])
-    @app_form.update_attributes(closed: true)
-    if @app_form.update_attributes(closed: true)
+    @app_form.update(closed: true)
+    if @app_form.update(closed: true)
       Log.create(category: "Admin Action", action: "Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "AppForm", object_id: @app_form.id, taken_by_user: true)
       redirect_back(fallback_location: user_path(current_user))
       flash[:notice] = "That application has been closed!"

@@ -74,7 +74,7 @@ class ValuesController < ApplicationController
   def select_value
     @value = Value.find(params[:id])
     Value.update_all(selected: false)
-    if @value.update_attributes(selected: true)
+    if @value.update(selected: true)
       Log.create(category: "Admin Action", action: "New Fund Information Data Selected", automatic: false, object: true, object_linkable: true, object_category: "value", object_id: @value.id, taken_by_user: true, user_id: current_user.id)
       redirect_back(fallback_location: values_path)
       flash[:notice] = "That data set has been selected."

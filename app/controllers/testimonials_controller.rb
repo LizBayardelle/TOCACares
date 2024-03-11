@@ -78,7 +78,7 @@ class TestimonialsController < ApplicationController
 
   def approve_testimonial
     @testimonial = Testimonial.find(params[:id])
-    if @testimonial.update_attributes(approved: true)
+    if @testimonial.update(approved: true)
       Log.create(category: "Admin Action", action: "Preauthorization Created", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
       redirect_back(fallback_location: home_testimonials_path)
       flash[:notice] = "That testimonial has been approved.  You may now choose to feature it on the testimonials page."
@@ -90,7 +90,7 @@ class TestimonialsController < ApplicationController
 
   def feature_testimonial
     @testimonial = Testimonial.find(params[:id])
-    if @testimonial.update_attributes(featured: true)
+    if @testimonial.update(featured: true)
       Log.create(category: "Admin Action", action: "Testimonial Featured", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
       redirect_back(fallback_location: home_testimonials_path)
       flash[:notice] = "That testimonial has been featured."
@@ -106,7 +106,7 @@ class TestimonialsController < ApplicationController
       redirect_back(fallback_location: home_testimonials_path)
       flash[:warning] = "If you unfeature that testimonial you won't have anything to display for #{@testimonial.category.downcase.pluralize(2)}.  Please select another one to feature before you unfeature this one."
     else
-      if @testimonial.update_attributes(featured: false)
+      if @testimonial.update(featured: false)
         Log.create(category: "Admin Action", action: "Testimonial Feature Removed", automatic: false, object: true, object_linkable: true, object_category: "testimonial", object_id: @testimonial.id, taken_by_user: true, user_id: current_user.id)
         redirect_back(fallback_location: home_testimonials_path)
         flash[:notice] = "That testimonial has been unfeatured."

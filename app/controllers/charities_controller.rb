@@ -111,7 +111,7 @@ class CharitiesController < ApplicationController
 
   def withdraw_charity
     @charity = Charity.find(params[:id])
-    if @charity.update_attributes(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
+    if @charity.update(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
       Log.create(category: "User Action", action: "Charity Application Withdrawn", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true, user_id: @charity.user.id)
       redirect_back(fallback_location: user_path(current_user))
       flash[:notice] = "That application has been withdrawn!"
@@ -125,8 +125,8 @@ class CharitiesController < ApplicationController
 
   def funding_completed_charity
     @charity = Charity.find(params[:id])
-    @charity.update_attributes(funding_status: "Funding Completed")
-    if @charity.update_attributes(funding_status: "Funding Completed")
+    @charity.update(funding_status: "Funding Completed")
+    if @charity.update(funding_status: "Funding Completed")
       Log.create(category: "Admin Action", action: "Charity Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true)
       if ApplicationChangeMailer.funding_completed_email(@charity).deliver
         Log.create(category: "Email", action: "Charity Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: false)
@@ -143,8 +143,8 @@ class CharitiesController < ApplicationController
 
   def close_charity
     @charity = Charity.find(params[:id])
-    @charity.update_attributes(closed: true)
-    if @charity.update_attributes(closed: true)
+    @charity.update(closed: true)
+    if @charity.update(closed: true)
       Log.create(category: "Admin Action", action: "Charity Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "charity", object_id: @charity.id, taken_by_user: true)
       redirect_back(fallback_location: user_path(current_user))
       flash[:notice] = "That application has been closed!"

@@ -98,7 +98,7 @@ class VotesController < ApplicationController
       ## UPDATE VOTE STATUSES
       @other_votes = Vote.where(application_type: @vote.application_type, application_id: @vote.application_id).where.not(id: @vote.id)
       @other_votes.update_all(superseded: true)
-      @vote.update_attributes(seconded: true)
+      @vote.update(seconded: true)
       Log.create(category: "Committee Action", action: "A Vote Was Seconded", automatic: false, object: true, object_linkable: true, object_category: @vote.application_type, object_id: @vote.application_id, taken_by_user: true, user_id: current_user.id)
 
       ## SET APPLICATION
@@ -134,10 +134,10 @@ class VotesController < ApplicationController
     @application = AppForm.find_by(id: vote.application_id)
 
     if vote.modifications_accepted_by_applicant
-      @application.update_attributes(application_status_id: 5, final_decision_id: 4, funding_status_id: 2, approved: true)
+      @application.update(application_status_id: 5, final_decision_id: 4, funding_status_id: 2, approved: true)
       Log.create(category: "User Action", action: "Application Modifications were Approved by the Applicant", automatic: false, object: true, object_linkable: true, object_category: vote.application_type, object_id: vote.application_id, taken_by_user: true, user_id: current_user.id)
     else
-      @application.update_attributes(application_status_id: 5, final_decision_id: 5, funding_status_id: 2, approved: true)
+      @application.update(application_status_id: 5, final_decision_id: 5, funding_status_id: 2, approved: true)
       Log.create(category: "Committee Action", action: "An Application Was Approved", automatic: false, object: true, object_linkable: true, object_category: vote.application_type, object_id: vote.application_id, taken_by_user: false)
     end
 
@@ -173,7 +173,7 @@ class VotesController < ApplicationController
       else
 
           # transfer authorization created
-          if @application.update_attributes(transfer_pending: true)
+          if @application.update(transfer_pending: true)
             Log.create(category: "Automatic", action: "Preemptive Transfer Authorization Created for Approved Hardship Application Created by Other", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
 
@@ -235,7 +235,7 @@ class VotesController < ApplicationController
     vote = Vote.find(params[:id])
     @application = AppForm.find_by(id: vote.application_id)
 
-    @application.update_attributes(application_status_id: 4, final_decision_id: 3, returned: true)
+    @application.update(application_status_id: 4, final_decision_id: 3, returned: true)
     Log.create(category: "Committee Action", action: "An Application Was Returned for Modifications", automatic: false, object: true, object_linkable: true, object_category: vote.application_type, object_id: vote.application_id, taken_by_user: false)
 
     # FOR OTHER HARDSHIPS
@@ -263,7 +263,7 @@ class VotesController < ApplicationController
       # if user has to make a TOCA Cares Account
       else
           #transfer authorization created
-          if @application.update_attributes(transfer_pending: true)
+          if @application.update(transfer_pending: true)
             Log.create(category: "Automatic", action: "Preemptive Transfer Authorization Created for Modifications Requested Hardship Application Created by Other", automatic: true, object: true, object_linkable: true, object_category: @application.application_type, object_id: @application.id, taken_by_user: false)
           end
           # create an account email sent to beneficiary
@@ -304,7 +304,7 @@ class VotesController < ApplicationController
     vote = Vote.find(params[:id])
     @application = AppForm.find_by(id: vote.application_id)
 
-    if @application.update_attributes(application_status_id: 5, final_decision_id: 2, denied: true)
+    if @application.update(application_status_id: 5, final_decision_id: 2, denied: true)
       Log.create(category: "Committee Action", action: "An Application Was Denied", automatic: false, object: true, object_linkable: true, object_category: vote.application_type, object_id: vote.application_id, taken_by_user: false)
     end
 
@@ -354,7 +354,7 @@ class VotesController < ApplicationController
 
   def accept_modifications
     @vote = Vote.find(params[:id].to_i)
-    if @vote.update_attributes(modifications_accepted_by_applicant: true)
+    if @vote.update(modifications_accepted_by_applicant: true)
       approve_application(@vote)
     end
   end

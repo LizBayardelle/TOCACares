@@ -112,7 +112,7 @@ class ScholarshipsController < ApplicationController
 
   def withdraw_scholarship
     @scholarship = Scholarship.find(params[:id])
-    if @scholarship.update_attributes(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
+    if @scholarship.update(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
         redirect_back(fallback_location: user_path(current_user))
         Log.create(category: "User Action", action: "Scholarship Application Withdrawn", automatic: false, object: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true, user_id: @scholarship.user.id)
         flash[:notice] = "That application has been withdrawn!"
@@ -126,8 +126,8 @@ class ScholarshipsController < ApplicationController
 
   def funding_completed_scholarship
     @scholarship = Scholarship.find(params[:id])
-    @scholarship.update_attributes(funding_status: "Funding Completed")
-    if @scholarship.update_attributes(funding_status: "Funding Completed")
+    @scholarship.update(funding_status: "Funding Completed")
+    if @scholarship.update(funding_status: "Funding Completed")
       Log.create(category: "Admin Action", action: "Scholarship Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true)
       if ApplicationChangeMailer.funding_completed_email(@scholarship).deliver
         Log.create(category: "Email", action: "Scholarship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: false)
@@ -144,8 +144,8 @@ class ScholarshipsController < ApplicationController
 
   def close_scholarship
     @scholarship = Scholarship.find(params[:id])
-    @scholarship.update_attributes(closed: true)
-    if @scholarship.update_attributes(closed: true)
+    @scholarship.update(closed: true)
+    if @scholarship.update(closed: true)
       Log.create(category: "Admin Action", action: "Scholarship Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "scholarship", object_id: @scholarship.id, taken_by_user: true)
       redirect_back(fallback_location: user_path(current_user))
       flash[:notice] = "That application has been closed!"

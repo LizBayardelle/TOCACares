@@ -112,7 +112,7 @@ class HardshipsController < ApplicationController
 
   def withdraw_hardship
     @hardship = Hardship.find(params[:id])
-    if @hardship.update_attributes(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
+    if @hardship.update(status: "Withdrawn", final_decision: "Withdrawn by Applicant")
       Log.create(category: "User Action", action: "Hardship Application Withdrawn", automatic: false, object: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true, user_id: @hardship.user.id)
       redirect_back(fallback_location: user_path(current_user))
       flash[:notice] = "That application has been withdrawn!"
@@ -126,8 +126,8 @@ class HardshipsController < ApplicationController
 
   def funding_completed_hardship
     @hardship = Hardship.find(params[:id])
-    @hardship.update_attributes(funding_status: "Funding Completed")
-    if @hardship.update_attributes(funding_status: "Funding Completed")
+    @hardship.update(funding_status: "Funding Completed")
+    if @hardship.update(funding_status: "Funding Completed")
       Log.create(category: "Admin Action", action: "Hardship Application Funding Marked Complete", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true)
       if ApplicationChangeMailer.funding_completed_email(@hardship).deliver
         Log.create(category: "Email", action: "Hardship Application Funding Completed Email Sent to Applicant", automatic: true, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: false)
@@ -144,8 +144,8 @@ class HardshipsController < ApplicationController
 
   def close_hardship
     @hardship = Hardship.find(params[:id])
-    @hardship.update_attributes(closed: true)
-    if @hardship.update_attributes(closed: true)
+    @hardship.update(closed: true)
+    if @hardship.update(closed: true)
       Log.create(category: "Admin Action", action: "Hardship Application Funding Marked Closed", automatic: false, object: true, object_linkable: true, object_category: "hardship", object_id: @hardship.id, taken_by_user: true)
       redirect_back(fallback_location: home_applications_path)
       flash[:notice] = "That application has been closed!"
