@@ -245,13 +245,7 @@
             <label for="self-fund">Amount You Can Cover (Not Including Request)</label>
           </div> <!-- md-form -->
         </div> <!-- col -->
-        <div class="col-12 form-check text-left mb-4 loan-check">
-          <%= f.check_box :loan_preferred, class: "form-check-input", id: "loan_preferred" %>
-          <%= f.label "I would prefer to receive a loan than get a grant.", class: "form-check-label", for: "loan_preferred" %>
-        </div>
-        <div class="col-12 loan-stuff">
-          <%= f.text_area :loan_preferred_description, class: "form-control mb-4", placeholder: "Please describe your proposed loan vs. grant allocation." %>
-        </div>
+
       </div> <!-- row -->
 
 
@@ -502,17 +496,6 @@
     forOtherStuff();
     $(".for_other").click(function() { forOtherStuff(); });
 
-    $(".loan-stuff").hide();
-    var loanStuff = function() {
-      if( $("#loan_preferred").is(':checked')) {
-          $(".loan-stuff").show();
-      } else {
-          $(".loan-stuff").hide();
-          $("#app_form_loan_preferred_description").val("");
-      }
-    };
-    loanStuff();
-    $("#loan_preferred").click(function() { loanStuff(); });
 
 
 
